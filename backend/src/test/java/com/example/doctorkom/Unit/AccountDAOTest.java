@@ -9,6 +9,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 //Unit tests use H2 in-memory db to perform testing (schema and data found in main/resources)
 @ActiveProfiles("test")
@@ -33,5 +34,24 @@ class AccountDAOTest {
 
         // Then
         assertEquals(account.getId(), found.getId());
+    }
+
+    @Test
+    public void whenFindAll_thenReturnAllAccounts() {
+        System.out.println(accountDAO.findAll().get(0));
+        System.out.println(accountDAO.findAll().size());
+    }
+
+    @Test
+    public void whenDeleteById_thenDeleteAccount() {
+        //Given
+        int Id = 1;
+
+        //When
+        accountDAO.delete(Id);
+
+        //Then
+        assertNull(accountDAO.findById(Id));
+        System.out.println(accountDAO.findAll().size());
     }
 }
