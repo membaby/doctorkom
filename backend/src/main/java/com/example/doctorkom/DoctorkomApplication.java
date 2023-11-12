@@ -24,19 +24,20 @@ public class DoctorkomApplication {
 	public CommandLineRunner commandLineRunner (PatientDAO patientDAO) {
 		return runner -> {
 //			comment: Create new account and user and attach it to a patient and by cascading adding a user and an account to db
-			Account account = new Account("mostafam.galal82@gmail.com", "Mostafa_Galal", "galal123");
-			User user = new User(account, "mostafa", "galal");
-			Patient patient = new Patient(user, "BOBA");
+//			IMPORTANT: DON'T UNCOMMENT WHILE RUNNING TESTS THIS CAUSE CONFLICT WHILE SWITCHING PROPERTIES TO USE H2
+//			Account account = new Account("mostafam.galal82@gmail.com", "Mostafa_Galal", "galal123");
+//			User user = new User(account, "mostafa", "galal");
+//			Patient patient = new Patient(user, "BOBA");
+//
+//			System.out.println(patient);
+//			System.out.println("Now inserting patient");
+//			patientDAO.insert(patient);
+//			System.out.println("Inserted!!");
 
-			System.out.println(patient);
-			System.out.println("Now inserting patient");
-			patientDAO.insert(patient);
-			System.out.println("Inserted!!");
-
-			Thread.sleep(10000);
-			System.out.println("Now deleting inserted patient");
-			patientDAO.delete(patient.getId());
-			System.out.println("Deleted!!");
+//			Thread.sleep(10000);
+//			System.out.println("Now deleting inserted patient");
+//			patientDAO.delete(patient.getId());
+//			System.out.println("Deleted!!");
 		};
 	}
 }
