@@ -47,7 +47,7 @@ const Register = () => {
       address:address,
       phone:phone
     }
-    console.log(data)
+    
 
     fetch('', { ////
         method: 'POST',
@@ -57,11 +57,11 @@ const Register = () => {
         body: JSON.stringify(Registerdata),
     })
     .then(response => response.json())
-    .then(data => {
-        if (data.success) {
+    .then(Registerdata => {
+        if (Registerdata.success) {
             window.location.href = '/verification';
         } else {
-            showError(data.message);
+            // showError(Registerdata.message);
         }
     })
     .catch((error) => {
