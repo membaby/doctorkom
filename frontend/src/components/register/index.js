@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useGoogleLogin } from '@react-oauth/google';
 import './styles.css'
+
+
 const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -37,6 +41,34 @@ const Register = () => {
     setPhone(event.target.value);
   };
 
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+
+  const login = useGoogleLogin({
+      onSuccess: (codeResponse) => setUser(codeResponse),
+      onError: (error) => console.log('Login Failed:', error)
+  });
+
+  useEffect(
+      () => {
+          if (user) {
+              axios
+                  .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                      headers: {
+                          Authorization: `Bearer ${user.access_token}`,
+                          Accept: 'application/json'
+                      }
+                  })
+                  .then((res) => {
+                      setProfile(res.data);
+                      console.log(res.data);
+                  })
+                  .catch((err) => console.log(err));
+          }
+      },
+      [ user ]
+  );
+
   const handleRegister = () => {
     let Registerdata = {
       firstName:firstName,
@@ -68,9 +100,6 @@ const Register = () => {
         console.error('Error:', error);
     });
 }
-
-  
-
 
   return (
     <div className="card mx-auto mt-5" style={{ maxWidth: '600px' }}>
@@ -170,10 +199,18 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="text-center">
-            <button className="btn btn-success " onClick={handleRegister}>
-              Register
-            </button>
+
+          <div class="row">
+            <div className="text-center col">
+              <button className="btn btn-danger w-100" onClick={() => login()}>
+                Sign up with Google
+              </button>
+            </div>
+            <div className="text-center col">
+              <button className="btn btn-success w-100" onClick={handleRegister}>
+                Register
+              </button>
+            </div>
           </div>
         </form>
       </div>
