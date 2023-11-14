@@ -55,7 +55,6 @@ public class SystemUser {
         this.landlinePhone = landlinePhone;
         this.mobilePhone = mobilePhone;
         this.account = account;
-        this.id = this.account.getId();
     }
 
     @Override
