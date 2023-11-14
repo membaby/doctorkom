@@ -5,30 +5,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-enum DoctorTitle {
-    Professor,
-    Lecturer,
-    Consultant,
-    Specialist
-}
+// enum DoctorTitle {
+//     Professor,
+//     Lecturer,
+//     Consultant,
+//     Specialist
+// }
 
-enum DoctorSpecialty {
-    GeneralPractitioner,
-    Cardiologist,
-    Dermatologist,
-    Pediatrician,
-    OrthopedicSurgeon,
-    Gynecologist,
-    Ophthalmologist,
-    Neurologist,
-    Urologist,
-    ENTSpecialist,
-    Psychiatrist,
-    Oncologist,
-    Radiologist,
-    Anesthesiologist,
-    DentalSurgeon
-}
+// enum DoctorSpecialty {
+//     GeneralPractitioner,
+//     Cardiologist,
+//     Dermatologist,
+//     Pediatrician,
+//     OrthopedicSurgeon,
+//     Gynecologist,
+//     Ophthalmologist,
+//     Neurologist,
+//     Urologist,
+//     ENTSpecialist,
+//     Psychiatrist,
+//     Oncologist,
+//     Radiologist,
+//     Anesthesiologist,
+//     DentalSurgeon
+// }
 
 @Entity
 @Table(name = "Doctor")
