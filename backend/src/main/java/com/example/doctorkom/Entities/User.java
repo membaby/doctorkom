@@ -7,10 +7,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-enum Gender {
-    Male,
-    Female
-}
+
 
 @Entity
 @Table(name = "User")
