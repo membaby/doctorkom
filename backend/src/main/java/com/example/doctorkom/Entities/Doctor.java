@@ -1,39 +1,13 @@
 package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-enum DoctorTitle {
-    Professor,
-    Lecturer,
-    Consultant,
-    Specialist
-}
-
-enum DoctorSpecialty {
-    GeneralPractitioner,
-    Cardiologist,
-    Dermatologist,
-    Pediatrician,
-    OrthopedicSurgeon,
-    Gynecologist,
-    Ophthalmologist,
-    Neurologist,
-    Urologist,
-    ENTSpecialist,
-    Psychiatrist,
-    Oncologist,
-    Radiologist,
-    Anesthesiologist,
-    DentalSurgeon
-}
+import lombok.*;
 
 @Entity
 @Table(name = "Doctor")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Doctor {
     @Id
@@ -49,7 +23,7 @@ public class Doctor {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId")
-    private User user;
+    private SystemUser systemUser;
 
     public Doctor(DoctorTitle title, DoctorSpecialty specialty) {
         this.title = title;
