@@ -31,6 +31,13 @@ public class NotificationService {
         notification.setContent("Please verify your email address");
         Send(notification);
     }
+    public void CustomEmail(String email, String subject, String content) throws MessagingException {
+        Notification notification = new Notification();
+        notification.setTo(email);
+        notification.setSubject(subject);
+        notification.setContent(content);
+        Send(notification);
+    }
 
     private void Send(Notification notification) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();

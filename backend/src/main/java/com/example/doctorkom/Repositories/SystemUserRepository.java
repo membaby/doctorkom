@@ -15,4 +15,5 @@ public interface SystemUserRepository extends JpaRepository<SystemUser, Integer>
     List<SystemUser> findByAddress(String address);
     List<SystemUser> findByLandlinePhone(String landlinePhone);
     SystemUser findByMobilePhone(String mobilePhone);
+
 }
