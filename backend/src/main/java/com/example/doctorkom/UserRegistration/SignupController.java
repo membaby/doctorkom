@@ -20,7 +20,7 @@ public class SignupController {
 		//Call bussiness logic to register patient
 		String msg = new DummyRegistrar().tryRegisterPatient(patient);
 		boolean success = msg.isEmpty();
-		SignupResponse response = new SignupResponse();
+		SignupResponse response = new SignupResponse(msg, success);
 		response.msg = msg;
 		response.success = success;
 		return response;
@@ -34,7 +34,7 @@ public class SignupController {
 		//Call bussiness logic to register patient
 		String msg = new DummyRegistrar().tryRegisterDoctor(doctor);
 		boolean success = msg.isEmpty();
-		SignupResponse response = new SignupResponse();
+		SignupResponse response = new SignupResponse(msg, success);
 		response.msg = msg;
 		response.success = success;
 		return response;
@@ -58,4 +58,9 @@ class DummyRegistrar{
 class SignupResponse{
 	public String msg;
 	public boolean success;
+
+	public SignupResponse(String msg, boolean success){
+		this.msg = msg;
+		this.success = success;
+	}
 }
