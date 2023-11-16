@@ -4,18 +4,49 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.doctorkom.DTOMappers.AccountDTOMapper;
 import com.example.doctorkom.DTOs.AccountDTO;
+import com.example.doctorkom.DTOs.DoctorDTO;
+import com.example.doctorkom.DTOs.PatientDTO;
 import com.example.doctorkom.Entities.Account;
 
 @RestController
 public class LoginController {
     
-    @PutMapping("/login")
-    public LoginReponse login(@RequestBody AccountDTO accountDTO)
+    @PutMapping("/attempt_login")
+    public LoginReponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
-        Account account = AccountDTOMapper.INSTANCE.toEntity(accountDTO);
-        String msg = new DummyLoginManager().tryLogin(account);
-        boolean success = msg.isEmpty();
-        return new LoginReponse(success, msg);
+        Account partialAccount = AccountDTOMapper.INSTANCE.toEntity(accountDTO);
+        Account fullAccount = new DummyLoginManager().tryLogin(partialAccount);
+        return new LoginReponse(fullAccount != null, fullAccount);
+    }
+
+    @PutMapping("/patient_login")
+    public PatientDTO patientLogin(AccountDTO account)
+    {
+        //Get patient entity using account entity
+        return null;
+    }
+    
+    @PutMapping("/doctor_login")
+    public DoctorDTO doctorLogin(AccountDTO account)
+    {
+        //Get doctor entity using account entity
+        return null;
+    }
+    
+    //Unfinished until system admin entity is implemented
+    @PutMapping("/system_admin_login")
+    public DoctorDTO systemAdminLogin(AccountDTO account)
+    {
+        //Get system admin entity using account entity
+        return null;
+    }
+    
+    //Unfinished until clinic admin entity is implemented
+    @PutMapping("/clinic_admin_login")
+    public PatientDTO clinicAdminLogin(AccountDTO account)
+    {
+        //Get clinic admin entity using account entity
+        return null;
     }
 
     @PutMapping("/recover_password")
@@ -27,9 +58,9 @@ public class LoginController {
 }
 
 class DummyLoginManager{
-    public String tryLogin(Account account)
+    public Account tryLogin(Account account)
     {
-        return "";
+        return null;
     }
 }
 
@@ -43,10 +74,10 @@ class DummyPasswordRecoverer{
 
 class LoginReponse{
     public boolean success;
-    public String message;
+    public Account account;
 
-    public LoginReponse(boolean success, String message){
+    public LoginReponse(boolean success, Account account){
         this.success = success;
-        this.message = message;
+        this.account = account;
     }
 }
