@@ -12,11 +12,11 @@ import com.example.doctorkom.Entities.Account;
 public class LoginController {
     
     @PutMapping("/attempt_login")
-    public LoginReponse attemptLogin(@RequestBody AccountDTO accountDTO)
+    public LoginAttemptResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
         Account partialAccount = AccountDTOMapper.INSTANCE.toEntity(accountDTO);
         Account fullAccount = new DummyLoginManager().tryLogin(partialAccount);
-        return new LoginReponse(fullAccount != null, fullAccount);
+        return new LoginAttemptResponse(fullAccount != null, fullAccount);
     }
 
     @PutMapping("/patient_login")
@@ -71,13 +71,3 @@ class DummyPasswordRecoverer{
     }
 }
 
-
-class LoginReponse{
-    public boolean success;
-    public Account account;
-
-    public LoginReponse(boolean success, Account account){
-        this.success = success;
-        this.account = account;
-    }
-}
