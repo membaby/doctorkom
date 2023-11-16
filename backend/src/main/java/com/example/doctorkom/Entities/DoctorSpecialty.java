@@ -1,19 +1,19 @@
 package com.example.doctorkom.Entities;
 
 public enum DoctorSpecialty {
-	GeneralPractitioner,
-    Cardiologist,
-    Dermatologist,
-    Pediatrician,
-    OrthopedicSurgeon,
-    Gynecologist,
-    Ophthalmologist,
-    Neurologist,
-    Urologist,
-    ENTSpecialist,
-    Psychiatrist,
-    Oncologist,
-    Radiologist,
-    Anesthesiologist,
-    DentalSurgeon
+    GENERAL_PRACTITIONER,
+    CARDIOLOGIST,
+    DERMATOLOGIST,
+    PEDIATRICIAN,
+    ORTHOPEDIC_SURGEON,
+    GYNECOLOGIST,
+    OPHTHALMOLOGIST,
+    NEUROLOGIST,
+    UROLOGIST,
+    ENT_SPECIALIST,
+    PSYCHIATRIST,
+    ONCOLOGIST,
+    RADIOLOGIST,
+    ANESTHESIOLOGIST,
+    DENTAL_SURGEON
 }
