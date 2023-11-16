@@ -1,19 +1,11 @@
 package com.example.doctorkom.UserRegistration;
-import java.sql.Date;
-import java.util.HashMap;
 
 import org.springframework.web.bind.annotation.*;
 
 import com.example.doctorkom.DTOs.DoctorDTO;
 import com.example.doctorkom.DTOs.PatientDTO;
-// import com.example.doctorkom.DTOMappers.DoctorDTOMapper;
-// import com.example.doctorkom.DTOMappers.PatientDTOMapper;
-import com.example.doctorkom.DTOMappers.SystemUserDTOMapper;
-import com.example.doctorkom.DTOMappers.AccountDTOMapper;
 import com.example.doctorkom.DTOMappers.DoctorDTOMapper;
 import com.example.doctorkom.DTOMappers.PatientDTOMapper;
-import com.example.doctorkom.Entities.Account;
-import com.example.doctorkom.Entities.SystemUser;
 import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Entities.Doctor;
 
