@@ -23,7 +23,7 @@ class AccountRepositoryTest {
     @Test
     public void whenFindByID_thenReturnAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
@@ -37,7 +37,7 @@ class AccountRepositoryTest {
     @Test
     public void WhenFindByEmail_thenReturnAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
@@ -51,7 +51,7 @@ class AccountRepositoryTest {
     @Test
     public void WhenFindByUsername_thenReturnAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
@@ -65,11 +65,11 @@ class AccountRepositoryTest {
     @Test
     public void WhenFindByRole_thenReturnAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
-        Account queriedAccount = accountRepository.findByRole(Role.PATIENT);
+        Account queriedAccount = accountRepository.findByRole(Role.ROLE_PATIENT);
 
         // Then
         System.out.println(queriedAccount);
@@ -80,10 +80,10 @@ class AccountRepositoryTest {
     public void whenFindAll_thenReturnAllAccounts() {
         // Given
         List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT));
-        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.PATIENT));
-        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.DOCTOR));
-        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.CLINIC_ADMIN));
+        accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT));
+        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.ROLE_PATIENT));
+        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.ROLE_DOCTOR));
+        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.ROLE_CLINIC_ADMIN));
         accountRepository.saveAll(accounts);
 
         // When
@@ -98,7 +98,7 @@ class AccountRepositoryTest {
     @Test
     public void whenDeleteById_thenDeleteAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
@@ -112,7 +112,7 @@ class AccountRepositoryTest {
     @Test
     public void WhenDeleteByEmail_thenDeleteAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
@@ -126,7 +126,7 @@ class AccountRepositoryTest {
     @Test
     public void WhenDeleteByUsername_thenDeleteAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT);
         accountRepository.save(account);
 
         // When
@@ -141,10 +141,10 @@ class AccountRepositoryTest {
     public void whenDeleteAll_thenDeleteAllAccounts() {
         // Given
         List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT));
-        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.PATIENT));
-        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.DOCTOR));
-        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.CLINIC_ADMIN));
+        accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.ROLE_PATIENT));
+        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.ROLE_PATIENT));
+        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.ROLE_DOCTOR));
+        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.ROLE_CLINIC_ADMIN));
         accountRepository.saveAll(accounts);
 
         // When

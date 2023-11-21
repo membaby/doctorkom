@@ -17,21 +17,16 @@ public class DoctorkomApplication {
 		SpringApplication.run(DoctorkomApplication.class, args);
 	}
 
-	@Bean
-	@Autowired
-	public CommandLineRunner commandLineRunner (AccountRepository accountRepository) {
-		return runner -> {
-//			comment: Create new account and user and attach it to a patient and by cascading adding a user and an account to db
-			Account account = new Account("Mostafa_Galal", "mostafam.galal82@gmail.com", "galal123", Role.PATIENT);
-
-			System.out.println("Now inserting patient");
-			accountRepository.save(account);
-			System.out.println("Inserted!!");
-
-			Thread.sleep(10000);
-			System.out.println("Now deleting inserted patient");
-			accountRepository.deleteById(account.getId());
-			System.out.println("Deleted!!");
-		};
-	}
+//	@Bean
+//	@Autowired
+//	public CommandLineRunner commandLineRunner (AccountRepository accountRepository) {
+//		return runner -> {
+//////			comment: Create new account and user and attach it to a patient and by cascading adding a user and an account to db
+////			Account account = new Account("Mostafa_Galal", "mostafam.galal82@gmail.com", "galal123", Role.Patient);
+////
+////			System.out.println("Now inserting patient");
+////			accountRepository.save(account);
+////			System.out.println("Inserted!!");
+//		};
+//	}
 }

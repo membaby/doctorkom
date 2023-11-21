@@ -16,9 +16,11 @@ public class Doctor {
     private Integer id;
 
     @Column(name = "Title")
+    @Enumerated(EnumType.STRING)
     private DoctorTitle title;
 
     @Column(name = "Specialty")
+    @Enumerated(EnumType.STRING)
     private DoctorSpecialty specialty;
 
     @OneToOne(cascade = CascadeType.ALL)

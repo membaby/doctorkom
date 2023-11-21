@@ -1,8 +1,8 @@
 package com.example.doctorkom.Entities;
 
 public enum Role {
-    SYSTEM_ADMIN,
-    CLINIC_ADMIN,
-    DOCTOR,
-    PATIENT
+    ROLE_SYSTEM_ADMIN,
+    ROLE_CLINIC_ADMIN,
+    ROLE_DOCTOR,
+    ROLE_PATIENT
 }
