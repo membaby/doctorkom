@@ -1,52 +1,46 @@
 package com.example.doctorkom.Login;
 
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.doctorkom.DTOMappers.AccountDTOMapper;
+import com.example.doctorkom.DTOMappers.DoctorDTOMapper;
+import com.example.doctorkom.DTOMappers.PatientDTOMapper;
 import com.example.doctorkom.DTOs.AccountDTO;
 import com.example.doctorkom.DTOs.DoctorDTO;
 import com.example.doctorkom.DTOs.PatientDTO;
 import com.example.doctorkom.Entities.Account;
+import com.example.doctorkom.Entities.Doctor;
+import com.example.doctorkom.Entities.Patient;
+import com.example.doctorkom.Entities.Role;
 
 @RestController
 public class LoginController {
     
-    @PutMapping("/attempt_login")
-    public LoginAttemptResponse attemptLogin(@RequestBody AccountDTO accountDTO)
+    @PutMapping("/login")
+    public LoginReponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
         Account partialAccount = AccountDTOMapper.INSTANCE.toEntity(accountDTO);
-        Account fullAccount = new DummyLoginManager().tryLogin(partialAccount);
-        return new LoginAttemptResponse(fullAccount != null, fullAccount);
-    }
+        DummyLoginService loginService = new DummyLoginService();
+        Account fullAccount = loginService.login(partialAccount);
+        if (fullAccount == null)
+            return new LoginReponse(false);
 
-    @PutMapping("/patient_login")
-    public PatientDTO patientLogin(AccountDTO account)
-    {
-        //Get patient entity using account entity
-        return null;
-    }
-    
-    @PutMapping("/doctor_login")
-    public DoctorDTO doctorLogin(AccountDTO account)
-    {
-        //Get doctor entity using account entity
-        return null;
-    }
-    
-    //Unfinished until system admin entity is implemented
-    @PutMapping("/system_admin_login")
-    public DoctorDTO systemAdminLogin(AccountDTO account)
-    {
-        //Get system admin entity using account entity
-        return null;
-    }
-    
-    //Unfinished until clinic admin entity is implemented
-    @PutMapping("/clinic_admin_login")
-    public PatientDTO clinicAdminLogin(AccountDTO account)
-    {
-        //Get clinic admin entity using account entity
-        return null;
+        switch (fullAccount.getRole())
+        {
+            case PATIENT:
+                PatientDTO patientDTO = PatientDTOMapper.INSTANCE.toDTO(loginService.getPatientAccount(fullAccount));
+                return new LoginReponse(true, Role.PATIENT, patientDTO);
+
+            case DOCTOR:
+                DoctorDTO doctorDTO = DoctorDTOMapper.INSTANCE.toDTO(loginService.getDoctorAccount(fullAccount));
+                return new LoginReponse(true, Role.DOCTOR, doctorDTO);
+            
+            case SYSTEM_ADMIN:
+            
+            default: //CLINIC_ADMIN
+        }
+        
     }
 
     @PutMapping("/recover_password")
@@ -57,11 +51,23 @@ public class LoginController {
 
 }
 
-class DummyLoginManager{
-    public Account tryLogin(Account account)
+class DummyLoginService{
+    public Account login(Account account)
     {
-        return null;
+        return new Account();
     }
+
+    public Patient getPatientAccount(Account account)
+    {
+        return new Patient();
+    }
+
+    public Doctor getDoctorAccount(Account account)
+    {
+        return new Doctor();
+    }
+
+    
 }
 
 class DummyPasswordRecoverer{
