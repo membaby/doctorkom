@@ -1,4 +1,4 @@
-package com.example.doctorkom.Login;
+package com.example.doctorkom.Controllers;
 
 import com.example.doctorkom.DTOs.ClinicAdminDTO;
 import com.example.doctorkom.DTOs.DoctorDTO;
