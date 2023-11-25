@@ -24,10 +24,6 @@ public class SystemAdmin {
     @JoinColumn(name = "AccountID")
     private Account account;
 
-    public SystemAdmin(int accountID) {
-        this.accountID = accountID;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
