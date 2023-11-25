@@ -31,7 +31,7 @@ public class LoginController {
                 return new LoginResponse(true, Role.SYSTEM_ADMIN, systemAdminDTO);
             default: //CLINIC_ADMIN
                 ClinicAdminDTO clinicAdminDTO = ClinicAdminDTOMapper.INSTANCE.toDTO(loginService.getClinicAdmin(fullAccount));
-                return new LoginResponse(true, Role.SYSTEM_ADMIN, clinicAdminDTO);
+                return new LoginResponse(true, Role.CLINIC_ADMIN, clinicAdminDTO);
         }
     }
 
