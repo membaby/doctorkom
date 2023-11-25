@@ -2,49 +2,36 @@ package com.example.doctorkom.Controllers;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.example.doctorkom.DTOMappers.AccountDTOMapper;
-import com.example.doctorkom.DTOMappers.ClinicAdminDTOMapper;
-import com.example.doctorkom.DTOMappers.DoctorDTOMapper;
-import com.example.doctorkom.DTOMappers.PatientDTOMapper;
-import com.example.doctorkom.DTOMappers.SystemAdminDTOMapper;
-import com.example.doctorkom.DTOs.AccountDTO;
-import com.example.doctorkom.DTOs.ClinicAdminDTO;
-import com.example.doctorkom.DTOs.DoctorDTO;
-import com.example.doctorkom.DTOs.PatientDTO;
-import com.example.doctorkom.DTOs.SystemAdminDTO;
-import com.example.doctorkom.Entities.Account;
-import com.example.doctorkom.Entities.ClinicAdmin;
-import com.example.doctorkom.Entities.Doctor;
-import com.example.doctorkom.Entities.Patient;
-import com.example.doctorkom.Entities.Role;
-import com.example.doctorkom.Entities.SystemAdmin;
+import com.example.doctorkom.DTOMappers.*;
+import com.example.doctorkom.DTOs.*;
+import com.example.doctorkom.Entities.*;
 
 @RestController
 public class LoginController {
     
     @PutMapping("/login")
-    public LoginReponse attemptLogin(@RequestBody AccountDTO accountDTO)
+    public LoginResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
         Account partialAccount = AccountDTOMapper.INSTANCE.toEntity(accountDTO);
         DummyLoginService loginService = new DummyLoginService();
         Account fullAccount = loginService.login(partialAccount);
         if (fullAccount == null)
-            return new LoginReponse(false);
+            return new LoginResponse(false);
 
         switch (fullAccount.getRole())
         {
             case PATIENT:
                 PatientDTO patientDTO = PatientDTOMapper.INSTANCE.toDTO(loginService.getPatientAccount(fullAccount));
-                return new LoginReponse(true, Role.PATIENT, patientDTO);
+                return new LoginResponse(true, Role.PATIENT, patientDTO);
             case DOCTOR:
                 DoctorDTO doctorDTO = DoctorDTOMapper.INSTANCE.toDTO(loginService.getDoctorAccount(fullAccount));
-                return new LoginReponse(true, Role.DOCTOR, doctorDTO);
+                return new LoginResponse(true, Role.DOCTOR, doctorDTO);
             case SYSTEM_ADMIN:
                 SystemAdminDTO systemAdminDTO = SystemAdminDTOMapper.INSTANCE.toDTO(loginService.getSystemAdmin(fullAccount));
-                return new LoginReponse(true, Role.SYSTEM_ADMIN, systemAdminDTO);
+                return new LoginResponse(true, Role.SYSTEM_ADMIN, systemAdminDTO);
             default: //CLINIC_ADMIN
                 ClinicAdminDTO clinicAdminDTO = ClinicAdminDTOMapper.INSTANCE.toDTO(loginService.getClinicAdmin(fullAccount));
-                return new LoginReponse(true, Role.SYSTEM_ADMIN, clinicAdminDTO);
+                return new LoginResponse(true, Role.SYSTEM_ADMIN, clinicAdminDTO);
         }
     }
 

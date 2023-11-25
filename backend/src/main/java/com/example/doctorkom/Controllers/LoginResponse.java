@@ -1,12 +1,9 @@
 package com.example.doctorkom.Controllers;
 
-import com.example.doctorkom.DTOs.ClinicAdminDTO;
-import com.example.doctorkom.DTOs.DoctorDTO;
-import com.example.doctorkom.DTOs.PatientDTO;
-import com.example.doctorkom.DTOs.SystemAdminDTO;
+import com.example.doctorkom.DTOs.*;
 import com.example.doctorkom.Entities.Role;
 
-public class LoginReponse {
+public class LoginResponse {
     public boolean success;
     public Role role;
     public PatientDTO patient;
@@ -14,26 +11,26 @@ public class LoginReponse {
     public SystemAdminDTO systemAdmin;
     public ClinicAdminDTO clinicAdmin;
 
-    public LoginReponse(boolean success)
+    public LoginResponse(boolean success)
     {
         this.success = success;
     }
-    public LoginReponse(boolean success, Role role, PatientDTO patient){
+    public LoginResponse(boolean success, Role role, PatientDTO patient){
         this.success = success;
         this.role = role;
         this.patient = patient;
     }
-    public LoginReponse(boolean success, Role role, DoctorDTO doctor){
+    public LoginResponse(boolean success, Role role, DoctorDTO doctor){
         this.success = success;
         this.role = role;
         this.doctor = doctor;
     }
-    public LoginReponse(boolean success, Role role, SystemAdminDTO systemAdmin){
+    public LoginResponse(boolean success, Role role, SystemAdminDTO systemAdmin){
         this.success = success;
         this.role = role;
         this.systemAdmin = systemAdmin;
     }
-    public LoginReponse(boolean success, Role role, ClinicAdminDTO clinicAdmin){
+    public LoginResponse(boolean success, Role role, ClinicAdminDTO clinicAdmin){
         this.success = success;
         this.role = role;
         this.clinicAdmin = clinicAdmin;
