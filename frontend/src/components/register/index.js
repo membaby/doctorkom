@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import './styles.css'
+import Select from 'react-select';
 
 
 const Register = () => {
@@ -10,36 +11,59 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [governorate, setGovernorate] = useState('');
-  const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('');
+  const [gender, setGender] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
+    console.log(firstName);
   };
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
+    console.log(lastName);
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    console.log(email);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    console.log(password);
   };
 
   const handleGovernorateChange = (event) => {
     setGovernorate(event.target.value);
+    console.log(governorate);
   };
 
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
+  const handleCountryChange = (event) => {
+    setCountry(event.target.value);
+    console.log(country);
   };
 
+  const handleGenderChange = (event) => {
+    setGender(event.target.value);
+    console.log(gender);
+  };
+
+  const handleBirthdateChange = (event) => {
+    setBirthdate(event.target.value);
+    console.log(birthdate);
+  };
+ 
   const handlePhoneChange = (event) => {
     setPhone(event.target.value);
+    console.log(phone);
   };
+
+
+
 
   const [ user, setUser ] = useState([]);
   const [ profile, setProfile ] = useState([]);
@@ -76,9 +100,12 @@ const Register = () => {
       emial:email,
       password:password,
       governorate:governorate,
-      address:address,
+      country:country,
+      gender:gender,
+      birthdate:birthdate,
       phone:phone
     }
+    
     
 
     fetch('', { ////
@@ -160,28 +187,62 @@ const Register = () => {
             </div>
           </div>
           <div className="row">
+    
+
+<div className="col-md-6 mb-3">
+  <label htmlFor="gender" className="form-label">
+    Gender
+  </label>
+  <select
+    className="form-select"
+    aria-label="Default select example"
+    id="gender"
+    value={gender}
+    onChange={handleGenderChange}
+  >
+    <option value="">Select</option>
+    <option value="female">Female</option>
+    <option value="male">Male</option>
+  </select>
+</div>
+<div className="col-md-6 mb-3">
+  <label htmlFor="birthdate" className="form-label">
+    Birthdate
+  </label>
+  <input
+    className="form-control"
+    id="birthdate"
+    type="date"
+    value={birthdate}
+    onChange={handleBirthdateChange}
+  />
+</div>
+          </div>
+          <div className="row">
             <div className="col-md-6 mb-3">
               <label htmlFor="governorate" className="form-label">
-                Governorate
+                Country
               </label>
               <input
                 type="text"
-                id="governorate"
+                id="country"
                 className="form-control"
-                value={governorate}
-                onChange={handleGovernorateChange}
+                value={country}
+                onChange={handleCountryChange}
               />
+
+             
             </div>
             <div className="col-md-6 mb-3">
               <label htmlFor="address" className="form-label">
-                Address
+                Governorate
               </label>
               <input
                 type="text"
                 id="address"
                 className="form-control"
-                value={address}
-                onChange={handleAddressChange}
+                value={governorate}
+                onChange={handleGovernorateChange}
               />
             </div>
           </div>
@@ -220,3 +281,9 @@ const Register = () => {
 };
 
 export default Register;
+
+
+
+
+
+
