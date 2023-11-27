@@ -1,4 +1,4 @@
-package com.example.doctorkom.UserRegistration;
+package com.example.doctorkom.Controllers;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +19,7 @@ public class SignupController {
 		Patient patient = PatientDTOMapper.INSTANCE.toEntity(patientDTO);
 		//Call bussiness logic to register patient
 		String msg = new DummyRegistrar().tryRegisterPatient(patient);
-		boolean success = msg.isEmpty();
-		SignupResponse response = new SignupResponse(msg, success);
-		response.msg = msg;
-		response.success = success;
+		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
 		return response;
 	}
 
@@ -33,10 +30,7 @@ public class SignupController {
 		Doctor doctor = DoctorDTOMapper.INSTANCE.toEntity(doctorDTO);
 		//Call bussiness logic to register patient
 		String msg = new DummyRegistrar().tryRegisterDoctor(doctor);
-		boolean success = msg.isEmpty();
-		SignupResponse response = new SignupResponse(msg, success);
-		response.msg = msg;
-		response.success = success;
+		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
 		return response;
 	}
 

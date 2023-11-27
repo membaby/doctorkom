@@ -1,4 +1,4 @@
-package com.example.doctorkom.UserRegistration;
+package com.example.doctorkom.Controllers;
 
 public class SignupResponse {
     public String msg;
