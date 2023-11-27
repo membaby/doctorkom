@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RepositoryHandler {
-    private AccountRepository accountRepository;
-    private PatientRepository patientRepository;
-    private DoctorRepository doctorRepository;
-    private SystemUserRepository systemUserRepository;
-    private ClinicAdminRepository clinicAdminRepository;
-    private SystemAdminRepository systemAdminRepository;
+    private final AccountRepository accountRepository;
+    private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
+    private final SystemUserRepository systemUserRepository;
+    private final ClinicAdminRepository clinicAdminRepository;
+    private final SystemAdminRepository systemAdminRepository;
 
     @Autowired
     public RepositoryHandler(AccountRepository accountRepository,
@@ -28,41 +28,33 @@ public class RepositoryHandler {
         this.clinicAdminRepository = clinicAdminRepository;
         this.systemAdminRepository = systemAdminRepository;
     }
-    //check if the user exists
-    public boolean AccountExists(String email, String username) {
-        return EmailAccountExists(email) || UsernameAccountExists(username);
-    }
     //add account to database
-    public void createAccount(Account account) {
+    public void AddAccount(Account account) {
         accountRepository.save(account);
     }
     //add patient to database
-    public void createPatient(Patient patient) {
+    public void AddPatient(Patient patient) {
         patientRepository.save(patient);
     }
     //add doctor to database
-    public void createDoctor(Doctor doctor) {
+    public void AddDoctor(Doctor doctor) {
         doctorRepository.save(doctor);
     }
     //add SystemUser to database
-    public void createSystemUser(SystemUser systemUser) { systemUserRepository.save(systemUser); }
+    public void AddSystemUser(SystemUser systemUser) { systemUserRepository.save(systemUser); }
     //aad ClinicAdmin to database
-    public void createClinicAdmin(ClinicAdmin clinicAdmin) { clinicAdminRepository.save(clinicAdmin); }
+    public void AddClinicAdmin(ClinicAdmin clinicAdmin) { clinicAdminRepository.save(clinicAdmin); }
     //add SystemAdmin to database
-    public void createSystemAdmin(SystemAdmin systemAdmin) { systemAdminRepository.save(systemAdmin); }
+    public void AddSystemAdmin(SystemAdmin systemAdmin) { systemAdminRepository.save(systemAdmin); }
     //--------------------------------------------------------------------------------------------------
-    //find doctor by id
-    public Doctor findDoctorById(int id) {
-        return doctorRepository.findById(id).orElse(null);
-    }
     //find system user by id
     public SystemUser findSystemUserById(int id) {
         return systemUserRepository.findById(id).orElse(null);
     }
-    private boolean EmailAccountExists(String email) {
+    public boolean EmailAccountExists(String email) {
         return accountRepository.findByEmail(email) != null;
     }
-    private boolean UsernameAccountExists(String username) {
+    public boolean UsernameAccountExists(String username) {
         return accountRepository.findByUsername(username) != null;
     }
 

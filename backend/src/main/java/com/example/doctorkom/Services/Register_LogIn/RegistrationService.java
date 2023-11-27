@@ -16,69 +16,91 @@ public class RegistrationService {
         this.notificationService = notificationService;
         this.repositoryHandler = repositoryHandler;
     }
-    public String register_Patient(Account account, Patient patient,SystemUser systemUser) throws MessagingException {
+    public String register_Patient(Patient patient) throws MessagingException {
         //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+        SystemUser systemUser = patient.getSystemUser();
+        Account account = systemUser.getAccount();
+        boolean emailExists = repositoryHandler.EmailAccountExists(account.getEmail());
+        boolean usernameExists = repositoryHandler.UsernameAccountExists(account.getUsername());
+        if (emailExists) {
+            return "email already exists";
+        }
+        if (usernameExists) {
+            return "username already exists";
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
         notificationService.VerificationEmail_PD(account.getEmail(),code);
         //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createSystemUser(systemUser);
-        repositoryHandler.createPatient(patient);
+        repositoryHandler.AddAccount(account);
+        repositoryHandler.AddSystemUser(systemUser);
+        repositoryHandler.AddPatient(patient);
         //store verification code and account in database
             return "";
     }
-    public String register_Doctor(Account account, Doctor doctor, SystemUser systemUser) throws MessagingException {
+    public String register_Doctor(Doctor doctor) throws MessagingException {
         //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+        SystemUser systemUser = doctor.getSystemUser();
+        Account account = systemUser.getAccount();
+        boolean emailExists = repositoryHandler.EmailAccountExists(account.getEmail());
+        boolean usernameExists = repositoryHandler.UsernameAccountExists(account.getUsername());
+        if (emailExists) {
+            return "email already exists";
+        }
+        if (usernameExists) {
+            return "username already exists";
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
         notificationService.VerificationEmail_PD(account.getEmail(),code);
         //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createSystemUser(systemUser);
-        repositoryHandler.createDoctor(doctor);
+        repositoryHandler.AddAccount(account);
+        repositoryHandler.AddSystemUser(systemUser);
+        repositoryHandler.AddDoctor(doctor);
         //store verification code and account in database
         return "";
     }
-    public String register_ClinicAdmin(Account account, ClinicAdmin clinicAdmin, String formlink) throws MessagingException {
+    public String register_ClinicAdmin(ClinicAdmin clinicAdmin, String formlink) throws MessagingException {
         //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+        Account account = clinicAdmin.getAccount();
+        boolean emailExists = repositoryHandler.EmailAccountExists(account.getEmail());
+        boolean usernameExists = repositoryHandler.UsernameAccountExists(account.getUsername());
+        if (emailExists) {
+            return "email already exists";
+        }
+        if (usernameExists) {
+            return "username already exists";
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
         notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
         //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createClinicAdmin(clinicAdmin);
+        repositoryHandler.AddAccount(account);
+        repositoryHandler.AddClinicAdmin(clinicAdmin);
         //store verification code and account in database
         return "";
     }
-    public String register_SystemAdmin(Account account, SystemAdmin systemAdmin, String formlink) throws MessagingException {
+    public String register_SystemAdmin(SystemAdmin systemAdmin,String formlink) throws MessagingException {
         //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+        Account account = systemAdmin.getAccount();
+        boolean emailExists = repositoryHandler.EmailAccountExists(account.getEmail());
+        boolean usernameExists = repositoryHandler.UsernameAccountExists(account.getUsername());
+        if (emailExists) {
+            return "email already exists";
+        }
+        if (usernameExists) {
+            return "username already exists";
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
         notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
         //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createSystemAdmin(systemAdmin);
+        repositoryHandler.AddAccount(account);
+        repositoryHandler.AddSystemAdmin(systemAdmin);
         //store verification code and account in database
         return "";
     }
@@ -113,9 +135,7 @@ public class RegistrationService {
 
     private String generateVerificationCode() {
         //generate verification code from 100000 to 999999
-        String code = String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
-        //add space between every 3 digits
-        return code;
+        return String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
     }
 
 }
