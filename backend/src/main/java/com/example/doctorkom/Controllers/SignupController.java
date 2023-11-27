@@ -1,5 +1,6 @@
 package com.example.doctorkom.Controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.doctorkom.DTOs.DoctorDTO;
@@ -12,11 +13,17 @@ import com.example.doctorkom.Entities.Doctor;
 @RestController
 @RequestMapping("/signup")
 public class SignupController {
+
+	@Autowired
+	PatientMapper patientMapper;
+
+	@Autowired
+	DoctorMapper doctorMapper;
 	
 	@PutMapping("/patient")
 	public SignupResponse patientSignup(@RequestBody PatientDTO patientDTO) {
 		//Create Patient entity
-		Patient patient = PatientMapper.INSTANCE.toEntity(patientDTO);
+		Patient patient = patientMapper.toEntity(patientDTO);
 		//Call bussiness logic to register patient
 		String msg = new DummyRegistrar().tryRegisterPatient(patient);
 		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
@@ -27,7 +34,7 @@ public class SignupController {
 	public SignupResponse doctorSignup(@RequestBody DoctorDTO doctorDTO)
 	{
 		//Create doctor entity.
-		Doctor doctor = DoctorMapper.INSTANCE.toEntity(doctorDTO);
+		Doctor doctor = doctorMapper.toEntity(doctorDTO);
 		//Call bussiness logic to register patient
 		String msg = new DummyRegistrar().tryRegisterDoctor(doctor);
 		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
