@@ -70,51 +70,73 @@ public class SecurityConfigTest {
     }
 
     @Test
-    public void testPatientLoginWithUnauthenticatedUser() throws Exception {
-        mockMvc.perform(post("/login/patient")
-                        .with(SecurityMockMvcRequestPostProcessors.anonymous()))
-                .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    @WithMockUser(roles = "DOCTOR")
-    public void testPatientLoginEndpointWithUnauthorizedUser() throws Exception {
-        this.mockMvc.
-                perform(post("/login/patient").
-                        header(HttpHeaders.CONTENT_TYPE, "application/json")).
-                andExpect(status().isForbidden());
-    }
-
-    @Test
     @WithMockUser(roles = "PATIENT")
-    public void testPatientLoginEndpointWithAuthorizedUser() throws Exception {
+    public void testLoginEndpointWithPatientUser() throws Exception {
         this.mockMvc.
-                perform(post("/login/patient").
+                perform(post("/login").
                         header(HttpHeaders.CONTENT_TYPE, "application/json")).
                 andExpect(status().isOk());
     }
 
     @Test
-    public void testDoctorLoginWithUnauthenticatedUser() throws Exception {
-        mockMvc.perform(post("/login/doctor")
-                        .with(SecurityMockMvcRequestPostProcessors.anonymous()))
-                .andExpect(status().isUnauthorized());
+    @WithMockUser(roles = "DOCTOR")
+    public void testLoginEndpointWithDoctorUser() throws Exception {
+        this.mockMvc.
+                perform(post("/login").
+                        header(HttpHeaders.CONTENT_TYPE, "application/json")).
+                andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(roles = "SYSTEM_ADMIN")
+    public void testLoginEndpointWithSystemAdmin() throws Exception {
+        this.mockMvc.
+                perform(post("/login").
+                        header(HttpHeaders.CONTENT_TYPE, "application/json")).
+                andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(roles = "CLINIC_ADMIN")
+    public void testLoginEndpointWithClinicAdmin() throws Exception {
+        this.mockMvc.
+                perform(post("/login").
+                        header(HttpHeaders.CONTENT_TYPE, "application/json")).
+                andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(roles = "PATIENT")
-    public void testDoctorLoginEndpointWithUnauthorizedUser() throws Exception {
+    public void testRecoverPasswordEndpointWithPatientUser() throws Exception {
         this.mockMvc.
-                perform(post("/login/doctor").
+                perform(post("/recover_password").
                         header(HttpHeaders.CONTENT_TYPE, "application/json")).
-                andExpect(status().isForbidden());
+                andExpect(status().isOk());
     }
 
     @Test
     @WithMockUser(roles = "DOCTOR")
-    public void testDoctorLoginEndpointWithAuthorizedUser() throws Exception {
+    public void testRecoverPasswordEndpointWithDoctorUser() throws Exception {
         this.mockMvc.
-                perform(post("/login/doctor").
+                perform(post("/recover_password").
+                        header(HttpHeaders.CONTENT_TYPE, "application/json")).
+                andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(roles = "SYSTEM_ADMIN")
+    public void testRecoverPasswordEndpointWithSystemAdmin() throws Exception {
+        this.mockMvc.
+                perform(post("/recover_password").
+                        header(HttpHeaders.CONTENT_TYPE, "application/json")).
+                andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(roles = "CLINIC_ADMIN")
+    public void testRecoverPasswordEndpointWithClinicAdmin() throws Exception {
+        this.mockMvc.
+                perform(post("/recover_password").
                         header(HttpHeaders.CONTENT_TYPE, "application/json")).
                 andExpect(status().isOk());
     }

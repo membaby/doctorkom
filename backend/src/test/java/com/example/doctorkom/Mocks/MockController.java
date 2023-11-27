@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class MockController {
     @PostMapping("/registration/patient")
     public String patientRegistration() {
-        return "Patient successfully registered";
+        return "Patient registered successfully";
     }
 
     @PostMapping("/registration/doctor")
     public String doctorRegistration() {
-        return "Doctor successfully registered";
+        return "Doctor registered successfully";
     }
 
-    @PostMapping("/login/patient")
-    public String patientLogin() {
-        return "Patient successfully logged in";
+    @PostMapping("/login")
+    public String login() {
+        return "Logged in successfully";
     }
 
-    @PostMapping("/login/doctor")
-    public String doctorLogin() {
-        return "Doctor successfully logged in";
+    @PostMapping("/recover_password")
+    public String recoverPassword() {
+        return "Password recovered successfully";
     }
 }

@@ -27,12 +27,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http.httpBasic(Customizer.withDefaults())
-                   .csrf(AbstractHttpConfigurer::disable)
-                   .authorizeHttpRequests(configurer -> configurer
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(HttpMethod.POST, "/registration/patient").hasRole("PATIENT")
                         .requestMatchers(HttpMethod.POST, "/registration/doctor").hasRole("DOCTOR")
-                        .requestMatchers(HttpMethod.POST, "/login/patient").hasRole("PATIENT")
-                        .requestMatchers(HttpMethod.POST, "/login/doctor").hasRole("DOCTOR")
-        ).build();
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/recover_password").permitAll()
+                )
+        .build();
     }
 }
