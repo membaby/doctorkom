@@ -10,19 +10,19 @@ import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Entities.SystemAdmin;
 
 @Mapper
-public interface SystemAdminDTOMapper {
+public interface SystemAdminMapper {
      
-    SystemAdminDTOMapper INSTANCE = Mappers.getMapper(SystemAdminDTOMapper.class);
+    SystemAdminMapper INSTANCE = Mappers.getMapper(SystemAdminMapper.class);
 
     SystemAdminDTO toDTO(SystemAdmin systemAdmin);
 
     default AccountDTO AccountToDTO(Account account){
-        return AccountDTOMapper.INSTANCE.toDTO(account);
+        return AccountMapper.INSTANCE.toDTO(account);
     }
 
     SystemAdmin toEntity(SystemAdminDTO systemAdminDTO);
 
     default Account AccountToEntity(AccountDTO accountDTO){
-        return AccountDTOMapper.INSTANCE.toEntity(accountDTO);
+        return AccountMapper.INSTANCE.toEntity(accountDTO);
     }
 }

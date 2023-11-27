@@ -10,19 +10,19 @@ import com.example.doctorkom.Entities.ClinicAdmin;
 
 
 @Mapper
-public interface ClinicAdminDTOMapper {
+public interface ClinicAdminMapper {
     
-    ClinicAdminDTOMapper INSTANCE = Mappers.getMapper(ClinicAdminDTOMapper.class);
+    ClinicAdminMapper INSTANCE = Mappers.getMapper(ClinicAdminMapper.class);
 
     ClinicAdminDTO toDTO(ClinicAdmin clinicAdmin);
 
     default AccountDTO AccountToDTO(Account account){
-        return AccountDTOMapper.INSTANCE.toDTO(account);
+        return AccountMapper.INSTANCE.toDTO(account);
     }
 
     ClinicAdmin toEntity(ClinicAdminDTO clinicAdminDTO);
 
     default Account AccountToEntity(AccountDTO accountDTO){
-        return AccountDTOMapper.INSTANCE.toEntity(accountDTO);
+        return AccountMapper.INSTANCE.toEntity(accountDTO);
     }
 }

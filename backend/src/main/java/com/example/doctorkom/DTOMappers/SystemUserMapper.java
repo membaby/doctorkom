@@ -10,15 +10,15 @@ import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Entities.SystemUser;
 
 @Mapper
-public interface SystemUserDTOMapper {
-    SystemUserDTOMapper INSTANCE = Mappers.getMapper(SystemUserDTOMapper.class);
+public interface SystemUserMapper {
+    SystemUserMapper INSTANCE = Mappers.getMapper(SystemUserMapper.class);
 
     @Mapping(source = "mobile", target = "mobilePhone")
     @Mapping(source = "landline", target = "landlinePhone")
     SystemUser toEntity(SystemUserDTO userDTO);
     
     default AccountDTO accountToDTO(Account account){
-        return AccountDTOMapper.INSTANCE.toDTO(account);
+        return AccountMapper.INSTANCE.toDTO(account);
     }
     
     @Mapping(target = "mobile", source = "mobilePhone")
@@ -26,7 +26,7 @@ public interface SystemUserDTOMapper {
     SystemUserDTO toDTO(SystemUser user);
 
     default Account accountDTOToAccount(AccountDTO accountDTO){
-        return AccountDTOMapper.INSTANCE.toEntity(accountDTO);
+        return AccountMapper.INSTANCE.toEntity(accountDTO);
     }
 
 }

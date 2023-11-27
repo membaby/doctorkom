@@ -10,19 +10,19 @@ import com.example.doctorkom.Entities.SystemUser;
 
 
 @Mapper
-public interface DoctorDTOMapper {
+public interface DoctorMapper {
     
-    DoctorDTOMapper INSTANCE = Mappers.getMapper(DoctorDTOMapper.class);
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
 
     DoctorDTO toDTO(Doctor doctor);
 
     default SystemUserDTO systemUserToDTO(SystemUser systemUser){
-        return SystemUserDTOMapper.INSTANCE.toDTO(systemUser);
+        return SystemUserMapper.INSTANCE.toDTO(systemUser);
     }
 
     Doctor toEntity(DoctorDTO doctorDTO);
 
     default SystemUser systemUserToEntity(SystemUserDTO systemUserDTO){
-        return SystemUserDTOMapper.INSTANCE.toEntity(systemUserDTO);
+        return SystemUserMapper.INSTANCE.toEntity(systemUserDTO);
     }
 }

@@ -7,8 +7,8 @@ import com.example.doctorkom.DTOs.AccountDTO;
 import com.example.doctorkom.Entities.Account;
 
 @Mapper
-public interface AccountDTOMapper {
-    AccountDTOMapper INSTANCE = Mappers.getMapper(AccountDTOMapper.class);
+public interface AccountMapper {
+    AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
     AccountDTO toDTO(Account account);
     Account toEntity(AccountDTO accountDTO);
