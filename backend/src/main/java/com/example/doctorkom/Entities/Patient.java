@@ -1,14 +1,13 @@
 package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "Patient")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Patient {
     @Id
@@ -27,21 +26,10 @@ public class Patient {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId")
-    private User user;
+    private SystemUser systemUser;
 
-    public Patient(User user, String insurance) {
-        this.user = user;
+    public Patient(SystemUser systemUser, String insurance) {
+        this.systemUser = systemUser;
         this.insurance = insurance;
-    }
-
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "id=" + id +
-                ", maritalStatus='" + maritalStatus + '\'' +
-                ", occupation='" + occupation + '\'' +
-                ", insurance='" + insurance + '\'' +
-                ", user=" + user +
-                '}';
     }
 }
