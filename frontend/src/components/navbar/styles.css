@@ -9,8 +9,8 @@
 }
 .text-white {
     color: white;
-    font-size: 18px;
   }
 
-
-
+  .nav-item{
+    font-size: 21px;
+  }

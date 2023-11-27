@@ -1,5 +1,9 @@
 import './styles.css'
 import React, { useState, useEffect } from 'react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Dropdown from 'react-bootstrap/Dropdown';
 const Navbar = () => {
 
   var NavbarItems = [
@@ -8,13 +12,32 @@ const Navbar = () => {
     { title: 'Contact us', url: '/' },
     { title: 'About us', url: '/' },
     { title: 'Login', url: '/login' },
-    { title: 'Register', url: '/Register' }
   ];
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleClick = (index) => {
     setActiveIndex(index);
   };
+  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <a
+      href=""
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+      style={{ color: 'white', textDecoration: 'none' }}
+    >
+      {children}
+    </a>
+  ));
+
+  
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+      setDropdownOpen(!isDropdownOpen);
+    };
     return(
 	<>
 
@@ -29,15 +52,25 @@ const Navbar = () => {
 							
  	<div class="col-5"></div>
 
- <div className="col-6 d-flex nav-link text-white   ">
+
+ <div className="col-6 d-flex nav-link text-white riMar  ">
   {NavbarItems.map((item, index) => (
     <div className="nav-item  m-auto" >
-      <a className="nav-link" href={item.url}>{item.title}</a>
+      <a className="nav-link" href={item.url} style={{ fontSize: '21px' }}>{item.title}</a>
     </div>
   ))}
-</div> 
-    
-
+ <div className="nav-item  m-auto" >
+    <Dropdown>
+      <Dropdown.Toggle  as={CustomToggle} variant="success" id="dropdown-basic"  >
+      Register
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item href="/RegisterP">Patient registration</Dropdown.Item>
+        <Dropdown.Item href="/Register">Doctor registration</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    </div>
+    </div> 
 
 
 
@@ -55,13 +88,15 @@ export default Navbar;
 
 
 
-{/* <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav ms-auto">
-        {NavbarItems.map((item, index) => (
-     <li className="nav-item">
-      <a className="nav-link active" href={item.url}>{item.title}</a>
-      </li>
-  ))} */}
+
+
+//  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+//       <ul className="navbar-nav ms-auto">
+//         {NavbarItems.map((item, index) => (
+//      <li className="nav-item">
+//       <a className="nav-link active" href={item.url}>{item.title}</a>
+//       </li>
+//   ))} 
         
-      {/* </ul>
-    </div>  */}
+//        </ul>
+//     </div> 
