@@ -1,6 +1,7 @@
 package com.example.doctorkom.DTOMappers;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import com.example.doctorkom.DTOs.PatientDTO;
@@ -8,7 +9,7 @@ import com.example.doctorkom.DTOs.SystemUserDTO;
 import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Entities.SystemUser;
 
-@Mapper
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface PatientMapper {
     PatientMapper INSTANCE = Mappers.getMapper(PatientMapper.class);
 
