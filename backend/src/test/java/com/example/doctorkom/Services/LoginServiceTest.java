@@ -1,17 +1,27 @@
 package com.example.doctorkom.Services;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Services.Register_LogIn.LogInService;
 
 public class LoginServiceTest {
     
+    @Autowired
+    LogInService logInService;
 
     @Test
     public void invalidLoginEmailOrUsername() {//Perform login with invalid email or username
         //Perform login with an email or username that doesn't exist in the database
         //Confirm an unsuccessful login
-
+        Account testAccount = new Account();
+        testAccount.setEmail("guygujgk");
+        testAccount.setUsername("guygujgk");
+        testAccount.setPassword("1");
+        assertNull(logInService.login(testAccount));
     }
 
     @Test
