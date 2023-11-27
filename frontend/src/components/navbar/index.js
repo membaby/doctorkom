@@ -66,7 +66,7 @@ const Navbar = () => {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item href="/RegisterP">Patient registration</Dropdown.Item>
-        <Dropdown.Item href="/Register">Doctor registration</Dropdown.Item>
+        <Dropdown.Item href="/RegisterD">Doctor registration</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
     </div>

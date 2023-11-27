@@ -5,7 +5,7 @@ import './styles.css'
 import Select from 'react-select';
 
 
-const RegisterP = () => {
+const RegisterD = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,74 +16,69 @@ const RegisterP = () => {
   const [address, setAddress] = useState('');
   const [gender, setGender] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [maritalstatus, setMaritalstatus] = useState('');
-  const [occupation, setOccupation] = useState('');
-  const [insurance, setInsurance] = useState('');
-
+  const [speciality, setSpeciality] = useState('');
+  const [title, setTitle] = useState('');
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
-    console.log(firstName);
+    // console.log(firstName);
   };
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
-    console.log(lastName);
+    // console.log(lastName);
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    console.log(email);
+    // console.log(email);
   };
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    console.log(username);
+    // console.log(username);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    console.log(password);
+    // console.log(password);
   };
 
   const handleLandlineChange = (event) => {
     setLandline(event.target.value);
-    console.log(landline);
+    // console.log(landline);
   };
 
-  const handleMaritalStatusChange = (event) => {
-    setMaritalstatus(event.target.value);
-    console.log(maritalstatus);
-  };
+
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
-    console.log(address);
+    // console.log(address);
   };
 
   const handleGenderChange = (event) => {
     setGender(event.target.value);
-    console.log(gender);
+    // console.log(gender);
   };
 
   const handleBirthdateChange = (event) => {
     setBirthdate(event.target.value);
-    console.log(birthdate);
+    // console.log(birthdate);
   };
  
   const handlePhoneChange = (event) => {
     setPhone(event.target.value);
-    console.log(phone);
-  };
-  const handleOccupationChange = (event) => {
-    setOccupation(event.target.value);
-    console.log(occupation);
+    // console.log(phone);
   };
 
-  const handleInsuranceChange = (event) => {
-    setInsurance(event.target.value);
-    console.log(insurance);
+  const handleSpecialityChange = (event) => {
+    setSpeciality(event.target.value);
+    console.log(speciality);
   };
 
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+    console.log(title);
+  };
  
 
 
@@ -123,7 +118,7 @@ const RegisterP = () => {
       email: email,
       username: username,
       password: password,
-      role: "patient"
+      role: "doctor"
     };
   
     const systemUser = {
@@ -136,11 +131,10 @@ const RegisterP = () => {
       landline: landline,
       account:account
     };
-     const Patient={
+     const Doctor={
     
-    maritalStatus : maritalstatus,
-    occupation : occupation,
-    insurance : insurance,
+    title:title,
+    speciality:speciality,
     systemUser : systemUser
     };
   
@@ -151,7 +145,7 @@ const RegisterP = () => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(Patient),
+        body: JSON.stringify(Doctor),
     })
     .then(response => response.json())
     .then(Patient=> {
@@ -167,6 +161,7 @@ const RegisterP = () => {
 }
 
   return (
+    <>
     <div className="card mx-auto mt-5" style={{ maxWidth: '1000px' }}>
       <div className="card-body">
         <h2 className="card-title text-center mb-4">Registration</h2>
@@ -318,53 +313,40 @@ const RegisterP = () => {
               />
             </div>
             <div className="col mb-3">
-                <label htmlFor="maritalstatus" className="form-label">
-                  Marital status
+              <label htmlFor="speciality" className="form-label">
+              Speciality
+              </label>
+              <input
+                type="speciality"
+                id="speciality"
+                className="form-control"
+                value={speciality}
+                onChange={handleSpecialityChange}
+              />
+            </div>
+            <div className="col mb-5">
+                <label htmlFor="title" className="form-label">
+                  Title
                 </label>
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  id="maritalstatus"
-                  value={maritalstatus}
-                  onChange={handleMaritalStatusChange}
+                  id="title"
+                  value={title}
+                  onChange={handleTitleChange}
                 >
                   <option value="">Select</option>
-                  <option value="single">Single</option>
-                  <option value="married">Married</option>
-                  <option value="divorced">Divorced</option>
-                  <option value="widowed">widowed</option>
+                  <option value="professor">PROFESSOR</option>
+                  <option value="lecturer">LECTURER</option>
+                  <option value="consultant">CONSULTANT</option>
+                  <option value="specialist">SPECIALIST</option>
                 </select>
               </div>
-            <div className="col mb-3">
-              <label htmlFor="occupation" className="form-label">
-                Occupation
-              </label>
-              <input
-                type="occupation"
-                id="occupation"
-                className="form-control"
-                value={occupation}
-                onChange={handleOccupationChange}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col mb-3">
-              <label htmlFor="insurance" className="form-label">
-                Insurance
-              </label>
-              <input
-                type="insurance"
-                id="insurance"
-                className="form-control"
-                value={insurance}
-                onChange={handleInsuranceChange}
-              />
-            </div>
-            <div className="col mb-3"></div>
-            <div className="col mb-3"></div>
         
+    
+           
           </div>
+       
 
           <div class="row">
             <div className="text-center col">
@@ -381,11 +363,11 @@ const RegisterP = () => {
         </form>
       </div>
     </div>
-   
+   </>
   );
 };
 
-export default RegisterP;
+export default RegisterD;
 
 
 
