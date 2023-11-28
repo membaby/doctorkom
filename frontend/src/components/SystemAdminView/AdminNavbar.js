@@ -8,7 +8,7 @@ export default function Navbar() {
   var NavbarItems = [
     { title: 'Home', url: '/system-admin' },
     { title: 'Add Clinic', url: '/systemAdmin/add-clinic'},
-    { title: 'Remove Clinic', url: '/remove-clinic' },
+    { title: 'Remove Clinic', url: '/system-admin/remove-clinic' },
     { title: 'Logout', url: '/' },
   ];
   
