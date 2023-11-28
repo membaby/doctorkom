@@ -12,7 +12,7 @@ export default function SystemAdminView({account}){
                 <AdminNavbar />
             </div>
             <div class="empty_block d-block w-100"></div>
-            <div>
+            <div className="mt-5">
                 <Routes>
                     <Route index element={ <AdminHomePage/> } />
                 </Routes>

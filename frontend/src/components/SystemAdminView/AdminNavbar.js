@@ -7,20 +7,14 @@ export default function Navbar() {
 
   var NavbarItems = [
     { title: 'Home', url: '/system-admin' },
-    { title: 'Add Clinic', url: '/systemAdmin/add-clinic'},
+    { title: 'Add Clinic', url: '/system-admin/add-clinic'},
     { title: 'Remove Clinic', url: '/system-admin/remove-clinic' },
     { title: 'Logout', url: '/' },
   ];
   
     return(
 	<>
-        <nav class="navbar navbar-expand-lg navbar-dark">
-
-            <a href="/">
-                <div class="logo">
-                    <img src="/images/logo2.png" alt="logo" />
-                </div>
-            </a>
+        <nav class="navbar  navbar-dark bg-dark">
                                     
             <div class="col-5"></div>
 
