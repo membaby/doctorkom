@@ -42,7 +42,10 @@ public class LogInService {
         if (fullAccount == null)
             return null;
         else
+        {
+            if (!fullAccount.isEnabled()) return null;
             return getAccountDetails(fullAccount);
+        }
     }
 
     public EntityWrapper getAccountDetails(Account account) {
