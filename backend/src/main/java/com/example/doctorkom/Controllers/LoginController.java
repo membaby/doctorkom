@@ -9,7 +9,7 @@ import com.example.doctorkom.Entities.*;
 @RestController
 public class LoginController {
     
-    @PutMapping("/login")
+    @PostMapping("/login")
     public LoginResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
         Account partialAccount = AccountDTOMapper.INSTANCE.toEntity(accountDTO);
@@ -35,7 +35,7 @@ public class LoginController {
         }
     }
 
-    @PutMapping("/recover_password")
+    @PostMapping("/recover_password")
     public boolean recoverPassword(@RequestBody String email)
     {
         return new DummyPasswordRecoverer().tryRecoverPassword(email);
