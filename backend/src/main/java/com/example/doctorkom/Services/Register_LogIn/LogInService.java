@@ -36,12 +36,13 @@ public class LogInService {
     public EntityWrapper login(Account account) {
         //check if the user exists
         Account fullAccount = accountRepository.findByEmail(account.getEmail());
-        if (fullAccount == null) {
+        if (fullAccount == null)
+            fullAccount = accountRepository.findByUsername(account.getUsername());
+        
+        if (fullAccount == null)
             return null;
-        }
-        else {
+        else
             return getAccountDetails(fullAccount);
-        }
     }
 
     public EntityWrapper getAccountDetails(Account account) {
