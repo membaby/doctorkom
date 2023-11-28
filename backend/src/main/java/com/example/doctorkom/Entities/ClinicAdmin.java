@@ -24,6 +24,11 @@ public class ClinicAdmin {
     @JoinColumn(name = "AccountID")
     private Account account;
 
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ClinicID")
+    private Clinic clinic;
+
     public ClinicAdmin(int accountID) {
         this.accountID = accountID;
     }
