@@ -1,12 +1,16 @@
 .navbar{
-    background-color: rgb(36, 44, 60); 
-}
-.btn{
-    margin-right: 8px;
-    width: 120px;
+    background-color: rgb(36, 44, 60);
+    height: 50px;
 }
 .logo{
     margin-left:10px;
     width: 130px;
     height: 25px;
 }
+.text-white {
+    color: white;
+  }
+
+  .nav-item{
+    font-size: 21px;
+  }

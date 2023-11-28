@@ -4,22 +4,20 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import java.sql.Date;
-
-enum Gender {
-    Male,
-    Female
-}
+import java.util.Objects;
 
 @Entity
-@Table(name = "User")
+@Table(name = "SystemUser")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
-public class User {
+public class SystemUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AccountId")
     private Integer id;
 
@@ -48,9 +46,22 @@ public class User {
     @JoinColumn(name = "AccountId")
     private Account account;
 
-    public User(Account account, String firstName, String lastName) {
-        this.account = account;
+    public SystemUser(String firstName, String lastName, Date birthdate, Gender gender, String address, String landlinePhone, String mobilePhone, Account account) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.address = address;
+        this.landlinePhone = landlinePhone;
+        this.mobilePhone = mobilePhone;
+        this.account = account;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        SystemUser systemUser = (SystemUser) o;
+        return id != null && Objects.equals(id, systemUser.id);
     }
 }

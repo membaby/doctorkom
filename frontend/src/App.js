@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 import Navbar from './components/navbar';
-import Register from './components/register';
+import RegisterP from './components/registerp';
 import Homepage from './components/homepage';
+import RegisterD from './components/registerd';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         
         <Routes>
           <Route path='/' element={ <Homepage/> } />
-          <Route path='/register' element={ <Register /> } />
+          <Route path='/registerp' element={ <RegisterP /> } />
+          <Route path='/registerd' element={ <RegisterD /> } />
         </Routes>
 
       </div>

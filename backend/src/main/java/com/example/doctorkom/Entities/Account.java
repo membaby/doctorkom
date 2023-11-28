@@ -4,11 +4,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "Account")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Account {
     @Id
@@ -25,19 +30,24 @@ public class Account {
     @Column(name = "Password")
     private String password;
 
-    public Account(String email, String username, String password) {
+    @Column(name = "Role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public Account(String email, String username, String password, Role role) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", email=" + email +
-                ", username=" + username +
-                ", password=" + password +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Account account = (Account) o;
+        return id != null && Objects.equals(id, account.id);
     }
+
+
 }

@@ -1,102 +1,102 @@
-
 import './styles.css'
+import React, { useState, useEffect } from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-
+import Dropdown from 'react-bootstrap/Dropdown';
 const Navbar = () => {
+
+  var NavbarItems = [
+    { title: 'Home', url: '/' },
+    { title: 'Search', url: '/'},
+    { title: 'Contact us', url: '/' },
+    { title: 'About us', url: '/' },
+    { title: 'Login', url: '/login' },
+  ];
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const handleClick = (index) => {
+    setActiveIndex(index);
+  };
+  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <a
+      href=""
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+      style={{ color: 'white', textDecoration: 'none' }}
+    >
+      {children}
+    </a>
+  ));
+
+  
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+      setDropdownOpen(!isDropdownOpen);
+    };
     return(
 	<>
 
-{/* <nav class="navbar navbar-expand-lg navbar-dark" >
-  <a class="navbar-brand" href="#">Navbar</a>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto"></ul>
-    <form class="form-inline my-2 my-lg-0 mx-auto">
-      <div class="input-group">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
-        <div class="input-group-append">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </div>
-      </div>
-    </form>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="ml-auto mr-1">
-      <button type="button" class="btn btn-danger">Login</button>
-    </div>
-    <div>
-      <button type="button" class="btn btn-danger">Register</button>
-    </div>
-  </div>
-</nav>
-     */}
-     {/* <nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto"></ul>
-    <form class="form-inline my-2 my-lg-0 mx-auto">
-      <div class="input-group">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
-        <div class="input-group-append">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </div>
-      </div>
-    </form>
-
-    <div class="ml-auto mr-1">
-      <button type="button" class="btn btn-danger">Login</button>
-      <button type="button" class="btn btn-danger">Register</button>
-    </div>
-  </div>
-</nav> */}
+ 
 <nav class="navbar navbar-expand-lg navbar-dark">
 
-  
-  {/* <div class="col-3"> */}  
 									<a href="/">
 										<div class="logo">
 											<img src="/images/logo2.png" alt="logo" />
 										</div>
 									</a>
-								{/* </div> */}
+							
+ 	<div class="col-5"></div>
 
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto"></ul>
-    <form class="form-inline my-2 my-lg-0 mx-auto">
-      <div class="input-group">
-        <input class="form-control rounded" type="search" placeholder="Search" aria-label="Search" />
-        <div class="input-group-append">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </div>
-      </div>
-    </form>
-
-    <div class="ml-auto mr-1">
-    <a href="/login">
-      <button type="button" class="btn btn-danger" >Login</button>
-      </a>
-      <a href="/register">
-      <button type="button" class="btn btn-danger">Register</button>
-      </a>
+ <div className="col-6 d-flex nav-link text-white riMar  ">
+  {NavbarItems.map((item, index) => (
+    <div className="nav-item  m-auto" >
+      <a className="nav-link" href={item.url} style={{ fontSize: '21px' }}>{item.title}</a>
     </div>
-  </div>
-</nav>
+  ))}
+ <div className="nav-item  m-auto" >
+    <Dropdown>
+      <Dropdown.Toggle  as={CustomToggle} variant="success" id="dropdown-basic"  >
+      Register
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item href="/RegisterP">Patient registration</Dropdown.Item>
+        <Dropdown.Item href="/RegisterD">Doctor registration</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    </div>
+    </div> 
+
+
+
+
+
+ </nav> 
+
 		</>
     );
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+//  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+//       <ul className="navbar-nav ms-auto">
+//         {NavbarItems.map((item, index) => (
+//      <li className="nav-item">
+//       <a className="nav-link active" href={item.url}>{item.title}</a>
+//       </li>
+//   ))} 
+        
+//        </ul>
+//     </div> 
