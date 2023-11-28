@@ -1,19 +1,23 @@
 package com.example.doctorkom.Services;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.doctorkom.Entities.Account;
+import com.example.doctorkom.Entities.Role;
 import com.example.doctorkom.Services.Register_LogIn.LogInService;
 import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
+import com.example.doctorkom.Services.RepositoryHandler.EntityWrapper;
 
 @SpringBootTest
 public class LoginServiceTest {
     
     @Autowired
-    LogInService logInService;
+    LogInService loginService;
 
     @Test
     public void invalidLoginEmailAndUsername() {//Perform login with invalid email and username
@@ -23,7 +27,7 @@ public class LoginServiceTest {
         testAccount.setEmail("guygujgk");
         testAccount.setUsername("guygujgk");
         testAccount.setPassword("1");
-        assertNull(logInService.login(testAccount));
+        assertNull(loginService.login(testAccount));
     }
 
     @Test
@@ -35,7 +39,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void loginWithAnotherPassword()
+    public void invalidLoginWithAnotherPassword()
     {
         //Perform login with a valid email but another account's password
         //Confirm unsuccessful login
@@ -48,9 +52,9 @@ public class LoginServiceTest {
         //Perform login with valid email and password.
         //Confirm successful login
         Account account = new Account("swe.test.system@gmail.com", "swe.test.system@gmail.com", "admin", null);
-        // Account fullAccount = loginService.login(account);
-        // assertNotNull(account);
-        // assertTrue(fullAccount.getRole() == Role.SYSTEM_ADMIN);
+        EntityWrapper fullAccount = loginService.login(account);
+        assertNotNull(fullAccount);
+        assertNotNull(fullAccount.getSystemAdmin());
     }
 
     @Test
@@ -58,18 +62,18 @@ public class LoginServiceTest {
         //Perform login with valid username and password.
         //Confirm successful login
         Account account = new Account("test_patient", "test_patient", "patient", null);
-        // Account fullAccount = loginService.login(account);
-        // assertNotNull(fullAccount);
-        // assertTrue(fullAccount.getRole() == Role.PATIENT);
+        EntityWrapper fullAccount = loginService.login(account);
+        assertNotNull(fullAccount);
+        assertNotNull(fullAccount.getPatient());
     }
 
-    // @Test
-    // public void loginBeforeVerification() {
-    //     //Register new account
-    //     //Perform login with new account.
-    //     //Confirm unsuccessful login
-    //     //Delete new account
-    // }
+    @Test
+    public void loginBeforeVerification() {
+        //Register new account
+        //Perform login with new account.
+        //Confirm unsuccessful login
+        //Delete new account
+    }
 
 
     @Test
@@ -77,9 +81,9 @@ public class LoginServiceTest {
        //login to a patient account
        //Confirm account type is patient
         Account account = new Account("swe.test.patient@gmail.com", "swe.test.patient@gmail.com", "patient", null);
-        // Account fullAccount = loginService.login(account);
-        // assertNotNull(fullAccount);
-        // assertTrue(fullAccount.getRole() == Role.PATIENT);
+        EntityWrapper fullAccount = loginService.login(account);
+        assertNotNull(fullAccount);
+        assertNotNull(fullAccount.getPatient());
     }
 
     @Test
@@ -87,9 +91,9 @@ public class LoginServiceTest {
         //login to a doctor account
         //confirm account type is doctor
         Account account = new Account("swe.test.doctor@gmail.com", "swe.test.doctor@gmail.com", "doctor", null);
-        // Account fullAccount = loginService.login(account);
-        // assertNotNull(fullAccount);
-        // assertTrue(fullAccount.getRole() == Role.DOCTOR);
+        EntityWrapper fullAccount = loginService.login(account);
+        assertNotNull(fullAccount);
+        assertNotNull(fullAccount.getDoctor());
     }
 
     @Test
@@ -97,9 +101,9 @@ public class LoginServiceTest {
         //login to a clinic account
         //confirm account type is clinic_admin
         Account account = new Account("swe.test.clinic@gmail.com", "swe.test.clinic@gmail.com", "clinic", null);
-        // Account fullAccount = loginService.login(account);
-        // assertNotNull(fullAccount);
-        // assertTrue(fullAccount.getRole() == Role.CLINIC_ADMIN);
+        EntityWrapper fullAccount = loginService.login(account);
+        assertNotNull(fullAccount);
+        assertNotNull(fullAccount.getClinicAdmin());
     }
 
     @Test
@@ -107,9 +111,9 @@ public class LoginServiceTest {
         //login to a system admin account
         //confirm account type is system_admin
         Account account = new Account("swe.test.system@gmail.com", "swe.test.system@gmail.com", "admin", null);
-        // Account fullAccount = loginService.login(account);
-        // assertNotNull(account);
-        // assertTrue(fullAccount.getRole() == Role.SYSTEM_ADMIN);
+        EntityWrapper fullAccount = loginService.login(account);
+        assertNotNull(fullAccount);
+        assertNotNull(fullAccount.getSystemAdmin());
     }
 
 }
