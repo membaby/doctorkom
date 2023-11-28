@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -31,6 +32,7 @@ public class SystemUser {
     private Date birthdate;
 
     @Column(name = "Gender")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name = "Address")

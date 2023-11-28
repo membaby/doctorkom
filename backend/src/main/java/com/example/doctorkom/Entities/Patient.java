@@ -2,6 +2,9 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "Patient")
@@ -11,7 +14,6 @@ import lombok.*;
 @NoArgsConstructor
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserId")
     private Integer id;
 
@@ -28,8 +30,16 @@ public class Patient {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
-    public Patient(SystemUser systemUser, String insurance) {
-        this.systemUser = systemUser;
+    public Patient(String insurance, SystemUser systemUser) {
         this.insurance = insurance;
+        this.systemUser = systemUser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Patient patient = (Patient) o;
+        return id != null && Objects.equals(id, patient.id);
     }
 }
