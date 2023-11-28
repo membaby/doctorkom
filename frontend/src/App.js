@@ -6,6 +6,7 @@ import Navbar from './components/navbar';
 import RegisterP from './components/registerp';
 import Homepage from './components/homepage';
 import RegisterD from './components/registerd';
+import Verification from './components/Verification';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={ <Homepage/> } />
           <Route path='/registerp' element={ <RegisterP /> } />
           <Route path='/registerd' element={ <RegisterD /> } />
+          <Route path='/verify/:email/:code' element={ <Verification /> } />
         </Routes>
 
       </div>
