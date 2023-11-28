@@ -11,7 +11,7 @@ import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Entities.Doctor;
 
 @RestController
-@RequestMapping("/signup")
+@RequestMapping("/registration")
 public class SignupController {
 
 	@Autowired
