@@ -22,7 +22,7 @@ public class Adder extends Command{
 
 
 
-
+    @Override
     public void execute(Patient patient) {
         SystemUser systemUser = patient.getSystemUser();
         Account account = systemUser.getAccount();
@@ -39,7 +39,7 @@ public class Adder extends Command{
         patientRepository.save(patient);
     }
 
-
+    @Override
     public void execute(Doctor doctor) {
         SystemUser systemUser = doctor.getSystemUser();
         Account account = systemUser.getAccount();
@@ -57,7 +57,7 @@ public class Adder extends Command{
 
     }
 
-
+    @Override
     public void execute(SystemAdmin systemAdmin) {
 
         Account account = systemAdmin.getAccount();
@@ -70,6 +70,7 @@ public class Adder extends Command{
         systemAdminRepository.save(systemAdmin);
     }
 
+    @Override
     public void execute(ClinicAdmin clinicAdmin) {
         Account account = clinicAdmin.getAccount();
         accountRepository.save(account);

@@ -21,6 +21,7 @@ public class Finder extends Command{
     //find an entity by id and role
 
     //find an entity by by attribute and role
+    @Override
     public EntityWrapper execute(String attribute,String type , String role) {
         EntityWrapper entityWrapper = new EntityWrapper();
         switch (type) {
