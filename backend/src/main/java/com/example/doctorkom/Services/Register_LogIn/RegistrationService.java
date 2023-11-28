@@ -2,6 +2,7 @@ package com.example.doctorkom.Services.Register_LogIn;
 
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Services.Notifier.NotificationService;
+import com.example.doctorkom.Services.RepositoryHandler.Commander.Command;
 import com.example.doctorkom.Services.RepositoryHandler.RepositoryHandler;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,75 +17,90 @@ public class RegistrationService {
         this.notificationService = notificationService;
         this.repositoryHandler = repositoryHandler;
     }
-    public String register_Patient(Account account, Patient patient,SystemUser systemUser) throws MessagingException {
+    public String register_Patient(Patient patient) throws MessagingException {
         //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+        SystemUser systemUser = patient.getSystemUser();
+        Account account = systemUser.getAccount();
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.execute(account.getEmail(),"email");
+        String usernameExists = existenceChecker.execute(account.getUsername(),"username");
+        //if the emailexists is not empty then the email exists same for username
+        if (!emailExists.isEmpty()) {
+            return emailExists;
+        }
+        if (!usernameExists.isEmpty()) {
+            return usernameExists;
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
         notificationService.VerificationEmail_PD(account.getEmail(),code);
         //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createSystemUser(systemUser);
-        repositoryHandler.createPatient(patient);
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.execute(patient);
         //store verification code and account in database
             return "";
     }
-    public String register_Doctor(Account account, Doctor doctor, SystemUser systemUser) throws MessagingException {
-        //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+    public String register_Doctor(Doctor doctor) throws MessagingException {
+        SystemUser systemUser = doctor.getSystemUser();
+        Account account = systemUser.getAccount();
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.execute(account.getEmail(),"email");
+        String usernameExists = existenceChecker.execute(account.getUsername(),"username");
+        if (!emailExists.isEmpty()) {
+            return emailExists;
         }
-        //generate verification code from 100000 to 999999
+        if (!usernameExists.isEmpty()) {
+            return usernameExists;
+        }
         String code = generateVerificationCode();
-        //send verification email
         notificationService.VerificationEmail_PD(account.getEmail(),code);
-        //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createSystemUser(systemUser);
-        repositoryHandler.createDoctor(doctor);
-        //store verification code and account in database
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.execute(doctor);
         return "";
     }
-    public String register_ClinicAdmin(Account account, ClinicAdmin clinicAdmin, String formlink) throws MessagingException {
-        //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+    public String register_ClinicAdmin(ClinicAdmin clinicAdmin, String formlink) throws MessagingException {
+        Account account = clinicAdmin.getAccount();
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.execute(account.getEmail(),"email");
+        String usernameExists = existenceChecker.execute(account.getUsername(),"username");
+        if (!emailExists.isEmpty()) {
+            return emailExists;
         }
-        //generate verification code from 100000 to 999999
+        if (!usernameExists.isEmpty()) {
+            return usernameExists;
+        }
         String code = generateVerificationCode();
-        //send verification email
         notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
-        //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createClinicAdmin(clinicAdmin);
-        //store verification code and account in database
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.execute(clinicAdmin);
         return "";
     }
-    public String register_SystemAdmin(Account account, SystemAdmin systemAdmin, String formlink) throws MessagingException {
-        //check if the user exists
-        boolean accountExists = repositoryHandler.AccountExists(account.getEmail(),account.getUsername());
-        if (accountExists) {
-            return "Account already exists";
+    public String register_SystemAdmin(SystemAdmin systemAdmin,String formlink) throws MessagingException {
+        Account account = systemAdmin.getAccount();
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.execute(account.getEmail(),"email");
+        String usernameExists = existenceChecker.execute(account.getUsername(),"username");
+        if (!emailExists.isEmpty()) {
+            return emailExists;
         }
-        //generate verification code from 100000 to 999999
+        if (!usernameExists.isEmpty()) {
+            return usernameExists;
+        }
         String code = generateVerificationCode();
-        //send verification email
         notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
-        //add account to database
-        repositoryHandler.createAccount(account);
-        repositoryHandler.createSystemAdmin(systemAdmin);
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.execute(systemAdmin);
         //store verification code and account in database
         return "";
     }
 
     public String verify(Account account,String code) throws MessagingException {
         //verify the account
+        /*-If verified successfully return "success".
+        -If code was incorrect but email was correct return "wrong code".
+        -If email isn't in the system then return "email not registered".
+        -If account is already verified return "already verified*/
         boolean isValid = true;
         if (!isValid) {
             return "Invalid verification code";
@@ -94,10 +110,11 @@ public class RegistrationService {
                 notificationService.SendPatientCreatedEmail(account.getEmail());
             }
             else if (account.getRole() == Role.DOCTOR) {
-                //get doctor name
-                SystemUser systemUser = repositoryHandler.findSystemUserById(account.getId());
-                String name = systemUser.getFirstName();
-                notificationService.SendDoctorCreatedEmail(account.getEmail(),name);
+                //get the doctor name from database
+                Command finder = repositoryHandler.GetCommmand("find");
+                Doctor doctor = finder.execute(account.getEmail(),"email","doctor").getDoctor();
+                SystemUser systemUser = doctor.getSystemUser();
+                notificationService.SendDoctorCreatedEmail(account.getEmail(),systemUser.getFirstName());
             }
             else if (account.getRole() == Role.CLINIC_ADMIN) {
                 notificationService.SendClinicAdminCreatedEmail(account.getEmail());
@@ -113,9 +130,7 @@ public class RegistrationService {
 
     private String generateVerificationCode() {
         //generate verification code from 100000 to 999999
-        String code = String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
-        //add space between every 3 digits
-        return code;
+        return String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
     }
 
 }
