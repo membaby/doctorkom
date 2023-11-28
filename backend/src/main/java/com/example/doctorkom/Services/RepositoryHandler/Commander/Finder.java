@@ -4,7 +4,9 @@ import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.RepositoryHandler.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Finder extends Command{
     @Autowired
     public Finder(AccountRepository accountRepository,

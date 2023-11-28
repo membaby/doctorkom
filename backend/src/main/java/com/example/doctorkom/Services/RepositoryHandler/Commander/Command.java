@@ -7,7 +7,9 @@ import com.example.doctorkom.Entities.SystemAdmin;
 import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.RepositoryHandler.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public abstract class Command {
     protected final AccountRepository accountRepository;
     protected final PatientRepository patientRepository;
