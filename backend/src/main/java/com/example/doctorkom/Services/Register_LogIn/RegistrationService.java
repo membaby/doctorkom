@@ -16,7 +16,7 @@ public class RegistrationService {
         this.notificationService = notificationService;
         this.repositoryHandler = repositoryHandler;
     }
-    public String register_Patient(Patient patient) throws MessagingException {
+    public String registerPatient(Patient patient) {
         //check if the user exists
         SystemUser systemUser = patient.getSystemUser();
         Account account = systemUser.getAccount();
@@ -31,7 +31,11 @@ public class RegistrationService {
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
-        notificationService.VerificationEmail_PD(account.getEmail(),code);
+        try{
+            notificationService.VerificationEmail_PD(account.getEmail(),code);
+        } catch (MessagingException e) {
+            return "Could not send verification email. Problem with notification service";
+        }
         //add account to database
         repositoryHandler.AddAccount(account);
         repositoryHandler.AddSystemUser(systemUser);
@@ -39,7 +43,7 @@ public class RegistrationService {
         //store verification code and account in database
             return "";
     }
-    public String register_Doctor(Doctor doctor) throws MessagingException {
+    public String registerDoctor(Doctor doctor) {
         //check if the user exists
         SystemUser systemUser = doctor.getSystemUser();
         Account account = systemUser.getAccount();
@@ -54,7 +58,11 @@ public class RegistrationService {
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
-        notificationService.VerificationEmail_PD(account.getEmail(),code);
+        try{
+            notificationService.VerificationEmail_PD(account.getEmail(),code);
+        } catch (MessagingException e) {
+            return "Could not send verification email. Problem with notification service";
+        }
         //add account to database
         repositoryHandler.AddAccount(account);
         repositoryHandler.AddSystemUser(systemUser);
@@ -62,7 +70,7 @@ public class RegistrationService {
         //store verification code and account in database
         return "";
     }
-    public String register_ClinicAdmin(ClinicAdmin clinicAdmin, String formlink) throws MessagingException {
+    public String registerClinicAdmin(ClinicAdmin clinicAdmin, String formlink) {
         //check if the user exists
         Account account = clinicAdmin.getAccount();
         boolean emailExists = repositoryHandler.EmailAccountExists(account.getEmail());
@@ -76,14 +84,19 @@ public class RegistrationService {
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
-        notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
+        try{
+            notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
+        } catch (MessagingException e) {
+            return "Could not send verification email. Problem with notification service";
+        }
+        
         //add account to database
         repositoryHandler.AddAccount(account);
         repositoryHandler.AddClinicAdmin(clinicAdmin);
         //store verification code and account in database
         return "";
     }
-    public String register_SystemAdmin(SystemAdmin systemAdmin,String formlink) throws MessagingException {
+    public String registerSystemAdmin(SystemAdmin systemAdmin,String formlink) {
         //check if the user exists
         Account account = systemAdmin.getAccount();
         boolean emailExists = repositoryHandler.EmailAccountExists(account.getEmail());
@@ -97,7 +110,12 @@ public class RegistrationService {
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //send verification email
-        notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
+        try{
+            notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
+        } catch (MessagingException e) {
+            return "Could not send verification email. Problem with notification service";
+        }
+        
         //add account to database
         repositoryHandler.AddAccount(account);
         repositoryHandler.AddSystemAdmin(systemAdmin);
