@@ -44,7 +44,7 @@ public class Clinic {
         this.address = address;
         this.phone = phone;
         this.landline=landline;
-        System.out.print("deleted semo");
+
 
     }
 

@@ -19,12 +19,26 @@ public class ClinicService {
     }
 
     public String createClinic(Clinic clinic) {
-           clinicRepository.save(clinic);
-           return "Clinic created successfully";
+        if (clinic != null &&
+                clinic.getAddress() != null &&
+                clinic.getEmail() != null &&
+                clinic.getPhone() != null &&
+                clinic.getLandline() != null &&
+                clinic.getName() != null) {
+
+            if(clinicRepository.save(clinic)!=null)
+            return "Clinic created successfully";
+            else
+                return "Creation failed";
+        }
+
+        else
+            return "Clinic data cannot be null";
     }
     @Transactional
     public String removeClinic(Clinic clinic) {
         //delete by id will do nothing if the id doesnt exist
+        if (clinic != null)
         clinicRepository.deleteById(clinic.getId());
         return "Done";
     }
