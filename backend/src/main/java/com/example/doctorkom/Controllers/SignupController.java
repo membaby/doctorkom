@@ -12,7 +12,7 @@ import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
 import com.example.doctorkom.Entities.Doctor;
 
 @RestController
-@RequestMapping("/signup")
+@RequestMapping("/registration")
 public class SignupController {
 
 	@Autowired
