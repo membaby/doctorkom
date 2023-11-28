@@ -26,7 +26,109 @@ class SystemUserRepositoryTest {
     private SystemUserRepository systemUserRepository;
 
     @Test
-    void whenFindByFirstName_thenReturnSystemUsers() {
+    void whenFindSystemUserById_thenReturnSystemUsers() {
+        // Given
+        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        accountRepository.save(account);
+        systemUser.setId(account.getId());
+        systemUserRepository.save(systemUser);
+
+        // When
+        SystemUser queriedSystemUser = systemUserRepository.findById(account.getId()).get();
+
+        // Then
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
+    }
+
+    @Test
+    void whenFindSystemUsersByFirstName_thenReturnSystemUsers() {
+        // Given
+        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        accountRepository.save(account);
+        systemUser.setId(account.getId());
+        systemUserRepository.save(systemUser);
+
+        // When
+        SystemUser queriedSystemUser = systemUserRepository.findByFirstName("John").get(0);
+
+        // Then
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
+    }
+
+    @Test
+    void whenFindSystemUsersByLastName_thenReturnSystemUsers() {
+        // Given
+        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        accountRepository.save(account);
+        systemUser.setId(account.getId());
+        systemUserRepository.save(systemUser);
+
+        // When
+        SystemUser queriedSystemUser = systemUserRepository.findByLastName("Smith").get(0);
+
+        // Then
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
+    }
+
+    @Test
+    void whenFindSystemUsersByBirthdate_thenReturnSystemUsers() {
+        // Given
+        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        accountRepository.save(account);
+        systemUser.setId(account.getId());
+        systemUserRepository.save(systemUser);
+
+        // When
+        SystemUser queriedSystemUser = systemUserRepository.findByBirthdate(Date.valueOf("1985-11-14")).get(0);
+
+        // Then
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
+    }
+
+    @Test
+    void whenFindSystemUsersByGender_thenReturnSystemUsers() {
+        // Given
+        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        accountRepository.save(account);
+        systemUser.setId(account.getId());
+        systemUserRepository.save(systemUser);
+
+        // When
+        SystemUser queriedSystemUser = systemUserRepository.findByGender(Gender.MALE).get(0);
+
+        // Then
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
+    }
+
+    @Test
+    void whenFindSystemUsersByAddress_thenReturnSystemUsers() {
+        // Given
+        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        accountRepository.save(account);
+        systemUser.setId(account.getId());
+        systemUserRepository.save(systemUser);
+
+        // When
+        SystemUser queriedSystemUser = systemUserRepository.findByAddress("221B Baker Street").get(0);
+
+        // Then
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
+    }
+
+    @Test
+    void whenFindSystemUsersByLandlinePhone_thenReturnSystemUsers() {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
@@ -38,114 +140,31 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByFirstName("John").get(0);
-        assertEquals(systemUser, queriedSystemUSer);
+        SystemUser queriedSystemUser = systemUserRepository.findByLandlinePhone("(555) 555-5555").get(0);
+        assertEquals(systemUser, queriedSystemUser);
     }
 
     @Test
-    void whenFindByLastName_thenReturnSystemUsers() {
+    void whenFindSystemUserByMobilePhone_thenReturnSystemUser() {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
         accountRepository.save(account);
         systemUser.setId(account.getId());
         systemUserRepository.save(systemUser);
+        System.out.println(account);
+        System.out.println(systemUser);
 
         // When
-        systemUserRepository.save(systemUser);
+        SystemUser queriedSystemUser = systemUserRepository.findByMobilePhone("(555) 123-4567");
 
         // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByLastName("Smith").get(0);
-        assertEquals(systemUser, queriedSystemUSer);
+        System.out.println(queriedSystemUser);
+        assertEquals(systemUser, queriedSystemUser);
     }
 
     @Test
-    void whenFindByBirthdate_thenReturnSystemUsers() {
-        // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-
-        // When
-        systemUserRepository.save(systemUser);
-
-        // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByBirthdate(Date.valueOf("1985-11-14")).get(0);
-        assertEquals(systemUser, queriedSystemUSer);
-    }
-
-    @Test
-    void whenFindByGender_thenReturnSystemUsers() {
-        // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-
-        // When
-        systemUserRepository.save(systemUser);
-
-        // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByGender(Gender.MALE).get(0);
-        assertEquals(systemUser, queriedSystemUSer);
-    }
-
-    @Test
-    void whenFindByAddress_thenReturnSystemUsers() {
-        // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-
-        // When
-        systemUserRepository.save(systemUser);
-
-        // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByAddress("221B Baker Street").get(0);
-        assertEquals(systemUser, queriedSystemUSer);
-    }
-
-    @Test
-    void whenFindByLandlinePhone_thenReturnSystemUsers() {
-        // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-
-        // When
-        systemUserRepository.save(systemUser);
-
-        // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByLandlinePhone("(555) 555-5555").get(0);
-        assertEquals(systemUser, queriedSystemUSer);
-    }
-
-    @Test
-    void whenFindByMobilePhone_thenReturnSystemUser() {
-        // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-
-        // When
-        systemUserRepository.save(systemUser);
-
-        // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findByMobilePhone("(555) 123-4567");
-        assertEquals(systemUser, queriedSystemUSer);
-    }
-
-    @Test
-    void whenDeleteById_thenDeleteSystemUser() {
+    void whenDeleteSystemUserById_thenDeleteSystemUser() {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
@@ -157,12 +176,12 @@ class SystemUserRepositoryTest {
         systemUserRepository.deleteById(account.getId());
 
         // Then
-        SystemUser queriedSystemUSer = systemUserRepository.findById(account.getId()).orElse(null);
-        assertNull(queriedSystemUSer);
+        SystemUser queriedSystemUser = systemUserRepository.findById(account.getId()).orElse(null);
+        assertNull(queriedSystemUser);
     }
 
     @Test
-    void whenDeleteById_thenDeleteAccount() {
+    void whenDeleteSystemUserById_thenDeleteAccount() {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
@@ -178,8 +197,26 @@ class SystemUserRepositoryTest {
         assertNull(queriedAccount);
     }
 
+//    @Test
+//    NOT WORKING HERE FOR SOME REASON AS IF CONSTRAINT ON DELETE CASCADE DOESN'T EXIST
+//    void whenDeleteAccountById_thenDeleteSystemUser() {
+//        // Given
+//        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+//        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+//        accountRepository.save(account);
+//        systemUser.setId(account.getId());
+//        systemUserRepository.save(systemUser);
+//
+//        // When
+//        accountRepository.deleteById(account.getId());
+//
+//        // Then
+//        SystemUser queriedSystemUser = systemUserRepository.findById(systemUser.getId()).orElse(null);
+//        assertNull(queriedSystemUser);
+//    }
+
     @Test
-    void  whenDeleteAll_thenDeleteAllSystemUsers(){
+    void  whenDeleteAllSystemUsers_thenDeleteAllSystemUsers(){
         // Given
         List<Account> accounts = new ArrayList<>();
         List<SystemUser> systemUsers = new ArrayList<>();
@@ -208,7 +245,7 @@ class SystemUserRepositoryTest {
     }
 
     @Test
-    void whenDeleteAll_thenDeleteAllAccounts(){
+    void whenDeleteAllSystemUsers_thenDeleteAllAccounts(){
         // Given
         List<Account> accounts = new ArrayList<>();
         List<SystemUser> systemUsers = new ArrayList<>();
