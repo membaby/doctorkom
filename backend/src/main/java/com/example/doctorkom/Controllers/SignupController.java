@@ -23,8 +23,9 @@ public class SignupController {
 	@Autowired
 	RegistrationService registrationService;
 	
-	@PutMapping("/patient")
+	@PostMapping("/patient")
 	public SignupResponse patientSignup(@RequestBody PatientDTO patientDTO) {
+		System.out.println("trying to signup");
 		//Create Patient entity
 		Patient patient = patientMapper.toEntity(patientDTO);
 		//Call bussiness logic to register patient
@@ -33,7 +34,7 @@ public class SignupController {
 		return response;
 	}
 
-	@PutMapping("/doctor")
+	@PostMapping("/doctor")
 	public SignupResponse doctorSignup(@RequestBody DoctorDTO doctorDTO)
 	{
 		//Create doctor entity.
