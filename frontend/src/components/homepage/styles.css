@@ -3,7 +3,7 @@ body {
     padding: 0;
     height: 100vh;
     width: 100vw;
-    background-image: url('C:\Users\dell\Desktop\doctorkom\frontend\public\images\wp2655106.jpg');
+    background-image: url('../../../public/images/wp2655106.jpg');
     background-size: cover;
     background-position: center;
    }
