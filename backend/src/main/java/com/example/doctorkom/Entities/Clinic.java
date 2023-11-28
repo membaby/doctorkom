@@ -29,9 +29,6 @@ public class Clinic {
     @Column(name = "Email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ClinicAdminID")
-    private ClinicAdmin clinicAdmin;
 
     public Clinic(String name, String address, String email) {
         this.name = name;
