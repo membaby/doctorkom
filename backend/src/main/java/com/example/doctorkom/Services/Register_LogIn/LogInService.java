@@ -48,7 +48,7 @@ public class LogInService {
         }
     }
 
-    public EntityWrapper getAccountDetails(Account account) {
+    private EntityWrapper getAccountDetails(Account account) {
         
         EntityWrapper wrapper = new EntityWrapper();
         switch (account.getRole()) {
