@@ -2,6 +2,7 @@ package com.example.doctorkom.Controllers;
 
 import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Repositories.ClinicRepository;
+import com.example.doctorkom.Services.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ public class ClinicController {
     @Autowired
     private ClinicRepository clinicRepository; //  ClinicRepository that interacts with database
 
+    private ClinicService clinicService=new ClinicService(clinicRepository);
+
     @PostMapping
     public ResponseEntity<String> createClinic(@RequestBody Clinic clinicData) {
         // Validate clinic data
@@ -22,7 +25,8 @@ public class ClinicController {
         }
         try {
             // Save the clinic data
-            clinicRepository.save(clinicData);
+//            clinicRepository.save(clinicData);
+            clinicService.createClinic(clinicData);
             return ResponseEntity.status(HttpStatus.CREATED).body("Clinic created successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating clinic");
