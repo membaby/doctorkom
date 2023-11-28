@@ -38,10 +38,9 @@ const Register = ({ userType }) => {
     }
   }, []);
 
-  const [user, setUser] = useState({}); // Assuming user is an object
-  const [profile, setProfile] = useState({}); // Assuming profile is an object
+  const [user, setUser] = useState({});
 
-  const login = useGoogleLogin({
+  const googleRegister = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setUser(codeResponse);
     },
@@ -56,12 +55,11 @@ const Register = ({ userType }) => {
           Accept: 'application/json',
         },
       }).then((res) => {
-        setProfile(res.data);
         setFirstName(res.data.given_name);
         setLastName(res.data.family_name);
         setEmail(res.data.email);
         setUsername(res.data.id);
-        setPassword("GOOGLEAUTH");
+        setPassword("mchbomNZPYvmxbv0e3yNAy");
         setGender("MALE");
         handleRegister();
       }).catch((err) => console.log(err));
@@ -110,6 +108,9 @@ const Register = ({ userType }) => {
     } else if (invitiationCode) {
       data.invitiationCode = invitiationCode;
     }
+
+    document.getElementById('display').innerHTML = 'Creating your account.. Please wait!';
+    document.getElementById('display').style.display = 'block';
   
     fetch('http://localhost:8080/registration/patient', {
         method: 'POST',
@@ -168,12 +169,12 @@ const Register = ({ userType }) => {
 
             <div className="col mb-3">
               <label className="form-label">Last Name</label>
-              <input type="email" className="form-control" onChange={(e) => setLastName(e.target.value)} />
+              <input type="text" className="form-control" onChange={(e) => setLastName(e.target.value)} />
             </div>
 
             <div className="col mb-3">
               <label className="form-label">Email</label>
-              <input type="text" className="form-control" onChange={(e) => setEmail(e.target.value)} />
+              <input type="email" className="form-control" onChange={(e) => setEmail(e.target.value)} />
             </div>
           </div>
 
@@ -277,7 +278,7 @@ const Register = ({ userType }) => {
             <button className="btn btn-success w-100" onClick={handleRegister}>Register</button>
             </div>
             <div className="col mb-3">
-              <button className="btn btn-danger w-100" onClick={()=>{login()}} >Sign up with Google</button>
+              <button className="btn btn-danger w-100" onClick={()=>{googleRegister()}} >Sign up with Google</button>
             </div>
           </div>
 

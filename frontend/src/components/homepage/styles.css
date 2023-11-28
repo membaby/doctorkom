@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .homepage-container {
   margin: 0;
   padding: 0;
@@ -7,17 +6,6 @@
   background-size: cover;
   background-position: center;
 }
-=======
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    background-image: url('../../../public/images/wp2655106.jpg');
-    background-size: cover;
-    background-position: center;
-   }
->>>>>>> 403002c5d0b76ee552349ee9d66ee74a9b7781b4
 
 .well-being-text {
   font-size: 3rem;

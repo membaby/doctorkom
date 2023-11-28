@@ -6,7 +6,6 @@ import './App.css';
 import Navbar from './components/navbar';
 import Register from './components/register';
 import Homepage from './components/homepage';
-// import RegisterD from './components/registerd';
 
 function App() {
   return (
