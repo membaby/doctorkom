@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClinicService {
 
@@ -17,22 +19,14 @@ public class ClinicService {
     }
 
     public String createClinic(Clinic clinic) {
-       if( clinicRepository.findByEmail(clinic.getEmail()) == null) {
            clinicRepository.save(clinic);
            return "Clinic created successfully";
-       }
-       else{
-           return "Clinic already on ";
-       }
     }
     @Transactional
     public String removeClinic(Clinic clinic) {
-        Clinic existingClinic = clinicRepository.findByEmail(clinic.getEmail());
-        if (existingClinic != null) {
-            clinicRepository.deleteByEmail(existingClinic.getEmail());
-            return "Clinic removed successfully";
-        } else {
-            return "Clinic not found";
-        }
+        //delete by id will do nothing if the id doesnt exist
+        clinicRepository.deleteById(clinic.getId());
+        return "Done";
     }
+
 }

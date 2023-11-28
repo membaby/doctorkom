@@ -3,12 +3,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 
 @Entity
 @Table(name = "Clinic")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Clinic {
     @Id
@@ -39,7 +44,10 @@ public class Clinic {
         this.address = address;
         this.phone = phone;
         this.landline=landline;
+        System.out.print("deleted semo");
+
     }
+
 
     public String getEmail() {
         return email;
@@ -51,7 +59,9 @@ public class Clinic {
     public String getAddress() {
         return address;
     }
-
+    public int getId() {
+        return id;
+    }
     public String getPhone() {
         return phone;
     }
@@ -59,4 +69,12 @@ public class Clinic {
     public String getLandline() {
         return landline;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Clinic clinic = (Clinic) o;
+        return id != null && Objects.equals(id, clinic.id);
+    }
+
 }

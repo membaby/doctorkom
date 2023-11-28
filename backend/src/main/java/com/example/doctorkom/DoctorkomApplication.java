@@ -28,11 +28,12 @@ public class DoctorkomApplication {
 @Autowired
 public CommandLineRunner commandLineRunner (ClinicRepository clinicRepository) {
 	return runner -> {
-		Clinic clinic=new Clinic("sz","sm","sm","sm","sm");
+		Clinic clinic=new Clinic("s3","s3","sm","3m","sm");
+
 //		clinicRepository.save(clinic);
-//		clinicService.createClinic(clinic);
+		clinicService.createClinic(clinic);
+		Thread.sleep(100);
 		clinicService.removeClinic(clinic);
-		System.out.print("deleted semo");
 
 	};
 }
