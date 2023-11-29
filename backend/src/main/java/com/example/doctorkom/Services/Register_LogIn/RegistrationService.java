@@ -20,7 +20,7 @@ public class RegistrationService {
     
     
 
-    public String register_Patient(Patient patient) throws MessagingException {
+    public String registerPatient(Patient patient){
         //check if the user exists
         SystemUser systemUser = patient.getSystemUser();
         Account account = systemUser.getAccount();

@@ -26,7 +26,7 @@ public class Finder extends Command{
         EntityWrapper entityWrapper = new EntityWrapper();
         switch (type) {
             case "email" -> {
-                Account account = accountRepository.findByEmail(attribute);
+                Account account = accountRepository.findByEmail(attribute).orElse(null);
                 if (account != null) {
                     switch (role) {
                         case "patient" -> {
@@ -53,7 +53,7 @@ public class Finder extends Command{
                 }
             }
             case "username" -> {
-                Account account = accountRepository.findByUsername(attribute);
+                Account account = accountRepository.findByUsername(attribute).orElse(null);
                 if (account != null) {
                     switch (role) {
                         case "patient" -> {
@@ -115,7 +115,8 @@ public class Finder extends Command{
     public Verification executefind(Account account) {
         //find verification by account
         //find account by email
-        account = accountRepository.findByEmail(account.getEmail());
+        account = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        if (account == null) return null;
         //find verification by account id
         Verification verification = verificationRepository.findById(account.getId()).orElse(null);
         return verification;
@@ -123,7 +124,7 @@ public class Finder extends Command{
     @Override
     public Account executefind(String email) {
         //find account by email
-        Account account = accountRepository.findByEmail(email);
+        Account account = accountRepository.findByEmail(email).get();
         return account;
     }
 

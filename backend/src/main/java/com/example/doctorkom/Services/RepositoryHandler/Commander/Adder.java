@@ -32,7 +32,7 @@ public class Adder extends Command{
         Account account = systemUser.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
         Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
 
         systemUser.setAccount(newaccount);
@@ -50,7 +50,7 @@ public class Adder extends Command{
         Account account = systemUser.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
         Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
         systemUser.setAccount(newaccount);
         systemUser.setId(newaccount.getId());
@@ -69,10 +69,10 @@ public class Adder extends Command{
         Account account = systemAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
         Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
         systemAdmin.setAccount(newaccount);
-        systemAdmin.setAccountID(newaccount.getId());
+        systemAdmin.setId(newaccount.getId());
         systemAdminRepository.save(systemAdmin);
 
     }
@@ -82,10 +82,10 @@ public class Adder extends Command{
         Account account = clinicAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Optional<Account> accountOptional = accountRepository.findByEmail(account.getEmail());
         Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
         clinicAdmin.setAccount(newaccount);
-        clinicAdmin.setAccountID(newaccount.getId());
+        clinicAdmin.setId(newaccount.getId());
         clinicAdminRepository.save(clinicAdmin);
 
     }
