@@ -1,6 +1,9 @@
 package com.example.doctorkom;
 
+import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Repositories.*;
+import com.example.doctorkom.Services.ClinicService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,15 +22,18 @@ public class DoctorkomApplication {
 	public DoctorkomApplication(ClinicService clinicService) {
 		this.clinicService = clinicService;
 	}
-@Bean
-@Autowired
-public CommandLineRunner commandLineRunner (ClinicRepository clinicRepository) {
-	return runner -> {
-		Clinic clinic=new Clinic("sz","sm","sm","sm","sm");
-//		clinicRepository.save(clinic);
-//		clinicService.createClinic(clinic);
-		clinicService.removeClinic(clinic);
-		System.out.print("deleted semo");
+
+	// @Bean
+	// @Autowired
+	// public CommandLineRunner commandLineRunner (ClinicRepository clinicRepository) {
+	// // 	return runner -> {
+	// // 		Clinic clinic=new Clinic("sz","sm","sm","sm","sm");
+	// // //		clinicRepository.save(clinic);
+	// // //		clinicService.createClinic(clinic);
+	// // 		clinicService.removeClinic(clinic);
+	// // 		System.out.print("deleted semo");
+	// // 	};
+	// }
 
 	@Bean
 	@Autowired

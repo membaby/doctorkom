@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ClinicDTO {
     public int id;
-    public String name, address, email;
+    public String name, address, email, phone, landline;
 }
