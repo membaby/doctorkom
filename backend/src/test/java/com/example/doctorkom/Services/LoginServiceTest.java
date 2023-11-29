@@ -64,7 +64,7 @@ public class LoginServiceTest {
     public void validLoginWithUsername() {
         //Perform login with valid username and password.
         //Confirm successful login
-        Account account = new Account("verified_patient", "verified_patient", "123", null);
+        Account account = new Account("asdfa", "asdfa", "123", null);
         EntityWrapper fullAccount = loginService.login(account);
         assertNotNull(fullAccount);
         assertNotNull(fullAccount.getPatient());
