@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ClinicValidatorTest {
 
+
     // Test isValidClinic method with valid clinic data
     @Test
     public void testIsValidClinic_ValidData_ReturnsTrue() {
