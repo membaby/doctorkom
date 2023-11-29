@@ -19,22 +19,27 @@ public class ClinicService {
     }
 
     public String createClinic(Clinic clinic) {
-        if (clinic != null &&
-                clinic.getAddress() != null &&
-                clinic.getEmail() != null &&
-                clinic.getPhone() != null &&
-                clinic.getLandline() != null &&
-                clinic.getName() != null) {
+        try {
+            if (clinic != null &&
+                    clinic.getAddress() != null &&
+                    clinic.getEmail() != null &&
+                    clinic.getPhone() != null &&
+                    clinic.getLandline() != null &&
+                    clinic.getName() != null) {
 
-            if(clinicRepository.save(clinic)!=null)
-            return "Clinic created successfully";
-            else
-                return "Creation failed";
+                if (clinicRepository.save(clinic) != null) {
+                    return "Clinic created successfully";
+                } else {
+                    return "Creation failed";
+                }
+            } else {
+                return "Clinic data cannot be null";
+            }
+        } catch (NullPointerException e) {
+            return "NullPointerException occurred during clinic creation. Please check the input data.";
         }
-
-        else
-            return "Clinic data cannot be null";
     }
+    
     @Transactional
     public String removeClinic(Clinic clinic) {
         //delete by id will do nothing if the id doesnt exist

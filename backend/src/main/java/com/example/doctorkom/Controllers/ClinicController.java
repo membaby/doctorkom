@@ -9,12 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clinics")
+@RequestMapping("/newclinic")
 public class ClinicController {
 
     @Autowired
     private ClinicRepository clinicRepository; //  ClinicRepository that interacts with database
-
+    
+    @Autowired
     private ClinicService clinicService=new ClinicService(clinicRepository);
 
     @PostMapping
@@ -25,10 +26,10 @@ public class ClinicController {
         }
         try {
             // Save the clinic data
-//            clinicRepository.save(clinicData);
             clinicService.createClinic(clinicData);
             return ResponseEntity.status(HttpStatus.CREATED).body("Clinic created successfully");
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating clinic");
         }
     }
