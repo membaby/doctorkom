@@ -16,6 +16,7 @@ public class VerificationController {
 
     @GetMapping("/verify")
     public String verify(@RequestParam(name="email")String email, @RequestParam(name="code") String code) {
+        System.out.println("Verifying account");
         Account account = new Account();
         account.setEmail(email);
         return registrationService.verify(account, code);
