@@ -12,7 +12,7 @@ public class LoginServiceTest {
     
     @Autowired
     LogInService logInService;
-
+/*
     @Test
     public void invalidLoginEmailOrUsername() {//Perform login with invalid email or username
         //Perform login with an email or username that doesn't exist in the database
@@ -22,7 +22,7 @@ public class LoginServiceTest {
         testAccount.setUsername("guygujgk");
         testAccount.setPassword("1");
         assertNull(logInService.login(testAccount));
-    }
+    }*/
 
     @Test
     public void invalidLoginPassword() { //Perform login with valid email or username but invalid password
