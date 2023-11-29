@@ -30,6 +30,9 @@ function App() {
           <Route path='/register/clinic' element={ <Register  userType="clinic" /> } />
           <Route path='/login' element={ <Login /> } />
           <Route path='/verification' element={ <Verification /> } />
+          <Route path='/dashboard/admin' element={ <AdminHomePage /> } />
+          <Route path='/dashboard/clinic' element={ <ClinicHomePage /> } />
+          <Route path='/dashboard/doctor' element={ <DoctorHomePage /> } />
         </Routes>
 
       </div>

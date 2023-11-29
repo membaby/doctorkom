@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import './styles.css'
 import { useLocation } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 
 const Register = ({ userType }) => {
   const [firstName, setFirstName] = useState('');
@@ -67,10 +68,12 @@ const Register = ({ userType }) => {
   }, [user]); // Depend on user object
 
   const handleRegister = () => {
+    const secretKey = 'your-secret-key';
+    
     const account = {
       email: email,
       username: username,
-      password: password,
+      password: CryptoJS.AES.encrypt(password, secretKey).toString(),
       role: userType === 'patient' ? 'PATIENT' : userType === 'doctor' ? 'DOCTOR' : userType === 'admin' ? 'SYSTEM_ADMIN' : userType === 'clinic' ? 'CLINIC_ADMIN' : ''
     };
 
