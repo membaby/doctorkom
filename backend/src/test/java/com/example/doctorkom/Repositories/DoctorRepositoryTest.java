@@ -147,5 +147,4 @@ class DoctorRepositoryTest {
         // Then
         assertFalse(accountRepository.existsById(account.getId()));
     }
-
 }
