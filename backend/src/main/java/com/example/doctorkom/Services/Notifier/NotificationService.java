@@ -80,7 +80,7 @@ public class NotificationService {
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
         helper.setTo(notification.getTo());
         helper.setSubject(notification.getSubject());
-        helper.setText(notification.getContent());
+        helper.setText(notification.getContent(), true);
         helper.setFrom("doctorkomegy@outlook.com");
 
         mailSender.send(mimeMessage);
