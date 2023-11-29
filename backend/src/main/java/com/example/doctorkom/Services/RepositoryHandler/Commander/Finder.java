@@ -120,6 +120,12 @@ public class Finder extends Command{
         Verification verification = verificationRepository.findById(account.getId()).orElse(null);
         return verification;
     }
+    @Override
+    public Account executefind(String email) {
+        //find account by email
+        Account account = accountRepository.findByEmail(email);
+        return account;
+    }
 
 
 

@@ -67,4 +67,15 @@ public abstract class Command {
     }
     public void executedelete(Verification verification){
     }
+
+    public Account executefind(String email) {
+        return null;
+    }
+
+    public void executedelete(Account account){
+
+    }
+
+    public void executeadd(Account account) {
+    }
 }

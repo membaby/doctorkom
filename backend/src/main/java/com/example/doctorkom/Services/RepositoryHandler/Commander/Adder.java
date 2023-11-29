@@ -87,4 +87,8 @@ public class Adder extends Command{
     public void executeadd(Verification verification) {
         verificationRepository.save(verification);
     }
+    @Override
+    public void executeadd(Account account) {
+        accountRepository.save(account);
+    }
 }

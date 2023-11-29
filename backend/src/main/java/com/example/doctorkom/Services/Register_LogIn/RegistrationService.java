@@ -148,6 +148,7 @@ public class RegistrationService {
         Command finder = repositoryHandler.GetCommmand("find");
         Command existenceChecker = repositoryHandler.GetCommmand("check");
         Command deleter = repositoryHandler.GetCommmand("delete");
+        Command adder = repositoryHandler.GetCommmand("add");
         Verification verification = finder.executefind(account);
         if (verification == null) {
             String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
@@ -164,6 +165,11 @@ public class RegistrationService {
         //account is verified
         //delete verification from database
         deleter.executedelete(verification);
+        account = finder.executefind(account.getEmail());
+        deleter.executedelete(account);
+        account.setEnabled(true);
+        adder.executeadd(account);
+        //send email to the user
         if (account.getRole() == Role.PATIENT) {
             notificationService.SendPatientCreatedEmail(account.getEmail());
         }

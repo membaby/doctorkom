@@ -50,5 +50,9 @@ public class Deleter extends Command{
     public void executedelete(Verification verification) {
         verificationRepository.delete(verification);
     }
+    @Override
+    public void executedelete(Account account) {
+        accountRepository.delete(account);
+    }
 
 }
