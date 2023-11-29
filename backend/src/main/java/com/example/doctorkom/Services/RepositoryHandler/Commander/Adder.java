@@ -1,9 +1,12 @@
 package com.example.doctorkom.Services.RepositoryHandler.Commander;
 
 import com.example.doctorkom.Entities.*;
+
 import com.example.doctorkom.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class Adder extends Command{
@@ -29,7 +32,9 @@ public class Adder extends Command{
         Account account = systemUser.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
+
         systemUser.setAccount(newaccount);
         systemUser.setId(newaccount.getId());
         systemUserRepository.save(systemUser);
@@ -45,7 +50,8 @@ public class Adder extends Command{
         Account account = systemUser.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
         systemUser.setAccount(newaccount);
         systemUser.setId(newaccount.getId());
         systemUserRepository.save(systemUser);
@@ -63,7 +69,8 @@ public class Adder extends Command{
         Account account = systemAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
         systemAdmin.setAccount(newaccount);
         systemAdmin.setAccountID(newaccount.getId());
         systemAdminRepository.save(systemAdmin);
@@ -75,7 +82,8 @@ public class Adder extends Command{
         Account account = clinicAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        Optional<Account> accountOptional = Optional.ofNullable(accountRepository.findByEmail(account.getEmail()));
+        Account newaccount = accountOptional.orElseThrow(() -> new RuntimeException("Account not found"));
         clinicAdmin.setAccount(newaccount);
         clinicAdmin.setAccountID(newaccount.getId());
         clinicAdminRepository.save(clinicAdmin);
