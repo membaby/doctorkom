@@ -1,29 +1,20 @@
-// import React from 'react';
-// import './styles.css';
-
-// const Homepage = () => {
-//   return (
-//     <>
-//    Putting your well-being first
-//     </>
-//   );
-// };
-
-// export default Homepage;
-
 import React from 'react';
 import './styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 const Homepage = () => {
   return (
     <>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-
-    
-      <h1 className="well-being-text">Putting your well-being first</h1>
-      <button type="button" class="btnn ">Search</button>
-
-
+      <div className="homepage-container">
+        <h1 className="well-being-text">Putting Your Well-being First</h1>
+        <a href="#">
+          <button type="button" className="homepage-button">Find Doctors</button>
+        </a>
+        <a href="/register">
+          <button type="button" className="homepage-button">Join Platform</button>
+        </a>
+      </div>
     </>
   );
 };
