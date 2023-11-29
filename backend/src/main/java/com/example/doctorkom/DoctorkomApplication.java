@@ -14,6 +14,20 @@ public class DoctorkomApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DoctorkomApplication.class, args);
 	}
+	private final ClinicService clinicService;
+	@Autowired
+	public DoctorkomApplication(ClinicService clinicService) {
+		this.clinicService = clinicService;
+	}
+@Bean
+@Autowired
+public CommandLineRunner commandLineRunner (ClinicRepository clinicRepository) {
+	return runner -> {
+		Clinic clinic=new Clinic("sz","sm","sm","sm","sm");
+//		clinicRepository.save(clinic);
+//		clinicService.createClinic(clinic);
+		clinicService.removeClinic(clinic);
+		System.out.print("deleted semo");
 
 	@Bean
 	@Autowired

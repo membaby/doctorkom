@@ -1,6 +1,4 @@
 package com.example.doctorkom.Entities;
-
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +12,15 @@ import java.util.Objects;
 @Table(name = "Clinic")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Clinic {
     @Id
-    @Column(name = "ClinicId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private Integer id;
+
+    @Column(name = "Email")
+    private String email;
 
     @Column(name = "Name")
     private String name;
@@ -27,33 +28,23 @@ public class Clinic {
     @Column(name = "Address")
     private String address;
 
-    @Column(name = "Email")
-    private String email;
 
-    @Column(name = "MobilePhone")
-    private String mobilePhone;
+    @Column(name = "Phone")
+    private String phone;
 
-    @Column(name = "LandlinePhone")
-    private String landlinePhone;
+    @Column(name = "Landline")
+    private String landline;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ClinicId")
-    private ClinicAdmin admin;
 
-    public Clinic(String name, String address, String email, String mobilePhone, String landlinePhone, ClinicAdmin admin) {
+    public Clinic(String email, String name, String address, String phone,String landline) {
+        this.email = email;
         this.name = name;
         this.address = address;
-        this.email = email;
-        this.mobilePhone = mobilePhone;
-        this.landlinePhone = landlinePhone;
-        this.admin = admin;
+        this.phone = phone;
+        this.landline=landline;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Clinic clinic = (Clinic) o;
-        return id != null && Objects.equals(id, clinic.id);
+    public String getEmail() {
+        return email;
     }
 }

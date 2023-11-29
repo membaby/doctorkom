@@ -8,6 +8,9 @@ import Register from './components/register';
 import Verification from './components/verification';
 import Homepage from './components/homepage';
 import Login from './components/login';
+import AdminHomePage from './components/SystemAdminView';
+import ClinicHomePage from './components/ClinicView';
+import DoctorHomePage from './components/DoctorView';
 
 function App() {
   return (
