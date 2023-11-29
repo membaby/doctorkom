@@ -24,13 +24,40 @@ const Login = () => {
     .then(response => response.json())
     .then(response => {
         if (response.success) {
-            // window.location.href = '/search';
+          // localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.role);
+          if (response.role === 'PATIENT') {
+                window.location.href = '/search';
+            } else {
+                window.location.href = '/dashboard/' + response.role.toLowerCase();
+            }
         } else {
             showError(response.msg);
         }
     })
     .catch((error) => {
-        showError('Internal Server Error occured. Please try again later.')
+        showError('Error occured. Please try again later.')
+    });
+  }
+
+  const forgotPassword = () => {
+    const data = {
+      username: username,
+    }
+
+    fetch('http://localhost:8080/recover_password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.text())
+    .then(response => {
+      showError(response);
+    })
+    .catch((error) => {
+        showError('Error occured. Please try again later.')
     });
   }
 
@@ -71,11 +98,12 @@ const Login = () => {
 
 	return (
 		<>
+    <div className="container">
+      <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
       <div className="card mx-auto mt-5" style={{ width: '400px', height: '400px' }}>
         <div className="card-body d-flex flex-column align-items-center justify-content-center">
           <h2 className="card-title text-center mb-4">Login</h2>
 
-          <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
 
           <form className="w-100" onSubmit={(e) => e.preventDefault()}>
 
@@ -92,9 +120,12 @@ const Login = () => {
               <button className="btn btn-success w-100" onClick={handleLogin}>Login</button>
               <button className="btn btn-danger w-100" onClick={()=>{googleLogin()}} >Login with Google</button>
             </div>
+
+            <div className="mt-3 clickable text-primary" onClick={forgotPassword}>Forgot Password?</div>
           </form>
         </div>
       </div>
+    </div>
 		</>
   	);
 };

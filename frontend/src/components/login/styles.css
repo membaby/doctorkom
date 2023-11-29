@@ -1,4 +1,7 @@
 .btn{
+    color: #fff;
+}
 
-color: #fff;
+.clickable {
+    cursor: pointer;
 }

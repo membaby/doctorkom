@@ -1,7 +1,7 @@
 
 
 // export default App;
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
