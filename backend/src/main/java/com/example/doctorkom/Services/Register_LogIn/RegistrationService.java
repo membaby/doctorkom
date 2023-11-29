@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 
 @Service
 public class RegistrationService {
-    NotificationService notificationService;
-    RepositoryHandler repositoryHandler;
     @Autowired
-    public RegistrationService(NotificationService notificationService, RepositoryHandler repositoryHandler) {
-        this.notificationService = notificationService;
-        this.repositoryHandler = repositoryHandler;
-    }
+    NotificationService notificationService;
+    @Autowired
+    RepositoryHandler repositoryHandler;
+    
+    
+
     public String register_Patient(Patient patient) throws MessagingException {
         //check if the user exists
         SystemUser systemUser = patient.getSystemUser();
