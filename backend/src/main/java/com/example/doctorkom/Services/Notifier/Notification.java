@@ -13,7 +13,7 @@ public class Notification {
     private String subject;
     private String content;
 
-    public String VerifyEmailContent_PD(String code){
+    public String VerifyEmailContent_PD(String email, String code){
         String htmlContent = "<html>"
                 + "<head>"
                 + "<style>"
@@ -28,9 +28,7 @@ public class Notification {
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear user,</p>"
-                + "    <p>Thank you for signing up! Please verify your email address to activate your account.</p>"
-                + "    <p><strong>Verification Code: <u>" + code + "</u></strong></p>"
-                + "    <p>Enter this code on the website to complete the verification process.</p>"
+                + "    <p>Thank you for signing up! Please verify your account at this <a href=\"localhost:3000/verify/"+email+"/"+code+"\">link</a>.</p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
                 + "</body>"
