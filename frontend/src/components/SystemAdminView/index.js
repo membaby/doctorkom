@@ -2,11 +2,106 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function AdminHomePage() {
+
+    const createClinic = () => {
+        const name = document.getElementById('clinicName').value;
+        const email = document.getElementById('clinicEmail').value;
+        const address = document.getElementById('clinicAddress').value;
+        const landline = document.getElementById('clinicLandline').value;
+        const phone = document.getElementById('clinicPhone').value;
+
+        const data = {
+            name: name,
+            email: email,
+            address: address,
+            landline: landline,
+            phone: phone
+        };
+
+        if (!name || !email || !address || !landline || !phone) {
+            showError('Please fill all the fields');
+            return;
+        }
+        showError("Creating clinic.. Please wait!");
+        fetch('http://localhost:8080/newclinic', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.text())
+        .then(response => {
+            showError(response);
+        })
+        .catch((error) => {
+            showError('Internal Server Error occured. Please try again later.')
+        }
+        );
+    }
+
+    const deleteClinic = () => {
+        showError("(demo) Clinic successfully deactivated.");
+        // const id = document.getElementById('clinicId').value;
+
+        // if (!id) {
+        //     showError('Please fill all the fields');
+        //     return;
+        // }
+        
+        // const data = {
+        //     id: id
+        // }
+
+        // showError("Deleting clinic.. Please wait!");
+        // fetch('http://localhost:8080/removeclinic', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(data),
+        //     })
+        //     .then(response => response.text())
+        //     .then(response => {
+        //         showError(response);
+        //     })
+        //     .catch((error) => {
+        //         showError('Internal Server Error occured. Please try again later.')
+        //     }
+        // );
+    }
+
+    const sendNotification = () => {
+        showError("(demo) Notification successfully sent.");
+    }
+
+    const inviteAdmin = () => {
+        showError("(demo) Admin invitation successfully sent.");
+    }
+
+    const deactiveUser = () => {
+        showError("(demo) Account deactivated successfully.");
+    }
+
+    
+      const showError = (msg) => {
+        if (!msg) {
+          const error = document.getElementById('display');
+          error.style.display = 'none';
+          return;
+        }
+        const error = document.getElementById('display');
+        error.innerHTML = msg;
+        error.style.display = 'block';
+    }
+
     return (
         <div>
             <div class="container py-4 py-xl-5">
                 <h3>Admin Dashboard</h3>
                 <hr/>
+
+                <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
 
                 <div class="row gy-4 row-cols-2 row-cols-md-4">
                     <div class="col">
@@ -64,9 +159,9 @@ export default function AdminHomePage() {
                         <h4 class="text-center">User Management</h4>
                         <div class="card p-3">
                             <h6>Send notification to a user</h6>
-                                <input type="email" class="form-control" placeholder="User Email Address"/>
-                                <textarea class="form-control mt-2" rows="4" placeholder="Notification Message"></textarea>
-                                <button class="btn btn-primary mt-2 ">Send</button>
+                                <input type="email" class="form-control" id="userEmail-notification" placeholder="User Email Address"/>
+                                <textarea class="form-control mt-2" id="userMessage" rows="4" placeholder="Notification Message"></textarea>
+                                <button class="btn btn-primary mt-2 " onClick={sendNotification}>Send</button>
                         </div>
                         <div class="card p-3 mt-3">
                             <h6>Invite New Admin</h6>
@@ -75,7 +170,7 @@ export default function AdminHomePage() {
                                     <input type="email" class="form-control" placeholder="User Email Address"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-warning  w-100">Invite</button>
+                                    <button class="btn btn-warning  w-100" onClick={inviteAdmin}>Invite</button>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +181,7 @@ export default function AdminHomePage() {
                                     <input type="email" class="form-control" placeholder="User Email Address"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger  w-100">Deactive</button>
+                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Deactive</button>
                                 </div>
                             </div>
                         </div>
@@ -95,21 +190,21 @@ export default function AdminHomePage() {
                         <h4 class="text-center">Clinic Management</h4>
                         <div class="card p-3">
                             <h6>Create New Clinic</h6>
-                                <input type="text" class="form-control mb-2" placeholder="Clinic Name"/>
-                                <input type="text" class="form-control mb-2" placeholder="Clinic Admin Email"/>
-                                <input type="text" class="form-control mb-2" placeholder="Full Address"/>
-                                <input type="text" class="form-control mb-2" placeholder="Landline"/>
-                                <input type="text" class="form-control mb-2" placeholder="Phone Number"/>
-                                <button class="btn btn-success mt-2 ">Create</button>
+                                <input type="text" class="form-control mb-2" id="clinicName" placeholder="Clinic Name"/>
+                                <input type="text" class="form-control mb-2" id="clinicEmail" placeholder="Clinic Admin Email"/>
+                                <input type="text" class="form-control mb-2" id="clinicAddress" placeholder="Full Address"/>
+                                <input type="text" class="form-control mb-2" id="clinicLandline" placeholder="Landline"/>
+                                <input type="text" class="form-control mb-2" id="clinicPhone" placeholder="Phone Number"/>
+                                <button class="btn btn-success mt-2 " onClick={createClinic}>Create</button>
                         </div>
                         <div class="card p-3 mt-3">
                             <h6>Deactive Clinic</h6>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="Clinic Name"/>
+                                    <input type="text" class="form-control" id="clinicId" placeholder="Clinic ID"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger  w-100">Deactive</button>
+                                    <button class="btn btn-danger  w-100" onClick={deleteClinic}>Deactive</button>
                                 </div>
                             </div>
                         </div>
