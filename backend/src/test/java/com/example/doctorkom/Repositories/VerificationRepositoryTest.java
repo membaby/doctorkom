@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 @DataJpaTest
 class VerificationRepositoryTest {
-
     @Autowired
     private AccountRepository accountRepository;
 
@@ -26,7 +25,6 @@ class VerificationRepositoryTest {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
-
         accountRepository.save(account);
         verification.setId(account.getId());
         verificationRepository.save(verification);
@@ -45,7 +43,6 @@ class VerificationRepositoryTest {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
-
         accountRepository.save(account);
         verification.setId(account.getId());
         verificationRepository.save(verification);
@@ -62,7 +59,6 @@ class VerificationRepositoryTest {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
-
         accountRepository.save(account);
         verification.setId(account.getId());
         verificationRepository.save(verification);

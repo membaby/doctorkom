@@ -30,8 +30,6 @@ public class Clinic {
     @Column(name = "Email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private ClinicAdmin clinicAdmin;
 
     public Clinic(String name, String address, String email) {
         this.name = name;
@@ -42,8 +40,8 @@ public class Clinic {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (!(o instanceof Clinic)) return false;
         Clinic clinic = (Clinic) o;
-        return id != null && Objects.equals(id, clinic.id);
+        return Objects.equals(id, clinic.id);
     }
 }

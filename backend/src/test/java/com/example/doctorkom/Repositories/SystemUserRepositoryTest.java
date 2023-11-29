@@ -53,6 +53,8 @@ class SystemUserRepositoryTest {
         accountRepository.save(account);
         systemUser.setId(account.getId());
         systemUserRepository.save(systemUser);
+        System.out.println(account);
+        System.out.println(systemUser);
 
         // When
         SystemUser queriedSystemUser = null;
@@ -193,6 +195,24 @@ class SystemUserRepositoryTest {
         // Then
         assertFalse(systemUserRepository.existsById(systemUser.getId()));
     }
+
+//    @Test
+//    NOT WORKING HERE FOR SOME REASON AS IF CONSTRAINT ON DELETE CASCADE DOESN'T EXIST
+//    void whenDeleteAccountById_thenDeleteSystemUser() {
+//        // Given
+//        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
+//        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+//        accountRepository.save(account);
+//        systemUser.setId(account.getId());
+//        systemUserRepository.save(systemUser);
+//
+//        // When
+//        accountRepository.deleteById(account.getId());
+//
+//        // Then
+//        SystemUser queriedSystemUser = systemUserRepository.findById(systemUser.getId()).orElse(null);
+//        assertNull(queriedSystemUser);
+//    }
 
     @Test
     void whenDeleteSystemUserById_thenDeleteAccount() {

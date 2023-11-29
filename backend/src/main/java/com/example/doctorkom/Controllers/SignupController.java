@@ -8,10 +8,11 @@ import com.example.doctorkom.DTOs.PatientDTO;
 import com.example.doctorkom.DTOMappers.DoctorMapper;
 import com.example.doctorkom.DTOMappers.PatientMapper;
 import com.example.doctorkom.Entities.Patient;
+import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
 import com.example.doctorkom.Entities.Doctor;
 
 @RestController
-@RequestMapping("/signup")
+@RequestMapping("/registration")
 public class SignupController {
 
 	@Autowired
@@ -19,38 +20,31 @@ public class SignupController {
 
 	@Autowired
 	DoctorMapper doctorMapper;
+	@Autowired
+	RegistrationService registrationService;
 	
-	@PutMapping("/patient")
+	@PostMapping("/patient")
 	public SignupResponse patientSignup(@RequestBody PatientDTO patientDTO) {
+		System.out.println("trying to signup");
 		//Create Patient entity
 		Patient patient = patientMapper.toEntity(patientDTO);
 		//Call bussiness logic to register patient
-		String msg = new DummyRegistrar().tryRegisterPatient(patient);
+		String msg = registrationService.registerPatient(patient);
 		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
 		return response;
 	}
 
-	@PutMapping("/doctor")
+	@PostMapping("/doctor")
 	public SignupResponse doctorSignup(@RequestBody DoctorDTO doctorDTO)
 	{
 		//Create doctor entity.
 		Doctor doctor = doctorMapper.toEntity(doctorDTO);
 		//Call bussiness logic to register patient
-		String msg = new DummyRegistrar().tryRegisterDoctor(doctor);
+		String msg = registrationService.registerDoctor(doctor);
 		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
 		return response;
 	}
 
 }
 
-class DummyRegistrar{
-	public String tryRegisterPatient(Patient patient)
-	{
-		return "";
-	}
-	public String tryRegisterDoctor(Doctor doctor)
-	{
-		return "";
-	}
-}
 
