@@ -4,8 +4,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import com.example.doctorkom.DTOs.ClinicAdminDTO;
 import com.example.doctorkom.DTOs.ClinicDTO;
 import com.example.doctorkom.Entities.Clinic;
+import com.example.doctorkom.Entities.ClinicAdmin;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface ClinicMapper {
@@ -15,4 +17,12 @@ public interface ClinicMapper {
 
 
     Clinic toEntity(ClinicDTO clinicDTO);
+
+    default ClinicAdminDTO adminToDTO(ClinicAdmin admin){
+        return ClinicAdminMapper.INSTANCE.toDTO(admin);
+    }
+
+    default ClinicAdmin adminToEntity(ClinicAdminDTO adminDTO){
+        return ClinicAdminMapper.INSTANCE.toEntity(adminDTO);
+    }
 }

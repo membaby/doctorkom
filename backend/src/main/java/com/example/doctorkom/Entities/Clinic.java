@@ -8,6 +8,7 @@ import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
+
 @Entity
 @Table(name = "Clinic")
 @Getter
@@ -35,13 +36,18 @@ public class Clinic {
     @Column(name = "Landline")
     private String landline;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "AdminId")
+    private ClinicAdmin clinicAdmin;
 
-    public Clinic(String email, String name, String address, String phone,String landline) {
+
+    public Clinic(String email, String name, String address, String phone,String landline, ClinicAdmin admin ) {
         this.email = email;
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.landline=landline;
+        this.clinicAdmin = admin;
     }
 
     public String getEmail() {
