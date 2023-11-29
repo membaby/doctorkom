@@ -30,9 +30,20 @@ public class Account {
     @Column(name = "Password")
     private String password;
 
+    @Column(name = "Enabled")
+    private boolean enabled;
+
     @Column(name = "Role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public Account(String email, String username, String password, Boolean enabled, Role role) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.role = role;
+    }
 
     public Account(String email, String username, String password, Role role) {
         this.email = email;

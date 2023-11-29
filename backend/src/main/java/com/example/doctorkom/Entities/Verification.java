@@ -7,24 +7,33 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SystemAdmin")
+@Table(name = "Verification")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class SystemAdmin {
+public class Verification {
     @Id
     @Column(name = "AccountId")
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Column(name = "Code")
+    private String code;
+
+    @Column(name = "CreationTime")
+    private LocalDateTime creationTime;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "AccountId")
     private Account account;
 
-    public SystemAdmin(Account account) {
+    public Verification(String code, LocalDateTime creationTime, Account account) {
+        this.code = code;
+        this.creationTime = creationTime;
         this.account = account;
     }
 
@@ -32,7 +41,7 @@ public class SystemAdmin {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SystemAdmin systemAdmin = (SystemAdmin) o;
-        return id != null && Objects.equals(id, systemAdmin.id);
+        Verification that = (Verification) o;
+        return id != null && Objects.equals(id, that.id);
     }
 }

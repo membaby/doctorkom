@@ -10,22 +10,22 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Clinic_Admin")
+@Table(name = "ClinicAdmin")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class ClinicAdmin {
     @Id
-    @Column(name = "AccountID")
-    private Integer accountID;
+    @Column(name = "AccountId")
+    private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "AccountID")
+    @JoinColumn(name = "AccountId")
     private Account account;
 
-    public ClinicAdmin(int accountID) {
-        this.accountID = accountID;
+    public ClinicAdmin(Account account) {
+        this.account = account;
     }
 
     @Override
@@ -33,6 +33,6 @@ public class ClinicAdmin {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ClinicAdmin clinicAdmin = (ClinicAdmin) o;
-        return accountID != null && Objects.equals(accountID, clinicAdmin.accountID);
+        return id != null && Objects.equals(id, clinicAdmin.id);
     }
 }

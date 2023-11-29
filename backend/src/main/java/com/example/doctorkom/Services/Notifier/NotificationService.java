@@ -50,7 +50,7 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject("Verification Email");
-        notification.setContent(notification.VerifyEmailContent_PD(code));
+        notification.setContent(notification.VerifyEmailContent_PD(email, code));
         Send(notification);
     }
     public void VerificationEmail_ClinicAdmin(String email,String code,String formlink) throws MessagingException {

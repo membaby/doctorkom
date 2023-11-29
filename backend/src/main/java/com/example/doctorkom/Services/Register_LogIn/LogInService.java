@@ -24,16 +24,14 @@ public class LogInService {
 
     public String login(Account account) {
         //check if the user exists
-        Account userExists = accountRepository.findByEmail(account.getEmail());
-        if (userExists == null) {
-            return "User doesn't exist";
-        }
-        else {
+        if (accountRepository.findByEmail(account.getEmail()).isPresent()) {
             return "Logged in";
+        } else {
+            return "User doesn't exist";
         }
     }
     public SystemUser getAccountInfo(String email) {
-        Account user = accountRepository.findByEmail(email);
+        Account user = accountRepository.findByEmail(email).get();
         int id = user.getId();
         Role role = user.getRole();
         if (role == Role.PATIENT) {

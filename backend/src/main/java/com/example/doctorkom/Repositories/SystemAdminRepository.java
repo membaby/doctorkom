@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.doctorkom.Entities.SystemAdmin;
 
-public interface SystemAdminRepository extends JpaRepository<SystemAdmin, Integer>{}
+public interface SystemAdminRepository extends JpaRepository<SystemAdmin, Integer>{
+
+}

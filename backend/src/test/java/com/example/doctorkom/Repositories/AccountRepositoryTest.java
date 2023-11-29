@@ -10,74 +10,78 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 //Unit tests use H2 in-memory db to perform testing (schema and data found in main/resources)
 @ActiveProfiles("test")
 @DataJpaTest
 class AccountRepositoryTest {
+
     @Autowired
     private AccountRepository accountRepository;
 
     @Test
-    public void whenFindByID_thenReturnAccount() {
+    public void whenFindAccountByID_thenReturnAccount() {
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
 
         // When
-        Account queriedAccount = accountRepository.findById(account.getId()).get();
+        Account queriedAccount = null;
+        if (accountRepository.findById(account.getId()).isPresent())
+            queriedAccount = accountRepository.findById(account.getId()).get();
 
         // Then
-        System.out.println(queriedAccount);
         assertEquals(queriedAccount, account);
     }
 
     @Test
-    public void WhenFindByEmail_thenReturnAccount(){
+    public void WhenFindAccountByEmail_thenReturnAccount(){
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
 
         // When
-        Account queriedAccount = accountRepository.findByEmail("johnsmith123@lol.com");
+        Account queriedAccount = null;
+        if (accountRepository.findByEmail("johnsmith123@lol.com").isPresent())
+            queriedAccount = accountRepository.findByEmail("johnsmith123@lol.com").get();
 
         // Then
-        System.out.println(queriedAccount);
         assertEquals(account, queriedAccount);
     }
 
     @Test
-    public void WhenFindByUsername_thenReturnAccount(){
+    public void WhenFindAccountByUsername_thenReturnAccount(){
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
 
         // When
-        Account queriedAccount = accountRepository.findByUsername("JohnSmith1");
+        Account queriedAccount = null;
+        if (accountRepository.findByUsername("JohnSmith1").isPresent())
+            queriedAccount = accountRepository.findByUsername("JohnSmith1").get();
 
         // Then
-        System.out.println(queriedAccount);
         assertEquals(account, queriedAccount);
     }
 
     @Test
-    public void WhenFindByRole_thenReturnAccount(){
+    public void WhenFindAccountsByRole_thenReturnAccounts(){
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
 
         // When
-        Account queriedAccount = accountRepository.findByRole(Role.PATIENT);
+        Account queriedAccount = null;
+        if (accountRepository.findByRole(Role.PATIENT).isPresent())
+            queriedAccount = accountRepository.findByRole(Role.PATIENT).get().get(0);
 
         // Then
-        System.out.println(queriedAccount);
         assertEquals(account, queriedAccount);
     }
 
     @Test
-    public void whenFindAll_thenReturnAllAccounts() {
+    public void whenFindAllAccounts_thenReturnAllAccounts() {
         // Given
         List<Account> accounts = new ArrayList<>();
         accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT));
@@ -90,13 +94,11 @@ class AccountRepositoryTest {
         List<Account> allAccounts = accountRepository.findAll();
 
         // Then
-        System.out.println(allAccounts.size());
-        System.out.println(allAccounts);
         assertEquals(accounts.size(), allAccounts.size());
     }
 
     @Test
-    public void whenDeleteById_thenDeleteAccount() {
+    public void whenDeleteAccountById_thenDeleteAccount() {
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
@@ -105,12 +107,11 @@ class AccountRepositoryTest {
         accountRepository.deleteById(account.getId());
 
         // Then
-        Account queriedAccount = accountRepository.findById(account.getId()).orElse(null);
-        assertNull(queriedAccount);
+        assertFalse(accountRepository.existsById(account.getId()));
     }
 
     @Test
-    public void WhenDeleteByEmail_thenDeleteAccount(){
+    public void WhenDeleteAccountByEmail_thenDeleteAccount(){
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
@@ -119,12 +120,11 @@ class AccountRepositoryTest {
         accountRepository.deleteByEmail("johnsmith123@lol.com");
 
         // Then
-        Account queriedAccount = accountRepository.findByEmail(account.getEmail());
-        assertNull(queriedAccount);
+        assertFalse(accountRepository.existsById(account.getId()));
     }
 
     @Test
-    public void WhenDeleteByUsername_thenDeleteAccount(){
+    public void WhenDeleteAccountByUsername_thenDeleteAccount(){
         // Given
         Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
         accountRepository.save(account);
@@ -133,12 +133,11 @@ class AccountRepositoryTest {
         accountRepository.deleteByUsername("JohnSmith1");
 
         // Then
-        Account queriedAccount = accountRepository.findByUsername(account.getUsername());
-        assertNull(queriedAccount);
+        assertFalse(accountRepository.existsById(account.getId()));
     }
 
     @Test
-    public void whenDeleteAll_thenDeleteAllAccounts() {
+    public void whenDeleteAllAccounts_thenDeleteAllAccounts() {
         // Given
         List<Account> accounts = new ArrayList<>();
         accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT));
@@ -152,8 +151,6 @@ class AccountRepositoryTest {
 
         // Then
         List<Account> allAccounts = accountRepository.findAll();
-        System.out.println(allAccounts.size());
-        System.out.println(allAccounts);
         assertEquals(0, allAccounts.size());
     }
 }
