@@ -3,7 +3,6 @@ package com.example.doctorkom.Services.Register_LogIn;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Services.Notifier.NotificationService;
 import com.example.doctorkom.Services.RepositoryHandler.Commander.Command;
-import com.example.doctorkom.Services.RepositoryHandler.Commander.ExistenceChecker;
 import com.example.doctorkom.Services.RepositoryHandler.RepositoryHandler;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
