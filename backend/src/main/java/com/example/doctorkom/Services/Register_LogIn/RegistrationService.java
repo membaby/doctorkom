@@ -161,7 +161,7 @@ public class RegistrationService {
         }
     }
 
-    public String verify(Account account,String code) throws MessagingException {
+    public String verify(Account account,String code){
         //verify the account
         /*-If verified successfully return "success".
         -If code was incorrect but email was correct return "wrong code".
@@ -192,23 +192,27 @@ public class RegistrationService {
         account.setEnabled(true);
         adder.executeadd(account);
         //send email to the user
-        if (account.getRole() == Role.PATIENT) {
-            notificationService.SendPatientCreatedEmail(account.getEmail());
+        try{
+            if (account.getRole() == Role.PATIENT) {
+                notificationService.SendPatientCreatedEmail(account.getEmail());
+            }
+            else if (account.getRole() == Role.DOCTOR) {
+                //get the doctor name from database
+                Doctor doctor = finder.executefind(account.getEmail(),"email","doctor").getDoctor();
+                SystemUser systemUser = doctor.getSystemUser();
+                notificationService.SendDoctorCreatedEmail(account.getEmail(),systemUser.getFirstName());
+            }
+            else if (account.getRole() == Role.CLINIC_ADMIN) {
+                notificationService.SendClinicAdminCreatedEmail(account.getEmail());
+            }
+            else if (account.getRole() == Role.SYSTEM_ADMIN) {
+                notificationService.SendSystemAdminCreatedEmail(account.getEmail());
+            }
+                //update account in database
+            return "success";
+        }catch (MessagingException e){
+            return "Could not send verification email. Problem with notification service";
         }
-        else if (account.getRole() == Role.DOCTOR) {
-            //get the doctor name from database
-            Doctor doctor = finder.executefind(account.getEmail(),"email","doctor").getDoctor();
-            SystemUser systemUser = doctor.getSystemUser();
-            notificationService.SendDoctorCreatedEmail(account.getEmail(),systemUser.getFirstName());
-        }
-        else if (account.getRole() == Role.CLINIC_ADMIN) {
-            notificationService.SendClinicAdminCreatedEmail(account.getEmail());
-        }
-        else if (account.getRole() == Role.SYSTEM_ADMIN) {
-            notificationService.SendSystemAdminCreatedEmail(account.getEmail());
-        }
-            //update account in database
-        return "success";
 
     }
 
