@@ -18,13 +18,8 @@ public class VerificationController {
     public String verify(@RequestParam(name="email")String email, @RequestParam(name="code") String code) {
         Account account = new Account();
         account.setEmail(email);
-        return new DummyVerifyService().verify(account, code);
+        return registrationService.verify(account, code);
     }
 
 }
 
-class DummyVerifyService{
-    public String verify(Account account, String code){
-        return "verified";
-    }
-}
