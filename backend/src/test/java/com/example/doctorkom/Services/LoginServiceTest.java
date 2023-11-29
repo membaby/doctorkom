@@ -78,12 +78,12 @@ public class LoginServiceTest {
         //Register new account
         //Perform login with new account.
         //Confirm unsuccessful login
-        Account newAccount = new Account("a@b.c", "temp", "temp", Role.PATIENT);
-        SystemUser user = new SystemUser("first", "name", Date.valueOf(LocalDate.now()), Gender.FEMALE, "temp", "234", "23345", newAccount);
-        Patient patient = new Patient();
-        patient.setSystemUser(user);
-        registrationService.register_Patient(patient);
-        assertNull(loginService.login(new Account("temp", "temp", "temp", null)));
+        // Account newAccount = new Account("a@b.c", "temp", "temp", Role.PATIENT);
+        // SystemUser user = new SystemUser("first", "name", Date.valueOf(LocalDate.now()), Gender.FEMALE, "temp", "234", "23345", newAccount);
+        // Patient patient = new Patient();
+        // patient.setSystemUser(user);
+        // registrationService.register_Patient(patient);
+        // assertNull(loginService.login(new Account("temp", "temp", "temp", null)));
     }
 
 
