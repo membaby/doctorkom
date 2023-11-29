@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import SystemAdminView from './components/SystemAdminView';
+import AdminHomePage from './components/SystemAdminView';
 
 function App() {
   return (
     <Router>
-      <div class="empty_block d-block w-100"></div>
-
-      <div class="mb-5">
+      <div>
         
         <Routes>
-          <Route path='/' element={ <SystemAdminView /> } />
+          <Route path='/dashboard/admin' element={ <AdminHomePage/> } />
         </Routes>
 
       </div>
     </Router>
-  );
+  )
 }
 
 export default App;
