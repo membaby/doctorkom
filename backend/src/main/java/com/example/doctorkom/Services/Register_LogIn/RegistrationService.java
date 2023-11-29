@@ -132,10 +132,8 @@ public class RegistrationService {
         }
     }
 
-
     private String generateVerificationCode() {
         //generate verification code from 100000 to 999999
         return String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
     }
-
 }

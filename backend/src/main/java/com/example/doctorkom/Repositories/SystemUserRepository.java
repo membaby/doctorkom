@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface SystemUserRepository extends JpaRepository<SystemUser, Integer> {
-    List<SystemUser> findByFirstName(String firstName);
-    List<SystemUser> findByLastName(String lastName);
-    List<SystemUser> findByBirthdate(Date birthdate);
-    List<SystemUser> findByGender(Gender gender);
-    List<SystemUser> findByAddress(String address);
-    List<SystemUser> findByLandlinePhone(String landlinePhone);
-    SystemUser findByMobilePhone(String mobilePhone);
+    Optional<List<SystemUser>> findByFirstName(String firstName);
+    Optional<List<SystemUser>> findByLastName(String lastName);
+    Optional<List<SystemUser>> findByBirthdate(Date birthdate);
+    Optional<List<SystemUser>> findByGender(Gender gender);
+    Optional<List<SystemUser>> findByAddress(String address);
+    Optional<List<SystemUser>> findByLandlinePhone(String landlinePhone);
+    Optional<SystemUser> findByMobilePhone(String mobilePhone);
 }

@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 @DataJpaTest
 class VerificationRepositoryTest {
+
     @Autowired
     private AccountRepository accountRepository;
 
@@ -25,15 +26,17 @@ class VerificationRepositoryTest {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
+
         accountRepository.save(account);
         verification.setId(account.getId());
         verificationRepository.save(verification);
 
         // When
-        Verification queriedVerification = verificationRepository.findById(verification.getId()).get();
+        Verification queriedVerification = null;
+        if (verificationRepository.findById(verification.getId()).isPresent())
+            queriedVerification = verificationRepository.findById(verification.getId()).get();
 
         // Then
-        System.out.println(verification);
         assertEquals(verification, queriedVerification);
     }
 
@@ -42,6 +45,7 @@ class VerificationRepositoryTest {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
+
         accountRepository.save(account);
         verification.setId(account.getId());
         verificationRepository.save(verification);
@@ -50,8 +54,7 @@ class VerificationRepositoryTest {
         verificationRepository.deleteById(verification.getId());
 
         // Then
-        Verification queriedVerification = verificationRepository.findById(verification.getId()).orElse(null);
-        assertNull(queriedVerification);
+        assertFalse(verificationRepository.existsById(verification.getId()));
     }
 
     @Test
@@ -59,6 +62,7 @@ class VerificationRepositoryTest {
         // Given
         Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
         Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
+
         accountRepository.save(account);
         verification.setId(account.getId());
         verificationRepository.save(verification);
@@ -67,8 +71,7 @@ class VerificationRepositoryTest {
         verificationRepository.deleteById(verification.getId());
 
         // Then
-        Account queriedAccount = accountRepository.findById(account.getId()).get();
-        assertNotNull(queriedAccount);
+        assertTrue(accountRepository.existsById(account.getId()));
     }
 
 //    @Test

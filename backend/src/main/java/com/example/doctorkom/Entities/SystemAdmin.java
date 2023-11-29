@@ -10,25 +10,29 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "System_Admin")
+@Table(name = "SystemAdmin")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class SystemAdmin {
     @Id
-    @Column(name = "AccountID")
-    private Integer accountID;
+    @Column(name = "AccountId")
+    private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "AccountID")
+    @JoinColumn(name = "AccountId")
     private Account account;
+
+    public SystemAdmin(Account account) {
+        this.account = account;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         SystemAdmin systemAdmin = (SystemAdmin) o;
-        return accountID != null && Objects.equals(accountID, systemAdmin.accountID);
+        return id != null && Objects.equals(id, systemAdmin.id);
     }
 }

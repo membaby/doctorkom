@@ -72,13 +72,13 @@ CREATE TABLE Doctor (
     Title VARCHAR(20) NOT NULL,
     Specialty VARCHAR(30) NOT NULL,
     PatientCount INT,
-    TotalRating INT,
-    Rating DECIMAL(3, 2) GENERATED ALWAYS AS (
-               CASE
-                   WHEN PatientCount > 0 THEN TotalRating / PatientCount
-                   ELSE 0
-                   END
-               ),
+    -- TotalRating INT,
+    -- Rating DECIMAL(3, 2) GENERATED ALWAYS AS (
+    --            CASE
+    --                WHEN PatientCount > 0 THEN TotalRating / PatientCount
+    --                ELSE 0
+    --                END
+    --            ),
     -- Additional Doctor-specific attributes can be added here
     FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId)
 );

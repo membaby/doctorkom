@@ -17,11 +17,11 @@ public class Patient {
     @Column(name = "UserId")
     private Integer id;
 
-    @Column(name = "MaritalStatus")
-    private String maritalStatus;
-
     @Column(name = "Occupation")
     private String occupation;
+
+    @Column(name = "MaritalStatus")
+    private String maritalStatus;
 
     @Column(name = "Insurance")
     private String insurance;
@@ -30,7 +30,9 @@ public class Patient {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
-    public Patient(String insurance, SystemUser systemUser) {
+    public Patient(String occupation, String maritalStatus, String insurance, SystemUser systemUser) {
+        this.occupation = occupation;
+        this.maritalStatus = maritalStatus;
         this.insurance = insurance;
         this.systemUser = systemUser;
     }
