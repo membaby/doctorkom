@@ -4,17 +4,17 @@ import { useLocation } from 'react-router-dom';
 
 const Verification = () => {
   const [email, setEmail] = useState(null);
-  const [verificationCode, setVerificationCode] = useState(null);
+  const [code, setCode] = useState(null);
   let location = useLocation();
 
   const handleVerification = () => {
 
     const data = {
       email: email,
-      code: verificationCode
+      code: code
     };
     
-    if (!email || !verificationCode) {
+    if (!email || !code) {
       showError('Please fill all the fields');
       return;
     }
@@ -23,21 +23,24 @@ const Verification = () => {
     document.getElementById('display').innerHTML = 'Verifying your email.. Please wait!';
     document.getElementById('display').style.display = 'block';
 
-    window.location.href = '/';
-    return;
+    // window.location.href = '/';
+    // return;
   
-    fetch('http://localhost:8080/verification/', {
-        method: 'POST',
+    fetch('http://localhost:8080/verify?email='+data.email+"&code="+data.code, {
+        method: 'Get',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
+        }
     })
     .then(response => response.json())
     .then(response => {
-        if (response.success) {
-            window.location.href = '/';
-          }
+        console.log(response)
+        if (response.status !== 200)
+          document.getElementById('display').innerHTML = response.error;
+        else
+        document.getElementById('display').innerHTML = response.message;
+        
+          document.getElementById('display').style.display = 'block';
     })
     .catch((error) => {
         showError('Internal Server Error occured. Please try again later.')
@@ -73,7 +76,7 @@ const Verification = () => {
             </div>
             <div className="row mb-3">
               <label className="form-label">Verification Code</label>
-              <input type="text" className="form-control" onChange={(e) => setVerificationCode(e.target.value)} />
+              <input type="text" className="form-control" onChange={(e) => setCode(e.target.value)} />
             </div>
 
           {/* Buttons */}
