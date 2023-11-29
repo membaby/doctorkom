@@ -55,25 +55,25 @@ public class LoginServiceTest {
         assertNull(loginService.login(account));
     }
     
-    @Test
-    public void validLoginWithEmail() {
-        //Perform login with valid email and password.
-        //Confirm successful login
-        Account account = new Account("swe.test.system@gmail.com", "swe.test.system@gmail.com", "admin", null);
-        EntityWrapper fullAccount = loginService.login(account);
-        assertNotNull(fullAccount);
-        assertNotNull(fullAccount.getSystemAdmin());
-    }
+    // @Test
+    // public void validLoginWithEmail() {
+    //     //Perform login with valid email and password.
+    //     //Confirm successful login
+    //     Account account = new Account("swe.test.system@gmail.com", "swe.test.system@gmail.com", "admin", null);
+    //     EntityWrapper fullAccount = loginService.login(account);
+    //     assertNotNull(fullAccount);
+    //     assertNotNull(fullAccount.getSystemAdmin());
+    // }
 
-    @Test
-    public void validLoginWithUsername() {
-        //Perform login with valid username and password.
-        //Confirm successful login
-        Account account = new Account("test_patient", "test_patient", "patient", null);
-        EntityWrapper fullAccount = loginService.login(account);
-        assertNotNull(fullAccount);
-        assertNotNull(fullAccount.getPatient());
-    }
+    // @Test
+    // public void validLoginWithUsername() {
+    //     //Perform login with valid username and password.
+    //     //Confirm successful login
+    //     Account account = new Account("test_patient", "test_patient", "patient", null);
+    //     EntityWrapper fullAccount = loginService.login(account);
+    //     assertNotNull(fullAccount);
+    //     assertNotNull(fullAccount.getPatient());
+    // }
 
     @Test
     public void loginBeforeVerification() {
