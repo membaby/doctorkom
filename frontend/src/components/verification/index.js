@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 
 const Verification = () => {
   const [email, setEmail] = useState(null);
   const [code, setCode] = useState(null);
-  let location = useLocation();
 
   const handleVerification = () => {
 
@@ -23,24 +20,20 @@ const Verification = () => {
     document.getElementById('display').innerHTML = 'Verifying your email.. Please wait!';
     document.getElementById('display').style.display = 'block';
 
-    // window.location.href = '/';
-    // return;
   
-    fetch('http://localhost:8080/verify?email='+data.email+"&code="+data.code, {
-        method: 'Get',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
+    fetch('http://localhost:8080/verify?email='+data.email+"&code="+data.code, {method: 'GET'})
+    .then(response => response.text())
     .then(response => {
-        console.log(response)
-        if (response.status !== 200)
-          document.getElementById('display').innerHTML = response.error;
-        else
-        document.getElementById('display').innerHTML = response.message;
-        
-          document.getElementById('display').style.display = 'block';
+        if (response === "success") {
+          document.getElementById('display').innerHTML = 'Email verified successfully. <a href="/login">Click here</a> to login.';
+        } else if (response === "wrong code") {
+          document.getElementById('display').innerHTML = 'Wrong code entered. Please try again.';
+        } else if (response === "email not registered") {
+          document.getElementById('display').innerHTML = 'Email not registered. Please register first.';
+        } else if (response === "already verified") {
+          document.getElementById('display').innerHTML = 'Email already verified. <a href="/login">Click here</a> to login.';
+        }
+        document.getElementById('display').style.display = 'block';
     })
     .catch((error) => {
         showError('Internal Server Error occured. Please try again later.')
