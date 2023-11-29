@@ -270,7 +270,24 @@ const Register = ({ userType }) => {
 
               <div className="col mb-3">
                 <label className="form-label">Speciality</label>
-                <input type="text" className="form-control" onChange={(e) => setSpeciality(e.target.value)} />
+                <select className="form-select" onChange={(e) => setSpeciality(e.target.value)} >
+                  <option value="">Select</option>
+                  <option value="GENERAL_PRACTITIONER">GENERAL_PRACTITIONER</option>
+                  <option value="CARDIOLOGIST">CARDIOLOGIST</option>
+                  <option value="DERMATOLOGIST">DERMATOLOGIST</option>
+                  <option value="PEDIATRICIAN">PEDIATRICIAN</option>
+                  <option value="ORTHOPEDIC_SURGEON">ORTHOPEDIC_SURGEON</option>
+                  <option value="GYNECOLOGIST">GYNECOLOGIST</option>
+                  <option value="OPHTHALMOLOGIST">OPHTHALMOLOGIST</option>
+                  <option value="NEUROLOGIST">NEUROLOGIST</option>
+                  <option value="UROLOGIST">UROLOGIST</option>
+                  <option value="ENT_SPECIALIST">ENT_SPECIALIST</option>
+                  <option value="PSYCHIATRIST">PSYCHIATRIST</option>
+                  <option value="ONCOLOGIST">ONCOLOGIST</option>
+                  <option value="RADIOLOGIST">RADIOLOGIST</option>
+                  <option value="ANESTHESIOLOGIST">ANESTHESIOLOGIST</option>
+                  <option value="DENTAL_SURGEON">DENTAL_SURGEON</option>
+                </select>
               </div>
             </div>
           </>) : (<></>)
