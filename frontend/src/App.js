@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+
+import Navbar from './components/navbar';
+import Register from './components/register';
+import Verification from './components/verification';
+import Homepage from './components/homepage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div class="fixed-top">
+        <Navbar />
+      </div>
+      <div class="empty_block d-block w-100"></div>
+
+      <div class="mb-5">
+        
+        <Routes>
+          <Route path='/' element={ <Homepage/> } />
+          <Route path='/register/patient' element={ <Register userType="patient" /> } />
+          <Route path='/register/doctor' element={ <Register  userType="doctor" /> } />
+          <Route path='/register/admin' element={ <Register   userType="admin" /> } />
+          <Route path='/register/clinic' element={ <Register  userType="clinic" /> } />
+          <Route path='/verification' element={ <Verification /> } />
+        </Routes>
+
+      </div>
+    </Router>
+  )
 }
 
 export default App;
+
