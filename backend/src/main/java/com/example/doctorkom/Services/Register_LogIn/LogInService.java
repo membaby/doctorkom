@@ -37,11 +37,12 @@ public class LogInService {
         
         if (fullAccount == null)
             return null;
-        else
-        {
-            if (!fullAccount.isEnabled()) return null;
-            return getAccountDetails(fullAccount);
-        }
+        //check if the password is correct
+        if (!fullAccount.getPassword().equals(account.getPassword()))
+            return null;
+        
+        if (!fullAccount.isEnabled()) return null;
+        return getAccountDetails(fullAccount);
     }
 
     private EntityWrapper getAccountDetails(Account account) {
