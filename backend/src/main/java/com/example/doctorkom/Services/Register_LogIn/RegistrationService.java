@@ -26,12 +26,16 @@ public class RegistrationService {
         Command existenceChecker = repositoryHandler.GetCommmand("check");
         String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
         String usernameExists = existenceChecker.executecheck(account.getUsername(),"username");
+        String mobilePhoneExists = existenceChecker.executecheck(systemUser.getMobilePhone(),"mobilePhone");
         //if the emailexists is not empty then the email exists same for username
         if (!emailExists.isEmpty()) {
             return emailExists;
         }
         if (!usernameExists.isEmpty()) {
             return usernameExists;
+        }
+        if (!mobilePhoneExists.isEmpty()) {
+            return mobilePhoneExists;
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();

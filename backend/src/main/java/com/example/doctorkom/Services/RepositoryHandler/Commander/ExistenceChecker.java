@@ -24,6 +24,7 @@ public class ExistenceChecker extends Command{
             case "email" -> accountRepository.findByEmail(attribute).isPresent() ? "email already exists" : "";
             case "username" -> accountRepository.findByUsername(attribute).isPresent() ? "username already exists" : "";
             case "id" -> accountRepository.findById(Integer.parseInt(attribute)).isPresent() ? "id already exits" : "";
+            case "mobilePhone" -> systemUserRepository.findByMobilePhone(attribute).isPresent() ? "mobile phone already exists" : "";
             default -> null;
         };
     }
