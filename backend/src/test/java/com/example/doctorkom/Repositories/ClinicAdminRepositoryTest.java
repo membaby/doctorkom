@@ -21,7 +21,8 @@ class ClinicAdminRepositoryTest {
     void whenFindSystemAdminById_thenReturnSystemAdmin() {
         // Given
         Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin(account);
+        ClinicAdmin clinicAdmin = new ClinicAdmin();
+        clinicAdmin.setAccount(account);
 
         accountRepository.save(account);
         clinicAdmin.setId(account.getId());
@@ -40,7 +41,8 @@ class ClinicAdminRepositoryTest {
     void whenDeleteClinicAdminById_thenDeleteClinicAdmin() {
         // Given
         Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin(account);
+        ClinicAdmin clinicAdmin = new ClinicAdmin();
+        clinicAdmin.setAccount(account);
 
         accountRepository.save(account);
         clinicAdmin.setId(account.getId());
@@ -57,8 +59,9 @@ class ClinicAdminRepositoryTest {
     void whenDeleteClinicAdminById_thenDeleteAccount() {
         // Given
         Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin(account);
-
+        ClinicAdmin clinicAdmin = new ClinicAdmin();
+        clinicAdmin.setAccount(account);
+        
         accountRepository.save(account);
         clinicAdmin.setId(account.getId());
         clinicAdminRepository.save(clinicAdmin);
