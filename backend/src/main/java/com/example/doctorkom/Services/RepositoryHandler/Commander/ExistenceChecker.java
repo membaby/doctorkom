@@ -12,14 +12,14 @@ public class ExistenceChecker extends Command{
                             DoctorRepository doctorRepository,
                             SystemUserRepository systemUserRepository,
                             ClinicAdminRepository clinicAdminRepository,
-                            SystemAdminRepository systemAdminRepository) {
-        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository);
-    }
+                            SystemAdminRepository systemAdminRepository,
+                            VerificationRepository verificationRepository) {
+        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository, verificationRepository);    }
 
 
     //find if there is an entity with the given attribute
     @Override
-    public String execute(String attribute, String type) {
+    public String executecheck(String attribute, String type) {
         return switch (type) {
             case "email" -> accountRepository.findByEmail(attribute) != null ? "email already exists" : "";
             case "username" -> accountRepository.findByUsername(attribute) != null ? "username already exists" : "";

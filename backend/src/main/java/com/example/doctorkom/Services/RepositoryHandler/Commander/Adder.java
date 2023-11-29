@@ -13,8 +13,9 @@ public class Adder extends Command{
                  DoctorRepository doctorRepository,
                  SystemUserRepository systemUserRepository,
                  ClinicAdminRepository clinicAdminRepository,
-                 SystemAdminRepository systemAdminRepository) {
-        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository);
+                 SystemAdminRepository systemAdminRepository,
+                 VerificationRepository verificationRepository) {
+        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository, verificationRepository);
     }
 
 
@@ -23,7 +24,7 @@ public class Adder extends Command{
 
 
     @Override
-    public void execute(Patient patient) {
+    public void executeadd(Patient patient) {
         SystemUser systemUser = patient.getSystemUser();
         Account account = systemUser.getAccount();
         accountRepository.save(account);
@@ -40,7 +41,7 @@ public class Adder extends Command{
     }
 
     @Override
-    public void execute(Doctor doctor) {
+    public void executeadd(Doctor doctor) {
         SystemUser systemUser = doctor.getSystemUser();
         Account account = systemUser.getAccount();
         accountRepository.save(account);
@@ -58,7 +59,7 @@ public class Adder extends Command{
     }
 
     @Override
-    public void execute(SystemAdmin systemAdmin) {
+    public void executeadd(SystemAdmin systemAdmin) {
 
         Account account = systemAdmin.getAccount();
         accountRepository.save(account);
@@ -71,7 +72,7 @@ public class Adder extends Command{
     }
 
     @Override
-    public void execute(ClinicAdmin clinicAdmin) {
+    public void executeadd(ClinicAdmin clinicAdmin) {
         Account account = clinicAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
@@ -80,5 +81,10 @@ public class Adder extends Command{
         clinicAdmin.setAccountID(account.getId());
 
         clinicAdminRepository.save(clinicAdmin);
+    }
+
+    @Override
+    public void executeadd(Verification verification) {
+        verificationRepository.save(verification);
     }
 }

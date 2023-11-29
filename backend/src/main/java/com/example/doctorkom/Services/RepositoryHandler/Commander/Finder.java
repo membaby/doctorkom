@@ -14,15 +14,15 @@ public class Finder extends Command{
                   DoctorRepository doctorRepository,
                   SystemUserRepository systemUserRepository,
                   ClinicAdminRepository clinicAdminRepository,
-                  SystemAdminRepository systemAdminRepository) {
-        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository); }
-
+                  SystemAdminRepository systemAdminRepository,
+                  VerificationRepository verificationRepository) {
+        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository, verificationRepository);}
 
     //find an entity by id and role
 
     //find an entity by by attribute and role
     @Override
-    public EntityWrapper execute(String attribute,String type , String role) {
+    public EntityWrapper executefind(String attribute,String type , String role) {
         EntityWrapper entityWrapper = new EntityWrapper();
         switch (type) {
             case "email" -> {
@@ -110,6 +110,15 @@ public class Finder extends Command{
 
 
         return entityWrapper;
+    }
+    @Override
+    public Verification executefind(Account account) {
+        //find verification by account
+        //find account by email
+        account = accountRepository.findByEmail(account.getEmail());
+        //find verification by account id
+        Verification verification = verificationRepository.findById(account.getId()).orElse(null);
+        return verification;
     }
 
 

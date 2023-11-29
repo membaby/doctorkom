@@ -1,9 +1,6 @@
 package com.example.doctorkom.Services.RepositoryHandler.Commander;
 
-import com.example.doctorkom.Entities.ClinicAdmin;
-import com.example.doctorkom.Entities.Doctor;
-import com.example.doctorkom.Entities.Patient;
-import com.example.doctorkom.Entities.SystemAdmin;
+import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.RepositoryHandler.EntityWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,7 @@ public abstract class Command {
     protected final SystemUserRepository systemUserRepository;
     protected final ClinicAdminRepository clinicAdminRepository;
     protected final SystemAdminRepository systemAdminRepository;
+    protected final VerificationRepository verificationRepository;
 
     @Autowired
     public Command(AccountRepository accountRepository,
@@ -24,29 +22,49 @@ public abstract class Command {
                              DoctorRepository doctorRepository,
                              SystemUserRepository systemUserRepository,
                              ClinicAdminRepository clinicAdminRepository,
-                             SystemAdminRepository systemAdminRepository) {
+                             SystemAdminRepository systemAdminRepository,
+                             VerificationRepository verificationRepository) {
         this.accountRepository = accountRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
         this.systemUserRepository = systemUserRepository;
         this.clinicAdminRepository = clinicAdminRepository;
         this.systemAdminRepository = systemAdminRepository;
+        this.verificationRepository = verificationRepository;
     }
 
     public void execute() {
 
     }
-    public String execute(String attribute, String type){ return null;};
-    public void execute(Patient patient) {
+    //ExistenceChecker
+    public String executecheck(String attribute, String type){ return null;}
+    //adder
+    public void executeadd(Patient patient) {
     }
-    public void execute(Doctor doctor) {
+    public void executeadd(Doctor doctor) {
     }
-    public void execute(ClinicAdmin clinicAdmin) {
+    public void executeadd(ClinicAdmin clinicAdmin) {
     }
-    public void execute(SystemAdmin systemAdmin) {
+    public void executeadd(SystemAdmin systemAdmin) {
     }
-
-    public EntityWrapper execute(String email, String email1, String doctor) {
+    public void executeadd(Verification verification){
+    }
+    //finder
+    public EntityWrapper executefind(String email, String email1, String Role) {
         return null;
+    }
+    public Verification executefind(Account account){
+        return null;
+    }
+    //deleter
+    public void executedelete(Patient patient) {
+    }
+    public void executedelete(Doctor doctor) {
+    }
+    public void executedelete(ClinicAdmin clinicAdmin) {
+    }
+    public void executedelete(SystemAdmin systemAdmin) {
+    }
+    public void executedelete(Verification verification){
     }
 }
