@@ -21,8 +21,8 @@ public class ExistenceChecker extends Command{
     @Override
     public String executecheck(String attribute, String type) {
         return switch (type) {
-            case "email" -> accountRepository.findByEmail(attribute) != null ? "email already exists" : "";
-            case "username" -> accountRepository.findByUsername(attribute) != null ? "username already exists" : "";
+            case "email" -> accountRepository.findByEmail(attribute).isPresent() ? "email already exists" : "";
+            case "username" -> accountRepository.findByUsername(attribute).isPresent() ? "username already exists" : "";
             case "id" -> accountRepository.findById(Integer.parseInt(attribute)).isPresent() ? "id already exits" : "";
             default -> null;
         };
