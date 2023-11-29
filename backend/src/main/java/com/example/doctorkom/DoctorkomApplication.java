@@ -1,6 +1,5 @@
 package com.example.doctorkom;
 
-import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,9 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
 public class DoctorkomApplication {

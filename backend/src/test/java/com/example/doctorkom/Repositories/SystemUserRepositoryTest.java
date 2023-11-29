@@ -74,6 +74,8 @@ class SystemUserRepositoryTest {
         accountRepository.save(account);
         systemUser.setId(account.getId());
         systemUserRepository.save(systemUser);
+        System.out.println(account);
+        System.out.println(systemUser);
 
         // When
         SystemUser queriedSystemUser = null;

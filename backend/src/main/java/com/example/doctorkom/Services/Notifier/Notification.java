@@ -1,6 +1,5 @@
 package com.example.doctorkom.Services.Notifier;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
