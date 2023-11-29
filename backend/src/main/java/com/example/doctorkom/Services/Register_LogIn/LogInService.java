@@ -1,10 +1,6 @@
 package com.example.doctorkom.Services.Register_LogIn;
 
 import com.example.doctorkom.Entities.Account;
-import com.example.doctorkom.Entities.ClinicAdmin;
-import com.example.doctorkom.Entities.Role;
-import com.example.doctorkom.Entities.SystemAdmin;
-import com.example.doctorkom.Entities.SystemUser;
 import com.example.doctorkom.Repositories.AccountRepository;
 import com.example.doctorkom.Repositories.ClinicAdminRepository;
 import com.example.doctorkom.Repositories.DoctorRepository;
