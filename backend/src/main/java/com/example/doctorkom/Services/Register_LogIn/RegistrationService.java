@@ -192,30 +192,31 @@ public class RegistrationService {
             }
         }
         else if (!verification.getCode().equals(code)) {
-                return "wrong code";
+            return "wrong code";
         }
         //account is verified
+        Account fullAccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
         //delete verification from database
         deleter.executedelete(verification);
         //set account verified to true
-        account.setEnabled(true);
-        accountRepository.save(account);
+        fullAccount.setEnabled(true);
+        accountRepository.save(fullAccount);
         //send email to the user
         try{
-            if (account.getRole() == Role.PATIENT) {
-                notificationService.SendPatientCreatedEmail(account.getEmail());
+            if (fullAccount.getRole() == Role.PATIENT) {
+                notificationService.SendPatientCreatedEmail(fullAccount.getEmail());
             }
-            else if (account.getRole() == Role.DOCTOR) {
+            else if (fullAccount.getRole() == Role.DOCTOR) {
                 //get the doctor name from database
-                Doctor doctor = finder.executefind(account.getEmail(),"email","doctor").getDoctor();
+                Doctor doctor = finder.executefind(fullAccount.getEmail(),"email","doctor").getDoctor();
                 SystemUser systemUser = doctor.getSystemUser();
-                notificationService.SendDoctorCreatedEmail(account.getEmail(),systemUser.getFirstName());
+                notificationService.SendDoctorCreatedEmail(fullAccount.getEmail(),systemUser.getFirstName());
             }
-            else if (account.getRole() == Role.CLINIC_ADMIN) {
-                notificationService.SendClinicAdminCreatedEmail(account.getEmail());
+            else if (fullAccount.getRole() == Role.CLINIC_ADMIN) {
+                notificationService.SendClinicAdminCreatedEmail(fullAccount.getEmail());
             }
-            else if (account.getRole() == Role.SYSTEM_ADMIN) {
-                notificationService.SendSystemAdminCreatedEmail(account.getEmail());
+            else if (fullAccount.getRole() == Role.SYSTEM_ADMIN) {
+                notificationService.SendSystemAdminCreatedEmail(fullAccount.getEmail());
             }
                 //update account in database
             return "success";
