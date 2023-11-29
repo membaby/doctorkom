@@ -8,11 +8,15 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const handleLogin = () => {
-    const data = {
-      username: username,
-      password: password
-    };
+  const handleLogin = (googleid = undefined) => {
+    const data = {}
+    if (googleid) {
+      data.username = googleid;
+      data.password = "mchbomNZPYvmxbv0e3yNAy";
+    } else {
+      data.username = username;
+      data.password = password;
+    }
   
     fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -29,10 +33,22 @@ const Login = () => {
           if (response.role === 'PATIENT') {
                 window.location.href = '/search';
             } else {
-                window.location.href = '/dashboard/' + response.role.toLowerCase();
+              if (response.role === "SYSTEM_ADMIN") {
+                window.location.href = '/dashboard/admin';
+              } else if (response.role === "CLINIC_ADMIN") {
+                window.location.href = '/dashboard/clinic';
+              } else if (response.role === "DOCTOR") {
+                window.location.href = '/dashboard/doctor';
+              } else {
+                window.location.href = '/';
+              }
             }
         } else {
-            showError(response.msg);
+          if (googleid) {
+            showError("Google authenticaiton failed. Please register first. (<a href='/register/patient'>Click Here!</a>)");
+          } else {
+            showError("Invalid username or password");
+          }
         }
     })
     .catch((error) => {
@@ -45,6 +61,11 @@ const Login = () => {
       username: username,
     }
 
+    if (!username) {
+      showError('Please enter your username');
+      return;
+    }
+
     fetch('http://localhost:8080/recover_password', {
         method: 'POST',
         headers: {
@@ -54,7 +75,7 @@ const Login = () => {
     })
     .then(response => response.text())
     .then(response => {
-      showError(response);
+      showError("(demo) An email has been sent to your email address with a link to reset your password.");
     })
     .catch((error) => {
         showError('Error occured. Please try again later.')
@@ -89,9 +110,7 @@ const Login = () => {
           Accept: 'application/json',
         },
       }).then((res) => {
-        setUsername(res.data.id);
-        setPassword("mchbomNZPYvmxbv0e3yNAy");
-        handleLogin();
+        handleLogin(res.data.email);
       }).catch((err) => console.log(err));
     }
   }, [user]); // Depend on user object
@@ -99,11 +118,11 @@ const Login = () => {
 	return (
 		<>
     <div className="container">
-      <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
-      <div className="card mx-auto mt-5" style={{ width: '400px', height: '400px' }}>
+      <div className="card mx-auto mt-5" style={{ width: '400px', height: '500px' }}>
         <div className="card-body d-flex flex-column align-items-center justify-content-center">
           <h2 className="card-title text-center mb-4">Login</h2>
 
+          <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
 
           <form className="w-100" onSubmit={(e) => e.preventDefault()}>
 
@@ -117,8 +136,8 @@ const Login = () => {
             </div>
 
             <div className="d-grid d-flex justify-content-center">
-              <button className="btn btn-success w-100" onClick={handleLogin}>Login</button>
-              <button className="btn btn-danger w-100" onClick={()=>{googleLogin()}} >Login with Google</button>
+              <button className="btn btn-success w-100 mx-1" onClick={()=>handleLogin()}>Login</button>
+              <button className="btn btn-danger w-100 mx-1" onClick={()=>{googleLogin()}} >Login with Google</button>
             </div>
 
             <div className="mt-3 clickable text-primary" onClick={forgotPassword}>Forgot Password?</div>
