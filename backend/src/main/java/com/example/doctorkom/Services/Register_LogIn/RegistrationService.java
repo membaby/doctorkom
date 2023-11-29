@@ -1,6 +1,7 @@
 package com.example.doctorkom.Services.Register_LogIn;
 
 import com.example.doctorkom.Entities.*;
+import com.example.doctorkom.Repositories.AccountRepository;
 import com.example.doctorkom.Services.Notifier.NotificationService;
 import com.example.doctorkom.Services.RepositoryHandler.Commander.Command;
 import com.example.doctorkom.Services.RepositoryHandler.RepositoryHandler;
@@ -12,11 +13,17 @@ import java.time.LocalDateTime;
 
 @Service
 public class RegistrationService {
-    @Autowired
+
     NotificationService notificationService;
-    @Autowired
+
     RepositoryHandler repositoryHandler;
-    
+    AccountRepository accountRepository;
+    @Autowired
+    public RegistrationService(NotificationService notificationService, RepositoryHandler repositoryHandler, AccountRepository accountRepository) {
+        this.notificationService = notificationService;
+        this.repositoryHandler = repositoryHandler;
+        this.accountRepository = accountRepository;
+    }
     
 
     public String registerPatient(Patient patient){
@@ -190,10 +197,9 @@ public class RegistrationService {
         //account is verified
         //delete verification from database
         deleter.executedelete(verification);
-        account = finder.executefind(account.getEmail());
-        deleter.executedelete(account);
+        //set account verified to true
         account.setEnabled(true);
-        adder.executeadd(account);
+        accountRepository.save(account);
         //send email to the user
         try{
             if (account.getRole() == Role.PATIENT) {
