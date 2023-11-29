@@ -40,7 +40,7 @@ public class LogInService {
         //check if the password is correct
         if (!fullAccount.getPassword().equals(account.getPassword()))
             return null;
-        
+
         if (!fullAccount.isEnabled()) return null;
         return getAccountDetails(fullAccount);
     }

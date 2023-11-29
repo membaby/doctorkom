@@ -15,5 +15,4 @@ public interface ClinicMapper {
 
 
     Clinic toEntity(ClinicDTO clinicDTO);
-
 }

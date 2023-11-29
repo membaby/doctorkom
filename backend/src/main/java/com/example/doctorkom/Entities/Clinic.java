@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Clinic {
     @Id
-    @Column(name = "Id")
+    @Column(name = "ClinicId")
     private Integer id;
 
     @Column(name = "Name")
@@ -29,18 +30,30 @@ public class Clinic {
     @Column(name = "Email")
     private String email;
 
+    @Column(name = "MobilePhone")
+    private String mobilePhone;
 
-    public Clinic(String name, String address, String email) {
+    @Column(name = "LandlinePhone")
+    private String landlinePhone;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ClinicId")
+    private ClinicAdmin admin;
+
+    public Clinic(String name, String address, String email, String mobilePhone, String landlinePhone, ClinicAdmin admin) {
         this.name = name;
         this.address = address;
         this.email = email;
+        this.mobilePhone = mobilePhone;
+        this.landlinePhone = landlinePhone;
+        this.admin = admin;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Clinic)) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Clinic clinic = (Clinic) o;
-        return Objects.equals(id, clinic.id);
+        return id != null && Objects.equals(id, clinic.id);
     }
 }

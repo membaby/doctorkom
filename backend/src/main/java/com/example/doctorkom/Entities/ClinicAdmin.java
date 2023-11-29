@@ -24,15 +24,9 @@ public class ClinicAdmin {
     @JoinColumn(name = "AccountId")
     private Account account;
 
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ClinicID")
-    private Clinic clinic;
-
-    public ClinicAdmin(int id, Account account, Clinic clinic) {
+    public ClinicAdmin(int id, Account account) {
         this.id = id;
         this.account = account;
-        this.clinic = clinic;
     }
 
     @Override

@@ -49,7 +49,7 @@ CREATE TABLE SystemUser (
     LastName VARCHAR(20) NOT NULL,
     Birthdate DATE NOT NULL,
     Gender VARCHAR(10) NOT NULL,
-    Address VARCHAR(255) NOT NULL,
+    Address VARCHAR(250) NOT NULL,
     LandlinePhone VARCHAR(20),
     MobilePhone VARCHAR(20) UNIQUE,
     FOREIGN KEY (AccountId) REFERENCES Account(Id)
@@ -85,9 +85,19 @@ CREATE TABLE Doctor (
 
 CREATE TABLE Patient (
     UserId INT PRIMARY KEY,
-    Insurance VARCHAR(255),
+    Insurance VARCHAR(250),
     MaritalStatus VARCHAR(10),
-    Occupation VARCHAR(255),
+    Occupation VARCHAR(250),
     -- Additional Patient-specific attributes can be added here
     FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId)
 );
+
+CREATE TABLE Clinic (
+    ClinicId INT PRIMARY KEY,
+    Name VARCHAR(50) UNIQUE NOT NULL,
+    Email VARCHAR(50) UNIQUE NOT NULL,
+    Address VARCHAR(250) UNIQUE NOT NULL,
+    LandlinePhone VARCHAR(20) UNIQUE NOT NULL,
+    MobilePhone VARCHAR(20) UNIQUE NOT NULL,
+    FOREIGN KEY (ClinicId) REFERENCES ClinicAdmin(AccountId)
+)

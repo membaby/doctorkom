@@ -8,5 +8,4 @@ import lombok.Setter;
 public class ClinicDTO {
     public int id;
     public String name, address, email;
-
 }
