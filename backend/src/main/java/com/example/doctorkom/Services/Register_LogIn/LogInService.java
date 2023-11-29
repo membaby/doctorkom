@@ -49,20 +49,20 @@ public class LogInService {
     }
 
     private EntityWrapper getAccountDetails(Account account) {
-        
         EntityWrapper wrapper = new EntityWrapper();
+        wrapper.setRole(account.getRole().toString());
         switch (account.getRole()) {
             case PATIENT:
-                wrapper.setPatient(patientRepository.findById(account.getId()).get());
+                wrapper.setPatient(patientRepository.findById(account.getId()).orElse(null));
                 break;
             case DOCTOR:
-                wrapper.setDoctor(doctorRepository.findById(account.getId()).get());
+                wrapper.setDoctor(doctorRepository.findById(account.getId()).orElse(null));
                 break;
             case SYSTEM_ADMIN:
-                wrapper.setSystemAdmin(systemAdminRepository.findById(account.getId()).get());
+                wrapper.setSystemAdmin(systemAdminRepository.findById(account.getId()).orElse(null));
                 break;
             case CLINIC_ADMIN:
-                wrapper.setClinicAdmin(clinicAdminRepository.findById(account.getId()).get());
+                wrapper.setClinicAdmin(clinicAdminRepository.findById(account.getId()).orElse(null));
                 break;
         }
         return wrapper;
