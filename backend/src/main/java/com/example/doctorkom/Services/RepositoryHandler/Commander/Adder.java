@@ -29,14 +29,13 @@ public class Adder extends Command{
         Account account = systemUser.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        account = accountRepository.findByEmail(account.getEmail());
-
-        systemUser.setAccount(account);
-        systemUser.setId(account.getId());
+        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        systemUser.setAccount(newaccount);
+        systemUser.setId(newaccount.getId());
         systemUserRepository.save(systemUser);
 
         patient.setSystemUser(systemUser);
-        patient.setId(account.getId());
+        patient.setId(newaccount.getId());
         patientRepository.save(patient);
     }
 
@@ -46,15 +45,15 @@ public class Adder extends Command{
         Account account = systemUser.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        account = accountRepository.findByEmail(account.getEmail());
-
-        systemUser.setAccount(account);
-        systemUser.setId(account.getId());
+        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        systemUser.setAccount(newaccount);
+        systemUser.setId(newaccount.getId());
         systemUserRepository.save(systemUser);
 
         doctor.setSystemUser(systemUser);
-        doctor.setId(account.getId());
+        doctor.setId(newaccount.getId());
         doctorRepository.save(doctor);
+
 
     }
 
@@ -64,11 +63,11 @@ public class Adder extends Command{
         Account account = systemAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        account = accountRepository.findByEmail(account.getEmail());
-        systemAdmin.setAccount(account);
-        systemAdmin.setAccountID(account.getId());
-
+        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        systemAdmin.setAccount(newaccount);
+        systemAdmin.setAccountID(newaccount.getId());
         systemAdminRepository.save(systemAdmin);
+
     }
 
     @Override
@@ -76,11 +75,11 @@ public class Adder extends Command{
         Account account = clinicAdmin.getAccount();
         accountRepository.save(account);
         //get the generated id by the database after saving the account
-        account = accountRepository.findByEmail(account.getEmail());
-        clinicAdmin.setAccount(account);
-        clinicAdmin.setAccountID(account.getId());
-
+        Account newaccount = accountRepository.findByEmail(account.getEmail());
+        clinicAdmin.setAccount(newaccount);
+        clinicAdmin.setAccountID(newaccount.getId());
         clinicAdminRepository.save(clinicAdmin);
+
     }
 
     @Override
