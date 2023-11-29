@@ -8,10 +8,10 @@ const Homepage = () => {
     <>
       <div className="homepage-container">
         <h1 className="well-being-text">Putting Your Well-being First</h1>
-        <a href="#">
+        <a href="/search">
           <button type="button" className="homepage-button">Find Doctors</button>
         </a>
-        <a href="/register">
+        <a href="/register/patient">
           <button type="button" className="homepage-button">Join Platform</button>
         </a>
       </div>
