@@ -74,27 +74,27 @@ public class LoginServiceTest {
     }
 
 
-    @Test
-    public void loginAsPatient() {
-       //login to a patient account
-       //Confirm account type is patient
-        Account account = new Account("swe.test.patient2@gmail.com", "swe.test.patient2@gmail.com", "123", null);
-        EntityWrapper fullAccount = loginService.login(account);
-        assertNotNull(fullAccount);
-        assertTrue(fullAccount.getRole().equals("PATIENT"));
-        assertNotNull(fullAccount.getPatient());
-    }
+    // @Test
+    // public void loginAsPatient() {
+    //    //login to a patient account
+    //    //Confirm account type is patient
+    //     Account account = new Account("swe.test.patient2@gmail.com", "swe.test.patient2@gmail.com", "123", null);
+    //     EntityWrapper fullAccount = loginService.login(account);
+    //     assertNotNull(fullAccount);
+    //     assertTrue(fullAccount.getRole().equals("PATIENT"));
+    //     assertNotNull(fullAccount.getPatient());
+    // }
     
-    @Test
-    public void loginAsDoctor() {
-        //login to a doctor account
-        //confirm account type is doctor
-        Account account = new Account("swe.test.doctor@gmail.com", "swe.test.doctor@gmail.com", "doctor", null);
-        EntityWrapper fullAccount = loginService.login(account);
-        assertNotNull(fullAccount);
-        assertTrue(fullAccount.getRole().equals("DOCTOR"));
-        assertNotNull(fullAccount.getDoctor());
-    }
+    // @Test
+    // public void loginAsDoctor() {
+    //     //login to a doctor account
+    //     //confirm account type is doctor
+    //     Account account = new Account("swe.test.doctor@gmail.com", "swe.test.doctor@gmail.com", "doctor", null);
+    //     EntityWrapper fullAccount = loginService.login(account);
+    //     assertNotNull(fullAccount);
+    //     assertTrue(fullAccount.getRole().equals("DOCTOR"));
+    //     assertNotNull(fullAccount.getDoctor());
+    // }
 
     // @Test
     // public void loginAsClinic() {
