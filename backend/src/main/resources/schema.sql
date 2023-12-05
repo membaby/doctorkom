@@ -93,11 +93,11 @@ CREATE TABLE Patient (
 );
 
 CREATE TABLE Clinic (
-    ClinicId INT PRIMARY KEY,
+    AdminId INT PRIMARY KEY,
     Name VARCHAR(50) UNIQUE NOT NULL,
     Email VARCHAR(50) UNIQUE NOT NULL,
     Address VARCHAR(250) UNIQUE NOT NULL,
     LandlinePhone VARCHAR(20) UNIQUE NOT NULL,
     MobilePhone VARCHAR(20) UNIQUE NOT NULL,
-    FOREIGN KEY (ClinicId) REFERENCES ClinicAdmin(AccountId)
+    FOREIGN KEY (AdminId) REFERENCES ClinicAdmin(AccountId)
 )
