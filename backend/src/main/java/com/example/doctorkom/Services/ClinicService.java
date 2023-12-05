@@ -9,12 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClinicService {
 
-    private final ClinicRepository clinicRepository;
-
     @Autowired
-    public ClinicService(ClinicRepository clinicRepository) {
-        this.clinicRepository = clinicRepository;
-    }
+    private ClinicRepository clinicRepository;
+
 
     public String createClinic(Clinic clinic) {
        if( clinicRepository.findByEmail(clinic.getEmail()) == null) {

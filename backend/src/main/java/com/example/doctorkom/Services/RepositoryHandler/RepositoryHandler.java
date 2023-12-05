@@ -7,19 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RepositoryHandler {
-    private final Adder adder;
-    private final Finder finder;
-    private final ExistenceChecker existenceChecker;
-    private final Deleter deleter;
-
-
     @Autowired
-    public RepositoryHandler(Adder adder, Finder finder, ExistenceChecker existenceChecker, Deleter deleter) {
-        this.adder = adder;
-        this.finder = finder;
-        this.existenceChecker = existenceChecker;
-        this.deleter = deleter;
-    }
+    private Adder adder;
+    @Autowired
+    private Finder finder;
+    @Autowired
+    private ExistenceChecker existenceChecker;
+    @Autowired
+    private Deleter deleter;
+
+
     //add account to database
     public Command GetCommmand(String command){
         switch (command) {

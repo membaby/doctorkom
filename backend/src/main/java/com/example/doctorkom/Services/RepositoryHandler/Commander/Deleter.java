@@ -1,23 +1,12 @@
 package com.example.doctorkom.Services.RepositoryHandler.Commander;
 
 import com.example.doctorkom.Entities.*;
-import com.example.doctorkom.Repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Deleter extends Command{
-    @Autowired
-    public Deleter(
-            AccountRepository accountRepository,
-            PatientRepository patientRepository,
-            DoctorRepository doctorRepository,
-            SystemUserRepository systemUserRepository,
-            ClinicAdminRepository clinicAdminRepository,
-            SystemAdminRepository systemAdminRepository,
-            VerificationRepository verificationRepository) {
-        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository, verificationRepository);
-    }
+
+
     @Override
     public void executedelete(Patient patient) {
         SystemUser systemUser = patient.getSystemUser();

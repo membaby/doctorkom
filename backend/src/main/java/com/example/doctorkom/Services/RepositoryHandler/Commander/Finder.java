@@ -1,23 +1,12 @@
 package com.example.doctorkom.Services.RepositoryHandler.Commander;
 
 import com.example.doctorkom.Entities.*;
-import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.RepositoryHandler.EntityWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Finder extends Command{
-    @Autowired
-    public Finder(AccountRepository accountRepository,
-                  PatientRepository patientRepository,
-                  DoctorRepository doctorRepository,
-                  SystemUserRepository systemUserRepository,
-                  ClinicAdminRepository clinicAdminRepository,
-                  SystemAdminRepository systemAdminRepository,
-                  VerificationRepository verificationRepository) {
-        super(accountRepository, patientRepository, doctorRepository, systemUserRepository, clinicAdminRepository, systemAdminRepository, verificationRepository);}
-
+    
     //find an entity by id and role
 
     //find an entity by by attribute and role

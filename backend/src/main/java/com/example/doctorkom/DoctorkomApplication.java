@@ -1,8 +1,6 @@
 package com.example.doctorkom;
 
-import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Repositories.*;
-import com.example.doctorkom.Services.ClinicService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,14 +11,12 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DoctorkomApplication {
+	
+	// @Autowired
+	// private ClinicService clinicService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DoctorkomApplication.class, args);
-	}
-	private final ClinicService clinicService;
-	@Autowired
-	public DoctorkomApplication(ClinicService clinicService) {
-		this.clinicService = clinicService;
 	}
 
 	// @Bean

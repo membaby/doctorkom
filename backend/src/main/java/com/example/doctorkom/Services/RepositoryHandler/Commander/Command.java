@@ -8,30 +8,36 @@ import org.springframework.stereotype.Component;
 
 @Component
 public abstract class Command {
-    protected final AccountRepository accountRepository;
-    protected final PatientRepository patientRepository;
-    protected final DoctorRepository doctorRepository;
-    protected final SystemUserRepository systemUserRepository;
-    protected final ClinicAdminRepository clinicAdminRepository;
-    protected final SystemAdminRepository systemAdminRepository;
-    protected final VerificationRepository verificationRepository;
-
     @Autowired
-    public Command(AccountRepository accountRepository,
-                             PatientRepository patientRepository,
-                             DoctorRepository doctorRepository,
-                             SystemUserRepository systemUserRepository,
-                             ClinicAdminRepository clinicAdminRepository,
-                             SystemAdminRepository systemAdminRepository,
-                             VerificationRepository verificationRepository) {
-        this.accountRepository = accountRepository;
-        this.patientRepository = patientRepository;
-        this.doctorRepository = doctorRepository;
-        this.systemUserRepository = systemUserRepository;
-        this.clinicAdminRepository = clinicAdminRepository;
-        this.systemAdminRepository = systemAdminRepository;
-        this.verificationRepository = verificationRepository;
-    }
+    protected AccountRepository accountRepository;
+    @Autowired
+    protected PatientRepository patientRepository;
+    @Autowired
+    protected DoctorRepository doctorRepository;
+    @Autowired
+    protected SystemUserRepository systemUserRepository;
+    @Autowired
+    protected ClinicAdminRepository clinicAdminRepository;
+    @Autowired
+    protected SystemAdminRepository systemAdminRepository;
+    @Autowired
+    protected VerificationRepository verificationRepository;
+
+    // public Command(AccountRepository accountRepository,
+    //                          PatientRepository patientRepository,
+    //                          DoctorRepository doctorRepository,
+    //                          SystemUserRepository systemUserRepository,
+    //                          ClinicAdminRepository clinicAdminRepository,
+    //                          SystemAdminRepository systemAdminRepository,
+    //                          VerificationRepository verificationRepository) {
+    //     this.accountRepository = accountRepository;
+    //     this.patientRepository = patientRepository;
+    //     this.doctorRepository = doctorRepository;
+    //     this.systemUserRepository = systemUserRepository;
+    //     this.clinicAdminRepository = clinicAdminRepository;
+    //     this.systemAdminRepository = systemAdminRepository;
+    //     this.verificationRepository = verificationRepository;
+    // }
 
     public void execute() {
 

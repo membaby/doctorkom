@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationService {
 
-    private final JavaMailSender mailSender;
     @Autowired
-    public NotificationService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
+    private JavaMailSender mailSender;
+
     public void SendPatientCreatedEmail(String email) throws MessagingException {
         Notification notification = new Notification();
         notification.setTo(email);

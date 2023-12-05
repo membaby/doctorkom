@@ -14,17 +14,13 @@ import java.time.LocalDateTime;
 @Service
 public class RegistrationService {
 
-    NotificationService notificationService;
-
-    RepositoryHandler repositoryHandler;
-    AccountRepository accountRepository;
     @Autowired
-    public RegistrationService(NotificationService notificationService, RepositoryHandler repositoryHandler, AccountRepository accountRepository) {
-        this.notificationService = notificationService;
-        this.repositoryHandler = repositoryHandler;
-        this.accountRepository = accountRepository;
-    }
-    
+    NotificationService notificationService;
+    @Autowired
+    RepositoryHandler repositoryHandler;
+    @Autowired
+    AccountRepository accountRepository;
+
 
     public String registerPatient(Patient patient){
         //check if the user exists
@@ -180,7 +176,7 @@ public class RegistrationService {
         Command finder = repositoryHandler.GetCommmand("find");
         Command existenceChecker = repositoryHandler.GetCommmand("check");
         Command deleter = repositoryHandler.GetCommmand("delete");
-        Command adder = repositoryHandler.GetCommmand("add");
+        // Command adder = repositoryHandler.GetCommmand("add");
         Verification verification = finder.executefind(account);
         if (verification == null) {
             String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
