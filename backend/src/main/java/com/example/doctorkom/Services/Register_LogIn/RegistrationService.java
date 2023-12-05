@@ -20,6 +20,16 @@ public class RegistrationService {
     RepositoryHandler repositoryHandler;
     @Autowired
     AccountRepository accountRepository;
+    //Registration messages
+    public final String EMAIL_EXISTS = "Email already exists.";
+    public final String USERNAME_EXISTS = "Username already exists.";
+    public final String MOBILE_EXISTS = "Mobile phone already exists.";
+    //Verification messages
+    public final String NOT_REGISTERED = "Email is not registered.";
+    public final String WRONG_CODE = "Wrong code.";
+    public final String ALREADY_ = "Wrong code.";
+    public final String SUCCESS = "Account verified";
+    
 
 
     public String registerPatient(Patient patient){
@@ -32,13 +42,13 @@ public class RegistrationService {
         String mobilePhoneExists = existenceChecker.executecheck(systemUser.getMobilePhone(),"mobilePhone");
         //if the emailexists is not empty then the email exists same for username
         if (!emailExists.isEmpty()) {
-            return emailExists;
+            return EMAIL_EXISTS;
         }
         if (!usernameExists.isEmpty()) {
-            return usernameExists;
+            return USERNAME_EXISTS;
         }
         if (!mobilePhoneExists.isEmpty()) {
-            return mobilePhoneExists;
+            return MOBILE_EXISTS;
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
@@ -63,8 +73,8 @@ public class RegistrationService {
             return "Could not send verification email. Problem with notification service";
         }
     }
-
-
+    
+    
     public String registerDoctor(Doctor doctor) {
         //check if the user exists
         SystemUser systemUser = doctor.getSystemUser();
@@ -72,11 +82,15 @@ public class RegistrationService {
         Command existenceChecker = repositoryHandler.GetCommmand("check");
         String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
         String usernameExists = existenceChecker.executecheck(account.getUsername(),"username");
+        String mobilePhoneExists = existenceChecker.executecheck(systemUser.getMobilePhone(),"mobilePhone");
         if (!emailExists.isEmpty()) {
-            return emailExists;
+            return EMAIL_EXISTS;
         }
         if (!usernameExists.isEmpty()) {
-            return usernameExists;
+            return USERNAME_EXISTS;
+        }
+        if (!mobilePhoneExists.isEmpty()) {
+            return MOBILE_EXISTS;
         }
         String code = generateVerificationCode();
         Command adder = repositoryHandler.GetCommmand("add");
