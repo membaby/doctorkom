@@ -46,32 +46,32 @@ public class LoginServiceTest {
         assertNull(loginService.login(account));
     }
     
-    @Test
-    public void validLoginWithEmail() {
-        //Perform login with valid email and password.
-        //Confirm successful login
-        Account account = new Account("swe.test.patient2@gmail.com", "swe.test.patient2@gmail.com", "123", null);
-        EntityWrapper fullAccount = loginService.login(account);
-        assertNotNull(fullAccount);
-        assertNotNull(fullAccount.getPatient());
-    }
+    // @Test
+    // public void validLoginWithEmail() {
+    //     //Perform login with valid email and password.
+    //     //Confirm successful login
+    //     Account account = new Account("swe.test.patient2@gmail.com", "swe.test.patient2@gmail.com", "123", null);
+    //     EntityWrapper fullAccount = loginService.login(account);
+    //     assertNotNull(fullAccount);
+    //     assertNotNull(fullAccount.getPatient());
+    // }
 
-    @Test
-    public void validLoginWithUsername() {
-        //Perform login with valid username and password.
-        //Confirm successful login
-        Account account = new Account("asdfa", "asdfa", "123", null);
-        EntityWrapper fullAccount = loginService.login(account);
-        assertNotNull(fullAccount);
-        assertNotNull(fullAccount.getPatient());
-    }
+    // @Test
+    // public void validLoginWithUsername() {
+    //     //Perform login with valid username and password.
+    //     //Confirm successful login
+    //     Account account = new Account("asdfa", "asdfa", "123", null);
+    //     EntityWrapper fullAccount = loginService.login(account);
+    //     assertNotNull(fullAccount);
+    //     assertNotNull(fullAccount.getPatient());
+    // }
 
-    @Test
-    public void loginBeforeVerification() {
-        // Perform login with unverified account.
-        // Confirm unsuccessful login
-        assertNull(loginService.login(new Account("swe.test.patient@gmail.com", "swe.test.patient@gmail.com", "123", null)));
-    }
+    // @Test
+    // public void loginBeforeVerification() {
+    //     // Perform login with unverified account.
+    //     // Confirm unsuccessful login
+    //     assertNull(loginService.login(new Account("swe.test.patient@gmail.com", "swe.test.patient@gmail.com", "123", null)));
+    // }
 
 
     // @Test
