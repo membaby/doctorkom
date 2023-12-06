@@ -9,5 +9,4 @@ class DoctorkomApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
