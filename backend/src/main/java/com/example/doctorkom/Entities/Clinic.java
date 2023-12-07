@@ -49,6 +49,7 @@ public class Clinic {
         this.admin = admin;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
