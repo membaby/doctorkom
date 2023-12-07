@@ -12,7 +12,7 @@ CREATE TABLE Verification (
       Code VARCHAR(6) NOT NULL,
       CreationTime DATETIME NOT NULL,
       FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
-);9
+);
 
 -- SET GLOBAL event_scheduler = ON;
 --
@@ -93,11 +93,11 @@ CREATE TABLE Patient (
 );
 
 CREATE TABLE Clinic (
-    AdminId INT PRIMARY KEY,
-    Name VARCHAR(50) UNIQUE NOT NULL,
-    Email VARCHAR(50) UNIQUE NOT NULL,
-    Address VARCHAR(250) UNIQUE NOT NULL,
-    Landline VARCHAR(20) UNIQUE NOT NULL,
-    Phone VARCHAR(20) UNIQUE NOT NULL,
-    FOREIGN KEY (AdminId) REFERENCES ClinicAdmin(AccountId)
-)
+    ClinicId INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Address VARCHAR(250) NOT NULL,
+    LandlinePhone VARCHAR(20) NOT NULL,
+    MobilePhone VARCHAR(20) NOT NULL,
+    FOREIGN KEY (ClinicId) REFERENCES ClinicAdmin(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
+);
