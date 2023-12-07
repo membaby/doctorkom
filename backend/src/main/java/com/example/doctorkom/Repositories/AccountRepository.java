@@ -15,4 +15,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<List<Account>> findByRole(Role role);
     void deleteByEmail(String mail);
     void deleteByUsername(String johnSmith1);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByUsername(String username);
+
 }
