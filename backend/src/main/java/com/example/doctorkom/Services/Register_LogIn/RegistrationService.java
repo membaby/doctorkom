@@ -1,8 +1,10 @@
 package com.example.doctorkom.Services.Register_LogIn;
 
 import com.example.doctorkom.Entities.*;
-import com.example.doctorkom.Repositories.*;
+import com.example.doctorkom.Repositories.AccountRepository;
 import com.example.doctorkom.Services.Notifier.NotificationService;
+import com.example.doctorkom.Services.RepositoryHandler.Commander.Command;
+import com.example.doctorkom.Services.RepositoryHandler.RepositoryHandler;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,32 +14,13 @@ import java.time.LocalDateTime;
 @Service
 public class RegistrationService {
 
-
-    NotificationService notificationService;
-    AccountRepository accountRepository;
-    PatientRepository patientRepository;
-    DoctorRepository doctorRepository;
-    ClinicAdminRepository clinicAdminRepository;
-    SystemAdminRepository systemAdminRepository;
-    VerificationRepository verificationRepository;
-
-    //Registration messages
     @Autowired
-    void publicRegistrationService( NotificationService notificationService,
-                                    AccountRepository accountRepository,
-                                    PatientRepository patientRepository,
-                                    DoctorRepository doctorRepository,
-                                    ClinicAdminRepository clinicAdminRepository,
-                                    SystemAdminRepository systemAdminRepository,
-                                    VerificationRepository verificationRepository){
-        this.notificationService = notificationService;
-        this.accountRepository = accountRepository;
-        this.patientRepository = patientRepository;
-        this.doctorRepository = doctorRepository;
-        this.clinicAdminRepository = clinicAdminRepository;
-        this.systemAdminRepository = systemAdminRepository;
-        this.verificationRepository = verificationRepository;
-    }
+    NotificationService notificationService;
+    @Autowired
+    RepositoryHandler repositoryHandler;
+    @Autowired
+    AccountRepository accountRepository;
+    //Registration messages
     public final String EMAIL_EXISTS = "Email already exists.";
     public final String USERNAME_EXISTS = "Username already exists.";
     public final String MOBILE_EXISTS = "Mobile phone already exists.";
@@ -53,28 +36,35 @@ public class RegistrationService {
         //check if the user exists
         SystemUser systemUser = patient.getSystemUser();
         Account account = systemUser.getAccount();
-        boolean emailExists = accountRepository.existsByEmail(account.getEmail());
-        boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
+        String usernameExists = existenceChecker.executecheck(account.getUsername(),"username");
+        String mobilePhoneExists = existenceChecker.executecheck(systemUser.getMobilePhone(),"mobilePhone");
         //if the emailexists is not empty then the email exists same for username
-        if (emailExists) {
-
+        if (!emailExists.isEmpty()) {
             return EMAIL_EXISTS;
         }
-        if (usernameExists) {
+        if (!usernameExists.isEmpty()) {
             return USERNAME_EXISTS;
+        }
+        if (!mobilePhoneExists.isEmpty()) {
+            return MOBILE_EXISTS;
         }
         //generate verification code from 100000 to 999999
         String code = generateVerificationCode();
         //add account to database
-        patientRepository.save(patient);
-        Account newaccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.executeadd(patient);
         //store verification code and account in database
+        Command finder = repositoryHandler.GetCommmand("find");
+        patient = finder.executefind(account.getEmail(),"email","patient").getPatient();
+        account.setId(patient.getId());
         Verification verification = new Verification();
         verification.setCode(code);
-        verification.setAccount(newaccount);
-        verification.setId(newaccount.getId());
+        verification.setAccount(account);
+        verification.setId(account.getId());
         verification.setExpirationTime(LocalDateTime.now().plusDays(1));
-        verificationRepository.save(verification);
+        adder.executeadd(verification);
         //send verification email
         try{
             notificationService.VerificationEmail_PD(account.getEmail(),code);
@@ -86,30 +76,35 @@ public class RegistrationService {
     
     
     public String registerDoctor(Doctor doctor) {
-        //same as register patient code
+        //check if the user exists
         SystemUser systemUser = doctor.getSystemUser();
         Account account = systemUser.getAccount();
-        boolean emailExists = accountRepository.existsByEmail(account.getEmail());
-        boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
-        //if the emailexists is not empty then the email exists same for username
-        if (emailExists) {
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
+        String usernameExists = existenceChecker.executecheck(account.getUsername(),"username");
+        String mobilePhoneExists = existenceChecker.executecheck(systemUser.getMobilePhone(),"mobilePhone");
+        if (!emailExists.isEmpty()) {
             return EMAIL_EXISTS;
         }
-        if (usernameExists) {
+        if (!usernameExists.isEmpty()) {
             return USERNAME_EXISTS;
         }
-        //generate verification code from 100000 to 999999
+        if (!mobilePhoneExists.isEmpty()) {
+            return MOBILE_EXISTS;
+        }
         String code = generateVerificationCode();
-        //add account to database
-        doctorRepository.save(doctor);
-        Account newaccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.executeadd(doctor);
         //store verification code and account in database
+        Command finder = repositoryHandler.GetCommmand("find");
+        doctor = finder.executefind(account.getEmail(),"email","doctor").getDoctor();
+        account.setId(doctor.getId());
         Verification verification = new Verification();
         verification.setCode(code);
-        verification.setAccount(newaccount);
-        verification.setId(newaccount.getId());
+        verification.setAccount(account);
+        verification.setId(account.getId());
         verification.setExpirationTime(LocalDateTime.now().plusDays(1));
-        verificationRepository.save(verification);
+        adder.executeadd(verification);
         //send verification email
         try{
             notificationService.VerificationEmail_PD(account.getEmail(),code);
@@ -121,25 +116,28 @@ public class RegistrationService {
     public String registerClinicAdmin(ClinicAdmin clinicAdmin, String formlink) {
         //check if the user exists
         Account account = clinicAdmin.getAccount();
-        boolean emailExists = accountRepository.existsByEmail(account.getEmail());
-        boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
-        //if the emailexists is not empty then the email exists same for username
-        if (emailExists) {
-            return EMAIL_EXISTS;
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
+        String usernameExists = existenceChecker.executecheck(account.getUsername(),"username");
+        if (!emailExists.isEmpty()) {
+            return emailExists;
         }
-        if (usernameExists) {
-            return USERNAME_EXISTS;
+        if (!usernameExists.isEmpty()) {
+            return usernameExists;
         }
         String code = generateVerificationCode();
-        clinicAdminRepository.save(clinicAdmin);
-        Account newaccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.executeadd(clinicAdmin);
         //store verification code and account in database
+        Command finder = repositoryHandler.GetCommmand("find");
+        clinicAdmin = finder.executefind(account.getEmail(),"email","clinicAdmin").getClinicAdmin();
+        account.setId(clinicAdmin.getId());
         Verification verification = new Verification();
         verification.setCode(code);
-        verification.setAccount(newaccount);
-        verification.setId(newaccount.getId());
+        verification.setAccount(account);
+        verification.setId(account.getId());
         verification.setExpirationTime(LocalDateTime.now().plusDays(1));
-        verificationRepository.save(verification);
+        adder.executeadd(verification);
         //send verification email
         try{
             notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
@@ -151,27 +149,29 @@ public class RegistrationService {
     }
     public String registerSystemAdmin(SystemAdmin systemAdmin,String formlink) {
         //check if the user exists
-        ///same as register clinic admin
         Account account = systemAdmin.getAccount();
-        boolean emailExists = accountRepository.existsByEmail(account.getEmail());
-        boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
-        //if the emailexists is not empty then the email exists same for username
-        if (emailExists) {
-            return EMAIL_EXISTS;
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
+        String usernameExists = existenceChecker.executecheck(account.getUsername(),"username");
+        if (!emailExists.isEmpty()) {
+            return emailExists;
         }
-        if (usernameExists) {
-            return USERNAME_EXISTS;
+        if (!usernameExists.isEmpty()) {
+            return usernameExists;
         }
         String code = generateVerificationCode();
-        systemAdminRepository.save(systemAdmin);
-        Account newaccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        Command adder = repositoryHandler.GetCommmand("add");
+        adder.executeadd(systemAdmin);
         //store verification code and account in database
+        Command finder = repositoryHandler.GetCommmand("find");
+        systemAdmin = finder.executefind(account.getEmail(),"email","systemAdmin").getSystemAdmin();
+        account.setId(systemAdmin.getId());
         Verification verification = new Verification();
         verification.setCode(code);
-        verification.setAccount(newaccount);
-        verification.setId(newaccount.getId());
+        verification.setAccount(account);
+        verification.setId(account.getId());
         verification.setExpirationTime(LocalDateTime.now().plusDays(1));
-        verificationRepository.save(verification);
+        adder.executeadd(verification);
         //send verification email
         try{
             notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
@@ -187,11 +187,14 @@ public class RegistrationService {
         -If code was incorrect but email was correct return "wrong code".
         -If email isn't in the system then return "email not registered".
         -If account is already verified return "already verified*/
+        Command finder = repositoryHandler.GetCommmand("find");
+        Command existenceChecker = repositoryHandler.GetCommmand("check");
+        Command deleter = repositoryHandler.GetCommmand("delete");
         // Command adder = repositoryHandler.GetCommmand("add");
-        Verification verification = verificationRepository.findById(account.getId()).orElse(null);
+        Verification verification = finder.executefind(account);
         if (verification == null) {
-            boolean emailExists = accountRepository.existsByEmail(account.getEmail());
-            if (!emailExists) {
+            String emailExists = existenceChecker.executecheck(account.getEmail(),"email");
+            if (emailExists.isEmpty()) {
                 return "email not registered";
             }
             else {
@@ -202,12 +205,12 @@ public class RegistrationService {
             return "wrong code";
         }
         //account is verified
-        Account fullAccount = verification.getAccount();
+        Account fullAccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        //delete verification from database
+        deleter.executedelete(verification);
         //set account verified to true
         fullAccount.setEnabled(true);
         accountRepository.save(fullAccount);
-        //delete verification from database
-        verificationRepository.delete(verification);
         //send email to the user
         try{
             if (fullAccount.getRole() == Role.PATIENT) {
@@ -215,7 +218,7 @@ public class RegistrationService {
             }
             else if (fullAccount.getRole() == Role.DOCTOR) {
                 //get the doctor name from database
-                Doctor doctor = doctorRepository.findById(fullAccount.getId()).orElse(null);
+                Doctor doctor = finder.executefind(fullAccount.getEmail(),"email","doctor").getDoctor();
                 SystemUser systemUser = doctor.getSystemUser();
                 notificationService.SendDoctorCreatedEmail(fullAccount.getEmail(),systemUser.getFirstName());
             }

@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="638daee9-704d-405f-967d-2eddf70d0293" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Notifier/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,9 +77,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "SCRUM-135-Refactor-RepoHandler",
+    "git-widget-placeholder": "SCRUM-91-Validate-sign-up-data-return-message",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/college/level-3/1st term/Software Engineering/project/doctorkom/backend",
+    "last_opened_file_path": "E:/college/level-3/1st term/Software Engineering/project/backend",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
