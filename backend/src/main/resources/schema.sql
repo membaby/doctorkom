@@ -118,3 +118,13 @@ CREATE TABLE WorksFor (
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
 );
+
+CREATE TABLE TimeSlot (
+      DoctorId INT,
+      ClinicId INT,
+      date DATE,
+--       weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
+      PRIMARY KEY (DoctorId, ClinicId, Date),
+      FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
+      FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
+);

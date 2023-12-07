@@ -37,6 +37,9 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<MedicalNote> medicalNotes;
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<TimeSlot> timeSlots;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name = "WorksFor",
@@ -52,6 +55,15 @@ public class Doctor {
 
         medicalNotes.add(medicalNote);
         medicalNote.setDoctor(this);
+    }
+
+    public void addTimeSlot (TimeSlot timeSlot) {
+        if (timeSlots == null) {
+            timeSlots = new ArrayList<>();
+        }
+
+        timeSlots.add(timeSlot);
+        timeSlot.setDoctor(this);
     }
 
     public void addClinic (Clinic clinic) {

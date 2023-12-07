@@ -41,6 +41,9 @@ public class Clinic {
     @JoinColumn(name = "ClinicId")
     private ClinicAdmin admin;
 
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
+    private List<TimeSlot> timeSlots;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name = "WorksFor",
