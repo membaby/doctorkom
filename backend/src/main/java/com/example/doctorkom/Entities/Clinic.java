@@ -41,6 +41,14 @@ public class Clinic {
     @JoinColumn(name = "ClinicId")
     private ClinicAdmin admin;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "WorksFor",
+            joinColumns = @JoinColumn(name = "ClinicId"),
+            inverseJoinColumns = @JoinColumn(name = "DoctorId")
+    )
+    private List<Doctor> doctors;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

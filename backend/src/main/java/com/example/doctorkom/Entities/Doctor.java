@@ -34,6 +34,23 @@ public class Doctor {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "WorksFor",
+            joinColumns = @JoinColumn(name = "DoctorId"),
+            inverseJoinColumns = @JoinColumn(name = "ClinicId")
+    )
+    private List<Clinic> clinics;
+
+    public void addClinic (Clinic clinic) {
+        if (clinics == null) {
+            clinics = new ArrayList<>();
+        }
+
+        clinics.add(clinic);
+        clinic.getDoctors().add(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
