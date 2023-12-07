@@ -2,14 +2,13 @@ package com.example.doctorkom.Controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.example.doctorkom.DTOs.AccountDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
-import com.example.doctorkom.DTOs.AccountDTO;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginControllerTest {

@@ -12,7 +12,7 @@ CREATE TABLE Verification (
       Code VARCHAR(6) NOT NULL,
       CreationTime DATETIME NOT NULL,
       FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
-);
+);9
 
 -- SET GLOBAL event_scheduler = ON;
 --
