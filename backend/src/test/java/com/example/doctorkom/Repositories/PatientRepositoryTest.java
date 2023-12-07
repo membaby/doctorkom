@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @DataJpaTest
-class PatientRepositoryTest {
+class
+PatientRepositoryTest {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -26,14 +27,31 @@ class PatientRepositoryTest {
     @Test
     void whenFindPatientById_thenReturnPatient() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When
@@ -48,14 +66,31 @@ class PatientRepositoryTest {
     @Test
     void whenFindPatientsByOccupation_thenReturnPatients() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When
@@ -70,14 +105,31 @@ class PatientRepositoryTest {
     @Test
     void whenFindPatientsByMaritalStatus_thenReturnPatients() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When
@@ -92,14 +144,31 @@ class PatientRepositoryTest {
     @Test
     void whenFindPatientsByInsurance_thenReturnPatients() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When
@@ -114,14 +183,31 @@ class PatientRepositoryTest {
     @Test
     void whenDeletePatientById_thenDeletePatient() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When
@@ -134,14 +220,31 @@ class PatientRepositoryTest {
     @Test
     void whenDeletePatientById_thenDeleteSystemUser() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When
@@ -154,14 +257,31 @@ class PatientRepositoryTest {
     @Test
     void whenDeletePatientById_thenDeleteAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
-        Patient patient = new Patient("Engineer","Single","BOBA", systemUser);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        patient.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
+        Patient patient = Patient.builder().
+                occupation("Engineer").
+                maritalStatus("Single").
+                insurance("BOBA").
+                systemUser(systemUser).
+                build();
+
         patientRepository.save(patient);
 
         // When

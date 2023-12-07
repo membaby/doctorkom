@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("test")
 @DataJpaTest
 class ClinicAdminRepositoryTest {
-
     @Autowired
     private AccountRepository accountRepository;
 
@@ -20,12 +19,17 @@ class ClinicAdminRepositoryTest {
     @Test
     void whenFindSystemAdminById_thenReturnSystemAdmin() {
         // Given
-        Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin();
-        clinicAdmin.setAccount(account);
+        Account account = Account.builder().
+                email("nursejane@clinic.com").
+                username("NurseJane1").
+                password("Healthcare456").
+                role(Role.CLINIC_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        clinicAdmin.setId(account.getId());
+        ClinicAdmin clinicAdmin = ClinicAdmin.builder().
+                account(account).
+                build();
+
         clinicAdminRepository.save(clinicAdmin);
 
         // When
@@ -40,12 +44,17 @@ class ClinicAdminRepositoryTest {
     @Test
     void whenDeleteClinicAdminById_thenDeleteClinicAdmin() {
         // Given
-        Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin();
-        clinicAdmin.setAccount(account);
+        Account account = Account.builder().
+                email("nursejane@clinic.com").
+                username("NurseJane1").
+                password("Healthcare456").
+                role(Role.CLINIC_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        clinicAdmin.setId(account.getId());
+        ClinicAdmin clinicAdmin = ClinicAdmin.builder().
+                account(account).
+                build();
+
         clinicAdminRepository.save(clinicAdmin);
 
         // When
@@ -58,12 +67,17 @@ class ClinicAdminRepositoryTest {
     @Test
     void whenDeleteClinicAdminById_thenDeleteAccount() {
         // Given
-        Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin();
-        clinicAdmin.setAccount(account);
-        
-        accountRepository.save(account);
-        clinicAdmin.setId(account.getId());
+        Account account = Account.builder().
+                email("nursejane@clinic.com").
+                username("NurseJane1").
+                password("Healthcare456").
+                role(Role.CLINIC_ADMIN).
+                build();
+
+        ClinicAdmin clinicAdmin = ClinicAdmin.builder().
+                account(account).
+                build();
+
         clinicAdminRepository.save(clinicAdmin);
 
         // When

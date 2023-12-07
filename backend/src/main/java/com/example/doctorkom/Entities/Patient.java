@@ -4,14 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Patient")
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Patient {
     @Id
     @Column(name = "UserId")
@@ -26,16 +29,10 @@ public class Patient {
     @Column(name = "Insurance")
     private String insurance;
 
+    @MapsId
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
-
-    public Patient(String occupation, String maritalStatus, String insurance, SystemUser systemUser) {
-        this.occupation = occupation;
-        this.maritalStatus = maritalStatus;
-        this.insurance = insurance;
-        this.systemUser = systemUser;
-    }
 
     @Override
     public boolean equals(Object o) {

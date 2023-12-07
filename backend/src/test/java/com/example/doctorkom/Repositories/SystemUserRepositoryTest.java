@@ -28,11 +28,24 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUserById_thenReturnSystemUser() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
@@ -47,14 +60,25 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUsersByFirstName_thenReturnSystemUsers() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
-        System.out.println(account);
-        System.out.println(systemUser);
 
         // When
         SystemUser queriedSystemUser = null;
@@ -68,14 +92,25 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUsersByLastName_thenReturnSystemUsers() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
-        System.out.println(account);
-        System.out.println(systemUser);
 
         // When
         SystemUser queriedSystemUser = null;
@@ -89,11 +124,24 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUsersByBirthdate_thenReturnSystemUsers() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
@@ -108,11 +156,24 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUsersByGender_thenReturnSystemUsers() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
@@ -127,11 +188,24 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUsersByAddress_thenReturnSystemUsers() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
@@ -146,17 +220,30 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUsersByLandlinePhone_thenReturnSystemUsers() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
         SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByLandlinePhone("(555) 555-5555").isPresent())
-            queriedSystemUser = systemUserRepository.findByLandlinePhone("(555) 555-5555").get().get(0);
+        if (systemUserRepository.findByLandlinePhone("(555) 123-4567").isPresent())
+            queriedSystemUser = systemUserRepository.findByLandlinePhone("(555) 123-4567").get().get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -165,17 +252,30 @@ class SystemUserRepositoryTest {
     @Test
     void whenFindSystemUserByMobilePhone_thenReturnSystemUser() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
         SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByMobilePhone("(555) 123-4567").isPresent())
-            queriedSystemUser = systemUserRepository.findByMobilePhone("(555) 123-4567").get();
+        if (systemUserRepository.findByMobilePhone("(555) 555-5555").isPresent())
+            queriedSystemUser = systemUserRepository.findByMobilePhone("(555) 555-5555").get();
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -184,11 +284,24 @@ class SystemUserRepositoryTest {
     @Test
     void whenDeleteSystemUserById_thenDeleteSystemUser() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
@@ -219,11 +332,24 @@ class SystemUserRepositoryTest {
     @Test
     void whenDeleteSystemUserById_thenDeleteAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        SystemUser systemUser = new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", account);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(account).
+                build();
+
         systemUserRepository.save(systemUser);
 
         // When
@@ -257,19 +383,75 @@ class SystemUserRepositoryTest {
         List<Account> accounts = new ArrayList<>();
         List<SystemUser> systemUsers = new ArrayList<>();
 
-        accounts.add(new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT));
-        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.PATIENT));
-        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.DOCTOR));
-        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.CLINIC_ADMIN));
-        systemUsers.add(new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", accounts.get(0)));
-        systemUsers.add(new SystemUser("Jane", "Doe", Date.valueOf("1990-03-25"), Gender.FEMALE, "123 Main Street", "(555) 987-6543", "(555) 234-5678", accounts.get(1)));
-        systemUsers.add(new SystemUser("Michael", "Jones", Date.valueOf("1978-08-02"), Gender.MALE, "456 Oak Avenue", "(555) 111-2222", "(555) 876-5432", accounts.get(2)));
-        systemUsers.add(new SystemUser("Susan", "White", Date.valueOf("1982-06-10"), Gender.FEMALE, "789 Elm Street", "(555) 333-4444", "(555) 345-6789", accounts.get(3)));
+        accounts.add(Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("jane.doe@email.com").
+                username("JaneDoe").
+                password("Password456").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("michael.jones@example.com").
+                username("MichaelJones").
+                password("SecurePass789").
+                role(Role.DOCTOR).
+                build());
+        accounts.add(Account.builder().
+                email("susan.white@lol.com").
+                username("SusanWhite").
+                password("StrongPassword123").
+                role(Role.CLINIC_ADMIN).
+                build());
 
-        accountRepository.saveAll(accounts);
-        for (int i = 0; i < accounts.size(); i++) {
-            systemUsers.get(i).setId(accounts.get(i).getId());
-        }
+        systemUsers.add(SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(accounts.get(0)).
+                build());
+
+        systemUsers.add(SystemUser.builder().
+                firstName("Jane").
+                lastName("Doe").
+                birthdate(Date.valueOf("1990-03-25")).
+                gender(Gender.FEMALE).
+                address("123 Main Street").
+                mobilePhone("(555) 987-6543").
+                landlinePhone("(555) 234-5678").
+                account(accounts.get(1)).
+                build());
+
+        systemUsers.add(SystemUser.builder().
+                firstName("Michael").
+                lastName("Jones").
+                birthdate(Date.valueOf("1978-08-02")).
+                gender(Gender.MALE).
+                address("456 Oak Avenue").
+                mobilePhone("(555) 111-2222").
+                landlinePhone("(555) 876-5432").
+                account(accounts.get(2)).
+                build());
+
+        systemUsers.add(SystemUser.builder().
+                firstName("Susan").
+                lastName("White").
+                birthdate(Date.valueOf("1982-06-10")).
+                gender(Gender.FEMALE).
+                address("789 Elm Street").
+                mobilePhone("(555) 333-4444").
+                landlinePhone("(555) 345-6789").
+                account(accounts.get(3)).
+                build());
+
         systemUserRepository.saveAll(systemUsers);
 
         // When
@@ -286,19 +468,75 @@ class SystemUserRepositoryTest {
         List<Account> accounts = new ArrayList<>();
         List<SystemUser> systemUsers = new ArrayList<>();
 
-        accounts.add(new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT));
-        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.PATIENT));
-        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.DOCTOR));
-        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.CLINIC_ADMIN));
-        systemUsers.add(new SystemUser("John", "Smith", Date.valueOf("1985-11-14"), Gender.MALE, "221B Baker Street", "(555) 555-5555", "(555) 123-4567", accounts.get(0)));
-        systemUsers.add(new SystemUser("Jane", "Doe", Date.valueOf("1990-03-25"), Gender.FEMALE, "123 Main Street", "(555) 987-6543", "(555) 234-5678", accounts.get(1)));
-        systemUsers.add(new SystemUser("Michael", "Jones", Date.valueOf("1978-08-02"), Gender.MALE, "456 Oak Avenue", "(555) 111-2222", "(555) 876-5432", accounts.get(2)));
-        systemUsers.add(new SystemUser("Susan", "White", Date.valueOf("1982-06-10"), Gender.FEMALE, "789 Elm Street", "(555) 333-4444", "(555) 345-6789", accounts.get(3)));
+        accounts.add(Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("jane.doe@email.com").
+                username("JaneDoe").
+                password("Password456").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("michael.jones@example.com").
+                username("MichaelJones").
+                password("SecurePass789").
+                role(Role.DOCTOR).
+                build());
+        accounts.add(Account.builder().
+                email("susan.white@lol.com").
+                username("SusanWhite").
+                password("StrongPassword123").
+                role(Role.CLINIC_ADMIN).
+                build());
 
-        accountRepository.saveAll(accounts);
-        for (int i = 0; i < accounts.size(); i++) {
-            systemUsers.get(i).setId(accounts.get(i).getId());
-        }
+        systemUsers.add(SystemUser.builder().
+                firstName("John").
+                lastName("Smith").
+                birthdate(Date.valueOf("1985-11-14")).
+                gender(Gender.MALE).
+                address("221B Baker Street").
+                mobilePhone("(555) 555-5555").
+                landlinePhone("(555) 123-4567").
+                account(accounts.get(0)).
+                build());
+
+        systemUsers.add(SystemUser.builder().
+                firstName("Jane").
+                lastName("Doe").
+                birthdate(Date.valueOf("1990-03-25")).
+                gender(Gender.FEMALE).
+                address("123 Main Street").
+                mobilePhone("(555) 987-6543").
+                landlinePhone("(555) 234-5678").
+                account(accounts.get(1)).
+                build());
+
+        systemUsers.add(SystemUser.builder().
+                firstName("Michael").
+                lastName("Jones").
+                birthdate(Date.valueOf("1978-08-02")).
+                gender(Gender.MALE).
+                address("456 Oak Avenue").
+                mobilePhone("(555) 111-2222").
+                landlinePhone("(555) 876-5432").
+                account(accounts.get(2)).
+                build());
+
+        systemUsers.add(SystemUser.builder().
+                firstName("Susan").
+                lastName("White").
+                birthdate(Date.valueOf("1982-06-10")).
+                gender(Gender.FEMALE).
+                address("789 Elm Street").
+                mobilePhone("(555) 333-4444").
+                landlinePhone("(555) 345-6789").
+                account(accounts.get(3)).
+                build());
+
         systemUserRepository.saveAll(systemUsers);
 
         // When

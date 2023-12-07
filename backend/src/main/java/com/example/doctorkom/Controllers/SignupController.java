@@ -1,12 +1,12 @@
 package com.example.doctorkom.Controllers;
 
+import com.example.doctorkom.DTOMappers.DoctorMapper;
+import com.example.doctorkom.DTOMappers.PatientMapper;
+import com.example.doctorkom.DTOs.DoctorDTO;
+import com.example.doctorkom.DTOs.PatientDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.doctorkom.DTOs.DoctorDTO;
-import com.example.doctorkom.DTOs.PatientDTO;
-import com.example.doctorkom.DTOMappers.DoctorMapper;
-import com.example.doctorkom.DTOMappers.PatientMapper;
 import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
 import com.example.doctorkom.Entities.Doctor;
@@ -17,7 +17,6 @@ public class SignupController {
 
 	@Autowired
 	PatientMapper patientMapper;
-
 	@Autowired
 	DoctorMapper doctorMapper;
 	@Autowired
@@ -44,7 +43,6 @@ public class SignupController {
 		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
 		return response;
 	}
-
 }
 
 

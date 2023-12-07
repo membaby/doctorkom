@@ -1,12 +1,14 @@
 package com.example.doctorkom.DTOs;
 
+import lombok.Value;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
 
-@Setter
-@Getter
-public class SystemAdminDTO {
-    public int accountID;
-    public AccountDTO account;
+/**
+ * DTO for {@link com.example.doctorkom.Entities.SystemAdmin}
+ */
+@Value
+public class SystemAdminDTO implements Serializable {
+    Integer id;
+    AccountDTO account;
 }

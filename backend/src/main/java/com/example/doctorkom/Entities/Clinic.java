@@ -1,25 +1,25 @@
 package com.example.doctorkom.Entities;
-import jakarta.persistence.*;
-import org.hibernate.Hibernate;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Clinic")
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Clinic {
     @Id
-    @Column(name = "AdminId")
+    @Column(name = "ClinicId")
     private Integer id;
-
-    @Column(name = "Email")
-    private String email;
 
     @Column(name = "Name")
     private String name;
@@ -27,33 +27,25 @@ public class Clinic {
     @Column(name = "Address")
     private String address;
 
+    @Column(name = "Email")
+    private String email;
 
-    @Column(name = "Phone")
-    private String phone;
+    @Column(name = "MobilePhone")
+    private String mobilePhone;
 
-    @Column(name = "Landline")
-    private String landline;
+    @Column(name = "LandlinePhone")
+    private String landlinePhone;
 
+    @MapsId
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "AdminId")
-    private ClinicAdmin clinicAdmin;
-
-
-    public Clinic(String email, String name, String address, String phone, String landline, ClinicAdmin admin ) {
-        this.email = email;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.landline=landline;
-        this.clinicAdmin = admin;
-    }
+    @JoinColumn(name = "ClinicId")
+    private ClinicAdmin admin;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Clinic clinic = (Clinic) o;
-        return id != null && java.util.Objects.equals(id, clinic.id);
+        return id != null && Objects.equals(id, clinic.id);
     }
-
 }

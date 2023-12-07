@@ -10,7 +10,7 @@ CREATE TABLE Account (
 CREATE TABLE Verification (
       AccountId INT PRIMARY KEY,
       Code VARCHAR(6) NOT NULL,
-      CreationTime DATETIME NOT NULL,
+      ExpirationTime DATETIME NOT NULL,
       FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -19,25 +19,21 @@ CREATE TABLE Verification (
 -- DELIMITER //
 -- CREATE PROCEDURE removeUnusedVerifications()
 --     BEGIN
---         DECLARE LifeTime DATETIME;
---
---         SET LifeTime = NOW() - INTERVAL 6 HOUR;
---
 --         START TRANSACTION;
 --         BEGIN
 --             DELETE FROM Account
---             WHERE Id IN (SELECT AccountId FROM Verification WHERE CreationTime < LifeTime);
+--             WHERE Id IN (SELECT AccountId FROM Verification WHERE ExpirationTime < NOW());
 --         END;
 --
 --         BEGIN
---             DELETE FROM Verification WHERE CreationTime < LifeTime;
+--             DELETE FROM Verification WHERE ExpirationTime < NOW();
 --         END;
 --         COMMIT;
 --     END //
 -- DELIMITER ;
 --
 -- CREATE EVENT removeUnusedVerificationsEvent
--- ON SCHEDULE EVERY 1 MINUTE
+-- ON SCHEDULE EVERY 1 HOUR
 -- DO
 -- CALL removeUnusedVerifications();
 --
@@ -93,11 +89,11 @@ CREATE TABLE Patient (
 );
 
 CREATE TABLE Clinic (
-    AdminId INT PRIMARY KEY,
-    Name VARCHAR(50) UNIQUE NOT NULL,
-    Email VARCHAR(50) UNIQUE NOT NULL,
-    Address VARCHAR(250) UNIQUE NOT NULL,
-    Landline VARCHAR(20) UNIQUE NOT NULL,
-    Phone VARCHAR(20) UNIQUE NOT NULL,
-    FOREIGN KEY (AdminId) REFERENCES ClinicAdmin(AccountId)
-)
+    ClinicId INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Address VARCHAR(250) NOT NULL,
+    LandlinePhone VARCHAR(20) NOT NULL,
+    MobilePhone VARCHAR(20) NOT NULL,
+    FOREIGN KEY (ClinicId) REFERENCES ClinicAdmin(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
+);
