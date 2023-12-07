@@ -31,11 +31,11 @@ public class DoctorkomApplication {
 	// // 	};
 	// }
 
-	@Bean
-	@Autowired
-	public CommandLineRunner commandLineRunner (AccountRepository accountRepository, SystemUserRepository systemUserRepository, VerificationRepository verificationRepository,
-												PatientRepository patientRepository, DoctorRepository doctorRepository) {
-		return runner -> {
+//	@Bean
+//	@Autowired
+//	public CommandLineRunner commandLineRunner (AccountRepository accountRepository, SystemUserRepository systemUserRepository, VerificationRepository verificationRepository,
+//												PatientRepository patientRepository, DoctorRepository doctorRepository) {
+//		return runner -> {
 //			String dateTimeString = "2023-11-27 09:30:00";
 //			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //			LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter);
@@ -57,6 +57,6 @@ public class DoctorkomApplication {
 //			// Then
 //			Verification queriedVerification = verificationRepository.findById(verification.getId()).orElse(null);
 //			System.out.println(queriedVerification);
-		};
-	}
+//		};
+//	}
 }

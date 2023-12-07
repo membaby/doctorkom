@@ -63,7 +63,7 @@ public class RegistrationService {
         verification.setCode(code);
         verification.setAccount(account);
         verification.setId(account.getId());
-        verification.setCreationTime(LocalDateTime.now());
+        verification.setExpirationTime(LocalDateTime.now().plusDays(1));
         adder.executeadd(verification);
         //send verification email
         try{
@@ -103,7 +103,7 @@ public class RegistrationService {
         verification.setCode(code);
         verification.setAccount(account);
         verification.setId(account.getId());
-        verification.setCreationTime(LocalDateTime.now());
+        verification.setExpirationTime(LocalDateTime.now().plusDays(1));
         adder.executeadd(verification);
         //send verification email
         try{
@@ -136,7 +136,7 @@ public class RegistrationService {
         verification.setCode(code);
         verification.setAccount(account);
         verification.setId(account.getId());
-        verification.setCreationTime(LocalDateTime.now());
+        verification.setExpirationTime(LocalDateTime.now().plusDays(1));
         adder.executeadd(verification);
         //send verification email
         try{
@@ -170,7 +170,7 @@ public class RegistrationService {
         verification.setCode(code);
         verification.setAccount(account);
         verification.setId(account.getId());
-        verification.setCreationTime(LocalDateTime.now());
+        verification.setExpirationTime(LocalDateTime.now().plusDays(1));
         adder.executeadd(verification);
         //send verification email
         try{

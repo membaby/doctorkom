@@ -20,11 +20,17 @@ class SystemAdminRepositoryTest {
     @Test
     void whenFindSystemAdminById_thenReturnSystemAdmin() {
         // Given
-        Account account = new Account("admin@system.com", "AdminUser1", "AdminPass123", Role.SYSTEM_ADMIN);
-        SystemAdmin systemAdmin = new SystemAdmin(account);
+        Account account = Account.builder().
+                email("admin@system.com").
+                username("AdminUser1").
+                password("AdminPass123").
+                role(Role.SYSTEM_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        systemAdmin.setId(account.getId());
+        SystemAdmin systemAdmin = SystemAdmin.builder().
+                account(account).
+                build();
+
         systemAdminRepository.save(systemAdmin);
 
         // When
@@ -39,11 +45,17 @@ class SystemAdminRepositoryTest {
     @Test
     void whenDeleteSystemAdminById_thenDeleteSystemAdmin() {
         // Given
-        Account account = new Account("admin@system.com", "AdminUser1", "AdminPass123", Role.SYSTEM_ADMIN);
-        SystemAdmin systemAdmin = new SystemAdmin(account);
+        Account account = Account.builder().
+                email("admin@system.com").
+                username("AdminUser1").
+                password("AdminPass123").
+                role(Role.SYSTEM_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        systemAdmin.setId(account.getId());
+        SystemAdmin systemAdmin = SystemAdmin.builder().
+                account(account).
+                build();
+
         systemAdminRepository.save(systemAdmin);
 
         // When
@@ -56,11 +68,18 @@ class SystemAdminRepositoryTest {
     @Test
     void whenDeleteSystemAdminById_thenDeleteAccount() {
         // Given
-        Account account = new Account("admin@system.com", "AdminUser1", "AdminPass123", Role.SYSTEM_ADMIN);
-        SystemAdmin systemAdmin = new SystemAdmin(account);
+        Account account = Account.builder().
+                email("admin@system.com").
+                username("AdminUser1").
+                password("AdminPass123").
+                role(Role.SYSTEM_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        systemAdmin.setId(account.getId());
+
+        SystemAdmin systemAdmin = SystemAdmin.builder().
+                account(account).
+                build();
+
         systemAdminRepository.save(systemAdmin);
 
         // When

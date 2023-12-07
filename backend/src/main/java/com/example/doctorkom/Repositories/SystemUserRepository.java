@@ -3,11 +3,12 @@ package com.example.doctorkom.Repositories;
 import com.example.doctorkom.Entities.Gender;
 import com.example.doctorkom.Entities.SystemUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public interface SystemUserRepository extends JpaRepository<SystemUser, Integer> {
     Optional<List<SystemUser>> findByFirstName(String firstName);
     Optional<List<SystemUser>> findByLastName(String lastName);

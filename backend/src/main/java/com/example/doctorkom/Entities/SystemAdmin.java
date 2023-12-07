@@ -1,10 +1,7 @@
 package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
@@ -13,20 +10,19 @@ import java.util.Objects;
 @Table(name = "SystemAdmin")
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class SystemAdmin {
     @Id
     @Column(name = "AccountId")
     private Integer id;
 
+    @MapsId
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AccountId")
     private Account account;
-
-    public SystemAdmin(Account account) {
-        this.account = account;
-    }
 
     @Override
     public boolean equals(Object o) {

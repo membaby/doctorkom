@@ -43,7 +43,21 @@ public class RegistrationServiceTest {
     DoctorRepository doctorRepo;
     @Autowired
     VerificationRepository verifyRepo;
-    
+
+    @Test
+    void verifyAccount() //Verifies an account that is unverified
+    {
+        Doctor doctor = getTestDoctor();
+        if (accountRepo.findByEmail(doctor.getSystemUser().getAccount().getEmail()).orElse(null) != null){
+            accountRepo.delete(doctor.getSystemUser().getAccount());
+        }
+        regService.registerDoctor(doctor);
+        Account createdAccount = accountRepo.findByEmail(doctor.getSystemUser().getAccount().getEmail()).get();
+        Verification verification = verifyRepo.findById(createdAccount.getId()).get();
+        regService.verify(createdAccount, verification.getCode());
+        assertTrue(accountRepo.findById(createdAccount.getId()).get().isEnabled());
+        assertNull(verifyRepo.findById(createdAccount.getId()).orElse(null));
+    }
 
     @Test
     void registerValidPatient() //Registers a new patient and confirms it is unverified
@@ -121,21 +135,6 @@ public class RegistrationServiceTest {
         doctor.setSystemUser(user);
         user.setAccount(account);
         assertEquals(regService.USERNAME_EXISTS, regService.registerDoctor(doctor));
-    }
-
-    @Test
-    void verifyAccount() //Verifies an account that is unverified
-    {
-        Doctor doctor = getTestDoctor();
-        if (accountRepo.findByEmail(doctor.getSystemUser().getAccount().getEmail()).orElse(null) != null){
-            accountRepo.delete(doctor.getSystemUser().getAccount());
-        }
-        regService.registerDoctor(doctor);
-        Account createdAccount = accountRepo.findByEmail(doctor.getSystemUser().getAccount().getEmail()).get(); 
-        Verification verification = verifyRepo.findById(createdAccount.getId()).get();
-        regService.verify(createdAccount, verification.getCode());
-        assertTrue(accountRepo.findById(createdAccount.getId()).get().isEnabled());
-        assertNull(verifyRepo.findById(createdAccount.getId()).orElse(null));
     }
 
     // @Test

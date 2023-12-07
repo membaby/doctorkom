@@ -10,7 +10,7 @@ CREATE TABLE Account (
 CREATE TABLE Verification (
       AccountId INT PRIMARY KEY,
       Code VARCHAR(6) NOT NULL,
-      CreationTime DATETIME NOT NULL,
+      ExpirationTime DATETIME NOT NULL,
       FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -19,25 +19,21 @@ CREATE TABLE Verification (
 -- DELIMITER //
 -- CREATE PROCEDURE removeUnusedVerifications()
 --     BEGIN
---         DECLARE LifeTime DATETIME;
---
---         SET LifeTime = NOW() - INTERVAL 6 HOUR;
---
 --         START TRANSACTION;
 --         BEGIN
 --             DELETE FROM Account
---             WHERE Id IN (SELECT AccountId FROM Verification WHERE CreationTime < LifeTime);
+--             WHERE Id IN (SELECT AccountId FROM Verification WHERE ExpirationTime < NOW());
 --         END;
 --
 --         BEGIN
---             DELETE FROM Verification WHERE CreationTime < LifeTime;
+--             DELETE FROM Verification WHERE ExpirationTime < NOW();
 --         END;
 --         COMMIT;
 --     END //
 -- DELIMITER ;
 --
 -- CREATE EVENT removeUnusedVerificationsEvent
--- ON SCHEDULE EVERY 1 MINUTE
+-- ON SCHEDULE EVERY 1 HOUR
 -- DO
 -- CALL removeUnusedVerifications();
 --
@@ -100,4 +96,25 @@ CREATE TABLE Clinic (
     LandlinePhone VARCHAR(20) NOT NULL,
     MobilePhone VARCHAR(20) NOT NULL,
     FOREIGN KEY (ClinicId) REFERENCES ClinicAdmin(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE MedicalNote (
+     DoctorId INT,
+     PatientId INT,
+     Date DATE,
+     Diagnosis VARCHAR(255),
+     Investigations VARCHAR(511),
+     Prescription VARCHAR(255),
+     PRIMARY KEY (DoctorId, PatientId, Date),
+     FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
+     FOREIGN KEY (PatientId) REFERENCES Patient(UserId)
+);
+
+CREATE TABLE WorksFor (
+      DoctorId INT,
+      ClinicId INT,
+      fees DOUBLE NOT NULL,
+      PRIMARY KEY (DoctorId, ClinicId),
+      FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
+      FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
 );

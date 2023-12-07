@@ -2,20 +2,20 @@ package com.example.doctorkom.Entities;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Clinic")
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Clinic {
     @Id
     @Column(name = "ClinicId")
@@ -36,18 +36,10 @@ public class Clinic {
     @Column(name = "LandlinePhone")
     private String landlinePhone;
 
+    @MapsId
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ClinicId")
     private ClinicAdmin admin;
-
-    public Clinic(String name, String address, String email, String mobilePhone, String landlinePhone, ClinicAdmin admin) {
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.mobilePhone = mobilePhone;
-        this.landlinePhone = landlinePhone;
-        this.admin = admin;
-    }
 
     @Override
     public boolean equals(Object o) {

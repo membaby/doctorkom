@@ -23,7 +23,13 @@ class AccountRepositoryTest {
     @Test
     public void whenFindAccountByID_thenReturnAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -38,7 +44,13 @@ class AccountRepositoryTest {
     @Test
     public void WhenFindAccountByEmail_thenReturnAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -53,7 +65,13 @@ class AccountRepositoryTest {
     @Test
     public void WhenFindAccountByUsername_thenReturnAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -68,7 +86,13 @@ class AccountRepositoryTest {
     @Test
     public void WhenFindAccountsByRole_thenReturnAccounts(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -84,10 +108,31 @@ class AccountRepositoryTest {
     public void whenFindAllAccounts_thenReturnAllAccounts() {
         // Given
         List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT));
-        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.PATIENT));
-        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.DOCTOR));
-        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.CLINIC_ADMIN));
+        accounts.add(Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("jane.doe@email.com").
+                username("JaneDoe").
+                password("Password456").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("michael.jones@example.com").
+                username("MichaelJones").
+                password("SecurePass789").
+                role(Role.DOCTOR).
+                build());
+        accounts.add(Account.builder().
+                email("susan.white@lol.com").
+                username("SusanWhite").
+                password("StrongPassword123").
+                role(Role.CLINIC_ADMIN).
+                build());
+
         accountRepository.saveAll(accounts);
 
         // When
@@ -100,7 +145,13 @@ class AccountRepositoryTest {
     @Test
     public void whenDeleteAccountById_thenDeleteAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -113,7 +164,13 @@ class AccountRepositoryTest {
     @Test
     public void WhenDeleteAccountByEmail_thenDeleteAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -126,7 +183,13 @@ class AccountRepositoryTest {
     @Test
     public void WhenDeleteAccountByUsername_thenDeleteAccount(){
         // Given
-        Account account = new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT);
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
         accountRepository.save(account);
 
         // When
@@ -140,10 +203,32 @@ class AccountRepositoryTest {
     public void whenDeleteAllAccounts_thenDeleteAllAccounts() {
         // Given
         List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account("johnsmith123@lol.com","JohnSmith1", "JohnyJohny123", Role.PATIENT));
-        accounts.add(new Account("jane.doe@email.com", "JaneDoe", "Password456", Role.PATIENT));
-        accounts.add(new Account("michael.jones@example.com", "MichaelJones", "SecurePass789", Role.DOCTOR));
-        accounts.add(new Account("susan.white@lol.com", "SusanWhite", "StrongPassword123", Role.CLINIC_ADMIN));
+        accounts.add(Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build());
+
+        accounts.add(Account.builder().
+                email("jane.doe@email.com").
+                username("JaneDoe").
+                password("Password456").
+                role(Role.PATIENT).
+                build());
+        accounts.add(Account.builder().
+                email("michael.jones@example.com").
+                username("MichaelJones").
+                password("SecurePass789").
+                role(Role.DOCTOR).
+                build());
+        accounts.add(Account.builder().
+                email("susan.white@lol.com").
+                username("SusanWhite").
+                password("StrongPassword123").
+                role(Role.CLINIC_ADMIN).
+                build());
+
         accountRepository.saveAll(accounts);
 
         // When
