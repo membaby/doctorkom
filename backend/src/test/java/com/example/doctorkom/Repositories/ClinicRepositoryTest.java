@@ -53,7 +53,7 @@ class ClinicRepositoryTest {
         // Given
         Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
         ClinicAdmin clinicAdmin = new ClinicAdmin();
-        Clinic clinic = new Clinic("Clinic1", "123 Main St", "Clinic1@org.com", "1234567890", "(555) 555-5555", clinicAdmin);
+        Clinic clinic = new Clinic("Clinic1@org.com", "Clinic1", "123 Main St", "1234567890", "(555) 555-5555", clinicAdmin);
         clinicAdmin.setAccount(account);
         clinic.setAdmin(clinicAdmin);
 
