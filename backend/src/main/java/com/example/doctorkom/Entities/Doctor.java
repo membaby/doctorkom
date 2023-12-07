@@ -34,6 +34,9 @@ public class Doctor {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<MedicalNote> medicalNotes;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name = "WorksFor",
@@ -41,6 +44,15 @@ public class Doctor {
             inverseJoinColumns = @JoinColumn(name = "ClinicId")
     )
     private List<Clinic> clinics;
+
+    public void addMedicalNote (MedicalNote medicalNote) {
+        if (medicalNotes == null) {
+            medicalNotes = new ArrayList<>();
+        }
+
+        medicalNotes.add(medicalNote);
+        medicalNote.setDoctor(this);
+    }
 
     public void addClinic (Clinic clinic) {
         if (clinics == null) {

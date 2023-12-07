@@ -34,6 +34,18 @@ public class Patient {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private java.util.List<MedicalNote> medicalNotes;
+
+    public void addMedicalNote (MedicalNote medicalNote) {
+        if (medicalNotes == null) {
+            medicalNotes = new ArrayList<>();
+        }
+
+        medicalNotes.add(medicalNote);
+        medicalNote.setPatient(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
