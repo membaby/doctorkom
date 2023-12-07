@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import './styles.css'
 import { useLocation } from 'react-router-dom';
-import CryptoJS from 'crypto-js';
+// import CryptoJS from 'crypto-js';
 
 const Register = ({ userType }) => {
   const [firstName, setFirstName] = useState('');
@@ -56,33 +56,26 @@ const Register = ({ userType }) => {
           Accept: 'application/json',
         },
       }).then((res) => {
-        setFirstName(res.data.given_name);
-        setLastName(res.data.family_name);
-        setEmail(res.data.email);
-        setUsername(res.data.id);
-        setPassword("mchbomNZPYvmxbv0e3yNAy");
-        setGender("MALE");
-        handleRegister();
+        handleRegister(res.data)
       }).catch((err) => console.log(err));
     }
   }, [user]); // Depend on user object
 
-  const handleRegister = () => {
-    const secretKey = 'your-secret-key';
-    
+  const handleRegister = (googleData) => {    
+
     const account = {
-      email: email,
-      username: username,
-      password: CryptoJS.AES.encrypt(password, secretKey).toString(),
+      email: googleData ? googleData.email : email,
+      username: googleData ? googleData.id : username,
+      password: googleData ? "mchbomNZPYvmxbv0e3yNAy" : password,
       role: userType === 'patient' ? 'PATIENT' : userType === 'doctor' ? 'DOCTOR' : userType === 'admin' ? 'SYSTEM_ADMIN' : userType === 'clinic' ? 'CLINIC_ADMIN' : ''
     };
 
   
     const systemUser = {
-      firstName: firstName,
-      lastName: lastName,
-      birthdate: birthdate,
-      gender: gender, 
+      firstName: googleData ? googleData.given_name : firstName,
+      lastName: googleData ? googleData.family_name : lastName,
+      birthdate: googleData ? "2000-01-01" : birthdate,
+      gender: googleData ? "MALE" : gender, 
       address: address,
       mobile: phone,
       landline: landline,
@@ -93,7 +86,7 @@ const Register = ({ userType }) => {
       systemUser: systemUser
     };
 
-    if (password !== "GOOGLEAUTH") {
+    if (!googleData) {
       if (!email || !username || !password || !firstName || !lastName || !birthdate || !gender || !address || !phone || !landline) {
         showError('Please fill all the fields');
         return;
@@ -102,12 +95,12 @@ const Register = ({ userType }) => {
     showError(null);
 
     if (userType === 'patient') {
-      data.maritalstatus = maritalstatus;
-      data.occupation = occupation;
-      data.insurance = insurance
+      data.maritalstatus = googleData ? "single" : maritalstatus;
+      data.occupation = googleData ? "" : occupation;
+      data.insurance = googleData ? "" : insurance
     } else if (userType === 'doctor') {
-      data.title = title;
-      data.speciality = speciality;
+      data.title = googleData ? "SPECIALIST" : title;
+      data.speciality = googleData ? "GENERAL_PRACTITIONER" : speciality;
     } else if (invitiationCode) {
       data.invitiationCode = invitiationCode;
     }

@@ -2,14 +2,12 @@ import './styles.css'
 import React, { useState, useEffect } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import CryptoJS from 'crypto-js';
 
 const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const handleLogin = (googleid = undefined) => {
-    const secretKey = 'your-secret-key';
     const data = {}
     if (googleid) {
       data.username = googleid;
@@ -18,8 +16,6 @@ const Login = () => {
       data.username = username;
       data.password = password;
     }
-
-    data.password = CryptoJS.AES.encrypt(data.password, secretKey).toString()
 
     fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -135,7 +131,7 @@ const Login = () => {
             </div>
             <div className="mb-3">
               <label className="form-label">Password</label>
-              <input type="text" className="form-control" onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <div className="d-grid d-flex justify-content-center">
