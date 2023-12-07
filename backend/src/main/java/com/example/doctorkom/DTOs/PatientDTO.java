@@ -1,13 +1,17 @@
 package com.example.doctorkom.DTOs;
 
+import lombok.Value;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.io.Serializable;
 
-@Setter
-@Getter
-public class PatientDTO {
-    public int id;
-    public String maritalStatus, occupation, insurance;
-    public SystemUserDTO systemUser;
+/**
+ * DTO for {@link com.example.doctorkom.Entities.Patient}
+ */
+@Value
+public class PatientDTO implements Serializable {
+    Integer id;
+    String occupation;
+    String maritalStatus;
+    String insurance;
+    SystemUserDTO systemUser;
 }

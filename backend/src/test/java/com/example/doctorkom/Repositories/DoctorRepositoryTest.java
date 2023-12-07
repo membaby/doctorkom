@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.print.Doc;
 import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,14 +26,30 @@ class DoctorRepositoryTest {
     @Test
     void whenFindDoctorById_thenReturnDoctor() {
         // Given
-        Account account = new Account("drsmith@hospital.com", "DrSmith1", "Medical123", Role.DOCTOR);
-        SystemUser systemUser = new SystemUser("Smith", "Health", Date.valueOf("1976-10-30"), Gender.MALE, "123 Main Street", "(666) 666-6666", "(555) 765-4321", account);
-        Doctor doctor = new Doctor(DoctorTitle.PROFESSOR, DoctorSpecialty.ONCOLOGIST, systemUser);
+        Account account = Account.builder().
+                email("drsmith@hospital.com").
+                username("DrSmith1").
+                password("Medical123").
+                role(Role.DOCTOR).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        doctor.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("Smith").
+                lastName("Health").
+                birthdate(Date.valueOf("1976-10-30")).
+                gender(Gender.MALE).
+                address("123 Main Street").
+                mobilePhone("(666) 666-6666").
+                landlinePhone("(555) 765-4321").
+                account(account).
+                build();
+
+        Doctor doctor = Doctor.builder().
+                title(DoctorTitle.PROFESSOR).
+                specialty(DoctorSpecialty.ONCOLOGIST).
+                systemUser(systemUser).
+                build();
+
         doctorRepository.save(doctor);
 
         // When
@@ -47,14 +64,30 @@ class DoctorRepositoryTest {
     @Test
     void whenFindDoctorsByTitle_thenReturnDoctors() {
         // Given
-        Account account = new Account("drsmith@hospital.com", "DrSmith1", "Medical123", Role.DOCTOR);
-        SystemUser systemUser = new SystemUser("Smith", "Health", Date.valueOf("1976-10-30"), Gender.MALE, "123 Main Street", "(666) 666-6666", "(555) 765-4321", account);
-        Doctor doctor = new Doctor(DoctorTitle.PROFESSOR, DoctorSpecialty.ONCOLOGIST, systemUser);
+        Account account = Account.builder().
+                email("drsmith@hospital.com").
+                username("DrSmith1").
+                password("Medical123").
+                role(Role.DOCTOR).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        doctor.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("Smith").
+                lastName("Health").
+                birthdate(Date.valueOf("1976-10-30")).
+                gender(Gender.MALE).
+                address("123 Main Street").
+                mobilePhone("(666) 666-6666").
+                landlinePhone("(555) 765-4321").
+                account(account).
+                build();
+
+        Doctor doctor = Doctor.builder().
+                title(DoctorTitle.PROFESSOR).
+                specialty(DoctorSpecialty.ONCOLOGIST).
+                systemUser(systemUser).
+                build();
+
         doctorRepository.save(doctor);
 
         // When
@@ -69,14 +102,30 @@ class DoctorRepositoryTest {
     @Test
     void whenFindDoctorsBySpecialty_thenReturnDoctors() {
         // Given
-        Account account = new Account("drsmith@hospital.com", "DrSmith1", "Medical123", Role.DOCTOR);
-        SystemUser systemUser = new SystemUser("Smith", "Health", Date.valueOf("1976-10-30"), Gender.MALE, "123 Main Street", "(666) 666-6666", "(555) 765-4321", account);
-        Doctor doctor = new Doctor(DoctorTitle.PROFESSOR, DoctorSpecialty.ONCOLOGIST, systemUser);
+        Account account = Account.builder().
+                email("drsmith@hospital.com").
+                username("DrSmith1").
+                password("Medical123").
+                role(Role.DOCTOR).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        doctor.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("Smith").
+                lastName("Health").
+                birthdate(Date.valueOf("1976-10-30")).
+                gender(Gender.MALE).
+                address("123 Main Street").
+                mobilePhone("(666) 666-6666").
+                landlinePhone("(555) 765-4321").
+                account(account).
+                build();
+
+        Doctor doctor = Doctor.builder().
+                title(DoctorTitle.PROFESSOR).
+                specialty(DoctorSpecialty.ONCOLOGIST).
+                systemUser(systemUser).
+                build();
+
         doctorRepository.save(doctor);
 
         // When
@@ -91,14 +140,30 @@ class DoctorRepositoryTest {
     @Test
     void whenDeleteDoctorById_thenDeleteDoctor() {
         // Given
-        Account account = new Account("drsmith@hospital.com", "DrSmith1", "Medical123", Role.DOCTOR);
-        SystemUser systemUser = new SystemUser("Smith", "Health", Date.valueOf("1976-10-30"), Gender.MALE, "123 Main Street", "(666) 666-6666", "(555) 765-4321", account);
-        Doctor doctor = new Doctor(DoctorTitle.PROFESSOR, DoctorSpecialty.ONCOLOGIST, systemUser);
+        Account account = Account.builder().
+                email("drsmith@hospital.com").
+                username("DrSmith1").
+                password("Medical123").
+                role(Role.DOCTOR).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        doctor.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("Smith").
+                lastName("Health").
+                birthdate(Date.valueOf("1976-10-30")).
+                gender(Gender.MALE).
+                address("123 Main Street").
+                mobilePhone("(666) 666-6666").
+                landlinePhone("(555) 765-4321").
+                account(account).
+                build();
+
+        Doctor doctor = Doctor.builder().
+                title(DoctorTitle.PROFESSOR).
+                specialty(DoctorSpecialty.ONCOLOGIST).
+                systemUser(systemUser).
+                build();
+
         doctorRepository.save(doctor);
 
         // When
@@ -111,14 +176,30 @@ class DoctorRepositoryTest {
     @Test
     void whenDeleteDoctorById_thenDeleteSystemUser() {
         // Given
-        Account account = new Account("drsmith@hospital.com", "DrSmith1", "Medical123", Role.DOCTOR);
-        SystemUser systemUser = new SystemUser("Smith", "Health", Date.valueOf("1976-10-30"), Gender.MALE, "123 Main Street", "(666) 666-6666", "(555) 765-4321", account);
-        Doctor doctor = new Doctor(DoctorTitle.PROFESSOR, DoctorSpecialty.ONCOLOGIST, systemUser);
+        Account account = Account.builder().
+                email("drsmith@hospital.com").
+                username("DrSmith1").
+                password("Medical123").
+                role(Role.DOCTOR).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        doctor.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("Smith").
+                lastName("Health").
+                birthdate(Date.valueOf("1976-10-30")).
+                gender(Gender.MALE).
+                address("123 Main Street").
+                mobilePhone("(666) 666-6666").
+                landlinePhone("(555) 765-4321").
+                account(account).
+                build();
+
+        Doctor doctor = Doctor.builder().
+                title(DoctorTitle.PROFESSOR).
+                specialty(DoctorSpecialty.ONCOLOGIST).
+                systemUser(systemUser).
+                build();
+
         doctorRepository.save(doctor);
 
         // When
@@ -131,14 +212,30 @@ class DoctorRepositoryTest {
     @Test
     void whenDeleteDoctorById_thenDeleteAccount() {
         // Given
-        Account account = new Account("drsmith@hospital.com", "DrSmith1", "Medical123", Role.DOCTOR);
-        SystemUser systemUser = new SystemUser("Smith", "Health", Date.valueOf("1976-10-30"), Gender.MALE, "123 Main Street", "(666) 666-6666", "(555) 765-4321", account);
-        Doctor doctor = new Doctor(DoctorTitle.PROFESSOR, DoctorSpecialty.ONCOLOGIST, systemUser);
+        Account account = Account.builder().
+                email("drsmith@hospital.com").
+                username("DrSmith1").
+                password("Medical123").
+                role(Role.DOCTOR).
+                build();
 
-        accountRepository.save(account);
-        systemUser.setId(account.getId());
-        systemUserRepository.save(systemUser);
-        doctor.setId(systemUser.getId());
+        SystemUser systemUser = SystemUser.builder().
+                firstName("Smith").
+                lastName("Health").
+                birthdate(Date.valueOf("1976-10-30")).
+                gender(Gender.MALE).
+                address("123 Main Street").
+                mobilePhone("(666) 666-6666").
+                landlinePhone("(555) 765-4321").
+                account(account).
+                build();
+
+        Doctor doctor = Doctor.builder().
+                title(DoctorTitle.PROFESSOR).
+                specialty(DoctorSpecialty.ONCOLOGIST).
+                systemUser(systemUser).
+                build();
+
         doctorRepository.save(doctor);
 
         // When

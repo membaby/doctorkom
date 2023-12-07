@@ -1,10 +1,7 @@
 package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
@@ -13,8 +10,10 @@ import java.util.Objects;
 @Table(name = "Account")
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,21 +36,6 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Account(String email, String username, String password, Boolean enabled, Role role) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.role = role;
-    }
-
-    public Account(String email, String username, String password, Role role) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,6 +43,4 @@ public class Account {
         Account account = (Account) o;
         return id != null && Objects.equals(id, account.id);
     }
-
-
 }
