@@ -100,7 +100,7 @@ const Register = ({ userType }) => {
       data.insurance = googleData ? "" : insurance
     } else if (userType === 'doctor') {
       data.title = googleData ? "SPECIALIST" : title;
-      data.speciality = googleData ? "GENERAL_PRACTITIONER" : speciality;
+      data.specialty = googleData ? "GENERAL_PRACTITIONER" : speciality;
     } else if (invitiationCode) {
       data.invitiationCode = invitiationCode;
     }
