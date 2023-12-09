@@ -10,6 +10,7 @@ import java.sql.Date;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class MedicalNoteId implements Serializable {
     private Patient patient;
     private Doctor doctor;

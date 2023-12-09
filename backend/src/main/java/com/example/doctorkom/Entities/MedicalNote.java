@@ -6,12 +6,10 @@ import lombok.*;
 import java.sql.Date;
 
 @Entity
-@IdClass(MedicalNoteId.class)
 @Table(name = "MedicalNote")
-@Getter
-@Setter
+@IdClass(MedicalNoteId.class)
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicalNote {
@@ -37,11 +35,4 @@ public class MedicalNote {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "DoctorId")
     private Doctor doctor;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MedicalNote that)) return false;
-        return getDate().equals(that.getDate()) && getPatient().equals(that.getPatient()) && getDoctor().equals(that.getDoctor());
-    }
 }

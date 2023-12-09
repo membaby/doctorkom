@@ -3,16 +3,16 @@ package com.example.doctorkom.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Patient")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Patient {
@@ -35,7 +35,8 @@ public class Patient {
     private SystemUser systemUser;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private java.util.List<MedicalNote> medicalNotes;
+    @ToString.Exclude
+    private List<MedicalNote> medicalNotes;
 
     public void addMedicalNote (MedicalNote medicalNote) {
         if (medicalNotes == null) {
@@ -44,13 +45,5 @@ public class Patient {
 
         medicalNotes.add(medicalNote);
         medicalNote.setPatient(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Patient patient = (Patient) o;
-        return id != null && Objects.equals(id, patient.id);
     }
 }

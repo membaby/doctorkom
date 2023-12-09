@@ -2,16 +2,16 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 @IdClass(TimeSlotId.class)
 @Table(name = "TimeSlot")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeSlot {
@@ -32,12 +32,5 @@ public class TimeSlot {
     @Transient
     @Column(name = "weekday", insertable = false, updatable = false)
     private String weekday;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TimeSlot that)) return false;
-        return getDoctor().equals(that.getDoctor()) && getClinic().equals(that.getClinic()) && getDate().equals(that.getDate());
-    }
 }
 
