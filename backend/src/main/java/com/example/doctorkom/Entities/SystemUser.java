@@ -3,16 +3,15 @@ package com.example.doctorkom.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "SystemUser")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class SystemUser {
@@ -46,12 +45,4 @@ public class SystemUser {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AccountId")
     private Account account;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SystemUser systemUser = (SystemUser) o;
-        return id != null && Objects.equals(id, systemUser.id);
-    }
 }

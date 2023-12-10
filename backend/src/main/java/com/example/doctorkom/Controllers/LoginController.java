@@ -24,12 +24,12 @@ public class LoginController {
     ClinicAdminMapper clinicAdminMapper;
     @Autowired
     LogInService logInService;
-    
+
     @PostMapping("/login")
     public LoginResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
         System.out.println(accountDTO.getUsername() + " " + accountDTO.getPassword());
-        accountDTO.email = accountDTO.getUsername();
+        accountDTO = AccountDTO.builder().username(accountDTO.getUsername()).email(accountDTO.getUsername()).build();
         Account partialAccount = accountMapper.toEntity(accountDTO);
         EntityWrapper fullAccount = logInService.login(partialAccount);
         if (fullAccount == null)
@@ -66,4 +66,3 @@ class DummyPasswordRecoverer{
         return false;
     }
 }
-

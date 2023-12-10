@@ -5,11 +5,9 @@ import lombok.*;
 import java.io.Serializable;
 import java.sql.Date;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class MedicalNoteId implements Serializable {
     private Patient patient;
     private Doctor doctor;
