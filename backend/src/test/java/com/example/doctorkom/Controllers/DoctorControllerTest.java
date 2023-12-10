@@ -45,8 +45,8 @@ class DoctorControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/doctor/profile")
                         .param("username", username))
-                        .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
     }
 
 //    @Test
