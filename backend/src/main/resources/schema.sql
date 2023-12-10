@@ -119,7 +119,6 @@ CREATE TABLE WorksFor (
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
 );
 
-
 CREATE TABLE TimeSlot (
       DoctorId INT,
       ClinicId INT,
