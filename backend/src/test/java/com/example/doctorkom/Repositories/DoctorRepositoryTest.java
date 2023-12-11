@@ -91,9 +91,7 @@ class DoctorRepositoryTest {
         doctorRepository.save(doctor);
 
         // When
-        Doctor queriedDoctor = null;
-        if (doctorRepository.findByTitle(DoctorTitle.PROFESSOR).isPresent())
-            queriedDoctor = doctorRepository.findByTitle(DoctorTitle.PROFESSOR).get().get(0);
+        Doctor queriedDoctor = doctorRepository.findByTitle(DoctorTitle.PROFESSOR).get(0);
 
         // Then
         assertEquals(doctor, queriedDoctor);
@@ -129,9 +127,7 @@ class DoctorRepositoryTest {
         doctorRepository.save(doctor);
 
         // When
-        Doctor queriedDoctor = null;
-        if (doctorRepository.findBySpecialty(DoctorSpecialty.ONCOLOGIST).isPresent())
-            queriedDoctor = doctorRepository.findBySpecialty(DoctorSpecialty.ONCOLOGIST).get().get(0);
+        Doctor queriedDoctor = doctorRepository.findBySpecialty(DoctorSpecialty.ONCOLOGIST).get(0);
 
         // Then
         assertEquals(doctor, queriedDoctor);

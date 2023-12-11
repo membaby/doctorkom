@@ -3,15 +3,14 @@ package com.example.doctorkom.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "Account")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -35,12 +34,4 @@ public class Account {
     @Column(name = "Role")
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Account account = (Account) o;
-        return id != null && Objects.equals(id, account.id);
-    }
 }
