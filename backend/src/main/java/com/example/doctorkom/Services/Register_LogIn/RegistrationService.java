@@ -118,7 +118,7 @@ public class RegistrationService {
             return "Could not send verification email. Problem with notification service";
         }
     }
-    public String registerClinicAdmin(ClinicAdmin clinicAdmin, String formlink) {
+    public String registerClinicAdmin(ClinicAdmin clinicAdmin) {
         //check if the user exists
         Account account = clinicAdmin.getAccount();
         boolean emailExists = accountRepository.existsByEmail(account.getEmail());
@@ -142,7 +142,7 @@ public class RegistrationService {
         verificationRepository.save(verification);
         //send verification email
         try{
-            notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
+            notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code);
             return "";
         } catch (MessagingException e) {
             return "Could not send verification email. Problem with notification service";
