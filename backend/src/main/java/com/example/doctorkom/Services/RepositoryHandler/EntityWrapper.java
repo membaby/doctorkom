@@ -18,5 +18,4 @@ public class EntityWrapper {
     private SystemAdmin systemAdmin;
     private ClinicAdmin clinicAdmin;
     private String role;
-
 }

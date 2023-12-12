@@ -1,12 +1,22 @@
 package com.example.doctorkom.DTOs;
 
+import com.example.doctorkom.Entities.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
-@Setter
-@Getter
-public class AccountDTO {
-    public String email, password, username;
-    public String role;
-    public int id;
+import java.io.Serializable;
+
+/**
+ * DTO for {@link com.example.doctorkom.Entities.Account}
+ */
+@Value
+@Builder
+public class AccountDTO implements Serializable {
+    Integer id;
+    String email;
+    String username;
+    String password;
+    Role role;
 }
