@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -236,7 +237,7 @@ class TimeSlotRepositoryTest {
         timeSlotRepository.save(timeSlot);
 
         // When
-        timeSlotRepository.deleteById(new TimeSlotId(clinic, doctor, Date.valueOf("2023-04-01")));
+        timeSlotRepository.deleteById(new TimeSlotId(clinic, doctor, Date.valueOf("2023-04-01"), Time.valueOf("09:00:00")));
         Clinic queriedClinic = null;
         if (clinicRepository.findById(clinic.getId()).isPresent())
             queriedClinic = clinicRepository.findById(clinic.getId()).get();
@@ -266,7 +267,7 @@ class TimeSlotRepositoryTest {
         timeSlotRepository.save(timeSlot);
 
         // When
-        timeSlotRepository.deleteById(new TimeSlotId(clinic, doctor, Date.valueOf("2023-04-01")));
+        timeSlotRepository.deleteById(new TimeSlotId(clinic, doctor, Date.valueOf("2023-04-01"), Time.valueOf("09:00:00")));
         Doctor queriedDoctor = null;
         if (doctorRepository.findById(doctor.getId()).isPresent())
             queriedDoctor = doctorRepository.findById(doctor.getId()).get();
@@ -390,6 +391,9 @@ class TimeSlotRepositoryTest {
                 clinic(clinic).
                 doctor(doctor).
                 date(Date.valueOf("2023-04-01")).
+                startTime(Time.valueOf("09:00:00")).
+                endTime(Time.valueOf("10:00:00")).
+                reserved(false).
                 build();
     }
 }

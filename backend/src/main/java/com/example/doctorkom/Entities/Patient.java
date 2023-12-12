@@ -33,7 +33,27 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient")
     @ToString.Exclude
+    private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "patient")
+    @ToString.Exclude
     private List<MedicalNote> medicalNotes;
+
+    public void addAppointment (Appointment appointment) {
+        if (appointments == null) {
+            appointments = new ArrayList<>();
+        }
+
+        appointments.add(appointment);
+        appointment.setPatient(this);
+    }
+
+    public void removeAppointment (Appointment appointment) {
+        if (appointments != null) {
+            appointments.remove(appointment);
+            appointment.setPatient(null);
+        }
+    }
 
     public void addMedicalNote (MedicalNote medicalNote) {
         if (medicalNotes == null) {
