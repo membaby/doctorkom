@@ -3,6 +3,7 @@ package com.example.doctorkom.EntitySearch;
 import lombok.Builder;
 import lombok.Getter;
 
+
 @Getter
 @Builder(toBuilder = true)
 public class SearchFilter {
