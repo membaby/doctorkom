@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Time;
 
 @Entity
 @Table(name = "TimeSlot")
@@ -18,6 +19,16 @@ public class TimeSlot {
     private Date date;
 
     @Id
+    @Column(name = "StartTime")
+    private Time startTime;
+
+    @Column(name = "EndTime")
+    private Time endTime;
+
+    @Column(name = "Reserved")
+    private Boolean reserved;
+
+    @Id
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "DoctorId")
     private Doctor doctor;
@@ -30,4 +41,8 @@ public class TimeSlot {
     @Transient
     @Column(name = "weekday", insertable = false, updatable = false)
     private String weekday;
+
+    public TimeSlotId getId () {
+        return new TimeSlotId(clinic, doctor, date, startTime);
+    }
 }
