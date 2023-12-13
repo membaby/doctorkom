@@ -12,7 +12,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginControllerTest {
-    
+
     @Autowired
     private LoginController loginController;
 
@@ -32,9 +32,7 @@ public class LoginControllerTest {
     public void loginReponseStructureTest(){
         //Send a login request with any credintials
         //Confirm response structure is correct
-        AccountDTO account = new AccountDTO();
-        account.email = "a@b.c";
-        account.password = "12345678";
+        AccountDTO account = AccountDTO.builder().username("a@b.c").password("12345678").build();
         LoginResponse response = restTemplate.postForObject("http://localhost:" + port + "/login", account, LoginResponse.class);
         assertTrue(response != null);
         if (response.success){
@@ -55,7 +53,7 @@ public class LoginControllerTest {
         }
     }
 
-    @Test 
+    @Test
     public void invalidLogin() {
         //Send request with invalid account credientials
         //Confirm reponse.success is false

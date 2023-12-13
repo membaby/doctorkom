@@ -2,18 +2,14 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Doctor")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Doctor {
@@ -34,11 +30,68 @@ public class Doctor {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Doctor doctor = (Doctor) o;
-        return id != null && Objects.equals(id, doctor.id);
+    @OneToMany(mappedBy = "doctor")
+    @ToString.Exclude
+    private List<MedicalNote> medicalNotes;
+
+    @OneToMany(mappedBy = "doctor")
+    @ToString.Exclude
+    private List<TimeSlot> timeSlots;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "WorksFor",
+            joinColumns = @JoinColumn(name = "DoctorId"),
+            inverseJoinColumns = @JoinColumn(name = "ClinicId")
+    )
+    @ToString.Exclude
+    private List<Clinic> clinics;
+
+    public void addMedicalNote (MedicalNote medicalNote) {
+        if (medicalNotes == null) {
+            medicalNotes = new ArrayList<>();
+        }
+
+        medicalNotes.add(medicalNote);
+        medicalNote.setDoctor(this);
+    }
+
+    void removeMedicalNote (MedicalNote medicalNote) {
+        if (medicalNotes != null) {
+            medicalNotes.remove(medicalNote);
+            medicalNote.setDoctor(null);
+        }
+    }
+
+    public void addTimeSlot (TimeSlot timeSlot) {
+        if (timeSlots == null) {
+            timeSlots = new ArrayList<>();
+        }
+
+        timeSlots.add(timeSlot);
+        timeSlot.setDoctor(this);
+    }
+
+    void removeTimeSlot (TimeSlot timeSlot) {
+        if (timeSlots != null) {
+            timeSlots.remove(timeSlot);
+            timeSlot.setDoctor(null);
+        }
+    }
+
+    public void addClinic (Clinic clinic) {
+        if (clinics == null) {
+            clinics = new ArrayList<>();
+        }
+
+        clinics.add(clinic);
+        clinic.getDoctors().add(this);
+    }
+
+    void removeClinic (Clinic clinic) {
+        if (clinics != null) {
+            clinics.remove(clinic);
+            clinic.getDoctors().remove(this);
+        }
     }
 }

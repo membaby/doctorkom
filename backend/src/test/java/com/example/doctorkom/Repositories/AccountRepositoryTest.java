@@ -96,9 +96,7 @@ class AccountRepositoryTest {
         accountRepository.save(account);
 
         // When
-        Account queriedAccount = null;
-        if (accountRepository.findByRole(Role.PATIENT).isPresent())
-            queriedAccount = accountRepository.findByRole(Role.PATIENT).get().get(0);
+        Account queriedAccount = accountRepository.findByRole(Role.PATIENT).get(0);
 
         // Then
         assertEquals(account, queriedAccount);
