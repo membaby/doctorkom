@@ -105,7 +105,7 @@ CREATE TABLE MedicalNote (
      Diagnosis VARCHAR(255),
      Investigations VARCHAR(511),
      Prescription VARCHAR(255),
-     PRIMARY KEY (DoctorId, PatientId, Date),
+     PRIMARY KEY (PatientId, DoctorId, Date),
      FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
      FOREIGN KEY (PatientId) REFERENCES Patient(UserId)
 );
@@ -113,7 +113,7 @@ CREATE TABLE MedicalNote (
 CREATE TABLE WorksFor (
       DoctorId INT,
       ClinicId INT,
-      fees DOUBLE NOT NULL,
+      Fees DOUBLE NOT NULL,
       PRIMARY KEY (DoctorId, ClinicId),
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
@@ -122,9 +122,24 @@ CREATE TABLE WorksFor (
 CREATE TABLE TimeSlot (
       DoctorId INT,
       ClinicId INT,
-      date DATE,
---       weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
-      PRIMARY KEY (DoctorId, ClinicId, Date),
+      Date DATE,
+      StartTime Time,
+      EndTime Time NOT NULL,
+      Reserved TINYINT NOT NULL,
+      --   Weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
+      PRIMARY KEY (DoctorId, ClinicId, Date, StartTime),
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
+);
+
+CREATE TABLE Appointment (
+     DoctorId INT,
+     ClinicId INT,
+     PatientId INT,
+     Date DATE,
+     StartTime TIME,
+     EndTime TIME NOT NULL,
+     PRIMARY KEY (DoctorId, ClinicId, PatientId, Date, StartTime),
+     FOREIGN KEY (DoctorId, ClinicId, Date, StartTime) REFERENCES TimeSlot(DoctorId, ClinicId, Date, StartTime),
+     FOREIGN KEY (PatientId) REFERENCES Patient(UserId)
 );
