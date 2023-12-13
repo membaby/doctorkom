@@ -27,4 +27,8 @@ public class Appointment {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "PatientId")
     private Patient patient;
+
+    public AppointmentId getId() {
+        return new AppointmentId(timeSlot, patient);
+    }
 }

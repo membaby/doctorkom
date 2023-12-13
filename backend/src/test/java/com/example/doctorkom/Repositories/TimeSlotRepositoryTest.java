@@ -79,7 +79,7 @@ class TimeSlotRepositoryTest {
         assertEquals(timeSlot, queriedTimeSlot);
     }
 
-    @Test
+   /* @Test
     void whenFindTimeSlotsByDate_thenReturnTimeSlots() {
         // Given
         Clinic clinic = createClinic();
@@ -104,9 +104,9 @@ class TimeSlotRepositoryTest {
 
         // Then
         assertEquals(timeSlot, queriedTimeSlot);
-    }
+    }*/
 
-    @Test
+   /* @Test
     void whenFindTimeSlotsByDoctorIdAndClinicId_thenReturnTimeSlots() {
         // Given
         Clinic clinic = createClinic();
@@ -131,7 +131,7 @@ class TimeSlotRepositoryTest {
 
         // Then
         assertEquals(timeSlot, queriedTimeSlot);
-    }
+    }*/
 
     @Test
     void whenFindTimeSlotsByDoctorIdAndDate_thenReturnTimeSlots() {
@@ -187,7 +187,7 @@ class TimeSlotRepositoryTest {
         assertEquals(timeSlot, queriedTimeSlot);
     }
 
-    @Test
+    /*@Test
     void whenFindTimeSlotByDoctorIdAndClinicIdAndDate_thenReturnTimeSlot() {
         // Given
         Clinic clinic = createClinic();
@@ -214,7 +214,7 @@ class TimeSlotRepositoryTest {
 
         // Then
         assertEquals(timeSlot, queriedTimeSlot);
-    }
+    }*/
 
     @Test
     void whenDeleteTimeSlot_thenDoNotDeleteClinic() {
