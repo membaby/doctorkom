@@ -1,12 +1,13 @@
 package com.example.doctorkom.Controllers.ClinicController;
 
+import com.example.doctorkom.DTOMappers.AppointmentMapper;
 import com.example.doctorkom.DTOMappers.ClinicMapper;
 import com.example.doctorkom.DTOMappers.TimeSlotMapper;
+import com.example.doctorkom.DTOs.AppointmentDTO;
 import com.example.doctorkom.DTOs.ClinicDTO;
+import com.example.doctorkom.DTOs.ClinicDoctorDTO;
 import com.example.doctorkom.DTOs.TimeSlotDTO;
 import com.example.doctorkom.Entities.*;
-import com.example.doctorkom.Repositories.AccountRepository;
-import com.example.doctorkom.Repositories.ClinicAdminRepository;
 import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Services.ClinicServices.ClinicService;
 import org.antlr.v4.runtime.misc.Pair;
@@ -26,14 +27,20 @@ public class ClinicController {
     ClinicMapper clinicMapper;
     @Autowired
     TimeSlotMapper timeSlotMapper;
+    @Autowired
+    AppointmentMapper appointmentMapper;
 
     @PostMapping("/AddDoctor")
-    public String AddDoctor(){
-        return "Add Doctor";
+    public String AddDoctor(@RequestBody ClinicDoctorDTO clinicDoctorDTO){
+        Clinic clinic = clinicMapper.toEntity(clinicDoctorDTO.getClinic());
+        String email = clinicDoctorDTO.getEmail();
+        return clinicService.AddDoctorToClinic(email, clinic);
     }
-    @PostMapping("/DeleteDoctor")
-    public String DeleteDoctor(){
-        return "Delete Doctor";
+    @PostMapping("/RemoveDoctor")
+    public String RemoveDoctor(@RequestBody ClinicDoctorDTO clinicDoctorDTO){
+        Clinic clinic = clinicMapper.toEntity(clinicDoctorDTO.getClinic());
+        String email = clinicDoctorDTO.getEmail();
+        return clinicService.RemoveDoctorFromClinic(email, clinic);
     }
     @PostMapping("/EditClinicInfo")
     public String EditClinicInfo(@RequestBody ClinicDTO clinicDTO){
@@ -58,13 +65,15 @@ public class ClinicController {
     }
 
     @PostMapping("/EditAppointment")
-    public String EditAppointment(){
-        return "Edit Appointment";
+    public String EditAppointment(@RequestBody AppointmentDTO appointmentDTO){
+        Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
+        return clinicService.editAppointment(appointment);
     }
 
-    @PostMapping("/DeleteAppointment")
-    public String DeleteAppointment(){
-        return "Delete Appointment";
+    @PostMapping("/RemoveAppointment")
+    public String RemoveAppointment(@RequestBody AppointmentDTO appointmentDTO){
+        Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
+        return clinicService.removeAppointment(appointment);
     }
 
     @GetMapping("/Appointments&TimeSlots")
@@ -77,6 +86,10 @@ public class ClinicController {
     public List<Doctor> Doctors(@RequestBody ClinicDTO clinicDTO){
         Clinic clinic = clinicMapper.toEntity(clinicDTO);
         return clinicService.GetDoctorsForClinic(clinic);
+    }
+    @GetMapping("/Clinic")
+    public Clinic Clinic(@RequestBody int id){
+        return clinicService.GetClinic(id);
     }
 
     @GetMapping("/Test")
