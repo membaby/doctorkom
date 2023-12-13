@@ -35,15 +35,18 @@ const Login = () => {
           cookies.set('role', response.role, { path: '/' });
           if (response.role === 'PATIENT') {
             cookies.set('id', response.patient.id, { path: '/' });
+            cookies.set('username', response.patient.systemUser.account.username, { path: '/' });
             window.location.href = '/search';
           } else if (response.role === "SYSTEM_ADMIN") {
             cookies.set('id', response.systemAdmin.id, { path: '/' });
             window.location.href = '/dashboard/admin';
           } else if (response.role === "CLINIC_ADMIN") {
             cookies.set('id', response.clinicAdmin.id, { path: '/' });
+            cookies.set('username', response.clinicAdmin.account.username, { path: '/' });
             window.location.href = '/dashboard/clinic';
           } else if (response.role === "DOCTOR") {
             cookies.set('id', response.doctor.id, { path: '/' });
+            cookies.set('username', response.doctor.systemUser.account.username, { path: '/' });
             window.location.href = '/dashboard/doctor';
           } else {
             window.location.href = '/';
