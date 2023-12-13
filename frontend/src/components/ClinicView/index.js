@@ -8,55 +8,6 @@ import { FaStar, FaRegStar } from 'react-icons/fa';
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
-// ... (your doctors array)
-// const doctors=[
-//   {
-//       name:'sama zayed',
-//       title:'Dr',
-//       speciality:'General surgery',
-//       fees:200
-//   },
-//   {
-//       name:'sama zayed',
-//       title:'Dr',
-//       speciality:'General surgery',
-//       fees:200
-
-//   },
-//   {
-//       name:'sama zayed',
-//       title:'Dr',
-//       speciality:'General surgery',
-//       fees:200
-//   },
-//   {
-//       name:'sama zayed',
-//       title:'Dr',
-//       speciality:'General surgery',
-//       fees:200
-//   },
-//   {
-//     name:'sama zayed',
-//     title:'Dr',
-//     speciality:'General surgery',
-//     fees:200
-
-// },
-// {
-//     name:'sama zayed',
-//     title:'Dr',
-//     speciality:'General surgery',
-//     fees:200
-// },
-// {
-//     name:'sama zayed',
-//     title:'Dr',
-//     speciality:'General surgery',
-//     fees:200
-// }
-// ]
-
 const app=[
   {
     doc:'sama zayed',
@@ -123,19 +74,9 @@ const app=[
 
 
 
-
-
 export default function ClinicHomePage() {
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    speed: 3000,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />
-  };
+  
   function CustomPrevArrow(props) {
     const { onClick } = props;
     return (
@@ -180,56 +121,70 @@ export default function ClinicHomePage() {
     return stars;
   };
   
-  // const rating = 4.5;
+
   ///////////////////////////////////////////////////////////////apis////////////////////////////////////////////////
   ///////////////////////clinic info get request
-const [rating, setRating] = useState(5);
-const [name, setName] = useState('sama clinic');
-const [address, setAddress] = useState('zzzzzz');
-const [phone, setPhone] = useState('0123456');
-const [email, setEmail] = useState('clinic@email.com');
-const [id, setId] = useState(3);////////////////////////assuming we have ID FROM COOKIES
-const [landlinePhone, setLandlinePhone] = useState('333');
-const [admin, setAdmin] = useState({
-  id: 1, 
-  account: {
-    id: 1, 
-    email: 'admin@example.com', 
-    username: 'admin', 
-    password: 'admin123', 
-    role: 'admin'
-  }
+const [rating, setRating] = useState(4.5);
+const [name, setName] = useState('');
+const [address, setAddress] = useState('');
+const [phone, setPhone] = useState('');
+const [email, setEmail] = useState('');
+const [id, setId] = useState(80);////////////////////////assuming we have ID FROM COOKIES
+const [landlinePhone, setLandlinePhone] = useState('');
+const [admin, setAdmin] = useState({});
+
+// useEffect(() => {
+// const GetClinicObject= async () => {
+//   try {
+//     const url = 'http://localhost:8080/Clinic/Clinic';
+//     const postData = {
+//       id: 80
+//     };
+//     const response = await axios.post(url, {id:id});
+//     console.log('POST request successful');
+//     console.log(response.data); //the clinic object 
+//     updateStateWithReturnedData(response.data);
+//   } catch (error) {
+//     console.error('Error making POST request:', error);
+//   }
+// };
+
+//   const updateStateWithReturnedData = (data) => {
+//     setName(data.name);
+//     setAddress(data.address);
+//     setPhone(data.phone);
+//     setEmail(data.email);
+//     // setId(data.id);
+//     setLandlinePhone(data.landlinePhone);
+//     setAdmin(data.admin);
+//   };
+
+ 
+//     GetClinicObject();
+//   }, []); // empty dependency array ensures the effect runs only once on mount
+useEffect(() => {
+  fetch('http://localhost:8080/Clinic/Clinic', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(id),
+})
+.then(response => response.json())
+.then(response => {
+    // DO SOMETHING WITH THE RESPONSE
+    setName(response.name);
+    setAddress(response.address);
+    setPhone(response.mobilePhone);
+    setEmail(response.email);
+    // setId(response.id);
+    setLandlinePhone(response.landlinePhone);
+    setAdmin(response.admin);   
+})
+.catch((error) => {
+    console.log('Error occured. Please try again later.')
 });
-
-
-const GetClinicObject= async () => {
-  try {
-    const url = 'http://localhost:4000/clinics';
-    const postData = {
-      id: id,
-    };
-    const response = await axios.post(url, postData);
-    console.log('POST request successful');
-    console.log(response.data); //the clinic object 
-    updateStateWithReturnedData(response.data);
-  } catch (error) {
-    console.error('Error making POST request:', error);
-  }
-};
-
-  const updateStateWithReturnedData = (data) => {
-    setName(data.name);
-    setAddress(data.address);
-    setPhone(data.phone);
-    setEmail(data.email);
-    setId(data.id);
-    setLandlinePhone(data.landlinePhone);
-    setAdmin(data.admin);
-  };
-
-  useEffect(() => {
-    GetClinicObject();
-  }, []); // empty dependency array ensures the effect runs only once on mount
+  }, []);
 
   ////////////////////////////adding doctors post request/////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -256,74 +211,53 @@ const GetClinicObject= async () => {
   const handleFeesChange = (event) => {
     setDoctorFees(event.target.value);
   };
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+ 
   const AddDoctor = async () => {
       try {
         // Make a POST request to your API endpoint
-        const response = await axios.post('http://localhost:4000/zft', {
-        doctorEmail: doctorEmail,
+        setIsSubmitting(true); // Disable the button
+        const response = await axios.post('http://localhost:8080/Clinic/AddDoctor', {
+        email: doctorEmail,
         clinic: clinicObject,
-        doctorFees:doctorFees
+        // doctorFees:doctorFees
         });
+        while(response.data.message===null)
+{}
+        console.log(response.data.message);
          // Check the response and set messages accordingly
-    if (response.data.message === 'Doctor added successfully') {
+    if (response.data=='Doctor added successfully') {
       setSuccessMessage('Doctor added successfully');
       setErrorMessage(''); // Clear any previous error message
       // Clear input fields
       setDoctorEmail('');
       setDoctorFees('');
-      
-      
-    } else if(response.data.message === 'Doctor not found') {
+       
+    } else if(response.data === 'Doctor not found') {
       // Handle other failure cases
       setSuccessMessage('');
-      setErrorMessage(response.data.message || 'Doctor not found'); // Set error message
+      setErrorMessage(response.data || 'Doctor not found'); // Set error message
     }
-    else if(response.data.message === 'Clinic not found') {
+    else if(response.data === 'Clinic not found') {
       // Handle other failure cases
       setSuccessMessage('');
       setErrorMessage(response.data.message || 'Clinic not found'); // Set error message
     }
-    else if(response.data.message === 'Doctor already in the clinic') {
+    else if(response.data === 'Doctor already in the clinic') {
       // Handle other failure cases
       setSuccessMessage('');
-      setErrorMessage(response.data.message || 'Doctor already in the clinic'); // Set error message
+      setErrorMessage('Doctor already in the clinic'); // Set error message
     }
     console.log(response.data);
   } catch (error) {
-    setSuccessMessage(''); 
+    // setSuccessMessage(''); 
     setErrorMessage('Error adding doctor'); 
     console.error('Error making POST request:', error);
   }
-
-  useEffect(() => {
-    const apiUrl = 'http://localhost:4000/doctors'; 
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Transform the received data into the desired format
-        const transformedDoctors = data.map(doctorData => ({
-          name: `${doctorData.doctor.systemUser.firstName} ${doctorData.doctor.systemUser.lastName}`,
-          title: doctorData.doctor.title,
-          speciality: doctorData.doctor.speciality,
-          fees: doctorData.doctorFees
-        }));
-
-        // Update the state with the transformed data
-        setDoctors(transformedDoctors);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []); // Empty dependency array ensures the effect runs only once on mount
-
+  finally {
+    setIsSubmitting(false); // Enable the button
+  }
     };
-
-  ////////////////////////////deleting doctors post request/////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
-  
-
   ////////////////////////////edit clinic info post request/////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [successMessage2, setSuccessMessage2] = useState('');
@@ -344,154 +278,111 @@ const GetClinicObject= async () => {
   const handleMockEmail = (event) => {
       setMockEmail(event.target.value);
   };
+  
+
   const EditInfo = async () => {
-    try {   
-      let updatedAddress = address;
-      let updatedEmail = email;
-      let updatedPhone = phone;
-      let updatedName = name; 
-      if(mockAddress!='')
-      {
-        setAddress(mockAddress);
-        updatedAddress=mockAddress;
+    try {
+      let updatedInfo = {
+        id: id,
+        name: mockName !== '' ? mockName : name,
+        address: mockAddress !== '' ? mockAddress : address,
+        email: mockEmail !== '' ? mockEmail : email,
+        mobilePhone: mockPhone !== '' ? mockPhone : phone,
+        landlinePhone: landlinePhone, // Assuming landlinePhone doesn't change
+        admin: admin, // Assuming admin doesn't change
+      };
+  
+      const response = await axios.post('http://localhost:8080/Clinic/EditClinicInfo', updatedInfo);
+  
+      // Check the response and set messages accordingly
+      if (response.data === 'Clinic edited') {
+        setSuccessMessage2('Clinic Information is updated successfully');
+        setErrorMessage2(''); // Clear any previous error message
+      } else if (response.data === "Clinic Doesn't exist") {
+        setSuccessMessage2(''); // Clear any previous success message
+        setErrorMessage2("Clinic doesn't exist. Error editing clinic information");
+      } else {
+        // Handle other response 
       }
-      if(mockEmail!='')
-      {
-        setEmail(mockEmail);
-        updatedEmail=mockEmail;
-      }
-      if(mockPhone!='')
-      {
-        setPhone(mockPhone);
-        updatedPhone=mockPhone;
-      }
-      if(mockName!='')
-      {
-        setName(mockName);
-        updatedName=mockName;
-      }
-     
-      // Make a POST request to your API endpoint
-      const response = await axios.post('http://localhost:4000/zft', {
-        id:id,
-        name:updatedName,
-        address:updatedAddress,
-        email: updatedEmail,
-        mobilephone:updatedPhone,
-        landlinePhone: landlinePhone,
-        admin:admin,
-       
-      });
-
-
-   // Check the response and set messages accordingly
-    if (response.data === 'Clinic edited') {
-      setSuccessMessage2('Clinic Information is updated successfully');
-      setErrorMessage2(''); // Clear any previous error message
-    } else if (response.data === "Clinic Doesn't exist") {
+  
+      console.log(response.data);
+    } catch (error) {
+      // Handle errors
       setSuccessMessage2(''); // Clear any previous success message
-      setErrorMessage2('Clinic doesn\'t exist. Error editing clinic information');
-    } else {
-      // Handle other response cases as needed
+      setErrorMessage2('Error editing clinic information'); // Set error message
+      console.error('Error making POST request:', error);
     }
-
-    console.log(response.data);
-  } catch (error) {
-    // Handle errors
-    setSuccessMessage2(''); // Clear any previous success message
-    setErrorMessage2('Error editing clinic information'); // Set error message
-    console.error('Error making POST request:', error);
-  }
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////GET REQUEST TO GET DOCTORS OF THE CLINIC///////////////////////
   const [doctors, setDoctors] = useState([]);
   const [doctorsObjects,setDoctorsObjects]=useState([]);
-
   useEffect(() => {
-    const apiUrl = 'http://localhost:4000/doctors'; // Replace with the actual API URL
+  fetch('http://localhost:8080/Clinic/Doctors', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(clinicObject),
+})
+.then(response => response.json())
+.then(response => {
+    // DO SOMETHING WITH THE RESPONSE
+    const doctorsData = response;
+      const extractedDoctors = doctorsData.map(doctorInfo => ({
+        name: `${doctorInfo.systemUser.firstName} ${doctorInfo.systemUser.lastName}`,
+        title: doctorInfo.title,
+        specialty: doctorInfo.specialty,
+        email:doctorInfo.email
+      }));
+      setDoctorsObjects(response);
+      setDoctors(extractedDoctors);
+      
+})
+.catch((error) => {
+    console.log('Error occured. Please try again later.')
+});
 
-    // Make a GET request to the API
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        // Transform the received data into the desired format
-        const transformedDoctors = data.map(doctorData => ({
-          name: `${doctorData.doctor.systemUser.firstName} ${doctorData.doctor.systemUser.lastName}`,
-          title: doctorData.doctor.title,
-          speciality: doctorData.doctor.speciality,
-          fees: doctorData.doctorFees
-        }));
-       
-
-        // Update the state with the transformed data
-        setDoctors(transformedDoctors);
-        setDoctorsObjects(data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []); // Empty dependency array ensures the effect runs only once on mount
-
+  }, []);
+ 
+  
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////POST REQUEST TO DELETE DOCTORS/////////////////////////////////////////
-  const [doctorDeleteIndex, setDoctorDeleteIndex] = useState(null);
+  const [doctorDeleteIndex, setDoctorDeleteIndex] = useState();
+
   
   const handleDelete = async (index) => {
     try {
       setDoctorDeleteIndex(index);
-  
-      // Extract the doctor object from the element at the specified index
-      const { doctor, ...rest } = doctorsObjects[index];
-  
-      // Extract the email property from the doctor's account object
-      const email = doctor.systemUser.account.email;
-  
+      console.log(doctorsObjects[0]);
+      const email = doctorsObjects[index].systemUser.account.email;
       console.log('Doctor Email:', email);
-  
-      const response = await axios.post('http://localhost:808/zft', {
-        deletedDoctorEmail: email,
+      const response = await axios.post('http://localhost:8080/Clinic/RemoveDoctor', {
+        email: email,
         clinic: clinicObject,
       });
-  
-      // Check the response status
-      if (response.status === 200) {
-        
-        console.log('Delete request response:', response.data);
-        console.log('Doctor removed successfully');
-      } else {
-        
-        console.error('Error deleting doctor:', response.data.message);
-        console.log(response.status === 404 ? 'Doctor not found' : 'Clinic not found');
-      }
+      console.log(doctors);
+
+    
     } catch (error) {
       console.error('Error deleting doctor:', error);
     }
     
      
   };
-
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const timeSlots = [
-    '00:00 - 00:30',
-    '00:30 - 01:00',
-    '01:00 - 01:30',
-    '01:30 - 02:00',
-    '02:00 - 02:30',
-    '02:30 - 03:00',
-    '03:00 - 03:30',
-    '03:30 - 04:00',
-    '04:00 - 04:30',
-    '04:30 - 05:00',
-    '05:00 - 05:30',
-    '05:30 - 06:00',
-    // Add more time slots as needed
-  ];
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: doctors.length >= 3 ? 3 : doctors.length >= 2 ? 2 : 1,
+    slidesToScroll: 1,
+    speed: 3000,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />
+  };
 
   return (
     <>
@@ -520,14 +411,6 @@ const GetClinicObject= async () => {
         </div>
       </div>
     </div>
-
-
-
-  
-
-
-
-
 
 
     <div className="container">
@@ -635,74 +518,6 @@ const GetClinicObject= async () => {
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <table className="timetable">
-      <tbody>
-        <tr>
-          <th></th>
-          {daysOfWeek.map((day, index) => (
-            <th key={index}>{day}</th>
-          ))}
-        </tr>
-        {timeSlots.map((timeSlot, index) => (
-          <tr key={index}>
-            <td>{timeSlot}</td>
-            {daysOfWeek.map((day, index) => (
-              <td key={index}>
-                <div className="square"></div>
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
 <div className="marginDiv"></div>
 
 <h3>Our Doctors</h3>
@@ -716,7 +531,7 @@ const GetClinicObject= async () => {
   <div className="docCard border rounded p-3">
     <div className="card-img-top rounded-top-xl bg-indigo-500 d-flex justify-content-center align-items-center">
       <img
-        src={d.img}
+        src={'images/profile.webp'}
         alt=""
         className="img-thumbnail rounded-circle"
         style={{ width: '120px', height: '120px' }}
@@ -733,14 +548,9 @@ const GetClinicObject= async () => {
     </div>
   </div>
 </div>
-
               ))}
             </Slider>
           </div>
-
-
-
-
           <div className="marginDiv"></div>
 
 
@@ -748,15 +558,8 @@ const GetClinicObject= async () => {
 
 
 <div className="marginDiv"></div>
-
-
 <div className="container mt-4">
-      {/* Title and Horizontal Line */}
-      
-
       <div className="row">
-        
-        {/* First Card - Doctor's Email */}
         <div className="col-md-6 ">
         <h3>Add Doctors</h3>
       <hr/>
@@ -772,7 +575,7 @@ const GetClinicObject= async () => {
               <div className="form-group">
                 <input type="fees"  value={doctorFees} className="form-control" id="doctorFees" placeholder="Enter doctor fees" onChange={handleFeesChange} />
               </div>
-              <button className="btn btn-success form-control" style={{ marginTop: '1.5vw' }} onClick={AddDoctor} >Add</button>
+              <button disabled={isSubmitting} className="btn btn-success form-control" style={{ marginTop: '1.5vw' }} onClick={AddDoctor} >Add</button>
               <div style={{ marginBottom: '1.5vw' }}></div>
               {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
               {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
@@ -799,7 +602,7 @@ const GetClinicObject= async () => {
                 <input type="text" className="form-control" onChange={handleMockAddress} id="address" placeholder="Enter Address" />
               </div>
               <div className="form-group">
-                <label htmlFor="phone">Phone 1:</label>
+                <label htmlFor="phone">Phone:</label>
                 <input type="tel" className="form-control"  onChange={handleMockPhone}id="phone" placeholder="Enter Phone Number" />
               </div>
            

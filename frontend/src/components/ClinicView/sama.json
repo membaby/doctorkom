@@ -1,26 +1,20 @@
 {
-  "zft": [
-    {
-      "deletedDoctorEmail": "john.doe@example.com",
-      "clinic": {
-        "id": 3,
-        "name": "sama clinic",
-        "address": "zzzzzz",
-        "email": "clinic@email.com",
-        "mobilePhone": "0123456",
-        "landlinePhone": "333",
-        "admin": {
-          "id": 1,
-          "account": {
-            "id": 1,
-            "email": "admin@example.com",
-            "username": "admin",
-            "password": "admin123",
-            "role": "admin"
-          }
-        }
-      },
-      "id": 1
+  "zft": {
+    "id": 80,
+    "name": "gg",
+    "address": "gg",
+    "email": "g",
+    "mobilephone": "g",
+    "landlinePhone": "01234567899",
+    "admin": {
+      "id": 80,
+      "account": {
+        "id": 80,
+        "email": "ClinicAdmin@gmail.com",
+        "username": "ClinicAdmin",
+        "password": "123456",
+        "role": "CLINIC_ADMIN"
+      }
     }
-  ]
+  }
 }
