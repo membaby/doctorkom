@@ -5,13 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="638daee9-704d-405f-967d-2eddf70d0293" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Notifier/NotificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid11832.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid17268.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid17708.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid23340.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid3784.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ClinicView/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ClinicView/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ClinicView/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ClinicView/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/homepage/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/homepage/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -52,9 +65,6 @@
       </UrlAndAccount>
     </option>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/doctorkom/backend/src/main/java/com/example/doctorkom/DAOs/UserDAO.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -68,6 +78,9 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2YAb74nDAjENffoTX8XrbHBnASp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -75,6 +88,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "SCRUM-91-Validate-sign-up-data-return-message",
@@ -83,6 +97,33 @@
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
+  <component name="RunManager" selected="Spring Boot.DoctorkomApplication">
+    <configuration name="DoctorkomApplication" type="springBootConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="spring_profiles_active" value="default" />
+        <env name="spring_output_ansi_enabled" value="always" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.example.doctorkom.DoctorkomApplication" />
+      <module name="doctorkom" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="springBootConfigurationType" factoryName="Spring Boot">
+      <envs>
+        <env name="spring_profiles_active" value="default" />
+        <env name="spring_output_ansi_enabled" value="always" />
+      </envs>
+      <module name="doctorkom" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.Unnamed" />
+      <item itemvalue="Spring Boot.DoctorkomApplication" />
+    </list>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -104,5 +145,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
