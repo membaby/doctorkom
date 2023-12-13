@@ -24,16 +24,16 @@ public class Verification {
     @Column(name = "Code")
     private String code;
 
-    @Column(name = "CreationTime")
-    private LocalDateTime creationTime;
+    @Column(name = "ExpirationTime")
+    private LocalDateTime expirationTime;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "AccountId")
     private Account account;
 
-    public Verification(String code, LocalDateTime creationTime, Account account) {
+    public Verification(String code, LocalDateTime expirationTime, Account account) {
         this.code = code;
-        this.creationTime = creationTime;
+        this.expirationTime = expirationTime;
         this.account = account;
     }
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import './styles.css'
 import { useLocation } from 'react-router-dom';
-// import CryptoJS from 'crypto-js';
+import hashString from '../../functions/hashString';
 
 const Register = ({ userType }) => {
   const [firstName, setFirstName] = useState('');
@@ -56,17 +56,16 @@ const Register = ({ userType }) => {
           Accept: 'application/json',
         },
       }).then((res) => {
-        handleRegister(res.data)
+        handleRegister(true, res.data)
       }).catch((err) => console.log(err));
     }
   }, [user]); // Depend on user object
 
-  const handleRegister = (googleData) => {    
-
+  const handleRegister = (isGoogle, googleData) => {
     const account = {
       email: googleData ? googleData.email : email,
       username: googleData ? googleData.id : username,
-      password: googleData ? "mchbomNZPYvmxbv0e3yNAy" : password,
+      password: googleData ? "mchbomNZPYvmxbv0e3yNAy" : hashString(password),
       role: userType === 'patient' ? 'PATIENT' : userType === 'doctor' ? 'DOCTOR' : userType === 'admin' ? 'SYSTEM_ADMIN' : userType === 'clinic' ? 'CLINIC_ADMIN' : ''
     };
 
@@ -121,7 +120,7 @@ const Register = ({ userType }) => {
           if (password === "mchbomNZPYvmxbv0e3yNAy") {
             window.location.href = '/profile';
           } else {
-            window.location.href = '/verification';
+            window.location.href = '/verification?email='+account.email;
           }
         } else {
             showError(response.msg);
