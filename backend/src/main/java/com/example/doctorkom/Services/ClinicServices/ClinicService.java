@@ -37,9 +37,8 @@ public class ClinicService {
 
     public String editClinicInfo(Clinic clinic) {
         Optional<Clinic> existingClinic = clinicRepository.findById(clinic.getId());
-        if (existingClinic.isPresent()) {
+        if(existingClinic.isPresent()){
             clinic.setDoctors(existingClinic.get().getDoctors());
-            System.out.println(clinic);
             clinicRepository.save(clinic);
             return "Clinic edited";
         } else {
