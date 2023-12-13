@@ -1,42 +1,96 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-import './styles.css'
 import Cookies from 'universal-cookie';
+import getUserInfo from '../../functions/getUserInfo';
+import setUserInfo from '../../functions/setUserInfo';
+import hashString from '../../functions/hashString';
+import './styles.css'
 
 const UserProfilePage = () => {
   const [userType, setUserType] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [displayMessage, setDisplayMessage] = useState("");
+  const [formEnabled, setFormEnabled] = useState(false);
+
   useEffect(() => {
     const cookies = new Cookies();
     const role = cookies.get('role');
+    const username = cookies.get('username');
+    
     if (role && (role === "PATIENT" || role === "DOCTOR")) {
       setUserType(role);
     } else {
       window.location.href = '/login';
     }
+    setDisplayMessage('Profile data is loading... please wait')
+    setFormEnabled(false);
+    getUserInfo(role, username)
+    .then(data => {
+      setUserData(data);
+      setDisplayMessage('')
+      setFormEnabled(true);
+    })
+
   }, []);
 
-  const handleSaveChanges = () => {
-    const data = {
-      user_id: 0,
-      firstname: document.getElementById('userprofile-fname').value,
-      lastname: document.getElementById('userprofile-lname').value,
-      email: document.getElementById('userprofile-email').value,
-      gender: document.getElementById('userprofile-gender').value,
-      birthdate: document.getElementById('userprofile-date').value,
-      address: document.getElementById('userprofile-address').value,
-      phone: document.getElementById('userprofile-phone').value,
-      maritalstatus: document.getElementById('userprofile-maritalstatus') ? document.getElementById('userprofile-maritalstatus').value : null,
-      occupation: document.getElementById('userprofile-occupation') ? document.getElementById('userprofile-occupation').value : null,
-      insurance: document.getElementById('userprofile-insurance') ? document.getElementById('userprofile-insurance').value : null,
-      title: document.getElementById('userprofile-title') ? document.getElementById('userprofile-title').value : null,
-      speciality: document.getElementById('userprofile-speciality') ? document.getElementById('userprofile-speciality').value : null,
+  const updateProfileInfo = () => {
+    const data = userData;
+    userData.systemUser.firstName = document.getElementById('userprofile-fname').value;
+    userData.systemUser.lastName = document.getElementById('userprofile-lname').value;
+    userData.systemUser.account.email = document.getElementById('userprofile-email').value;
+    userData.systemUser.gender = document.getElementById('userprofile-gender').value;
+    userData.systemUser.birthdate = document.getElementById('userprofile-date').value;
+    userData.systemUser.address = document.getElementById('userprofile-address').value;
+    userData.systemUser.mobilePhone = document.getElementById('userprofile-phone').value;
+    if (userType === "PATIENT") {
+      userData.maritialStatus = document.getElementById('userprofile-maritalstatus').value;
+      userData.occupation = document.getElementById('userprofile-occupation').value;
+      userData.insurance = document.getElementById('userprofile-insurance').value;
+    } else if (userType === "DOCTOR") {
+      userData.title = document.getElementById('userprofile-title').value;
+      userData.specialty = document.getElementById('userprofile-speciality').value;
     }
+    
+    const password = document.getElementById('userprofile-password').value;
+    const confirmpassword = document.getElementById('userprofile-confirmpassword').value;
+    if (password && confirmpassword && password === confirmpassword) {
+      userData.systemUser.account.password = hashString(password);
+    }
+
+    setDisplayMessage('Profile data is updating...');
+    setFormEnabled(false);
+    setUserInfo(userType, data)
+    .then(data => {
+      setDisplayMessage("Profile data updated successfully!");
+      setFormEnabled(true);
+    })
   }
+
+  useEffect(() => {
+    if (userData) {
+      document.getElementById('userprofile-fname').value = userData.systemUser.firstName;
+      document.getElementById('userprofile-lname').value = userData.systemUser.lastName;
+      document.getElementById('userprofile-email').value = userData.systemUser.account.email;
+      document.getElementById('userprofile-gender').value = userData.systemUser.gender;
+      document.getElementById('userprofile-date').value = userData.systemUser.birthdate;
+      document.getElementById('userprofile-address').value = userData.systemUser.address;
+      document.getElementById('userprofile-phone').value = userData.systemUser.mobilePhone;
+      document.getElementById('userprofile-uname').value = userData.systemUser.account.username;
+      if (userType === "PATIENT") {
+        document.getElementById('userprofile-maritalstatus').value = userData.maritialStatus;
+        document.getElementById('userprofile-occupation').value = userData.occupation;
+        document.getElementById('userprofile-insurance').value = userData.insurance;
+      } else if (userType === "DOCTOR") {
+        document.getElementById('userprofile-title').value = userData.title;
+        document.getElementById('userprofile-speciality').value = userData.specialty;
+      }
+    }
+}, [userData]);
 
   return (
     <div class="container py-4 py-xl-5">
       <h3>User Profile Page</h3>
       <hr/>
+      <div className="alert">{displayMessage}</div>
       <div class="row">
         <div class="col-9">
           <h6 class="text-secondary">General Information</h6>
@@ -45,11 +99,11 @@ const UserProfilePage = () => {
             <div class="row">
               <div class="col">
                 <span class="text-secondary">First name</span>
-                <input type="text" class="form-control" id="userprofile-fname"/>
+                <input type="text" class="form-control" id="userprofile-fname" disabled={!formEnabled} />
               </div>
               <div class="col">
                 <span class="text-secondary">Last name</span>
-                <input type="text" class="form-control" id="userprofile-lname"/>
+                <input type="text" class="form-control" id="userprofile-lname" disabled={!formEnabled}/>
               </div>
             </div>
 
@@ -60,14 +114,14 @@ const UserProfilePage = () => {
               </div>
               <div class="col">
                 <span class="text-secondary">Email address</span>
-                <input type="email" class="form-control" id="userprofile-email"/>
+                <input type="email" class="form-control" id="userprofile-email" disabled={!formEnabled}/>
               </div>
             </div>
 
             <div class="row mt-3">
               <div class="col">
                 <span class="text-secondary">Gender</span>
-                <select className="form-select" id="userprofile-gender" >
+                <select className="form-select" id="userprofile-gender" disabled={!formEnabled} >
                     <option value="">Select</option>
                     <option value="MALE">Male</option>
                     <option value="FEMALE">Female</option>
@@ -75,18 +129,18 @@ const UserProfilePage = () => {
               </div>
               <div class="col">
                 <span class="text-secondary">Birthdate</span>
-                <input type="date" class="form-control" id="userprofile-date"/>
+                <input type="date" class="form-control" id="userprofile-date" disabled={!formEnabled}/>
               </div>
             </div>
 
             <div class="row mt-3">
               <div class="col">
                 <span class="text-secondary">Address</span>
-                <input type="text" class="form-control" id="userprofile-address"/>
+                <input type="text" class="form-control" id="userprofile-address" disabled={!formEnabled}/>
               </div>
               <div class="col">
                 <span class="text-secondary">Phone</span>
-                <input type="text" class="form-control" id="userprofile-phone"/>
+                <input type="text" class="form-control" id="userprofile-phone" disabled={!formEnabled}/>
               </div>
             </div>
 
@@ -98,7 +152,7 @@ const UserProfilePage = () => {
               <>
                 <div>
                   <span class="text-secondary">Marital Status</span>
-                  <select className="form-select" id="userprofile-maritalstatus" >
+                  <select className="form-select" id="userprofile-maritalstatus" disabled={!formEnabled}>
                     <option value="">Select</option>
                     <option value="single">Single</option>
                     <option value="married">Married</option>
@@ -108,17 +162,17 @@ const UserProfilePage = () => {
                 </div>
                 <div>
                   <span class="text-secondary">Occupation</span>
-                  <input type="text" class="form-control" id="userprofile-occupation"/>
+                  <input type="text" class="form-control" id="userprofile-occupation" disabled={!formEnabled}/>
                 </div>
                 <div>
                   <span class="text-secondary">Insurance</span>
-                  <input type="text" class="form-control" id="userprofile-insurance"/>
+                  <input type="text" class="form-control" id="userprofile-insurance" disabled={!formEnabled}/>
                 </div>
               </>
             ) : (
               <>
                 <span class="text-secondary">Title</span>
-                <select className="form-select" id="userprofile-title" >
+                <select className="form-select" id="userprofile-title" disabled={!formEnabled}>
                   <option value="">Select</option>
                   <option value="PROFESSOR">PROFESSOR</option>
                   <option value="LECTURER">LECTURER</option>
@@ -126,7 +180,7 @@ const UserProfilePage = () => {
                   <option value="SPECIALIST">SPECIALIST</option>
                 </select>
                 <span class="text-secondary">Speciality</span>
-                <select className="form-select" id="userprofile-speciality" >
+                <select className="form-select" id="userprofile-speciality" disabled={!formEnabled}>
                   <option value="">Select</option>
                   <option value="GENERAL_PRACTITIONER">GENERAL_PRACTITIONER</option>
                   <option value="CARDIOLOGIST">CARDIOLOGIST</option>
@@ -172,7 +226,7 @@ const UserProfilePage = () => {
           </div>
 
           <div class=" mt-2">
-            <button type="button" class="btn btn-success w-100" onClick={handleSaveChanges}>Save Changes</button>
+            <button type="button" class="btn btn-success w-100" onClick={updateProfileInfo}>Save Changes</button>
           </div>
         </div>
       </div>
