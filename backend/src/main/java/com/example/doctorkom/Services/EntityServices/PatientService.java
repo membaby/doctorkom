@@ -2,6 +2,7 @@ package com.example.doctorkom.Services.EntityServices;
 
 import com.example.doctorkom.DTOMappers.PatientMapper;
 import com.example.doctorkom.DTOs.PatientDTO;
+import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ public class PatientService {
 
     public void updatePatient(PatientDTO patientDTO) {
         if (patientRepository.findById(patientDTO.getId()).isPresent()) {
-            patientRepository.save(patientMapper.toEntity(patientDTO));
+            Patient patient = patientRepository.findById(patientDTO.getId()).get();
+            patientRepository.save(patientMapper.partialUpdate(patientDTO, patient));
         }
     }
 }

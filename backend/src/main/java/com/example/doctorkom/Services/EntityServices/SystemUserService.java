@@ -2,6 +2,7 @@ package com.example.doctorkom.Services.EntityServices;
 
 import com.example.doctorkom.DTOMappers.SystemUserMapper;
 import com.example.doctorkom.DTOs.SystemUserDTO;
+import com.example.doctorkom.Entities.SystemUser;
 import com.example.doctorkom.Repositories.SystemUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ public class SystemUserService {
 
     public void updateSystemUser(SystemUserDTO systemUserDTO) {
         if (systemUserRepository.findById(systemUserDTO.getId()).isPresent()) {
-            systemUserRepository.save(systemUserMapper.toEntity(systemUserDTO));
+            SystemUser systemUser = systemUserRepository.findById(systemUserDTO.getId()).get();
+            systemUserRepository.save(systemUserMapper.partialUpdate(systemUserDTO, systemUser));
         }
     }
 }

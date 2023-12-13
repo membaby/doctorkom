@@ -2,6 +2,7 @@ package com.example.doctorkom.Services.EntityServices;
 
 import com.example.doctorkom.DTOMappers.AccountMapper;
 import com.example.doctorkom.DTOs.AccountDTO;
+import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ public class AccountService {
 
     public void updateAccount(AccountDTO accountDTO) {
         if (accountRepository.findByUsername(accountDTO.getUsername()).isPresent()) {
-            accountRepository.save(accountMapper.toEntity(accountDTO));
+            Account account = accountRepository.findByUsername(accountDTO.getUsername()).get();
+            accountRepository.save(accountMapper.partialUpdate(accountDTO, account));
         }
     }
 
