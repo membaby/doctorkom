@@ -1,16 +1,44 @@
 import './styles.css'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
 
-  var NavbarItems = [
+  const [navbar, setNavbar] = useState([
     { title: 'Home', url: '/' },
     { title: 'Search', url: '/search'},
     { title: 'About', url: '/about' },
-    { title: 'Login', url: '/login' },
-  ];
+  ]);
+  const [showRegisterButton, setShowRegisterButton] = useState(false);
+
+  useEffect(() => {
+    let updatedNavbar = [...navbar];
+    let role = Cookies.get('role');
+    let username = Cookies.get('username');
+    if (!role || !username) {
+      updatedNavbar.push({ title: 'Login', url: '/login' });
+      setShowRegisterButton(true);
+    } else if (role === "PATIENT") {
+      updatedNavbar.push({ title: 'Profile', url: '/profile' });
+      updatedNavbar.push({ title: 'Logout', url: '/logout' });
+    } else if (role === "DOCTOR") {
+      updatedNavbar.push({ title: 'Profile', url: '/profile' });
+      updatedNavbar.push({ title: 'Dashboard', url: '/dashboard/doctor' });
+      updatedNavbar.push({ title: 'Logout', url: '/logout' });
+    } else if (role === "CLINIC_ADMIN") {
+      updatedNavbar.push({ title: 'Dashboard', url: '/dashboard/clinic' });
+      updatedNavbar.push({ title: 'Logout', url: '/logout' });
+    } else if (role === "SYSTEM_ADMIN") {
+      updatedNavbar.push({ title: 'Dashboard', url: '/dashboard/admin' });
+      updatedNavbar.push({ title: 'Logout', url: '/logout' });
+    } else {
+      updatedNavbar.push({ title: 'Login', url: '/login' });
+      setShowRegisterButton(true);
+    }
+    setNavbar(updatedNavbar);
+  }, []);
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -36,22 +64,24 @@ const Navbar = () => {
       </a>			
       <div className="col"></div>
       <div className="col-auto d-flex nav-link text-white riMar">
-        {NavbarItems.map((item, index) => (
+        {navbar.map((item, index) => (
           <div className="nav-item  m-auto mx-4" >
             <a className="nav-link" href={item.url} style={{ fontSize: '21px' }}>{item.title}</a>
           </div>
         ))}
-        <div className="nav-item  m-auto mx-4" >
-          <Dropdown>
-            <Dropdown.Toggle  as={CustomToggle} variant="success" id="dropdown-basic"  >
-            Register
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="/register/patient">Patient registration</Dropdown.Item>
-              <Dropdown.Item href="/register/doctor">Doctor registration</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+        {showRegisterButton ? (
+          <div className="nav-item  m-auto mx-4" >
+            <Dropdown>
+              <Dropdown.Toggle  as={CustomToggle} variant="success" id="dropdown-basic"  >
+              Register
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="/register/patient">Patient registration</Dropdown.Item>
+                <Dropdown.Item href="/register/doctor">Doctor registration</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        ) : (<></>)}
       </div> 
     </nav> 
 	</>
