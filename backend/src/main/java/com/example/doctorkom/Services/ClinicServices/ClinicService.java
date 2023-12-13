@@ -47,6 +47,7 @@ public class ClinicService {
     public String AddDoctorToClinic(String doctorEmail,Clinic clinic){
         Optional<Clinic> existingClinic = clinicRepository.findById(clinic.getId());
         if(existingClinic.isPresent()){
+            System.out.println(doctorEmail);
             Account doctorAccount = accountRepository.findByEmail(doctorEmail).orElse(null);
             Doctor doctor = doctorRepository.findById(doctorAccount.getId()).orElse(null);
             if(doctor != null){
@@ -234,11 +235,13 @@ public class ClinicService {
     }
 
     public List<Doctor> GetDoctorsForClinic(Clinic clinic) {
-        if (clinicRepository.findById(clinic.getId()).isEmpty()){
-            return null;
+        Clinic Rclinic = clinicRepository.findById(clinic.getId()).orElse(null);
+        if (Rclinic != null){
+            return new ArrayList<>(Rclinic.getDoctors());
         }
-        List<Doctor> doctors = clinic.getDoctors();
-        return new ArrayList<>(doctors);
+        else{
+            return new ArrayList<>();
+        }
     }
 
 

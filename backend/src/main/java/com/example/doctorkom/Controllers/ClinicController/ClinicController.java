@@ -2,11 +2,9 @@ package com.example.doctorkom.Controllers.ClinicController;
 
 import com.example.doctorkom.DTOMappers.AppointmentMapper;
 import com.example.doctorkom.DTOMappers.ClinicMapper;
+import com.example.doctorkom.DTOMappers.DoctorMapper;
 import com.example.doctorkom.DTOMappers.TimeSlotMapper;
-import com.example.doctorkom.DTOs.AppointmentDTO;
-import com.example.doctorkom.DTOs.ClinicDTO;
-import com.example.doctorkom.DTOs.ClinicDoctorDTO;
-import com.example.doctorkom.DTOs.TimeSlotDTO;
+import com.example.doctorkom.DTOs.*;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Services.ClinicServices.ClinicService;
@@ -14,6 +12,7 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,6 +28,8 @@ public class ClinicController {
     TimeSlotMapper timeSlotMapper;
     @Autowired
     AppointmentMapper appointmentMapper;
+    @Autowired
+    DoctorMapper doctorMapper;
 
     @PostMapping("/AddDoctor")
     public String AddDoctor(@RequestBody ClinicDoctorDTO clinicDoctorDTO){
@@ -83,13 +84,18 @@ public class ClinicController {
     }
 
     @GetMapping("/Doctors")
-    public List<Doctor> Doctors(@RequestBody ClinicDTO clinicDTO){
+    public List<DoctorDTO> Doctors(@RequestBody ClinicDTO clinicDTO){
         Clinic clinic = clinicMapper.toEntity(clinicDTO);
-        return clinicService.GetDoctorsForClinic(clinic);
+        List<Doctor> doctors = clinicService.GetDoctorsForClinic(clinic);
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        for (Doctor doctor : doctors) {
+            doctorDTOS.add(doctorMapper.toDto(doctor));
+        }
+        return doctorDTOS;
     }
     @GetMapping("/Clinic")
-    public Clinic Clinic(@RequestBody int id){
-        return clinicService.GetClinic(id);
+    public ClinicDTO Clinic(@RequestBody int id){
+        return clinicMapper.toDto(clinicService.GetClinic(id));
     }
 
     @GetMapping("/Test")

@@ -43,12 +43,13 @@ public class Clinic {
     @OneToMany(mappedBy = "clinic")
     @ToString.Exclude
     private List<TimeSlot> timeSlots;
-
+    //set fees in works for to zero for now for all doctors
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name = "WorksFor",
             joinColumns = @JoinColumn(name = "ClinicId"),
             inverseJoinColumns = @JoinColumn(name = "DoctorId")
+
     )
     @ToString.Exclude
     private List<Doctor> doctors;
