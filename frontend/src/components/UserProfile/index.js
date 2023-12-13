@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import './styles.css'
+import Cookies from 'universal-cookie';
 
-const UserProfilePage = ({ userType }) => {
-
+const UserProfilePage = () => {
+  const [userType, setUserType] = useState(null);
   useEffect(() => {
-    if (userType !== 'patient' && userType !== 'doctor') {
+    const cookies = new Cookies();
+    const role = cookies.get('role');
+    if (role && (role === "PATIENT" || role === "DOCTOR")) {
+      setUserType(role);
+    } else {
       window.location.href = '/login';
     }
   }, []);
@@ -26,7 +31,6 @@ const UserProfilePage = ({ userType }) => {
       title: document.getElementById('userprofile-title') ? document.getElementById('userprofile-title').value : null,
       speciality: document.getElementById('userprofile-speciality') ? document.getElementById('userprofile-speciality').value : null,
     }
-    console.log(data);
   }
 
   return (
@@ -90,7 +94,7 @@ const UserProfilePage = ({ userType }) => {
 
           <h6 class="text-secondary mt-3">Specified Information</h6>
           <div class="card p-3">
-            {userType === 'patient' ? (
+            {userType === 'PATIENT' ? (
               <>
                 <div>
                   <span class="text-secondary">Marital Status</span>
@@ -148,7 +152,7 @@ const UserProfilePage = ({ userType }) => {
         <div class="col">
           <h6 class="text-secondary">Profile Picture</h6>
           <div class="card p-3">
-            {userType === 'patient' ? (
+            {userType === 'PATIENT' ? (
               <img src="/images/avatar/default-patient.png" class="m-auto" width="250px"></img>
             ) : (
               <img src="/images/avatar/default-doctor-female.png" class="m-auto" width="250px"></img>
