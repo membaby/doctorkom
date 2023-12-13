@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -50,9 +51,10 @@ public class ClinicService {
             Doctor doctor = doctorRepository.findById(doctorAccount.getId()).orElse(null);
             if(doctor != null){
                 //check if doctor is already in the clinic
+                clinic = existingClinic.get();
                 List<Doctor> clinicDoctors = clinic.getDoctors();
                 for(Doctor doctor1 : clinicDoctors){
-                    if(doctor1.getId() == doctor.getId()){
+                    if(Objects.equals(doctor1.getId(), doctor.getId())){
                         return "Doctor already in the clinic";
                     }
                 }
@@ -77,9 +79,10 @@ public class ClinicService {
             Account doctorAccount = accountRepository.findByEmail(doctorEmail).orElse(null);
             Doctor doctor = doctorRepository.findById(doctorAccount.getId()).orElse(null);
             if(doctor != null){
+                clinic = existingClinic.get();
                 List<Doctor> clinicDoctors = clinic.getDoctors();
                 for(Doctor doctor1 : clinicDoctors){
-                    if(doctor1.getId() == doctor.getId()){
+                    if(Objects.equals(doctor1.getId(), doctor.getId())){
                         clinicDoctors.remove(doctor1);
                         clinic.setDoctors(clinicDoctors);
                         clinicRepository.save(clinic);

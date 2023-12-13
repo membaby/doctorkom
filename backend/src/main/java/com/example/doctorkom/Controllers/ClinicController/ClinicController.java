@@ -1,17 +1,19 @@
 package com.example.doctorkom.Controllers.ClinicController;
 
 import com.example.doctorkom.DTOMappers.ClinicMapper;
+import com.example.doctorkom.DTOMappers.TimeSlotMapper;
 import com.example.doctorkom.DTOs.ClinicDTO;
-import com.example.doctorkom.Entities.Account;
-import com.example.doctorkom.Entities.Clinic;
-import com.example.doctorkom.Entities.ClinicAdmin;
-import com.example.doctorkom.Entities.Role;
+import com.example.doctorkom.DTOs.TimeSlotDTO;
+import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.AccountRepository;
 import com.example.doctorkom.Repositories.ClinicAdminRepository;
 import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Services.ClinicServices.ClinicService;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Clinic")
@@ -22,6 +24,8 @@ public class ClinicController {
     ClinicService clinicService;
     @Autowired
     ClinicMapper clinicMapper;
+    @Autowired
+    TimeSlotMapper timeSlotMapper;
 
     @PostMapping("/AddDoctor")
     public String AddDoctor(){
@@ -37,17 +41,20 @@ public class ClinicController {
         return clinicService.editClinicInfo(clinic);
     }
     @PostMapping("/AddTimeSlot")
-    public String AddTimeSlot(){
-        return "Add Time Slot";
+    public String AddTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO){
+        TimeSlot timeSlot = timeSlotMapper.toEntity(timeSlotDTO);
+        return clinicService.AddTimeSlot(timeSlot);
     }
 
     @PostMapping("/EditTimeSlot")
-    public String EditTimeSlot(){
-        return "Edit Time Slot";
+    public String EditTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO){
+        TimeSlot timeSlot = timeSlotMapper.toEntity(timeSlotDTO);
+        return clinicService.EditTimeSlot(timeSlot);
     }
-    @PostMapping("/DeleteTimeSlot")
-    public String DeleteTimeSlot(){
-        return "Delete Time Slot";
+    @PostMapping("/RemoveTimeSlot")
+    public String RemoveTimeSlot(@RequestBody TimeSlotDTO timeSlotDTO){
+        TimeSlot timeSlot = timeSlotMapper.toEntity(timeSlotDTO);
+        return clinicService.RemoveTimeSlot(timeSlot);
     }
 
     @PostMapping("/EditAppointment")
@@ -61,13 +68,15 @@ public class ClinicController {
     }
 
     @GetMapping("/Appointments&TimeSlots")
-    public String AppointmentsAndTimeSlots(){
-        return "Appointments And Time Slots";
+    public Pair<List<Appointment>, List<TimeSlot>> AppointmentsAndTimeSlots(@RequestBody ClinicDTO clinicDTO){
+        Clinic clinic = clinicMapper.toEntity(clinicDTO);
+        return clinicService.GetAppointmentsAndTimeSlotsForClinic(clinic);
     }
 
     @GetMapping("/Doctors")
-    public String Doctors(){
-        return "Doctors";
+    public List<Doctor> Doctors(@RequestBody ClinicDTO clinicDTO){
+        Clinic clinic = clinicMapper.toEntity(clinicDTO);
+        return clinicService.GetDoctorsForClinic(clinic);
     }
 
     @GetMapping("/Test")
