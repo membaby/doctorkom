@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import getUserInfo from '../../functions/getUserInfo';
 import setUserInfo from '../../functions/setUserInfo';
 import hashString from '../../functions/hashString';
@@ -12,9 +12,9 @@ const UserProfilePage = () => {
   const [formEnabled, setFormEnabled] = useState(false);
 
   useEffect(() => {
-    const cookies = new Cookies();
-    const role = cookies.get('role');
-    const username = cookies.get('username');
+    const role = Cookies.get('role');
+    const username = Cookies.get('username');
+    console.log(username);
     
     if (role && (role === "PATIENT" || role === "DOCTOR")) {
       setUserType(role);
