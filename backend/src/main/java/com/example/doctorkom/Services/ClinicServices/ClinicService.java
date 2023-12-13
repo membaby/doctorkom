@@ -242,7 +242,7 @@ public class ClinicService {
     }
 
 
-
-
-
+    public Clinic GetClinic(int id) {
+        return clinicRepository.findById(id).orElse(null);
+    }
 }
