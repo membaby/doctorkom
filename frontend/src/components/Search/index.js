@@ -21,14 +21,14 @@ export default function Search() {
 
         // DEMO
         setResults([
-            { name: 'Dr. Ahmed', title: 'PROFESSOR', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Mohamed', title: 'LECTURER', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Ali', title: 'CONSULTANT', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Mahmoud', title: 'SPECIALIST', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Ahmed', title: 'PROFESSOR', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Mohamed', title: 'LECTURER', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Ali', title: 'CONSULTANT', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] },
-            { name: 'Dr. Mahmoud', title: 'SPECIALIST', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] }
+            { name: 'Mahmoud Embaby', title: 'PROFESSOR', specialty: 'DERMATOLOGIST', city: 'Cairo', address: '123 Nile Street, Giza, Cairo, Egypt', rating: 4.9, reviews: 100, clinics: ['Healing Haven Clinic', 'Vitality Wellness Clinic'] },
+            { name: 'Anthony Fauci', title: 'SPECIALIST', specialty: 'GYNECOLOGIST', city: 'Cairo', address: '456 Mediterranean Avenue, Alexandria, Egypt', rating: 4.9, reviews: 100, clinics: ['Wellness Junction Medical Center', 'Serenity Medical Center'] },
+            { name: 'Magdi Yacoup', title: 'PROFESSOR', specialty: 'CARDIOLOGIST', city: 'Cairo', address: "789 Pharaoh's Lane, Luxor, Egypt", rating: 4.8, reviews: 100, clinics: ['Compassionate Care Clinic', 'Serenity Medical Center'] },
+            { name: 'Vivek Murthy', title: 'CONSULTANT', specialty: 'PEDIATRICIAN', city: 'Cairo', address: '101 Nubian Street, Aswan, Egypt', rating: 4.7, reviews: 100, clinics: ['Vitality Wellness Clinic', 'Radiant Life Healthcare'] },
+            { name: 'Sanjay Gupta', title: 'PROFESSOR', specialty: 'NEUROLOGIST', city: 'Cairo', address: '234 Coral Beach Road, Sharm El Sheikh, Egypt', rating: 5, reviews: 100, clinics: ['Vitality Wellness Clinic', 'Tranquil Health Solutions'] },
+            { name: 'Khalid Abbed', title: 'LECTURER', specialty: 'ONCOLOGIST', city: 'Cairo', address: '567 Red Sea Boulevard, Hurghada, Egypt', rating: 5, reviews: 100, clinics: ['Harmony Health Hub', 'Oasis Care Clinic'] },
+            { name: 'Arthur Reese Albright', title: 'CONSULTANT', specialty: 'GYNECOLOGIST', city: 'Cairo', address: '890 Bedouin Oasis Street, Dahab, Egypt', rating: 4.9, reviews: 100, clinics: ['El Haram Clinic', 'Harmony Health Hub'] },
+            { name: 'Sudhansu Bhattacharyya', title: 'SPECIALIST', specialty: 'DENTAL_SURGEON', city: 'Cairo', address: '112 Oasis View Drive, Fayoum, Egypt', rating: 4.6, reviews: 100, clinics: ['Oasis Care Clinic', 'Renaissance Medical Group'] }
         ]);
         setTotalResults(8);
 
@@ -40,7 +40,7 @@ export default function Search() {
             <div class="container py-4 py-xl-5">
                 <h3>Find Your Ideal Healthcare Provider</h3>
                 <hr/>
-                {/* <div className="text-center">
+                <div className="text-center">
                     {!showingResults ? (
                         <img src="/images/illustrations/Mental Therapy.gif" alt="ABC" width="300px" />
                     ) : (<></>)}
@@ -85,17 +85,16 @@ export default function Search() {
 
                         </div>
                     </div>
-                </div> */}
+                </div>
 
 
                 <div className="results mt-3">
-                <Result result={{ name: 'Dr. Ahmed', title: 'PROFESSOR', specialty: 'GYNECOLOGIST', city: 'Cairo', address: 'El Haram', rating: 4.5, reviews: 100, clinics: ['El Haram Clinic', 'El Haram Clinic 2'] }} />
                     <hr/>
-                    {/* {totalResults} Results Found */}
                     {showingResults ? (
                         <div>
+                            {totalResults} Results Found
                             {results.map((result) => (
-                                <Result result={result} />
+                                <Result details={result} />
                             ))}
                         </div>
                     ) : (<></>)}
