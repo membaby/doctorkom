@@ -41,8 +41,8 @@ const Login = () => {
             cookies.set('id', response.systemAdmin.id, { path: '/' });
             window.location.href = '/dashboard/admin';
           } else if (response.role === "CLINIC_ADMIN") {
-            cookies.set('id', response.clinicAdmin.id, { path: '/' });
-            cookies.set('username', response.clinicAdmin.account.username, { path: '/' });
+            cookies.set('id', response.clinic.id, { path: '/' });
+            cookies.set('username', response.clinic.admin.account.username, { path: '/' });
             window.location.href = '/dashboard/clinic';
           } else if (response.role === "DOCTOR") {
             cookies.set('id', response.doctor.id, { path: '/' });
@@ -60,7 +60,7 @@ const Login = () => {
         }
     })
     .catch((error) => {
-        showError('Error occured. Please try again later.')
+        showError('Error occured. Please try again later:' + error)
     });
   }
 
