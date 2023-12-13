@@ -23,7 +23,7 @@ public class RegistrationService {
 
     //Registration messages
     @Autowired
-    void publicRegistrationService( NotificationService notificationService,
+    public RegistrationService( NotificationService notificationService,
                                     AccountRepository accountRepository,
                                     PatientRepository patientRepository,
                                     DoctorRepository doctorRepository,

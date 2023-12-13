@@ -22,7 +22,7 @@ public class ClinicService {
     private AppointmentRepository appointmentRepository;
     private AccountRepository accountRepository;
     @Autowired
-    public void ClinicService(ClinicRepository clinicRepository,
+    public ClinicService(ClinicRepository clinicRepository,
                               DoctorRepository doctorRepository,
                               TimeSlotRepository timeSlotRepository,
                               AppointmentRepository appointmentRepository,
