@@ -6,7 +6,6 @@ import com.example.doctorkom.DTOMappers.DoctorMapper;
 import com.example.doctorkom.DTOMappers.TimeSlotMapper;
 import com.example.doctorkom.DTOs.*;
 import com.example.doctorkom.Entities.*;
-import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Services.ClinicServices.ClinicService;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
