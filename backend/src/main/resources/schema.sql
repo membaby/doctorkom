@@ -97,24 +97,3 @@ CREATE TABLE Clinic (
     MobilePhone VARCHAR(20) NOT NULL,
     FOREIGN KEY (ClinicId) REFERENCES ClinicAdmin(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE TABLE MedicalNote (
-     DoctorId INT,
-     PatientId INT,
-     Date DATE,
-     Diagnosis VARCHAR(255),
-     Investigations VARCHAR(511),
-     Prescription VARCHAR(255),
-     PRIMARY KEY (DoctorId, PatientId, Date),
-     FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
-     FOREIGN KEY (PatientId) REFERENCES Patient(UserId)
-);
-
-CREATE TABLE WorksFor (
-      DoctorId INT,
-      ClinicId INT,
-      fees DOUBLE NOT NULL,
-      PRIMARY KEY (DoctorId, ClinicId),
-      FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
-      FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
-);
