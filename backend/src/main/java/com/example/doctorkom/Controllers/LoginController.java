@@ -21,7 +21,7 @@ public class LoginController {
     @Autowired
     SystemAdminMapper systemAdminMapper;
     @Autowired
-    ClinicAdminMapper clinicAdminMapper;
+    ClinicMapper clinicMapper;
     @Autowired
     LogInService logInService;
 
@@ -47,7 +47,7 @@ public class LoginController {
                 SystemAdminDTO systemAdminDTO = systemAdminMapper.toDto(fullAccount.getSystemAdmin());
                 return new LoginResponse(true, Role.SYSTEM_ADMIN, systemAdminDTO);
             default: //CLINIC_ADMIN
-                ClinicAdminDTO clinicAdminDTO = clinicAdminMapper.toDto(fullAccount.getClinicAdmin());
+                ClinicDTO clinicAdminDTO = clinicMapper.toDto(fullAccount.getClinic());
                 return new LoginResponse(true, Role.CLINIC_ADMIN, clinicAdminDTO);
         }
     }

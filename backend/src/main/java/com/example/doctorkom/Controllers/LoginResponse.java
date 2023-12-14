@@ -16,7 +16,7 @@ public class LoginResponse {
     public PatientDTO patient;
     public DoctorDTO doctor;
     public SystemAdminDTO systemAdmin;
-    public ClinicAdminDTO clinicAdmin;
+    public ClinicDTO clinic;
 
     public LoginResponse(boolean success)
     {
@@ -37,10 +37,10 @@ public class LoginResponse {
         this.role = role;
         this.systemAdmin = systemAdmin;
     }
-    public LoginResponse(boolean success, Role role, ClinicAdminDTO clinicAdmin){
+    public LoginResponse(boolean success, Role role, ClinicDTO clinic){
         this.success = success;
         this.role = role;
-        this.clinicAdmin = clinicAdmin;
+        this.clinic = clinic;
     }
 
 }
