@@ -38,16 +38,16 @@ public class LoginControllerTest {
         if (response.success){
             switch (response.role){
                 case PATIENT:
-                    assertTrue(response.patient != null && response.doctor == null && response.systemAdmin == null && response.clinicAdmin == null);
+                    assertTrue(response.patient != null && response.doctor == null && response.systemAdmin == null && response.clinic == null);
                     break;
                 case DOCTOR:
-                    assertTrue(response.doctor != null && response.patient == null && response.systemAdmin == null && response.clinicAdmin == null);
+                    assertTrue(response.doctor != null && response.patient == null && response.systemAdmin == null && response.clinic == null);
                     break;
                 case SYSTEM_ADMIN:
-                    assertTrue(response.systemAdmin != null && response.patient == null && response.doctor == null && response.clinicAdmin == null);
+                    assertTrue(response.systemAdmin != null && response.patient == null && response.doctor == null && response.clinic == null);
                     break;
                 case CLINIC_ADMIN:
-                    assertTrue(response.clinicAdmin != null && response.patient == null && response.doctor == null && response.systemAdmin == null);
+                    assertTrue(response.clinic != null && response.patient == null && response.doctor == null && response.systemAdmin == null);
                     break;
             }
         }
