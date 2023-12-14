@@ -17,7 +17,7 @@ public class RegistrationService {
     AccountRepository accountRepository;
     PatientRepository patientRepository;
     DoctorRepository doctorRepository;
-    ClinicAdminRepository clinicAdminRepository;
+    ClinicRepository clinicRepository;
     SystemAdminRepository systemAdminRepository;
     VerificationRepository verificationRepository;
 
@@ -27,14 +27,14 @@ public class RegistrationService {
                                     AccountRepository accountRepository,
                                     PatientRepository patientRepository,
                                     DoctorRepository doctorRepository,
-                                    ClinicAdminRepository clinicAdminRepository,
+                                    ClinicRepository clinicRepository,
                                     SystemAdminRepository systemAdminRepository,
                                     VerificationRepository verificationRepository){
         this.notificationService = notificationService;
         this.accountRepository = accountRepository;
         this.patientRepository = patientRepository;
         this.doctorRepository = doctorRepository;
-        this.clinicAdminRepository = clinicAdminRepository;
+        this.clinicRepository = clinicRepository;
         this.systemAdminRepository = systemAdminRepository;
         this.verificationRepository = verificationRepository;
     }
@@ -118,9 +118,9 @@ public class RegistrationService {
             return "Could not send verification email. Problem with notification service";
         }
     }
-    public String registerClinicAdmin(ClinicAdmin clinicAdmin, String formlink) {
+
+    public String registerClinicAdmin(Account account) {
         //check if the user exists
-        Account account = clinicAdmin.getAccount();
         boolean emailExists = accountRepository.existsByEmail(account.getEmail());
         boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
         //if the emailexists is not empty then the email exists same for username
@@ -130,25 +130,28 @@ public class RegistrationService {
         if (usernameExists) {
             return USERNAME_EXISTS;
         }
-        String code = generateVerificationCode();
-        clinicAdminRepository.save(clinicAdmin);
-        Account newaccount = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        ClinicAdmin clinicAdmin = new ClinicAdmin();
+        clinicAdmin.setAccount(account);
+        Clinic clinic = buildDefaultClinic();
+        clinic.setAdmin(clinicAdmin);
+        clinicRepository.save(clinic);
         //store verification code and account in database
+        String code = generateVerificationCode();
         Verification verification = new Verification();
         verification.setCode(code);
-        verification.setAccount(newaccount);
-        verification.setId(newaccount.getId());
+        verification.setId(account.getId());
+        verification.setAccount(account);
         verification.setExpirationTime(LocalDateTime.now().plusDays(1));
         verificationRepository.save(verification);
         //send verification email
         try{
-            notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code,formlink);
+            notificationService.VerificationEmail_ClinicAdmin(account.getEmail(),code);
             return "";
         } catch (MessagingException e) {
             return "Could not send verification email. Problem with notification service";
         }
-        
     }
+
     public String registerSystemAdmin(SystemAdmin systemAdmin,String formlink) {
         //check if the user exists
         ///same as register clinic admin
@@ -236,5 +239,16 @@ public class RegistrationService {
     private String generateVerificationCode() {
         //generate verification code from 100000 to 999999
         return String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
+    }
+
+    private Clinic buildDefaultClinic()
+    {
+        Clinic clinic = new Clinic();
+        clinic.setName("None");
+        clinic.setAddress("None");
+        clinic.setEmail("None");
+        clinic.setLandlinePhone("None");
+        clinic.setMobilePhone("None");
+        return clinic;
     }
 }
