@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Result from "./Result";
+import getDoctorsList from "../../functions/getDoctorsList";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Search() {
@@ -11,35 +12,51 @@ export default function Search() {
     const [showingResults, setShowingResults] = useState(false);
     const [results, setResults] = useState([]);
     const [totalResults, setTotalResults] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
 
-    const search = () => {
+    
+    const search = (direction) => {
         const city = document.getElementById('city').value;
         const title = document.getElementById('title').value;
         const specialty = document.getElementById('specialty').value;
         const keyword = document.getElementById('keyword').value;
 
-        // DEMO
-        setResults([
-            { name: 'Mahmoud Embaby', title: 'PROFESSOR', specialty: 'DERMATOLOGIST', city: 'Cairo', address: '123 Nile Street, Giza, Cairo, Egypt', rating: 4.9, reviews: 100, clinics: ['Healing Haven Clinic', 'Vitality Wellness Clinic'] },
-            { name: 'Anthony Fauci', title: 'SPECIALIST', specialty: 'GYNECOLOGIST', city: 'Cairo', address: '456 Mediterranean Avenue, Alexandria, Egypt', rating: 4.9, reviews: 100, clinics: ['Wellness Junction Medical Center', 'Serenity Medical Center'] },
-            { name: 'Magdi Yacoup', title: 'PROFESSOR', specialty: 'CARDIOLOGIST', city: 'Cairo', address: "789 Pharaoh's Lane, Luxor, Egypt", rating: 4.8, reviews: 100, clinics: ['Compassionate Care Clinic', 'Serenity Medical Center'] },
-            { name: 'Vivek Murthy', title: 'CONSULTANT', specialty: 'PEDIATRICIAN', city: 'Cairo', address: '101 Nubian Street, Aswan, Egypt', rating: 4.7, reviews: 100, clinics: ['Vitality Wellness Clinic', 'Radiant Life Healthcare'] },
-            { name: 'Sanjay Gupta', title: 'PROFESSOR', specialty: 'NEUROLOGIST', city: 'Cairo', address: '234 Coral Beach Road, Sharm El Sheikh, Egypt', rating: 5, reviews: 100, clinics: ['Vitality Wellness Clinic', 'Tranquil Health Solutions'] },
-            { name: 'Khalid Abbed', title: 'LECTURER', specialty: 'ONCOLOGIST', city: 'Cairo', address: '567 Red Sea Boulevard, Hurghada, Egypt', rating: 5, reviews: 100, clinics: ['Harmony Health Hub', 'Oasis Care Clinic'] },
-            { name: 'Arthur Reese Albright', title: 'CONSULTANT', specialty: 'GYNECOLOGIST', city: 'Cairo', address: '890 Bedouin Oasis Street, Dahab, Egypt', rating: 4.9, reviews: 100, clinics: ['El Haram Clinic', 'Harmony Health Hub'] },
-            { name: 'Sudhansu Bhattacharyya', title: 'SPECIALIST', specialty: 'DENTAL_SURGEON', city: 'Cairo', address: '112 Oasis View Drive, Fayoum, Egypt', rating: 4.6, reviews: 100, clinics: ['Oasis Care Clinic', 'Renaissance Medical Group'] }
-        ]);
-        setTotalResults(8);
+        let page = currentPage;
+        if (direction === "next") {
+            page += 1;
+        } else if (direction === "prev") {
+            page -= 1;
+        }
+        setCurrentPage(page);
 
-        setShowingResults(true);
+        setMessage("Searching for doctors that match your criteria...");
+        getDoctorsList(keyword, city, title, specialty, page)
+        .then(data => {
+            setResults(data.content);
+            setTotalResults(data.totalElements);
+            setShowingResults(true);
+            setMessage("");
+            window.scrollTo(0, 0);
+        })
     }
+
+    const setMessage = (message) => {
+        document.getElementById('displayMessage').innerHTML = message;
+    }
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            search();
+        }
+    };
+    
 
     return (
         <div>
             <div class="container py-4 py-xl-5">
                 <h3>Find Your Ideal Healthcare Provider</h3>
                 <hr/>
+                <div className="alert text-center" id="displayMessage"></div>
                 <div className="text-center">
                     {!showingResults ? (
                         <img src="/images/illustrations/Mental Therapy.gif" alt="ABC" width="300px" />
@@ -48,7 +65,7 @@ export default function Search() {
                         <div className="card-body">
                             <div className="row">
                                 <div className="col">
-                                    <input type="text" className="form-control" placeholder="Doctor/Clinic Name" id="keyword" />
+                                    <input type="text" className="form-control" placeholder="Doctor/Clinic Name" id="keyword" onKeyDown={handleKeyPress} />
                                 </div>
                                 <div className="col-auto">
                                     <a href="#" className="btn btn-primary px-5" onClick={search}>Search</a>
@@ -91,15 +108,21 @@ export default function Search() {
                 <div className="results mt-3">
                     <hr/>
                     {showingResults ? (
+                        <>
                         <div>
-                            {totalResults} Results Found
+                            {totalResults} Results Found - Page {currentPage+1} <span className="text-muted">(of {Math.ceil(totalResults/10)})</span>
                             {results.map((result) => (
                                 <Result details={result} />
                             ))}
                         </div>
+
+                        </>
                     ) : (<></>)}
                 </div>
-
+                <div className="text-center mt-3">
+                    <button className="result-button result-button-primary" onClick={()=>search("prev")}>Previous Page</button>
+                    <button className="result-button result-button-primary" onClick={()=>search("next")}>Next Page</button>
+                </div>
             </div>
         </div>
     )
