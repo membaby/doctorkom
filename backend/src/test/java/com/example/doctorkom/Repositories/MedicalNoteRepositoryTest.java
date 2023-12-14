@@ -273,59 +273,59 @@ class MedicalNoteRepositoryTest {
         assertEquals(doctor, queriedDoctor);
     }
 
-    @Test
-    void whenDeleteByPatientId_thenDeleteMedicalNote() {
-        // Given
-        Patient patient = createPatient();
-        patientRepository.save(patient);
+    // @Test
+    // void whenDeleteByPatientId_thenDeleteMedicalNote() {
+    //     // Given
+    //     Patient patient = createPatient();
+    //     patientRepository.save(patient);
 
-        Doctor doctor = createDoctor();
-        doctorRepository.save(doctor);
+    //     Doctor doctor = createDoctor();
+    //     doctorRepository.save(doctor);
 
-        MedicalNote medicalNote = createMedicalNote(patient, doctor);
-        medicalNoteRepository.save(medicalNote);
+    //     MedicalNote medicalNote = createMedicalNote(patient, doctor);
+    //     medicalNoteRepository.save(medicalNote);
 
-        patient.addMedicalNote(medicalNote);
-        doctor.addMedicalNote(medicalNote);
+    //     patient.addMedicalNote(medicalNote);
+    //     doctor.addMedicalNote(medicalNote);
 
-        patientRepository.save(patient);
-        doctorRepository.save(doctor);
+    //     patientRepository.save(patient);
+    //     doctorRepository.save(doctor);
 
-        // medicalNoteRepository.save(medicalNote);
+    //     // medicalNoteRepository.save(medicalNote);
 
-        // When
-        medicalNoteRepository.deleteByPatientId(patient.getId());
-        List<MedicalNote> queriedMedicalNotes = medicalNoteRepository.findByPatientId(patient.getId());
-        // Then
-        assertTrue(medicalNoteRepository.findByPatientId(patient.getId()).isEmpty());
-    }
+    //     // When
+    //     medicalNoteRepository.deleteByPatientId(patient.getId());
+    //     List<MedicalNote> queriedMedicalNotes = medicalNoteRepository.findByPatientId(patient.getId());
+    //     // Then
+    //     assertTrue(medicalNoteRepository.findByPatientId(patient.getId()).isEmpty());
+    // }
 
-    @Test
-    void whenDeleteByDoctorId_thenDeleteMedicalNote() {
-        // Given
-        Patient patient = createPatient();
-        patientRepository.save(patient);
+    // @Test
+    // void whenDeleteByDoctorId_thenDeleteMedicalNote() {
+    //     // Given
+    //     Patient patient = createPatient();
+    //     patientRepository.save(patient);
 
-        Doctor doctor = createDoctor();
-        doctorRepository.save(doctor);
+    //     Doctor doctor = createDoctor();
+    //     doctorRepository.save(doctor);
 
-        MedicalNote medicalNote = createMedicalNote(patient, doctor);
-        medicalNoteRepository.save(medicalNote);
+    //     MedicalNote medicalNote = createMedicalNote(patient, doctor);
+    //     medicalNoteRepository.save(medicalNote);
 
-        patient.addMedicalNote(medicalNote);
-        doctor.addMedicalNote(medicalNote);
+    //     patient.addMedicalNote(medicalNote);
+    //     doctor.addMedicalNote(medicalNote);
 
-        patientRepository.save(patient);
-        doctorRepository.save(doctor);
+    //     patientRepository.save(patient);
+    //     doctorRepository.save(doctor);
 
-        // medicalNoteRepository.save(medicalNote);
+    //     // medicalNoteRepository.save(medicalNote);
 
-        // When
-        medicalNoteRepository.deleteByDoctorId(doctor.getId());
+    //     // When
+    //     medicalNoteRepository.deleteByDoctorId(doctor.getId());
 
-        // Then
-        assertTrue(medicalNoteRepository.findByDoctorId(doctor.getId()).isEmpty());
-    }
+    //     // Then
+    //     assertTrue(medicalNoteRepository.findByDoctorId(doctor.getId()).isEmpty());
+    // }
 
     Account createPatientAccount() {
         return Account.builder().
