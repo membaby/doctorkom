@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const app=[
   {
@@ -124,14 +125,20 @@ export default function ClinicHomePage() {
 
   ///////////////////////////////////////////////////////////////apis////////////////////////////////////////////////
   ///////////////////////clinic info get request
+const cookies = new Cookies();
 const [rating, setRating] = useState(4.5);
 const [name, setName] = useState('');
 const [address, setAddress] = useState('');
 const [phone, setPhone] = useState('');
 const [email, setEmail] = useState('');
-const [id, setId] = useState(80);////////////////////////assuming we have ID FROM COOKIES
+const [id, setId] = useState(parseInt(cookies.get('id'), 10));////////////////////////assuming we have ID FROM COOKIES
 const [landlinePhone, setLandlinePhone] = useState('');
 const [admin, setAdmin] = useState({});
+ 
+//  setId(cookies.get('id'));
+//  if (!id) {
+//  window.location.href = "/login"
+//  }
 
 // useEffect(() => {
 // const GetClinicObject= async () => {
@@ -184,6 +191,7 @@ useEffect(() => {
 .catch((error) => {
     console.log('Error occured. Please try again later.')
 });
+
   }, []);
 
   ////////////////////////////adding doctors post request/////////////////////////////////////////////////
@@ -397,7 +405,7 @@ useEffect(() => {
         <div className="col-md-6">
           <address>
             <strong>Address:</strong>
-            {address}<br />
+            {address}{id}<br />
           </address>
        
         
