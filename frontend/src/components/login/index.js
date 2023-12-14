@@ -2,24 +2,24 @@ import './styles.css'
 import React, { useState, useEffect } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import CryptoJS from 'crypto-js';
+import Cookies from 'universal-cookie';
+import hashString from '../../functions/hashString';
 
 const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const cookies = new Cookies();
+
   const handleLogin = (googleid = undefined) => {
-    const secretKey = 'your-secret-key';
     const data = {}
     if (googleid) {
       data.username = googleid;
       data.password = "mchbomNZPYvmxbv0e3yNAy";
     } else {
       data.username = username;
-      data.password = password;
+      data.password = hashString(password);
     }
-
-    data.password = CryptoJS.AES.encrypt(data.password, secretKey).toString()
 
     fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -31,31 +31,36 @@ const Login = () => {
     .then(response => response.json())
     .then(response => {
         if (response.success) {
-          // localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
+          cookies.set('role', response.role, { path: '/' });
           if (response.role === 'PATIENT') {
-                window.location.href = '/search';
-            } else {
-              if (response.role === "SYSTEM_ADMIN") {
-                window.location.href = '/dashboard/admin';
-              } else if (response.role === "CLINIC_ADMIN") {
-                window.location.href = '/dashboard/clinic';
-              } else if (response.role === "DOCTOR") {
-                window.location.href = '/dashboard/doctor';
-              } else {
-                window.location.href = '/';
-              }
-            }
+            cookies.set('id', response.patient.id, { path: '/' });
+            cookies.set('username', response.patient.systemUser.account.username, { path: '/' });
+            window.location.href = '/search';
+          } else if (response.role === "SYSTEM_ADMIN") {
+            cookies.set('id', response.systemAdmin.id, { path: '/' });
+            window.location.href = '/dashboard/admin';
+          } else if (response.role === "CLINIC_ADMIN") {
+            cookies.set('id', response.clinic.id, { path: '/' });
+            cookies.set('username', response.clinic.admin.account.username, { path: '/' });
+            window.location.href = '/dashboard/clinic';
+          } else if (response.role === "DOCTOR") {
+            cookies.set('id', response.doctor.id, { path: '/' });
+            cookies.set('username', response.doctor.systemUser.account.username, { path: '/' });
+            window.location.href = '/dashboard/doctor';
+          } else {
+            window.location.href = '/';
+          }
         } else {
           if (googleid) {
             showError("Google authenticaiton failed. Please register first. (<a href='/register/patient'>Click Here!</a>)");
           } else {
-            showError("Invalid username or password");
+            showError("Invalid username or password OR account not activated.");
           }
         }
     })
     .catch((error) => {
-        showError('Error occured. Please try again later.')
+        showError('Error occured. Please try again later:' + error)
     });
   }
 
@@ -135,7 +140,7 @@ const Login = () => {
             </div>
             <div className="mb-3">
               <label className="form-label">Password</label>
-              <input type="text" className="form-control" onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <div className="d-grid d-flex justify-content-center">

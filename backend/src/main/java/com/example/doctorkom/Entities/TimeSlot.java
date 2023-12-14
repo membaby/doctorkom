@@ -6,9 +6,12 @@ import lombok.*;
 import java.sql.Date;
 import java.sql.Time;
 
+import org.hibernate.proxy.HibernateProxy;
+
+
 @Entity
-@Table(name = "TimeSlot")
 @IdClass(TimeSlotId.class)
+@Table(name = "TimeSlot")
 @Data
 @Builder
 @NoArgsConstructor

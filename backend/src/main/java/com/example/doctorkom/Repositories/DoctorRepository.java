@@ -13,5 +13,4 @@ import java.util.Optional;
 public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
     List<Doctor> findByTitle(DoctorTitle title);
     List<Doctor> findBySpecialty(DoctorSpecialty specialty);
-
 }

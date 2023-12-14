@@ -1,6 +1,7 @@
 package com.example.doctorkom.Repositories;
 
 import com.example.doctorkom.Entities.*;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -97,7 +98,6 @@ class MedicalNoteRepositoryTest {
         doctorRepository.save(doctor);
 
         medicalNoteRepository.save(medicalNote);
-
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByDate(Date.valueOf("2023-04-01")).get(0);
 
@@ -124,7 +124,6 @@ class MedicalNoteRepositoryTest {
         doctorRepository.save(doctor);
 
         medicalNoteRepository.save(medicalNote);
-
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByDoctorIdAndPatientId(doctor.getId(), patient.getId()).get(0);
 
@@ -205,7 +204,6 @@ class MedicalNoteRepositoryTest {
         doctorRepository.save(doctor);
 
         medicalNoteRepository.save(medicalNote);
-
         // When
         MedicalNote queriedMedicalNote = null;
         if (medicalNoteRepository.findByDoctorIdAndPatientIdAndDate(doctor.getId(), patient.getId(), Date.valueOf("2023-04-01")).isPresent())
@@ -234,7 +232,6 @@ class MedicalNoteRepositoryTest {
         doctorRepository.save(doctor);
 
         medicalNoteRepository.save(medicalNote);
-
         // When
         medicalNoteRepository.deleteById(new MedicalNoteId(patient, doctor, Date.valueOf("2023-04-01")));
         Patient queriedPatient = null;
@@ -264,7 +261,6 @@ class MedicalNoteRepositoryTest {
         doctorRepository.save(doctor);
 
         medicalNoteRepository.save(medicalNote);
-
         // When
         medicalNoteRepository.deleteById(new MedicalNoteId(patient, doctor, Date.valueOf("2023-04-01")));
         Doctor queriedDoctor = null;
@@ -292,7 +288,6 @@ class MedicalNoteRepositoryTest {
 
         patientRepository.save(patient);
         doctorRepository.save(doctor);
-
         medicalNoteRepository.save(medicalNote);
 
         // When

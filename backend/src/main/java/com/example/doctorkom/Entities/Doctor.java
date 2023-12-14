@@ -2,6 +2,8 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +32,11 @@ public class Doctor {
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<MedicalNote> medicalNotes;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<TimeSlot> timeSlots;
 
@@ -88,6 +90,7 @@ public class Doctor {
         clinic.getDoctors().add(this);
     }
 
+  
     void removeClinic (Clinic clinic) {
         if (clinics != null) {
             clinics.remove(clinic);

@@ -3,6 +3,8 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class Clinic {
     @JoinColumn(name = "ClinicId")
     private ClinicAdmin admin;
 
-    @OneToMany(mappedBy = "clinic")
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<TimeSlot> timeSlots;
 
@@ -83,5 +85,20 @@ public class Clinic {
             doctors.remove(doctor);
             doctor.getClinics().remove(this);
         }
+      
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        Clinic clinic = (Clinic) o;
+        return getId() != null && Objects.equals(getId(), clinic.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

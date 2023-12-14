@@ -2,9 +2,12 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Patient")
@@ -35,10 +38,6 @@ public class Patient {
     @ToString.Exclude
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "patient")
-    @ToString.Exclude
-    private List<MedicalNote> medicalNotes;
-
     public void addAppointment (Appointment appointment) {
         if (appointments == null) {
             appointments = new ArrayList<>();
@@ -55,6 +54,10 @@ public class Patient {
         }
     }
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<MedicalNote> medicalNotes;
+  
     public void addMedicalNote (MedicalNote medicalNote) {
         if (medicalNotes == null) {
             medicalNotes = new ArrayList<>();

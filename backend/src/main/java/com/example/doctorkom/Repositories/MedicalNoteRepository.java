@@ -4,6 +4,7 @@ import com.example.doctorkom.Entities.MedicalNote;
 import com.example.doctorkom.Entities.MedicalNoteId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.example.doctorkom.Entities.Doctor;
 
 import java.sql.Date;
 import java.util.List;

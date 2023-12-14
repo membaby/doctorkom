@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicalNoteId implements Serializable {

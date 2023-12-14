@@ -113,7 +113,7 @@ CREATE TABLE MedicalNote (
 CREATE TABLE WorksFor (
       DoctorId INT,
       ClinicId INT,
-      Fees DOUBLE ,
+      Fees DOUBLE NOT NULL,
       PRIMARY KEY (DoctorId, ClinicId),
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)

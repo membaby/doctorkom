@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Verification = () => {
-  const [email, setEmail] = useState(null);
+  let location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailAddress = searchParams.get('email'); 
+  const [email, setEmail] = useState(emailAddress);
   const [code, setCode] = useState(null);
 
   const handleVerification = () => {
+
 
     const data = {
       email: email,
@@ -65,7 +70,7 @@ const Verification = () => {
           {/* Fields */}
             <div className="row mb-3">
               <label className="form-label">Email Address</label>
-              <input type="text" className="form-control" onChange={(e) => setEmail(e.target.value)} />
+              <input type="text" className="form-control" onChange={(e) => setEmail(e.target.value)} value={emailAddress} />
             </div>
             <div className="row mb-3">
               <label className="form-label">Verification Code</label>
