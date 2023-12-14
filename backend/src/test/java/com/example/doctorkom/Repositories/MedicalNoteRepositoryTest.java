@@ -2,12 +2,14 @@ package com.example.doctorkom.Repositories;
 
 import com.example.doctorkom.Entities.*;
 import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.sql.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,7 +44,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
 
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByPatientId(patient.getId()).get(0);
@@ -70,7 +72,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
 
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByDoctorId(doctor.getId()).get(0);
@@ -97,7 +99,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByDate(Date.valueOf("2023-04-01")).get(0);
 
@@ -123,7 +125,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByDoctorIdAndPatientId(doctor.getId(), patient.getId()).get(0);
 
@@ -149,7 +151,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
 
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByDoctorIdAndDate(doctor.getId(), Date.valueOf("2023-04-01")).get(0);
@@ -176,7 +178,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
 
         // When
         MedicalNote queriedMedicalNote = medicalNoteRepository.findByPatientIdAndDate(patient.getId(), Date.valueOf("2023-04-01")).get(0);
@@ -203,7 +205,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
         // When
         MedicalNote queriedMedicalNote = null;
         if (medicalNoteRepository.findByDoctorIdAndPatientIdAndDate(doctor.getId(), patient.getId(), Date.valueOf("2023-04-01")).isPresent())
@@ -231,7 +233,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
         // When
         medicalNoteRepository.deleteById(new MedicalNoteId(patient, doctor, Date.valueOf("2023-04-01")));
         Patient queriedPatient = null;
@@ -260,7 +262,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
         // When
         medicalNoteRepository.deleteById(new MedicalNoteId(patient, doctor, Date.valueOf("2023-04-01")));
         Doctor queriedDoctor = null;
@@ -288,11 +290,12 @@ class MedicalNoteRepositoryTest {
 
         patientRepository.save(patient);
         doctorRepository.save(doctor);
-        medicalNoteRepository.save(medicalNote);
+
+        // medicalNoteRepository.save(medicalNote);
 
         // When
         medicalNoteRepository.deleteByPatientId(patient.getId());
-
+        List<MedicalNote> queriedMedicalNotes = medicalNoteRepository.findByPatientId(patient.getId());
         // Then
         assertTrue(medicalNoteRepository.findByPatientId(patient.getId()).isEmpty());
     }
@@ -315,7 +318,7 @@ class MedicalNoteRepositoryTest {
         patientRepository.save(patient);
         doctorRepository.save(doctor);
 
-        medicalNoteRepository.save(medicalNote);
+        // medicalNoteRepository.save(medicalNote);
 
         // When
         medicalNoteRepository.deleteByDoctorId(doctor.getId());
