@@ -123,11 +123,16 @@ CREATE TABLE TimeSlot (
       DoctorId INT,
       ClinicId INT,
       Date DATE,
+<<<<<<< HEAD
       StartTime Time,
       EndTime Time NOT NULL,
       Reserved TINYINT NOT NULL,
       --   Weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
       PRIMARY KEY (DoctorId, ClinicId, Date, StartTime),
+=======
+--       Weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
+      PRIMARY KEY (DoctorId, ClinicId, Date),
+>>>>>>> origin/milestone-2
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
 );
