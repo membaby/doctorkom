@@ -28,8 +28,7 @@ public class LoginController {
     @PostMapping("/login")
     public LoginResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
-        System.out.println(accountDTO.getUsername() + " " + accountDTO.getPassword());
-        accountDTO = AccountDTO.builder().username(accountDTO.getUsername()).email(accountDTO.getUsername()).build();
+        accountDTO.email = accountDTO.getUsername();
         Account partialAccount = accountMapper.toEntity(accountDTO);
         EntityWrapper fullAccount = logInService.login(partialAccount);
         if (fullAccount == null)

@@ -3,18 +3,11 @@ package com.example.doctorkom;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 
-import com.example.doctorkom.EntitySearch.SearchSpecification;
-import com.example.doctorkom.EntitySearch.SearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.domain.Specification;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import java.sql.Date;
 
@@ -26,58 +19,92 @@ public class DoctorkomApplication {
 
 	// @Autowired
 	// private ClinicService clinicService;
-  
+
 	public static void main(String[] args) {
 		SpringApplication.run(DoctorkomApplication.class, args);
 	}
 
 //	@Bean
 //	@Autowired
-//	public CommandLineRunner commandLineRunner (DoctorRepository doctorRepository, SearchSpecification<Doctor> doctorSearchSpecification, ClinicRepository clinicRepository, SearchSpecification<Clinic> clinicSearchSpecification) {
+//	public CommandLineRunner commandLineRunner (AccountRepository accountRepository, SystemUserRepository systemUserRepository, VerificationRepository verificationRepository,
+//												PatientRepository patientRepository, DoctorRepository doctorRepository, MedicalNoteRepository medicalNoteRepository) {
 //		return runner -> {
-//			Map<String, List<String>> values = Map.of(
-//					"specialty", List.of("PEDIATRICIAN", "GENERAL_PRACTITIONER"),
-//					"title", List.of("LECTURER", "PROFESSOR", "CONSULTANT"),
-//					"id", List.of("1", "2", "3", "4", "5")
-//			);
+//			// Given
+//			Account patientAccount = Account.builder().
+//					email("johnsmith123@lol.com").
+//					username("JohnSmith1").
+//					password("JohnyJohny123").
+//					role(Role.PATIENT).
+//					build();
 //
-//			List<Specification<Doctor>> entitySpecification = new ArrayList<>();
-//			List<Specification<Doctor>> attributeSpecifications = new ArrayList<>();
-//			for (Map.Entry<String, List<String>> entry : values.entrySet()) {
-//				String key = entry.getKey();
-//				for (String value : entry.getValue()) {
-//					SearchFilter searchFilter = SearchFilter.builder().field(key).operator(SearchFilter.QueryOperator.EQUALS).value(value).build();
-//					attributeSpecifications.add(doctorSearchSpecification.createSpecification(searchFilter));
-//				}
-//				entitySpecification.add(doctorSearchSpecification.union(attributeSpecifications));
-//				attributeSpecifications.clear();
-//			}
-//			List<Doctor> doctors = doctorRepository.findAll(doctorSearchSpecification.intersection(entitySpecification));
+//			SystemUser patientSystemUser = SystemUser.builder().
+//					firstName("John").
+//					lastName("Smith").
+//					birthdate(Date.valueOf("1985-11-14")).
+//					gender(Gender.MALE).
+//					address("221B Baker Street").
+//					mobilePhone("(555) 555-5555").
+//					landlinePhone("(555) 123-4567").
+//					account(patientAccount).
+//					build();
 //
-//			for (Doctor doctor : doctors) {
-//				System.out.println(doctor);
-//			}
+//			Patient patient = Patient.builder().
+//					occupation("Engineer").
+//					maritalStatus("Single").
+//					insurance("BOBA").
+//					systemUser(patientSystemUser).
+//					build();
 //
-//			values = Map.of(
-//					"name", List.of("Clinic 93", "Clinic 94")
-//			);
+//			patientRepository.save(patient);
 //
-//			List<Specification<Clinic>> clinicSpecifications = new ArrayList<>();
-//			List<Specification<Clinic>> clinicAttributeSpecifications = new ArrayList<>();
-//			for (Map.Entry<String, List<String>> entry : values.entrySet()) {
-//				String key = entry.getKey();
-//				for (String value : entry.getValue()) {
-//					SearchFilter searchFilter = SearchFilter.builder().field(key).operator(SearchFilter.QueryOperator.LIKE).value(value).build();
-//					clinicAttributeSpecifications.add(clinicSearchSpecification.createSpecification(searchFilter));
-//				}
-//				clinicSpecifications.add(clinicSearchSpecification.union(clinicAttributeSpecifications));
-//				clinicAttributeSpecifications.clear();
-//			}
-//			List<Clinic> clinics = clinicRepository.findAll(clinicSearchSpecification.intersection(clinicSpecifications));
+//			Account doctorAccount = Account.builder().
+//					email("drsmith@hospital.com").
+//					username("DrSmith1").
+//					password("Medical123").
+//					role(Role.DOCTOR).
+//					build();
 //
-//			for (Clinic clinic : clinics) {
-//				System.out.println(clinic);
-//			}
+//			SystemUser doctorSystemUser = SystemUser.builder().
+//					firstName("Smith").
+//					lastName("Health").
+//					birthdate(Date.valueOf("1976-10-30")).
+//					gender(Gender.MALE).
+//					address("123 Main Street").
+//					mobilePhone("(666) 666-6666").
+//					landlinePhone("(555) 765-4321").
+//					account(doctorAccount).
+//					build();
+//
+//			Doctor doctor = Doctor.builder().
+//					title(DoctorTitle.PROFESSOR).
+//					specialty(DoctorSpecialty.ONCOLOGIST).
+//					systemUser(doctorSystemUser).
+//					build();
+//
+//			doctorRepository.save(doctor);
+//
+//			MedicalNote medicalNote = MedicalNote.builder().
+//					date(Date.valueOf("2023-04-01")).
+//					patient(patient).
+//					doctor(doctor).
+//					build();
+//
+//			medicalNoteRepository.save(medicalNote);
+//
+//			patient.addMedicalNote(medicalNote);
+//
+//			patientRepository.save(patient);
+//			doctorRepository.save(doctor);
+//			medicalNote.setPatient(patient);
+//			medicalNote.setDoctor(doctor);
+//			medicalNoteRepository.save(medicalNote);
+//
+//			sleep(10000);
+//			// When
+//			medicalNoteRepository.deleteByDoctorId(doctor.getId());
+//
+//			// Then
+//			System.out.println(medicalNoteRepository.findByDoctorId(doctor.getId()).isEmpty());
 //		};
 //	}
 }
