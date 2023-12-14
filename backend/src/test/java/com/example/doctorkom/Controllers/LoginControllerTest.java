@@ -32,9 +32,7 @@ public class LoginControllerTest {
     public void loginReponseStructureTest(){
         //Send a login request with any credintials
         //Confirm response structure is correct
-        AccountDTO account = new AccountDTO();
-        account.email = "a@b.c";
-        account.password = "12345678";
+        AccountDTO account = AccountDTO.builder().email("a@b.c").password("12345678").build();
         LoginResponse response = restTemplate.postForObject("http://localhost:" + port + "/login", account, LoginResponse.class);
         assertTrue(response != null);
         if (response.success){
