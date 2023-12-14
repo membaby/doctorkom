@@ -129,7 +129,8 @@ const [name, setName] = useState('');
 const [address, setAddress] = useState('');
 const [phone, setPhone] = useState('');
 const [email, setEmail] = useState('');
-const [id, setId] = useState(parseInt(cookies.get('id'), 10));////////////////////////assuming we have ID FROM COOKIES
+// const [id, setId] = useState(cookies.get('id'));
+const [id, setId] = useState(80);
 const [landlinePhone, setLandlinePhone] = useState('');
 const [admin, setAdmin] = useState({});
  
@@ -355,7 +356,7 @@ useEffect(() => {
         <div className="col-md-6">
           <address>
             <strong>Address:</strong>
-            {address}{id}<br />
+            {address}<br />
           </address>
        
         
@@ -489,7 +490,7 @@ useEffect(() => {
   <div className="docCard border rounded p-3">
     <div className="card-img-top rounded-top-xl bg-indigo-500 d-flex justify-content-center align-items-center">
       <img
-        src={'images/profile.webp'}
+        src={'/images/avatar/default-doctor-male.png'}
         alt=""
         className="img-thumbnail rounded-circle"
         style={{ width: '120px', height: '120px' }}
@@ -497,9 +498,9 @@ useEffect(() => {
     </div>
     <div className="card-body d-flex flex-column justify-content-center align-items-center gap-4 p-4">
       {/* ... (your doctor card content, adjust as needed) */}
-      <h5 className="heading heading5 hind-font medium-font-weight text-center decMar">{d.title}.{d.name}</h5>
-      <h5 className="heading heading5 hind-font medium-font-weight decMar">Speciality:{d.speciality}</h5>
-      <h5 className="heading heading5 hind-font medium-font-weight decMar">Fees:{d.fees}</h5>
+      <h5 className="heading heading5 hind-font medium-font-weight text-center decMar"><span className="text-muted h6">{d.title}</span><br/>{d.name}</h5>
+      <h5 className="heading decMar text-muted h6">{d.specialty.replace("_", " ")}</h5>
+      <h5 className="heading heading5 hind-font medium-font-weight decMar h6">Fees: <span className="text-success">$100</span></h5>
       <button onClick={() => handleDelete(index)} type="button" className="btn btn-danger mb-3" style={{ marginTop: '1.5vw' }}>
         Delete
       </button>
