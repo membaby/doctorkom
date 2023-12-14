@@ -10,10 +10,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Doctor")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Doctor {
@@ -33,12 +31,4 @@ public class Doctor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId")
     private SystemUser systemUser;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Doctor doctor = (Doctor) o;
-        return id != null && Objects.equals(id, doctor.id);
-    }
 }
