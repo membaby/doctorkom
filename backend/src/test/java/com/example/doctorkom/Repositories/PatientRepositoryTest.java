@@ -94,9 +94,7 @@ PatientRepositoryTest {
         patientRepository.save(patient);
 
         // When
-        Patient queriedPatient = null;
-        if (patientRepository.findByOccupation("Engineer").isPresent())
-            queriedPatient = patientRepository.findByOccupation("Engineer").get().get(0);
+        Patient queriedPatient = patientRepository.findByOccupation("Engineer").get(0);
 
         // Then
         assertEquals(queriedPatient, patient);
@@ -133,9 +131,7 @@ PatientRepositoryTest {
         patientRepository.save(patient);
 
         // When
-        Patient queriedPatient = null;
-        if (patientRepository.findByMaritalStatus("Single").isPresent())
-            queriedPatient = patientRepository.findByMaritalStatus("Single").get().get(0);
+        Patient queriedPatient = patientRepository.findByMaritalStatus("Single").get(0);
 
         // Then
         assertEquals(patient, queriedPatient);
@@ -172,9 +168,7 @@ PatientRepositoryTest {
         patientRepository.save(patient);
 
         // When
-        Patient queriedPatient = null;
-        if (patientRepository.findByInsurance("BOBA").isPresent())
-            queriedPatient = patientRepository.findByInsurance("BOBA").get().get(0);
+        Patient queriedPatient = patientRepository.findByInsurance("BOBA").get(0);
 
         // Then
         assertEquals(patient, queriedPatient);

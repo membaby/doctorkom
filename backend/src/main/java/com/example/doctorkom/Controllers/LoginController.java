@@ -21,14 +21,13 @@ public class LoginController {
     @Autowired
     SystemAdminMapper systemAdminMapper;
     @Autowired
-    ClinicAdminMapper clinicAdminMapper;
+    ClinicMapper clinicMapper;
     @Autowired
     LogInService logInService;
     
     @PostMapping("/login")
     public LoginResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
-        System.out.println(accountDTO.getUsername() + " " + accountDTO.getPassword());
         accountDTO.email = accountDTO.getUsername();
         Account partialAccount = accountMapper.toEntity(accountDTO);
         EntityWrapper fullAccount = logInService.login(partialAccount);
@@ -47,7 +46,7 @@ public class LoginController {
                 SystemAdminDTO systemAdminDTO = systemAdminMapper.toDto(fullAccount.getSystemAdmin());
                 return new LoginResponse(true, Role.SYSTEM_ADMIN, systemAdminDTO);
             default: //CLINIC_ADMIN
-                ClinicAdminDTO clinicAdminDTO = clinicAdminMapper.toDto(fullAccount.getClinicAdmin());
+                ClinicDTO clinicAdminDTO = clinicMapper.toDto(fullAccount.getClinic());
                 return new LoginResponse(true, Role.CLINIC_ADMIN, clinicAdminDTO);
         }
     }

@@ -105,7 +105,7 @@ CREATE TABLE MedicalNote (
      Diagnosis VARCHAR(255),
      Investigations VARCHAR(511),
      Prescription VARCHAR(255),
-     PRIMARY KEY (DoctorId, PatientId, Date),
+     PRIMARY KEY (PatientId, DoctorId, Date),
      FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
      FOREIGN KEY (PatientId) REFERENCES Patient(UserId)
 );
@@ -113,8 +113,18 @@ CREATE TABLE MedicalNote (
 CREATE TABLE WorksFor (
       DoctorId INT,
       ClinicId INT,
-      fees DOUBLE NOT NULL,
+      Fees DOUBLE NOT NULL,
       PRIMARY KEY (DoctorId, ClinicId),
+      FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
+      FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
+);
+
+CREATE TABLE TimeSlot (
+      DoctorId INT,
+      ClinicId INT,
+      Date DATE,
+--       weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
+      PRIMARY KEY (DoctorId, ClinicId, Date),
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
 );
