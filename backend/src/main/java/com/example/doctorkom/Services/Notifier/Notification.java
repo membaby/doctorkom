@@ -192,4 +192,25 @@ public class Notification {
                 + "</html>";
         return htmlContent;
     }
+
+    public String CustomContent(String content){
+        String htmlContent = "<html>"
+                + "<head>"
+                + "<style>"
+                + "  body { font-family: 'Arial', sans-serif; }"
+                + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+                + "  .content { padding: 20px; }"
+                + "</style>"
+                + "</head>"
+                + "<body>"
+                + "  <div class='header'>"
+                + "    <h2>New message from Doctorkom Admin</h2>"
+                + "  </div>"
+                + "  <div class='content'>"
+                + "    <p>"+content+"</p>"
+                + "  </div>"
+                + "</body>"
+                + "</html>";
+        return htmlContent;
+    }
 }

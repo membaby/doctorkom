@@ -72,7 +72,25 @@ export default function AdminHomePage() {
     }
 
     const sendNotification = () => {
-        showError("(demo) Notification successfully sent.");
+        const data = {
+            "email": document.getElementById('userEmail-notification').value,
+            "message": document.getElementById('userMessage').value
+        }
+        fetch('http://localhost:8080/sendAdminMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.text())
+        .then(response => {
+            showError(response);
+            })
+            .catch((error) => {
+                showError('Internal Server Error occured. Please try again later.')
+            }
+        );
     }
 
     const inviteAdmin = () => {

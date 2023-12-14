@@ -68,7 +68,7 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject(subject);
-        notification.setContent(content);
+        notification.setContent(notification.CustomContent(content));
         Send(notification);
     }
 
