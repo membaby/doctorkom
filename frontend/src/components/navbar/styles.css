@@ -11,6 +11,35 @@
     color: white;
   }
 
-  .nav-item{
-    font-size: 21px;
-  }
+.nav-item{
+  font-size: 21px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link {
+  margin-left: 5px;
+}
+
+.nav-active {
+  color: rgb(209, 209, 209);
+/* underline */
+  border-bottom: 1px solid rgb(158, 158, 158);
+}
+
+.nav-item:hover {
+  background-color: rgb(36, 44, 60);
+  color: rgb(158, 158, 158);
+}
+
+.register-button {
+  background-color: rgb(40, 38, 174);
+  padding: 9px;
+}
+
+.register-button:hover {
+  background-color: rgb(50, 48, 216);
+  color: white;
+}

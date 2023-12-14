@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClinicRepository extends JpaRepository<Clinic, Integer>, JpaSpecificationExecutor<Clinic> {
-    Optional<List<Clinic>> findByName(String name);
+    List<Clinic> findByName(String name);
     Optional<Clinic> findByEmail(String email);
     void deleteByEmail(String mail);
 }

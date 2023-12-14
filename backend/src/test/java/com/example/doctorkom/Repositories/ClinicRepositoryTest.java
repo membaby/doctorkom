@@ -78,8 +78,8 @@ class ClinicRepositoryTest {
 
         // When
         Clinic queriedClinic = null;
-        if (clinicRepository.findByName("Clinic1").isPresent())
-            queriedClinic = clinicRepository.findByName("Clinic1").get().get(0);
+        if (!clinicRepository.findByName("Clinic1").isEmpty())
+            queriedClinic = clinicRepository.findByName("Clinic1").get(0);
 
         // Then
         assertEquals(clinic, queriedClinic);

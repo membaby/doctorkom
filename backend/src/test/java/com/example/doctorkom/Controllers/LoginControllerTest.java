@@ -32,22 +32,22 @@ public class LoginControllerTest {
     public void loginReponseStructureTest(){
         //Send a login request with any credintials
         //Confirm response structure is correct
-        AccountDTO account = AccountDTO.builder().email("a@b.c").password("12345678").build();
+        AccountDTO account = AccountDTO.builder().email("a@b.c").username("a@b.c").password("12345678").build();
         LoginResponse response = restTemplate.postForObject("http://localhost:" + port + "/login", account, LoginResponse.class);
         assertTrue(response != null);
         if (response.success){
             switch (response.role){
                 case PATIENT:
-                    assertTrue(response.patient != null && response.doctor == null && response.systemAdmin == null && response.clinicAdmin == null);
+                    assertTrue(response.patient != null && response.doctor == null && response.systemAdmin == null && response.clinic == null);
                     break;
                 case DOCTOR:
-                    assertTrue(response.doctor != null && response.patient == null && response.systemAdmin == null && response.clinicAdmin == null);
+                    assertTrue(response.doctor != null && response.patient == null && response.systemAdmin == null && response.clinic == null);
                     break;
                 case SYSTEM_ADMIN:
-                    assertTrue(response.systemAdmin != null && response.patient == null && response.doctor == null && response.clinicAdmin == null);
+                    assertTrue(response.systemAdmin != null && response.patient == null && response.doctor == null && response.clinic == null);
                     break;
                 case CLINIC_ADMIN:
-                    assertTrue(response.clinicAdmin != null && response.patient == null && response.doctor == null && response.systemAdmin == null);
+                    assertTrue(response.clinic != null && response.patient == null && response.doctor == null && response.systemAdmin == null);
                     break;
             }
         }

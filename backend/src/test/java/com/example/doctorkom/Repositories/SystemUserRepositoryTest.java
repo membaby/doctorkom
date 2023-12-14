@@ -81,9 +81,7 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // When
-        SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByFirstName("John").isPresent())
-            queriedSystemUser = systemUserRepository.findByFirstName("John").get().get(0);
+        SystemUser queriedSystemUser = systemUserRepository.findByFirstName("John").get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -113,9 +111,7 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // When
-        SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByLastName("Smith").isPresent())
-            queriedSystemUser = systemUserRepository.findByLastName("Smith").get().get(0);
+        SystemUser queriedSystemUser = systemUserRepository.findByLastName("Smith").get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -145,9 +141,7 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // When
-        SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByBirthdate(Date.valueOf("1985-11-14")).isPresent())
-            queriedSystemUser = systemUserRepository.findByBirthdate(Date.valueOf("1985-11-14")).get().get(0);
+        SystemUser queriedSystemUser = systemUserRepository.findByBirthdate(Date.valueOf("1985-11-14")).get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -177,9 +171,7 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // When
-        SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByGender(Gender.MALE).isPresent())
-            queriedSystemUser = systemUserRepository.findByGender(Gender.MALE).get().get(0);
+        SystemUser queriedSystemUser = systemUserRepository.findByGender(Gender.MALE).get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -209,9 +201,7 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // When
-        SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByAddress("221B Baker Street").isPresent())
-            queriedSystemUser = systemUserRepository.findByAddress("221B Baker Street").get().get(0);
+        SystemUser queriedSystemUser = systemUserRepository.findByAddress("221B Baker Street").get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
@@ -241,9 +231,7 @@ class SystemUserRepositoryTest {
         systemUserRepository.save(systemUser);
 
         // When
-        SystemUser queriedSystemUser = null;
-        if (systemUserRepository.findByLandlinePhone("(555) 123-4567").isPresent())
-            queriedSystemUser = systemUserRepository.findByLandlinePhone("(555) 123-4567").get().get(0);
+        SystemUser queriedSystemUser = systemUserRepository.findByLandlinePhone("(555) 123-4567").get(0);
 
         // Then
         assertEquals(systemUser, queriedSystemUser);
