@@ -121,8 +121,6 @@ export default function ClinicHomePage() {
   
     return stars;
   };
-  
-
   ///////////////////////////////////////////////////////////////apis////////////////////////////////////////////////
   ///////////////////////clinic info get request
 const cookies = new Cookies();
@@ -135,40 +133,6 @@ const [id, setId] = useState(parseInt(cookies.get('id'), 10));//////////////////
 const [landlinePhone, setLandlinePhone] = useState('');
 const [admin, setAdmin] = useState({});
  
-//  setId(cookies.get('id'));
-//  if (!id) {
-//  window.location.href = "/login"
-//  }
-
-// useEffect(() => {
-// const GetClinicObject= async () => {
-//   try {
-//     const url = 'http://localhost:8080/Clinic/Clinic';
-//     const postData = {
-//       id: 80
-//     };
-//     const response = await axios.post(url, {id:id});
-//     console.log('POST request successful');
-//     console.log(response.data); //the clinic object 
-//     updateStateWithReturnedData(response.data);
-//   } catch (error) {
-//     console.error('Error making POST request:', error);
-//   }
-// };
-
-//   const updateStateWithReturnedData = (data) => {
-//     setName(data.name);
-//     setAddress(data.address);
-//     setPhone(data.phone);
-//     setEmail(data.email);
-//     // setId(data.id);
-//     setLandlinePhone(data.landlinePhone);
-//     setAdmin(data.admin);
-//   };
-
- 
-//     GetClinicObject();
-//   }, []); // empty dependency array ensures the effect runs only once on mount
 useEffect(() => {
   fetch('http://localhost:8080/Clinic/Clinic', {
     method: 'POST',
@@ -193,7 +157,6 @@ useEffect(() => {
 });
 
   }, []);
-
   ////////////////////////////adding doctors post request/////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [doctorEmail, setDoctorEmail] = useState('');
@@ -286,8 +249,6 @@ useEffect(() => {
   const handleMockEmail = (event) => {
       setMockEmail(event.target.value);
   };
-  
-
   const EditInfo = async () => {
     try {
       let updatedInfo = {
@@ -321,7 +282,6 @@ useEffect(() => {
       console.error('Error making POST request:', error);
     }
   };
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////GET REQUEST TO GET DOCTORS OF THE CLINIC///////////////////////
   const [doctors, setDoctors] = useState([]);
@@ -353,13 +313,9 @@ useEffect(() => {
 });
 
   }, []);
- 
-  
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////POST REQUEST TO DELETE DOCTORS/////////////////////////////////////////
-  const [doctorDeleteIndex, setDoctorDeleteIndex] = useState();
-
-  
+  const [doctorDeleteIndex, setDoctorDeleteIndex] = useState();  
   const handleDelete = async (index) => {
     try {
       setDoctorDeleteIndex(index);
@@ -371,17 +327,12 @@ useEffect(() => {
         clinic: clinicObject,
       });
       console.log(doctors);
-
-    
     } catch (error) {
       console.error('Error deleting doctor:', error);
-    }
-    
-     
+    }  
   };
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   const settings = {
     dots: true,
     infinite: true,
@@ -391,7 +342,6 @@ useEffect(() => {
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />
   };
-
   return (
     <>
             <div id="root">
@@ -426,7 +376,7 @@ useEffect(() => {
     <div className="col-md-6">
       {/* Left side: Original appointment list */}
       <h3>Appointments</h3>
-<hr/>
+       <hr/>
       <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc' }}>
         <ul style={{ listStyleType: 'none', padding: 0 }}>
           {app.slice(0, app.length).map((appointment, index) => (
@@ -563,15 +513,12 @@ useEffect(() => {
 
 
 
-
-
 <div className="marginDiv"></div>
 <div className="container mt-4">
       <div className="row">
         <div className="col-md-6 ">
         <h3>Add Doctors</h3>
       <hr/>
-      
           <div className="card flex-fill editCards">
             <div className="card-body">
               <h5 className="card-title">Doctor's Email</h5>
@@ -589,9 +536,7 @@ useEffect(() => {
               {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </div>
           </div>
-          
         </div>
-
         {/* Second Card - Address, Phone, Email */}
         <div className="col-md-6  ">
         <h3>Edit data</h3>
