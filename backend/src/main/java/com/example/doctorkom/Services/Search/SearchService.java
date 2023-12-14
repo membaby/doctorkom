@@ -9,6 +9,7 @@ import com.example.doctorkom.EntitySearch.SearchSpecification;
 import com.example.doctorkom.Services.EntityServices.ClinicService;
 import com.example.doctorkom.Services.EntityServices.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +28,18 @@ public class SearchService {
         this.clinicService = clinicService;
     }
 
-    public List<Doctor> searchDoctors(Map<String, String> searchParams) {
-        return doctorService.findAllDoctors(createSearchSpecification(searchParams));
+    public Page<Doctor> searchDoctors(Map<String, String> searchParams, int pageCount) {
+        return doctorService.findAllDoctors(createSearchSpecification(searchParams), pageCount);
     }
 
-    public List<Clinic> searchClinics(Map<String, String> searchParams) {
-        return clinicService.findAllClinics(createSearchSpecification(searchParams));
+    public Page<Clinic> searchClinics(Map<String, String> searchParams, int pageCount) {
+        return clinicService.findAllClinics(createSearchSpecification(searchParams), pageCount);
     }
 
-    public List<Doctor> searchDoctorsByDoctorAndClinic(Map<String, String> searchParams) {
+    public Page<Doctor> searchDoctorsByDoctorAndClinic(Map<String, String> searchParams, int pageCount) {
         return doctorService.findAllDoctors(searchParams.get("name"), searchParams.get("city"),
                 searchParams.get("specialty") != null?DoctorSpecialty.valueOf(searchParams.get("specialty")):null,
-                searchParams.get("title") != null?DoctorTitle.valueOf(searchParams.get("title")):null);
+                searchParams.get("title") != null?DoctorTitle.valueOf(searchParams.get("title")):null, pageCount);
     }
 
     private <T> Specification<T> createSearchSpecification(Map<String, String> searchParams) {

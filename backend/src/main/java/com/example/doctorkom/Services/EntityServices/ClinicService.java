@@ -4,6 +4,9 @@ import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Repositories.ClinicRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +40,8 @@ public class ClinicService {
         }
     }
 
-    public List<Clinic> findAllClinics(Specification<Clinic> specification) {
-        return clinicRepository.findAll(specification);
+    public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, 10);
+        return clinicRepository.findAll(specification, pageable);
     }
 }
