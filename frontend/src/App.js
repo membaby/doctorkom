@@ -12,6 +12,7 @@ import AdminHomePage from './components/SystemAdminView';
 import ClinicHomePage from './components/ClinicView';
 import DoctorHomePage from './components/DoctorView';
 import Search from './components/Search';
+import UserProfilePage from './components/UserProfile';
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
           <Route path='/dashboard/clinic' element={ <ClinicHomePage /> } />
           <Route path='/dashboard/doctor' element={ <DoctorHomePage /> } />
           <Route path='/search' element={ <Search /> } />
+          <Route path='/logout' element={ <Homepage /> } />
+          <Route path='/profile' element={ <UserProfilePage /> } />
         </Routes>
 
       </div>

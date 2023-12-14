@@ -16,8 +16,8 @@ import java.util.Optional;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Integer>, JpaSpecificationExecutor<Doctor> {
-    Optional<List<Doctor>> findByTitle(DoctorTitle title);
-    Optional<List<Doctor>> findBySpecialty(DoctorSpecialty specialty);
+    List<Doctor> findByTitle(DoctorTitle title);
+    List<Doctor> findBySpecialty(DoctorSpecialty specialty);
 
     @Query("SELECT d FROM Doctor d, Clinic c " +
             "WHERE ((:name IS NULL OR LOWER(d.systemUser.firstName) LIKE LOWER(CONCAT('%', :name, '%'))) " +

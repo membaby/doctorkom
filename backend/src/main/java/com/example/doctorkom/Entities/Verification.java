@@ -3,16 +3,15 @@ package com.example.doctorkom.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Verification")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Verification {
@@ -30,12 +29,4 @@ public class Verification {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "AccountId")
     private Account account;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Verification that = (Verification) o;
-        return id != null && Objects.equals(id, that.id);
-    }
 }
