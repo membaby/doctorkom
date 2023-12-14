@@ -1,4 +1,4 @@
-package com.example.doctorkom.Controllers;
+package com.example.doctorkom.Controllers.LoginController;
 
 import com.example.doctorkom.DTOs.*;
 import com.example.doctorkom.Entities.Role;

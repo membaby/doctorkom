@@ -18,8 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/Clinic")
 public class ClinicController {
-    @Autowired
-    ClinicRepository clinicRepository;
+
     @Autowired
     ClinicService clinicService;
     @Autowired
@@ -31,20 +30,6 @@ public class ClinicController {
 
     @Autowired
     DoctorMapper doctorMapper;
-    public List<Doctor> GetDoctorsForClinic(Clinic clinic) {
-        Clinic Rclinic = clinicRepository.findById(clinic.getId()).orElse(null);
-        if (Rclinic != null){
-            return new ArrayList<>(Rclinic.getDoctors());
-        }
-        else{
-            return new ArrayList<>();
-        }
-    }
-
-
-    public Clinic GetClinic(int id) {
-        return clinicRepository.findById(id).orElse(null);
-    }
 
     @PostMapping("/AddDoctor")
     public String AddDoctor(@RequestBody ClinicDoctorDTO clinicDoctorDTO){
@@ -109,12 +94,12 @@ public class ClinicController {
         return doctorDTOS;
     }
     @PostMapping("/Clinic")
-    public ClinicDTO Clinic(@RequestBody int id){
+    public ClinicDTO Clinic(int id){
         System.out.println(id);
         return clinicMapper.toDto(clinicService.GetClinic(id));
     }
 
-    @GetMapping("/Test")
+    /*@GetMapping("/Test")
     public String Test(){
         Account account = Account.builder().
                 username("ClinicAdmin").
@@ -133,5 +118,5 @@ public class ClinicController {
                 build();
         clinicRepository.save(clinic);
         return "Clinic Test";
-    }
+    }*/
 }

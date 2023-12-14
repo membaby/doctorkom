@@ -1,4 +1,4 @@
-package com.example.doctorkom.Controllers;
+package com.example.doctorkom.Controllers.VerificationController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
