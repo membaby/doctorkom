@@ -21,7 +21,7 @@ public class ClinicAdmin {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AccountId")
     private Account account;
-
+  
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

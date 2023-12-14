@@ -7,7 +7,6 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Doctor")
@@ -59,7 +58,7 @@ public class Doctor {
         medicalNote.setDoctor(this);
     }
 
-    void deleteMedicalNote (MedicalNote medicalNote) {
+    void removeMedicalNote (MedicalNote medicalNote) {
         if (medicalNotes != null) {
             medicalNotes.remove(medicalNote);
             medicalNote.setDoctor(null);
@@ -75,7 +74,7 @@ public class Doctor {
         timeSlot.setDoctor(this);
     }
 
-    void deleteTimeSlot (TimeSlot timeSlot) {
+    void removeTimeSlot (TimeSlot timeSlot) {
         if (timeSlots != null) {
             timeSlots.remove(timeSlot);
             timeSlot.setDoctor(null);
@@ -91,7 +90,8 @@ public class Doctor {
         clinic.getDoctors().add(this);
     }
 
-    void deleteClinic (Clinic clinic) {
+  
+    void removeClinic (Clinic clinic) {
         if (clinics != null) {
             clinics.remove(clinic);
             clinic.getDoctors().remove(this);

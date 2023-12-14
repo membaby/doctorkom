@@ -9,10 +9,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Account")
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -36,7 +34,7 @@ public class Account {
     @Column(name = "Role")
     @Enumerated(EnumType.STRING)
     private Role role;
-
+  
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

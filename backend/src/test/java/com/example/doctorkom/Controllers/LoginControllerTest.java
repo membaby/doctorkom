@@ -2,6 +2,8 @@ package com.example.doctorkom.Controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.example.doctorkom.Controllers.LoginController.LoginController;
+import com.example.doctorkom.Controllers.LoginController.LoginResponse;
 import com.example.doctorkom.DTOs.AccountDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginControllerTest {
-    
+
     @Autowired
     private LoginController loginController;
 
@@ -53,7 +55,7 @@ public class LoginControllerTest {
         }
     }
 
-    @Test 
+    @Test
     public void invalidLogin() {
         //Send request with invalid account credientials
         //Confirm reponse.success is false

@@ -1,0 +1,58 @@
+.docCard {
+  background: #ffffff;
+  /* box-shadow: 20px 1px 20px 20px rgba(0, 0, 0, 0.1); */
+  border-radius: 7px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 25px 20px;
+  height: 23vw;
+  margin-left: 1dvw;
+  border-color: #00c48c;
+}
+
+/* Add these custom styles for arrow buttons */
+.custom-arrow-button {
+  background-color: rgba(238, 238, 238, 0.5); /* Use rgba for transparency */
+  color: #000000;
+  border-radius: 50%; /* Use a percentage for a circular shape */
+  /* padding: 10px; */
+  border: none;
+  cursor: pointer;
+}
+
+
+.custom-prev-arrow {
+  /* Add custom styles for the "prev" button */
+  position: absolute;
+  left: -2vw; /* Adjust the left position as needed */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.custom-next-arrow {
+  /* Add custom styles for the "next" button */
+  position: absolute;
+  right: -2vw; /* Adjust the right position as needed */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.marginDiv {
+  margin: 7.6rem;
+}
+
+.editCards{
+  height: 400px;
+}
+
+.decMar{
+margin-bottom: -1rem;
+}
+.square {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+}
+

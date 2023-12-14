@@ -1,4 +1,4 @@
-package com.example.doctorkom.Controllers;
+package com.example.doctorkom.Controllers.LoginController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +24,16 @@ public class LoginController {
     ClinicMapper clinicMapper;
     @Autowired
     LogInService logInService;
-    
+
     @PostMapping("/login")
     public LoginResponse attemptLogin(@RequestBody AccountDTO accountDTO)
     {
         System.out.println(accountDTO.getUsername() + " " + accountDTO.getPassword());
-        accountDTO = AccountDTO.builder().username(accountDTO.getUsername()).email(accountDTO.getUsername()).build();
+        accountDTO = AccountDTO.builder()
+        .username(accountDTO.getUsername())
+        .email(accountDTO.getUsername())
+        .password(accountDTO.getPassword())
+        .build();
         Account partialAccount = accountMapper.toEntity(accountDTO);
         EntityWrapper fullAccount = logInService.login(partialAccount);
         if (fullAccount == null)
@@ -66,4 +70,3 @@ class DummyPasswordRecoverer{
         return false;
     }
 }
-

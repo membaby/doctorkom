@@ -48,19 +48,19 @@ CREATE TABLE SystemUser (
     Address VARCHAR(250) NOT NULL,
     LandlinePhone VARCHAR(20),
     MobilePhone VARCHAR(20) UNIQUE,
-    FOREIGN KEY (AccountId) REFERENCES Account(Id)
+    FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE SystemAdmin (
     AccountId INT PRIMARY KEY,
     -- Additional SystemAdmin-specific attributes can be added here
-    FOREIGN KEY (AccountId) REFERENCES Account(Id)
+    FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE ClinicAdmin (
     AccountId INT PRIMARY KEY,
     -- Additional ClinicAdmin-specific attributes can be added here
-    FOREIGN KEY (AccountId) REFERENCES Account(Id)
+    FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Doctor (
@@ -76,7 +76,7 @@ CREATE TABLE Doctor (
     --                END
     --            ),
     -- Additional Doctor-specific attributes can be added here
-    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId)
+    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Patient (
@@ -85,7 +85,7 @@ CREATE TABLE Patient (
     MaritalStatus VARCHAR(10),
     Occupation VARCHAR(250),
     -- Additional Patient-specific attributes can be added here
-    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId)
+    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Clinic (
@@ -123,8 +123,28 @@ CREATE TABLE TimeSlot (
       DoctorId INT,
       ClinicId INT,
       Date DATE,
+<<<<<<< HEAD
+      StartTime Time,
+      EndTime Time NOT NULL,
+      Reserved TINYINT NOT NULL,
+      --   Weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
+      PRIMARY KEY (DoctorId, ClinicId, Date, StartTime),
+=======
 --       Weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
       PRIMARY KEY (DoctorId, ClinicId, Date),
+>>>>>>> origin/milestone-2
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
+);
+
+CREATE TABLE Appointment (
+     DoctorId INT,
+     ClinicId INT,
+     PatientId INT,
+     Date DATE,
+     StartTime TIME,
+     EndTime TIME NOT NULL,
+     PRIMARY KEY (DoctorId, ClinicId, PatientId, Date, StartTime),
+     FOREIGN KEY (DoctorId, ClinicId, Date, StartTime) REFERENCES TimeSlot(DoctorId, ClinicId, Date, StartTime),
+     FOREIGN KEY (PatientId) REFERENCES Patient(UserId)
 );
