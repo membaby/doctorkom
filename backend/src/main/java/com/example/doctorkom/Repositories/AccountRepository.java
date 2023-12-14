@@ -12,12 +12,9 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByEmail(String email);
     Optional<Account> findByUsername(String username);
-    Optional<List<Account>> findByRole(Role role);
-    void deleteByEmail(String mail);
-    void deleteByUsername(String johnSmith1);
-
+    List<Account> findByRole(Role role);
+    void deleteByEmail(String email);
+    void deleteByUsername(String username);
     boolean existsByEmail(String email);
-
     boolean existsByUsername(String username);
-
 }
