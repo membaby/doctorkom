@@ -123,7 +123,7 @@ CREATE TABLE TimeSlot (
       DoctorId INT,
       ClinicId INT,
       Date DATE,
---       weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
+--       Weekday VARCHAR(20) GENERATED ALWAYS AS (UPPER(DATE_FORMAT(date, '%W'))) VIRTUAL,
       PRIMARY KEY (DoctorId, ClinicId, Date),
       FOREIGN KEY (DoctorId) REFERENCES Doctor(UserId),
       FOREIGN KEY (ClinicId) REFERENCES Clinic(ClinicId)
