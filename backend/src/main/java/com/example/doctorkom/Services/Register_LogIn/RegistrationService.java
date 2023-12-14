@@ -171,6 +171,7 @@ public class RegistrationService {
         //store verification code and account in database
         Verification verification = new Verification();
         verification.setCode(code);
+
         verification.setAccount(newaccount);
         verification.setId(newaccount.getId());
         verification.setExpirationTime(LocalDateTime.now().plusDays(1));
