@@ -117,6 +117,93 @@ public class ClinicControllerTest {
         verify(clinicMapper, times(1)).toEntity(clinicDTOTest);
     }
 
+    @Test
+    void RemoveDoctorFromClinic_DoctorExist() {
+        ClinicDTO clinicDTOTest = ClinicDTOBuilder();
+        String doctorEmail = "doc@tets.com";
+        ClinicDoctorDTO clinicDoctorDTO = ClinicDoctorDTO.builder().clinic(clinicDTOTest).email(doctorEmail).build();
+        Clinic clinicTest = Clinic.builder().build();
+
+        when(clinicMapper.toEntity(clinicDTOTest)).thenReturn(clinicTest);
+        when(clinicService.RemoveDoctorFromClinic(doctorEmail, clinicTest)).thenReturn("Doctor removed successfully");
+
+        when(clinicController.RemoveDoctor(clinicDoctorDTO)).thenAnswer(invocation -> {
+            ClinicDoctorDTO arg = invocation.getArgument(0);
+            Clinic clinic = clinicMapper.toEntity(arg.getClinic());
+            String email = arg.getEmail();
+            return clinicService.RemoveDoctorFromClinic(email, clinic);
+        });
+
+        // Invoke the actual method being tested
+        String response = clinicController.RemoveDoctor(clinicDoctorDTO);
+
+        // Verify the result
+        assertEquals("Doctor removed successfully", response);
+
+        // Verify the calls
+        verify(clinicController, times(1)).RemoveDoctor(clinicDoctorDTO);
+        verify(clinicService, times(1)).RemoveDoctorFromClinic(doctorEmail, clinicTest);
+        verify(clinicMapper, times(1)).toEntity(clinicDTOTest);
+    }
+
+    @Test
+    void RemoveDoctorFromClinic_DoctorNotExist() {
+        ClinicDTO clinicDTOTest = ClinicDTOBuilder();
+        String doctorEmail = "doc@tets.com";
+        ClinicDoctorDTO clinicDoctorDTO = ClinicDoctorDTO.builder().clinic(clinicDTOTest).email(doctorEmail).build();
+        Clinic clinicTest = Clinic.builder().build();
+
+        when(clinicMapper.toEntity(clinicDTOTest)).thenReturn(clinicTest);
+        when(clinicService.RemoveDoctorFromClinic(doctorEmail, clinicTest)).thenReturn("Doctor not found");
+
+        when(clinicController.RemoveDoctor(clinicDoctorDTO)).thenAnswer(invocation -> {
+            ClinicDoctorDTO arg = invocation.getArgument(0);
+            Clinic clinic = clinicMapper.toEntity(arg.getClinic());
+            String email = arg.getEmail();
+            return clinicService.RemoveDoctorFromClinic(email, clinic);
+        });
+
+        // Invoke the actual method being tested
+        String response = clinicController.RemoveDoctor(clinicDoctorDTO);
+
+        // Verify the result
+        assertEquals("Doctor not found", response);
+
+        // Verify the calls
+        verify(clinicController, times(1)).RemoveDoctor(clinicDoctorDTO);
+        verify(clinicService, times(1)).RemoveDoctorFromClinic(doctorEmail, clinicTest);
+        verify(clinicMapper, times(1)).toEntity(clinicDTOTest);
+    }
+
+    @Test
+    void RemoveDoctorFromClinic_DoctorNotInClinic(){
+        ClinicDTO clinicDTOTest = ClinicDTOBuilder();
+        String doctorEmail = "doc@tets.com";
+        ClinicDoctorDTO clinicDoctorDTO = ClinicDoctorDTO.builder().clinic(clinicDTOTest).email(doctorEmail).build();
+        Clinic clinicTest = Clinic.builder().build();
+
+        when(clinicMapper.toEntity(clinicDTOTest)).thenReturn(clinicTest);
+        when(clinicService.RemoveDoctorFromClinic(doctorEmail, clinicTest)).thenReturn("Doctor not in clinic");
+
+        when(clinicController.RemoveDoctor(clinicDoctorDTO)).thenAnswer(invocation -> {
+            ClinicDoctorDTO arg = invocation.getArgument(0);
+            Clinic clinic = clinicMapper.toEntity(arg.getClinic());
+            String email = arg.getEmail();
+            return clinicService.RemoveDoctorFromClinic(email, clinic);
+        });
+
+        // Invoke the actual method being tested
+        String response = clinicController.RemoveDoctor(clinicDoctorDTO);
+
+        // Verify the result
+        assertEquals("Doctor not in clinic", response);
+
+        // Verify the calls
+        verify(clinicController, times(1)).RemoveDoctor(clinicDoctorDTO);
+        verify(clinicService, times(1)).RemoveDoctorFromClinic(doctorEmail, clinicTest);
+        verify(clinicMapper, times(1)).toEntity(clinicDTOTest);
+    }
+
     private ClinicDTO ClinicDTOBuilder() {
         AccountDTO accountDTO = AccountDTO.builder().username("a@b.c").password("12345678").id(10).build();
         ClinicAdminDTO clinicAdminDTO = ClinicAdminDTO.builder().account(accountDTO).id(10).build();
