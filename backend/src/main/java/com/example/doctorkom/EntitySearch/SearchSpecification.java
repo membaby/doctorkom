@@ -26,16 +26,19 @@ public class SearchSpecification<T> {
                     (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get(searchFilter.getField()), searchFilter.getValue());
             case LESS_THAN ->
                     (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get(searchFilter.getField()), searchFilter.getValue());
-            case LIKE ->
-                    (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(searchFilter.getField()), "%" + fieldValue(root.get(searchFilter.getField()), searchFilter) + "%");
+            case LIKE -> (root, query, criteriaBuilder) -> {
+                if (root.get(searchFilter.getField()).getJavaType() == String.class)
+                    return criteriaBuilder.like(root.get(searchFilter.getField()), "%" + fieldValue(root.get(searchFilter.getField()), searchFilter) + "%");
+                else
+                    return criteriaBuilder.equal(root.get(searchFilter.getField()), fieldValue(root.get(searchFilter.getField()), searchFilter));
+            };
         };
     }
 
     private Object fieldValue(Expression<Object> field, SearchFilter searchFilter) {
-        if (field.getJavaType().isEnum()) {
+        if (field.getJavaType().isEnum())
             return Enum.valueOf((Class<Enum>) field.getJavaType(), searchFilter.getValue());
-        } else {
+        else
             return searchFilter.getValue();
-        }
     }
 }
