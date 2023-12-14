@@ -115,13 +115,12 @@ export default function Search() {
                                 <Result details={result} />
                             ))}
                         </div>
-
+                        <div className="text-center mt-3">
+                            <button className="result-button result-button-primary" onClick={()=>search("prev")}>Previous Page</button>
+                            <button className="result-button result-button-primary" onClick={()=>search("next")}>Next Page</button>
+                        </div>
                         </>
                     ) : (<></>)}
-                </div>
-                <div className="text-center mt-3">
-                    <button className="result-button result-button-primary" onClick={()=>search("prev")}>Previous Page</button>
-                    <button className="result-button result-button-primary" onClick={()=>search("next")}>Next Page</button>
                 </div>
             </div>
         </div>
