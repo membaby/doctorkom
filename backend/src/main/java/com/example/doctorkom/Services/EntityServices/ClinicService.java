@@ -1,11 +1,13 @@
-package com.example.doctorkom.Services;
+package com.example.doctorkom.Services.EntityServices;
 
 import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Repositories.ClinicRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +35,9 @@ public class ClinicService {
         } else {
             return "Clinic not found";
         }
+    }
+
+    public List<Clinic> findAllClinics(Specification<Clinic> specification) {
+        return clinicRepository.findAll(specification);
     }
 }
