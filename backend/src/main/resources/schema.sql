@@ -48,19 +48,19 @@ CREATE TABLE SystemUser (
     Address VARCHAR(250) NOT NULL,
     LandlinePhone VARCHAR(20),
     MobilePhone VARCHAR(20) UNIQUE,
-    FOREIGN KEY (AccountId) REFERENCES Account(Id)
+    FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE SystemAdmin (
     AccountId INT PRIMARY KEY,
     -- Additional SystemAdmin-specific attributes can be added here
-    FOREIGN KEY (AccountId) REFERENCES Account(Id)
+    FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE ClinicAdmin (
     AccountId INT PRIMARY KEY,
     -- Additional ClinicAdmin-specific attributes can be added here
-    FOREIGN KEY (AccountId) REFERENCES Account(Id)
+    FOREIGN KEY (AccountId) REFERENCES Account(Id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Doctor (
@@ -76,7 +76,7 @@ CREATE TABLE Doctor (
     --                END
     --            ),
     -- Additional Doctor-specific attributes can be added here
-    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId)
+    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Patient (
@@ -85,7 +85,7 @@ CREATE TABLE Patient (
     MaritalStatus VARCHAR(10),
     Occupation VARCHAR(250),
     -- Additional Patient-specific attributes can be added here
-    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId)
+    FOREIGN KEY (UserId) REFERENCES SystemUser(AccountId) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Clinic (
