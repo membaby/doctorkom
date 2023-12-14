@@ -8,6 +8,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Clinic")
@@ -85,6 +86,7 @@ public class Clinic {
             doctors.remove(doctor);
             doctor.getClinics().remove(this);
         }
+    }
       
     @Override
     public final boolean equals(Object o) {
