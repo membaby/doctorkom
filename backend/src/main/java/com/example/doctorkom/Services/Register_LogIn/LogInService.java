@@ -3,6 +3,7 @@ package com.example.doctorkom.Services.Register_LogIn;
 import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Repositories.AccountRepository;
 import com.example.doctorkom.Repositories.ClinicAdminRepository;
+import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Repositories.DoctorRepository;
 import com.example.doctorkom.Repositories.PatientRepository;
 import com.example.doctorkom.Repositories.SystemAdminRepository;
@@ -27,6 +28,8 @@ public class LogInService {
     SystemAdminRepository systemAdminRepository;
     @Autowired
     ClinicAdminRepository clinicAdminRepository;
+    @Autowired
+    ClinicRepository clinicRepo;
 
 
     public EntityWrapper login(Account account) {
@@ -59,7 +62,7 @@ public class LogInService {
                 wrapper.setSystemAdmin(systemAdminRepository.findById(account.getId()).orElse(null));
                 break;
             case CLINIC_ADMIN:
-                wrapper.setClinicAdmin(clinicAdminRepository.findById(account.getId()).orElse(null));
+                wrapper.setClinic(clinicRepo.findById(account.getId()).orElse(null));
                 break;
         }
         return wrapper;
