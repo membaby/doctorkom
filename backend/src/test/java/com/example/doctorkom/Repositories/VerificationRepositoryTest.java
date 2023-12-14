@@ -23,10 +23,19 @@ class VerificationRepositoryTest {
     @Test
     void whenFindVerificationById_thenReturnVerification() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
-        accountRepository.save(account);
-        verification.setId(account.getId());
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
+        Verification verification = Verification.builder().
+                code("ABC123").
+                expirationTime(LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).
+                account(account).
+                build();
+
         verificationRepository.save(verification);
 
         // When
@@ -41,10 +50,19 @@ class VerificationRepositoryTest {
     @Test
     void whenDeleteVerificationById_thenDeleteVerification() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
-        accountRepository.save(account);
-        verification.setId(account.getId());
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
+        Verification verification = Verification.builder().
+                code("ABC123").
+                expirationTime(LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).
+                account(account).
+                build();
+
         verificationRepository.save(verification);
 
         // When
@@ -57,10 +75,19 @@ class VerificationRepositoryTest {
     @Test
     void whenDeleteVerificationById_thenDoNotDeleteAccount() {
         // Given
-        Account account = new Account("johnsmith123@lol.com", "JohnSmith1", "JohnyJohny123", Role.PATIENT);
-        Verification verification = new Verification("ABC123", LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), account);
-        accountRepository.save(account);
-        verification.setId(account.getId());
+        Account account = Account.builder().
+                email("johnsmith123@lol.com").
+                username("JohnSmith1").
+                password("JohnyJohny123").
+                role(Role.PATIENT).
+                build();
+
+        Verification verification = Verification.builder().
+                code("ABC123").
+                expirationTime(LocalDateTime.parse("2023-11-27 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).
+                account(account).
+                build();
+
         verificationRepository.save(verification);
 
         // When

@@ -1,6 +1,6 @@
 package com.example.doctorkom.Services.RepositoryHandler;
 
-import com.example.doctorkom.Entities.ClinicAdmin;
+import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Entities.SystemAdmin;
@@ -16,7 +16,6 @@ public class EntityWrapper {
     private Patient patient;
     private Doctor doctor;
     private SystemAdmin systemAdmin;
-    private ClinicAdmin clinicAdmin;
+    private Clinic clinic;
     private String role;
-
 }

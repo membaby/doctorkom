@@ -2,14 +2,13 @@ package com.example.doctorkom.Controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.example.doctorkom.DTOs.AccountDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-
-import com.example.doctorkom.DTOs.AccountDTO;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class LoginControllerTest {
@@ -33,24 +32,22 @@ public class LoginControllerTest {
     public void loginReponseStructureTest(){
         //Send a login request with any credintials
         //Confirm response structure is correct
-        AccountDTO account = new AccountDTO();
-        account.email = "a@b.c";
-        account.password = "12345678";
+        AccountDTO account = AccountDTO.builder().username("a@b.c").password("12345678").build();
         LoginResponse response = restTemplate.postForObject("http://localhost:" + port + "/login", account, LoginResponse.class);
         assertTrue(response != null);
         if (response.success){
             switch (response.role){
                 case PATIENT:
-                    assertTrue(response.patient != null && response.doctor == null && response.systemAdmin == null && response.clinicAdmin == null);
+                    assertTrue(response.patient != null && response.doctor == null && response.systemAdmin == null && response.clinic == null);
                     break;
                 case DOCTOR:
-                    assertTrue(response.doctor != null && response.patient == null && response.systemAdmin == null && response.clinicAdmin == null);
+                    assertTrue(response.doctor != null && response.patient == null && response.systemAdmin == null && response.clinic == null);
                     break;
                 case SYSTEM_ADMIN:
-                    assertTrue(response.systemAdmin != null && response.patient == null && response.doctor == null && response.clinicAdmin == null);
+                    assertTrue(response.systemAdmin != null && response.patient == null && response.doctor == null && response.clinic == null);
                     break;
                 case CLINIC_ADMIN:
-                    assertTrue(response.clinicAdmin != null && response.patient == null && response.doctor == null && response.systemAdmin == null);
+                    assertTrue(response.clinic != null && response.patient == null && response.doctor == null && response.systemAdmin == null);
                     break;
             }
         }
