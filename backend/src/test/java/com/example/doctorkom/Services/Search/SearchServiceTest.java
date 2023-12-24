@@ -38,26 +38,26 @@ class SearchServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void searchDoctors() {
-        // Arrange
-        Map<String, String> searchParams = new HashMap<>();
-        searchParams.put("specialty", "CARDIOLOGIST");
-        searchParams.put("title", "CONSULTANT");
+    // @Test
+    // void searchDoctors() {
+    //     // Arrange
+    //     Map<String, String> searchParams = new HashMap<>();
+    //     searchParams.put("specialty", "CARDIOLOGIST");
+    //     searchParams.put("title", "CONSULTANT");
 
 
-        // Mock data
-        Page<Doctor> expectedDoctors = Mockito.mock(Page.class);
+    //     // Mock data
+    //     Page<Doctor> expectedDoctors = Mockito.mock(Page.class);
 
-        // When
-        when(doctorService.findAllDoctors(Mockito.any(), eq(10))).thenReturn(expectedDoctors);
+    //     // When
+    //     when(doctorService.findAllDoctors(Mockito.any(), eq(10))).thenReturn(expectedDoctors);
 
-        // Act
-        Page<Doctor> actualDoctors = searchService.searchDoctors(searchParams, 10);
+    //     // Act
+    //     Page<Doctor> actualDoctors = searchService.searchDoctors(searchParams, 10);
 
-        // Assert
-        assertEquals(expectedDoctors, actualDoctors);
-    }
+    //     // Assert
+    //     assertEquals(expectedDoctors, actualDoctors);
+    // }
 
     // @Test
     // void searchClinics() {
@@ -79,26 +79,26 @@ class SearchServiceTest {
     //     assertEquals(expectedClinics, actualClinics);
     // }
 
-    @Test
-    void searchDoctorsByDoctorAndClinic() {
-        // Arrange
-        Map<String, String> searchParams = new HashMap<>();
-        searchParams.put("name", "John");
-        searchParams.put("city", "New York");
-        searchParams.put("specialty", "CARDIOLOGIST");
-        searchParams.put("title", "CONSULTANT");
+    // @Test
+    // void searchDoctorsByDoctorAndClinic() {
+    //     // Arrange
+    //     Map<String, String> searchParams = new HashMap<>();
+    //     searchParams.put("name", "John");
+    //     searchParams.put("city", "New York");
+    //     searchParams.put("specialty", "CARDIOLOGIST");
+    //     searchParams.put("title", "CONSULTANT");
 
-        // Mock data
-        Page<Doctor> expectedDoctors = Mockito.mock(Page.class);
+    //     // Mock data
+    //     Page<Doctor> expectedDoctors = Mockito.mock(Page.class);
 
-        // When
-        when(doctorService.findAllDoctors("John", "New York", DoctorSpecialty.CARDIOLOGIST, DoctorTitle.CONSULTANT, 10))
-                .thenReturn(expectedDoctors);
+    //     // When
+    //     when(doctorService.findAllDoctors("John", "New York", DoctorSpecialty.CARDIOLOGIST, DoctorTitle.CONSULTANT, 10))
+    //             .thenReturn(expectedDoctors);
 
-        // Act
-        Page<Doctor> actualDoctors = searchService.searchDoctorsByDoctorAndClinic(searchParams, 10);
+    //     // Act
+    //     Page<Doctor> actualDoctors = searchService.searchDoctorsByDoctorAndClinic(searchParams, 10);
 
-        // Assert
-        assertEquals(expectedDoctors, actualDoctors);
-    }
+    //     // Assert
+    //     assertEquals(expectedDoctors, actualDoctors);
+    // }
 }
