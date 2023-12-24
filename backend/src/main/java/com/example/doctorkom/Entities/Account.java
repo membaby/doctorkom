@@ -2,7 +2,6 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;

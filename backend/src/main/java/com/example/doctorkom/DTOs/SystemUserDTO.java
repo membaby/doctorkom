@@ -4,7 +4,6 @@ import com.example.doctorkom.Entities.Gender;
 import lombok.Builder;
 import lombok.Value;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -12,7 +11,7 @@ import java.sql.Date;
  */
 @Value
 @Builder
-public class SystemUserDTO implements Serializable {
+public class SystemUserDTO {
     Integer id;
     String firstName;
     String lastName;

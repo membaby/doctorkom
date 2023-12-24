@@ -94,7 +94,7 @@ public class ClinicController {
         return doctorDTOS;
     }
     @PostMapping("/Clinic")
-    public ClinicDTO Clinic(int id){
+    public ClinicDTO Clinic(@RequestBody int id){
         System.out.println(id);
         return clinicMapper.toDto(clinicService.GetClinic(id));
     }

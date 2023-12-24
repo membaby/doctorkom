@@ -5,14 +5,12 @@ import com.example.doctorkom.Entities.DoctorTitle;
 import lombok.Builder;
 import lombok.Value;
 
-import java.io.Serializable;
-
 /**
  * DTO for {@link com.example.doctorkom.Entities.Doctor}
  */
 @Value
 @Builder
-public class DoctorDTO implements Serializable {
+public class DoctorDTO {
     Integer id;
     DoctorTitle title;
     DoctorSpecialty specialty;

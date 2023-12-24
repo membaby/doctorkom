@@ -3,7 +3,6 @@ package com.example.doctorkom.DTOs;
 import lombok.Builder;
 import lombok.Value;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
  */
 @Value
 @Builder
-public class VerificationDTO implements Serializable {
+public class VerificationDTO {
     Integer id;
     String code;
     LocalDateTime expirationTime;
