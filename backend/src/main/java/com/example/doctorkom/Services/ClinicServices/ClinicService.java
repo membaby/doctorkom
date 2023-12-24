@@ -5,6 +5,10 @@ import com.example.doctorkom.Repositories.*;
 import jakarta.transaction.Transactional;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -207,6 +211,11 @@ public class ClinicService {
         } else {
             return "Appointment Doesn't exist";
         }
+    }
+
+    public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, 10);
+        return clinicRepository.findAll(specification, pageable);
     }
 
     public Pair<List<Appointment>, List<TimeSlot>> GetAppointmentsAndTimeSlotsForClinic(Clinic clinic) {

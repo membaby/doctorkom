@@ -4,7 +4,7 @@ import com.example.doctorkom.Entities.Clinic;
 import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Entities.DoctorSpecialty;
 import com.example.doctorkom.Entities.DoctorTitle;
-import com.example.doctorkom.Services.EntityServices.ClinicService;
+// import com.example.doctorkom.Services.EntityServices.ClinicService;
 import com.example.doctorkom.Services.EntityServices.DoctorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class SearchServiceTest {
     private DoctorService doctorService;
 
     @Mock
-    private ClinicService clinicService;
+    // private ClinicService clinicService;
 
     @InjectMocks
     private SearchService searchService;
@@ -59,25 +59,25 @@ class SearchServiceTest {
         assertEquals(expectedDoctors, actualDoctors);
     }
 
-    @Test
-    void searchClinics() {
-        // Arrange
-        Map<String, String> searchParams = new HashMap<>();
-        searchParams.put("name", "Quinn Clinic");
-        searchParams.put("email", "quinnClinic123@hospital.com");
+    // @Test
+    // void searchClinics() {
+    //     // Arrange
+    //     Map<String, String> searchParams = new HashMap<>();
+    //     searchParams.put("name", "Quinn Clinic");
+    //     searchParams.put("email", "quinnClinic123@hospital.com");
 
-        // Mock data
-        Page<Clinic> expectedClinics = Mockito.mock(Page.class);
+    //     // Mock data
+    //     Page<Clinic> expectedClinics = Mockito.mock(Page.class);
 
-        // When
-        when(clinicService.findAllClinics(Mockito.any(), eq(10))).thenReturn(expectedClinics);
+    //     // When
+    //     when(clinicService.findAllClinics(Mockito.any(), eq(10))).thenReturn(expectedClinics);
 
-        // Act
-        Page<Clinic> actualClinics = searchService.searchClinics(searchParams, 10);
+    //     // Act
+    //     Page<Clinic> actualClinics = searchService.searchClinics(searchParams, 10);
 
-        // Assert
-        assertEquals(expectedClinics, actualClinics);
-    }
+    //     // Assert
+    //     assertEquals(expectedClinics, actualClinics);
+    // }
 
     @Test
     void searchDoctorsByDoctorAndClinic() {

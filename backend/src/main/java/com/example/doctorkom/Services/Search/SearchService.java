@@ -6,7 +6,8 @@ import com.example.doctorkom.Entities.DoctorSpecialty;
 import com.example.doctorkom.Entities.DoctorTitle;
 import com.example.doctorkom.EntitySearch.SearchFilter;
 import com.example.doctorkom.EntitySearch.SearchSpecification;
-import com.example.doctorkom.Services.EntityServices.ClinicService;
+import com.example.doctorkom.Repositories.ClinicRepository;
+import com.example.doctorkom.Services.ClinicServices.ClinicService;
 import com.example.doctorkom.Services.EntityServices.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,14 +20,17 @@ import java.util.Map;
 
 @Service
 public class SearchService {
+    @Autowired
     DoctorService doctorService;
+    // ClinicService clinicService
+    @Autowired
     ClinicService clinicService;
 
-    @Autowired
-    public SearchService(DoctorService doctorService, ClinicService clinicService) {
-        this.doctorService = doctorService;
-        this.clinicService = clinicService;
-    }
+    // @Autowired
+    // public SearchService(DoctorService doctorService, ClinicService clinicService) {
+    //     this.doctorService = doctorService;
+    //     this.clinicService = clinicService;
+    // }
 
     public Page<Doctor> searchDoctors(Map<String, String> searchParams, int pageCount) {
         return doctorService.findAllDoctors(createSearchSpecification(searchParams), pageCount);
