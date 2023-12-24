@@ -5,6 +5,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.sql.Date;
 
+@Data
 @Getter
 @Setter
 @ToString

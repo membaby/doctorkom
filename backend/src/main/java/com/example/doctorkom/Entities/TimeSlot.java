@@ -2,10 +2,12 @@ package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.sql.Date;
-import java.util.Objects;
+import java.sql.Time;
+
+import org.hibernate.proxy.HibernateProxy;
+
 
 @Entity
 @IdClass(TimeSlotId.class)
@@ -16,6 +18,20 @@ import java.util.Objects;
 @AllArgsConstructor
 public class TimeSlot {
     @Id
+    @Column(name = "Date")
+    private Date date;
+
+    @Id
+    @Column(name = "StartTime")
+    private Time startTime;
+
+    @Column(name = "EndTime")
+    private Time endTime;
+
+    @Column(name = "Reserved")
+    private Boolean reserved;
+
+    @Id
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "DoctorId")
     private Doctor doctor;
@@ -25,12 +41,11 @@ public class TimeSlot {
     @JoinColumn(name = "ClinicId")
     private Clinic clinic;
 
-    @Id
-    @Column(name = "Date")
-    private Date date;
-
     @Transient
     @Column(name = "weekday", insertable = false, updatable = false)
     private String weekday;
-}
 
+    public TimeSlotId getId () {
+        return new TimeSlotId(clinic, doctor, date, startTime);
+    }
+}

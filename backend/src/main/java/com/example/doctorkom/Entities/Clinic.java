@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +56,38 @@ public class Clinic {
     @ToString.Exclude
     private List<Doctor> doctors;
 
+    public void addTimeSlot (TimeSlot timeSlot) {
+        if (timeSlots == null) {
+            timeSlots = new ArrayList<>();
+        }
+
+        timeSlots.add(timeSlot);
+        timeSlot.setClinic(this);
+    }
+
+    void removeTimeSlot (TimeSlot timeSlot) {
+        if (timeSlots != null) {
+            timeSlots.remove(timeSlot);
+            timeSlot.setDoctor(null);
+        }
+    }
+
+    public void addDoctor (Doctor doctor) {
+        if (doctors == null) {
+            doctors = new ArrayList<>();
+        }
+
+        doctors.add(doctor);
+        doctor.getClinics().add(this);
+    }
+
+    void removeDoctor (Doctor doctor) {
+        if (doctors != null) {
+            doctors.remove(doctor);
+            doctor.getClinics().remove(this);
+        }
+    }
+      
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

@@ -3,9 +3,18 @@ package com.example.doctorkom.Services.EntityServices;
 import com.example.doctorkom.DTOMappers.DoctorMapper;
 import com.example.doctorkom.DTOs.DoctorDTO;
 import com.example.doctorkom.Entities.Doctor;
+import com.example.doctorkom.Entities.DoctorSpecialty;
+import com.example.doctorkom.Entities.DoctorTitle;
 import com.example.doctorkom.Repositories.DoctorRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DoctorService {
@@ -30,5 +39,16 @@ public class DoctorService {
             Doctor doctor = doctorRepository.findById(doctorDTO.getId()).get();
             doctorRepository.save(doctorMapper.partialUpdate(doctorDTO, doctor));
         }
+    }
+
+    public Page<Doctor> findAllDoctors(Specification<Doctor> specification, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, 10);
+        return doctorRepository.findAll(specification, pageable);
+    }
+
+    public Page<Doctor> findAllDoctors(String name, String city, DoctorSpecialty specialty, DoctorTitle title, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, 10);
+        System.out.println("name: " + name + " city: " + city + " specialty: " + specialty + " title: " + title);
+        return doctorRepository.findAllDoctorsWithDoctorAndClinic(name, city, specialty, title, pageable);
     }
 }

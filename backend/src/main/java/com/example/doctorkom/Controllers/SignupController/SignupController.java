@@ -1,4 +1,4 @@
-package com.example.doctorkom.Controllers;
+package com.example.doctorkom.Controllers.SignupController;
 
 import com.example.doctorkom.DTOMappers.DoctorMapper;
 import com.example.doctorkom.DTOMappers.PatientMapper;
