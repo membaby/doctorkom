@@ -207,9 +207,9 @@ const UserProfilePage = () => {
           <h6 class="text-secondary">Profile Picture</h6>
           <div class="card p-3">
             {userType === 'PATIENT' ? (
-              <img src="/images/avatar/default-patient.png" class="m-auto" width="250px"></img>
+              <img src="/images/avatar/default-patient.png" alt="avatar" class="m-auto" width="250px"></img>
             ) : (
-              <img src="/images/avatar/default-doctor-female.png" class="m-auto" width="250px"></img>
+              <img src="/images/avatar/default-doctor-female.png" alt="avatar" class="m-auto" width="250px"></img>
             )}
             <input type="file" class="form-control mt-3" id="userprofile-picture"/>
           </div>

@@ -46,8 +46,7 @@ const Navbar = () => {
   }, []);
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-      href=""
+    <div
       ref={ref}
       onClick={(e) => {
         e.preventDefault();
@@ -56,7 +55,7 @@ const Navbar = () => {
       style={{ color: 'white', textDecoration: 'none' }}
     >
       {children}
-    </a>
+    </div>
   ));
 
   return(

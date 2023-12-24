@@ -68,7 +68,7 @@ export default function Search() {
                                     <input type="text" className="form-control" placeholder="Doctor/Clinic Name" id="keyword" onKeyDown={handleKeyPress} />
                                 </div>
                                 <div className="col-auto">
-                                    <a href="#" className="btn btn-primary px-5" onClick={search}>Search</a>
+                                    <a href="/" className="btn btn-primary px-5" onClick={search}>Search</a>
                                 </div>
                             </div>
 
