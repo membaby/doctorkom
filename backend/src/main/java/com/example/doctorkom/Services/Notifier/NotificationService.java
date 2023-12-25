@@ -57,11 +57,11 @@ public class NotificationService {
         notification.setContent(notification.VerifyEmailContent_ClinicAdmin(code));
         Send(notification);
     }
-    public void VerificationEmail_SystemAdmin(String email,String code,String formlink) throws MessagingException {
+    public void VerificationEmail_SystemAdmin(String email,String code) throws MessagingException {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject("Verification Email");
-        notification.setContent(notification.VerifyEmailContent_SystemAdmin(code,formlink));
+        notification.setContent(notification.VerifyEmailContent_SystemAdmin(code));
         Send(notification);
     }
     public void CustomEmail(String email, String subject, String content) throws MessagingException {

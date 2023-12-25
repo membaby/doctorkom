@@ -38,6 +38,7 @@ public class RegistrationService {
         this.systemAdminRepository = systemAdminRepository;
         this.verificationRepository = verificationRepository;
     }
+    
     public final String EMAIL_EXISTS = "Email already exists.";
     public final String USERNAME_EXISTS = "Username already exists.";
     public final String MOBILE_EXISTS = "Mobile phone already exists.";
@@ -45,7 +46,7 @@ public class RegistrationService {
     public final String NOT_REGISTERED = "Email is not registered.";
     public final String WRONG_CODE = "Wrong code.";
     public final String ALREADY_ = "Wrong code.";
-    public final String SUCCESS = "Account verified";
+    public final String VERIFY_SUCCESS = "Account verified";
     
 
 
@@ -152,7 +153,7 @@ public class RegistrationService {
         }
     }
 
-    public String registerSystemAdmin(SystemAdmin systemAdmin,String formlink) {
+    public String registerSystemAdmin(SystemAdmin systemAdmin) {
         //check if the user exists
         ///same as register clinic admin
         Account account = systemAdmin.getAccount();
@@ -178,7 +179,7 @@ public class RegistrationService {
         verificationRepository.save(verification);
         //send verification email
         try{
-            notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
+            notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code);
             return "";
         } catch (MessagingException e) {
             return "Could not send verification email. Problem with notification service";

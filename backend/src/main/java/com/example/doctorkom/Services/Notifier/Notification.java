@@ -116,7 +116,7 @@ public class Notification {
                 + "</html>";
         return htmlContent;
     }
-    public String VerifyEmailContent_SystemAdmin(String code, String FormLink) {
+    public String VerifyEmailContent_SystemAdmin(String code) {
         String htmlContent = "<html>"
                 + "<head>"
                 + "<style>"
@@ -127,13 +127,12 @@ public class Notification {
                 + "</head>"
                 + "<body>"
                 + "  <div class='header'>"
-                + "    <h2>⚠️ Email Verification ⚠️</h2>"
+                + "    <h2>⚠️ Admin Invitation ⚠️</h2>"
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear System Admin,</p>"
-                + "    <p>Thank you for registering with our platform. To complete the account setup for your system, please enter this form.</p>"
-                + "    <p><a href='" + FormLink + "'>System Information Form</a></p>"
-                + "    <p> then enter the verification code on the website to confirm your email and add system information.</p>"
+                + "    <p>This is an invitation to become an admin on the Doctorkom platform.</p>"
+                + "    <p>To accept the invitation and become an admin, please visit <a href='http://localhost:3000/verification'>this link</a> and verify your email.</p>"
                 + "    <p><strong>Verification Code: <u>" + code + "</u></strong></p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
