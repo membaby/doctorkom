@@ -1,5 +1,7 @@
 package com.example.doctorkom.Services.ClinicServices;
 
+import com.example.doctorkom.DTOMappers.ClinicMapper;
+import com.example.doctorkom.DTOs.ClinicDTO;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import jakarta.transaction.Transactional;
@@ -25,18 +27,20 @@ public class ClinicService {
     private TimeSlotRepository timeSlotRepository;
     private AppointmentRepository appointmentRepository;
     private AccountRepository accountRepository;
+    private ClinicMapper clinicMapper;
 
     @Autowired
     public void ClinicService(ClinicRepository clinicRepository,
                               DoctorRepository doctorRepository,
                               TimeSlotRepository timeSlotRepository,
                               AppointmentRepository appointmentRepository,
-                              AccountRepository accountRepository) {
+                              AccountRepository accountRepository, ClinicMapper clinicMapper) {
         this.doctorRepository = doctorRepository;
         this.clinicRepository = clinicRepository;
         this.timeSlotRepository = timeSlotRepository;
         this.appointmentRepository = appointmentRepository;
         this.accountRepository = accountRepository;
+        this.clinicMapper = clinicMapper;
     }
 
     public String editClinicInfo(Clinic clinic) {
@@ -213,9 +217,10 @@ public class ClinicService {
         }
     }
 
-    public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
+    public Page<ClinicDTO> findAllClinics(Specification<Clinic> specification, int pageCount) {
         Pageable pageable = PageRequest.of(pageCount, 10);
-        return clinicRepository.findAll(specification, pageable);
+        Page<Clinic> clinics = clinicRepository.findAll(specification, pageable);
+        return clinics.map(clinicMapper::toDto);
     }
 
     public Pair<List<Appointment>, List<TimeSlot>> GetAppointmentsAndTimeSlotsForClinic(Clinic clinic) {
