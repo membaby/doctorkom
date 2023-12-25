@@ -192,6 +192,10 @@ public class RegistrationService {
         -If email isn't in the system then return "email not registered".
         -If account is already verified return "already verified*/
         // Command adder = repositoryHandler.GetCommmand("add");
+        System.out.println(account);
+        System.out.println("account id: " + account.getId());
+        account = accountRepository.findByEmail(account.getEmail()).orElse(null);
+        assert account != null;
         Verification verification = verificationRepository.findById(account.getId()).orElse(null);
         if (verification == null) {
             boolean emailExists = accountRepository.existsByEmail(account.getEmail());
