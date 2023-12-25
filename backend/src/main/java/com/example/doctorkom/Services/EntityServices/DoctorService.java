@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 public class DoctorService {
+    private static final int PAGE_SIZE = 10;
     private final DoctorMapper doctorMapper;
     private final DoctorRepository doctorRepository;
 
@@ -41,14 +42,15 @@ public class DoctorService {
         }
     }
 
-    public Page<Doctor> findAllDoctors(Specification<Doctor> specification, int pageCount) {
-        Pageable pageable = PageRequest.of(pageCount, 10);
-        return doctorRepository.findAll(specification, pageable);
+    public Page<DoctorDTO> findAllDoctors(Specification<Doctor> specification, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
+        Page<Doctor> doctors = doctorRepository.findAll(specification, pageable);
+        return doctors.map(doctorMapper::toDto);
     }
 
-    public Page<Doctor> findAllDoctors(String name, String city, DoctorSpecialty specialty, DoctorTitle title, int pageCount) {
-        Pageable pageable = PageRequest.of(pageCount, 10);
-        System.out.println("name: " + name + " city: " + city + " specialty: " + specialty + " title: " + title);
-        return doctorRepository.findAllDoctorsWithDoctorAndClinic(name, city, specialty, title, pageable);
+    public Page<DoctorDTO> findAllDoctors(String name, String city, DoctorSpecialty specialty, DoctorTitle title, int pageCount) {
+        Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
+        Page<Doctor> doctors = doctorRepository.findAllDoctorsWithDoctorAndClinic(name, city, specialty, title, pageable);
+        return doctors.map(doctorMapper::toDto);
     }
 }
