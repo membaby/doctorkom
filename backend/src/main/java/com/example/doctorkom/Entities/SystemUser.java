@@ -1,21 +1,19 @@
 package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "SystemUser")
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SystemUser {
     @Id
     @Column(name = "AccountId")
@@ -43,26 +41,8 @@ public class SystemUser {
     @Column(name = "LandlinePhone")
     private String landlinePhone;
 
+    @MapsId
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AccountId")
     private Account account;
-
-    public SystemUser(String firstName, String lastName, Date birthdate, Gender gender, String address, String landlinePhone, String mobilePhone, Account account) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.address = address;
-        this.landlinePhone = landlinePhone;
-        this.mobilePhone = mobilePhone;
-        this.account = account;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SystemUser systemUser = (SystemUser) o;
-        return id != null && Objects.equals(id, systemUser.id);
-    }
 }

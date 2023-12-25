@@ -15,29 +15,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest
 class ClinicRepositoryTest {
     @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
-    private ClinicAdminRepository clinicAdminRepository;
-
-    @Autowired
     private ClinicRepository clinicRepository;
 
     @Test
     void whenFindClinicById_thenReturnClinic() {
         // Given
-        Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin();
-        Clinic clinic = new Clinic("Clinic1", "123 Main St", "Clinic1@org.com", "1234567890", "(555) 555-5555", clinicAdmin);
-        clinicAdmin.setAccount(account);
-        clinic.setAdmin(clinicAdmin);
+        Account account = Account.builder().
+                email("nursejane@clinic.com").
+                username("NurseJane1").
+                password("Healthcare456").
+                role(Role.CLINIC_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        clinicAdmin.setId(account.getId());
-        clinicAdminRepository.save(clinicAdmin);
-        clinic.setId(clinicAdmin.getId());
+        ClinicAdmin clinicAdmin = ClinicAdmin.builder().
+                account(account).
+                build();
+
+        Clinic clinic = Clinic.builder().
+                name("Clinic1").
+                address("123 Main St").
+                email("Clinic1@org.com").
+                mobilePhone("1234567890").
+                landlinePhone("(555) 555-5555").
+                admin(clinicAdmin).
+                build();
+
         clinicRepository.save(clinic);
-
 
         // When
         Clinic queriedClinic = null;
@@ -51,23 +54,32 @@ class ClinicRepositoryTest {
     @Test
     void whenFindClinicsByName_thenReturnClinics() {
         // Given
-        Account account = new Account("nursejane@clinic.com", "NurseJane1", "Healthcare456", Role.CLINIC_ADMIN);
-        ClinicAdmin clinicAdmin = new ClinicAdmin();
-        Clinic clinic = new Clinic("Clinic1", "123 Main St", "Clinic1@org.com", "1234567890", "(555) 555-5555", clinicAdmin);
-        clinicAdmin.setAccount(account);
-        clinic.setAdmin(clinicAdmin);
+        Account account = Account.builder().
+                email("nursejane@clinic.com").
+                username("NurseJane1").
+                password("Healthcare456").
+                role(Role.CLINIC_ADMIN).
+                build();
 
-        accountRepository.save(account);
-        clinicAdmin.setId(account.getId());
-        clinicAdminRepository.save(clinicAdmin);
-        clinic.setId(clinicAdmin.getId());
+        ClinicAdmin clinicAdmin = ClinicAdmin.builder().
+                account(account).
+                build();
+
+        Clinic clinic = Clinic.builder().
+                name("Clinic1").
+                address("123 Main St").
+                email("Clinic1@org.com").
+                mobilePhone("1234567890").
+                landlinePhone("(555) 555-5555").
+                admin(clinicAdmin).
+                build();
+
         clinicRepository.save(clinic);
-
 
         // When
         Clinic queriedClinic = null;
-        if (clinicRepository.findByName("Clinic1").isPresent())
-            queriedClinic = clinicRepository.findByName("Clinic1").get().get(0);
+        if (!clinicRepository.findByName("Clinic1").isEmpty())
+            queriedClinic = clinicRepository.findByName("Clinic1").get(0);
 
         // Then
         assertEquals(clinic, queriedClinic);

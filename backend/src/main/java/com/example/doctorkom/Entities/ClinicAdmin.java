@@ -1,39 +1,40 @@
 package com.example.doctorkom.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "ClinicAdmin")
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class ClinicAdmin {
     @Id
     @Column(name = "AccountId")
     private Integer id;
 
+    @MapsId
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AccountId")
     private Account account;
-
-    public ClinicAdmin(int id, Account account) {
-        this.id = id;
-        this.account = account;
+  
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        ClinicAdmin that = (ClinicAdmin) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ClinicAdmin clinicAdmin = (ClinicAdmin) o;
-        return id != null && Objects.equals(id, clinicAdmin.id);
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

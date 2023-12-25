@@ -4,15 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.example.doctorkom.Entities.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Services.Register_LogIn.LogInService;
 import com.example.doctorkom.Services.RepositoryHandler.EntityWrapper;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class LoginServiceTest {
 
     @Autowired
@@ -33,7 +36,13 @@ public class LoginServiceTest {
     public void invalidLoginPassword() {
         //Perform login with valid email or username but invalid password
         //Confirm an unsuccessful login
-        Account account = new Account("swe.test.patient2@gmail.com", "swe.test.patient2@gmail.com", "patient", null);
+        Account account = Account.builder().
+                email("swe.test.patient2@gmail.com").
+                username("swe.test.patient2@gmail.com").
+                password("patient").
+                role(Role.PATIENT).
+                build();
+
         assertNull(loginService.login(account));
     }
 
@@ -42,7 +51,14 @@ public class LoginServiceTest {
     {
         //Perform login with a valid email but another account's password
         //Confirm unsuccessful login
-        Account account = new Account("swe.test.system@gmail.com", "swe.test.system@gmail.com", "patient", null);
+        Account account = Account.builder().
+                email("swe.test.system@gmail.com").
+                username("swe.test.system@gmail.com").
+                password("patient").
+                role(Role.PATIENT).
+                build();
+
+
         assertNull(loginService.login(account));
     }
     

@@ -91,7 +91,7 @@ public class Notification {
         return htmlContent;
     }
 
-    public String VerifyEmailContent_ClinicAdmin(String code, String FormLink) {
+    public String VerifyEmailContent_ClinicAdmin(String code) {
         String htmlContent = "<html>"
                 + "<head>"
                 + "<style>"
@@ -106,8 +106,8 @@ public class Notification {
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear Clinic Admin,</p>"
-                + "    <p>Thank you for registering with our platform. To complete the account setup for your clinic, please enter this form.</p>"
-                + "    <p><a href='" + FormLink + "'>Clinic Information Form</a></p>"
+                + "    <p>Thank you for registering with our platform. To complete the account setup for your clinic, please login and fill the clinic information.</p>"
+                // + "    <p><a href='" + FormLink + "'>Clinic Information Form</a></p>"
                 + "    <p> then enter the verification code on the website to confirm your email and add clinic information.</p>"
                 + "    <p><strong>Verification Code: <u>" + code + "</u></strong></p>"
                 + "    <p>the code will expire in 24 hours</p>"
@@ -187,6 +187,27 @@ public class Notification {
                 + "    <p>Feel free to explore our platform and make the most of your experience. If you have any questions or need assistance, don't hesitate to contact us.</p>"
                 + "    <p>Best regards,</p>"
                 + "    <p>The Doctorkom Team</p>"
+                + "  </div>"
+                + "</body>"
+                + "</html>";
+        return htmlContent;
+    }
+
+    public String CustomContent(String content){
+        String htmlContent = "<html>"
+                + "<head>"
+                + "<style>"
+                + "  body { font-family: 'Arial', sans-serif; }"
+                + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+                + "  .content { padding: 20px; }"
+                + "</style>"
+                + "</head>"
+                + "<body>"
+                + "  <div class='header'>"
+                + "    <h2>New message from Doctorkom Admin</h2>"
+                + "  </div>"
+                + "  <div class='content'>"
+                + "    <p>"+content+"</p>"
                 + "  </div>"
                 + "</body>"
                 + "</html>";

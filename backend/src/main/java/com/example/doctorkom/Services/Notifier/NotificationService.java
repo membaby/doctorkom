@@ -50,11 +50,11 @@ public class NotificationService {
         notification.setContent(notification.VerifyEmailContent_PD(email, code));
         Send(notification);
     }
-    public void VerificationEmail_ClinicAdmin(String email,String code,String formlink) throws MessagingException {
+    public void VerificationEmail_ClinicAdmin(String email,String code) throws MessagingException {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject("Verification Email");
-        notification.setContent(notification.VerifyEmailContent_ClinicAdmin(code,formlink));
+        notification.setContent(notification.VerifyEmailContent_ClinicAdmin(code));
         Send(notification);
     }
     public void VerificationEmail_SystemAdmin(String email,String code,String formlink) throws MessagingException {
@@ -68,7 +68,7 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject(subject);
-        notification.setContent(content);
+        notification.setContent(notification.CustomContent(content));
         Send(notification);
     }
 

@@ -1,16 +1,17 @@
 package com.example.doctorkom.DTOs;
 
 import com.example.doctorkom.Entities.Gender;
+import lombok.Builder;
 import lombok.Value;
 
-import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * DTO for {@link com.example.doctorkom.Entities.SystemUser}
  */
 @Value
-public class SystemUserDTO implements Serializable {
+@Builder
+public class SystemUserDTO {
     Integer id;
     String firstName;
     String lastName;
