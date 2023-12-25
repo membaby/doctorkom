@@ -5,6 +5,8 @@ import com.example.doctorkom.DTOs.AppointmentDTO;
 import com.example.doctorkom.Entities.Appointment;
 import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Entities.Patient;
+import com.example.doctorkom.Exceptions.DoctorExceptions.DoctorNotFoundException;
+import com.example.doctorkom.Exceptions.PatientExceptions.PatientNotFoundException;
 import com.example.doctorkom.Repositories.AppointmentRepository;
 import com.example.doctorkom.Repositories.DoctorRepository;
 import com.example.doctorkom.Repositories.PatientRepository;
@@ -31,22 +33,20 @@ public class AppointmentService {
     }
 
     public Page<AppointmentDTO> getPatientAppointments(int patientId, int pageCount) {
+        if (patientRepository.findById(patientId).isPresent())
+            throw new PatientNotFoundException();
         Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
-        if (patientRepository.findById(patientId).isPresent()) {
-            Patient patient = patientRepository.findById(patientId).get();
-            Page<Appointment> appointments = appointmentRepository.findAllByPatient(patient, pageable);
-            return appointments.map(appointmentMapper::toDto);
-        }
-        return null;
+        Patient patient = patientRepository.findById(patientId).get();
+        Page<Appointment> appointments = appointmentRepository.findAllByPatient(patient, pageable);
+        return appointments.map(appointmentMapper::toDto);
     }
 
     public Page<AppointmentDTO> getDoctorAppointments(int doctorId, int pageCount) {
+        if (doctorRepository.findById(doctorId).isEmpty())
+            throw new DoctorNotFoundException();
+        Doctor doctor = doctorRepository.findById(doctorId).get();
         Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
-        if (doctorRepository.findById(doctorId).isPresent()) {
-            Doctor doctor = doctorRepository.findById(doctorId).get();
-            Page<Appointment> appointments = appointmentRepository.findAllByTimeSlotDoctor(doctor, pageable);
-            return appointments.map(appointmentMapper::toDto);
-        }
-        return null;
+        Page<Appointment> appointments = appointmentRepository.findAllByTimeSlotDoctor(doctor, pageable);
+        return appointments.map(appointmentMapper::toDto);
     }
 }
