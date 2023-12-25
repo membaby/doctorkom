@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.doctorkom.Controllers.SignupController.SignupResponse;
 import com.example.doctorkom.DTOMappers.AccountMapper;
 import com.example.doctorkom.DTOs.AccountDTO;
 import com.example.doctorkom.DTOs.AdminMessageDTO;
@@ -38,9 +39,10 @@ public class AdminController {
 
 
     @PostMapping("/create-admin")
-    public String createAdmin(@RequestBody AccountDTO accountDTO)
+    public SignupResponse createAdmin(@RequestBody AccountDTO accountDTO)
     {
-        return regisService.registerSystemAdmin(SystemAdmin.builder().account(accountMapper.toEntity(accountDTO)).build());
+        String msg = regisService.registerSystemAdmin(SystemAdmin.builder().account(accountMapper.toEntity(accountDTO)).build());
+        return new SignupResponse(msg, msg.isEmpty());
     }
     
 
