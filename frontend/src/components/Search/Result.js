@@ -77,7 +77,7 @@ export default function Result( { details } ) {
 
                 <div className="col-auto mx-1">
                     <div className="result-buttons">
-                        <button className="result-button result-button-primary">Visit Page</button>
+                        <a href={`/doctor/${details.systemUser.account.username}`}><button className="result-button result-button-primary">Visit Page</button></a>
                         <button className="result-button result-button-secondary">Book</button>
                         <button className="result-button result-button-tertiary">Contact</button>
                     </div>

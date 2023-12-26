@@ -7,3 +7,9 @@ html, body {
   color: rgb(36, 44, 60);
   /* overflow-y: hidden; */
 }
+
+.verticalcenter {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
