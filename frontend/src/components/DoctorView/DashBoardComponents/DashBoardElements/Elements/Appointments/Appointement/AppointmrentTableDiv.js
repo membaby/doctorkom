@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function AppointmentTableDiv(appointment){
+export default function AppointmentTableDiv({appointment}){
     const { timeSlot, patient } = appointment;
 
     const { clinic, date, startTime, endTime } = timeSlot;
@@ -24,19 +24,13 @@ export default function AppointmentTableDiv(appointment){
                 marginTop: '5px'
             }}
         >
-            <div className="w-100">
-                <h6 className="mb-0">{clinic.name}</h6>
-                <p className="mb-0 opacity-75">Patient: {firstName} {lastName}</p>
-                <div className="d-flex justify-content-between">
-                    <div>
-                        <p className="mb-0">Start Time: {startTime}</p>
-                    </div>
-                    <div>
-                        <p className="mb-0">End Time: {endTime}</p>
-                    </div>
-                    <div>
-                        <p className="mb-0">Duration: {durationInMinutes} minutes</p>
-                    </div>
+            <div className="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 className="mb-0">{clinic.name}</h6>
+                    <p className="mb-0">Patient: {firstName} {lastName}</p>
+                    <p className="mb-0">Start Time: {startTime}</p>
+                    <p className="mb-0">End Time: {endTime}</p>
+                    <p className="mb-0">Duration: {durationInMinutes} minutes</p>
                 </div>
             </div>
         </a>

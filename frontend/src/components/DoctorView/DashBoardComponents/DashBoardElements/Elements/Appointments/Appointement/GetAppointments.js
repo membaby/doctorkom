@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Appointment from "./AppointmentClass";
 import TimeSlot from "../../TimeSlots/TimeSlot/TimeSlotClass.js";
 
-export default function GetAppointments(props) {
+export default function GetAppointments() {
     const clinic1 = {
         id: 1,
         name: "Clinic A",

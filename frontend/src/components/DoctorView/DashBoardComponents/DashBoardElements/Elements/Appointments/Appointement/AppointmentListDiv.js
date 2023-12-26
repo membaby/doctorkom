@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function AppointmentListDiv(appointment) {
+export default function AppointmentListDiv({appointment}) {
     const { timeSlot, patient } = appointment;
 
     const { clinic, date, startTime, endTime } = timeSlot;
