@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.doctorkom.Controllers.SignupController.SignupResponse;
+import com.example.doctorkom.Controllers.SignupController.BoolMessage;
 import com.example.doctorkom.DTOMappers.AccountMapper;
 import com.example.doctorkom.DTOs.AccountDTO;
 import com.example.doctorkom.DTOs.AdminMessageDTO;
@@ -44,17 +44,17 @@ public class AdminController {
     }
 
     @PostMapping("/createClinic")
-    public SignupResponse createClinic(@RequestBody AccountDTO account) {
+    public BoolMessage createClinic(@RequestBody AccountDTO account) {
         String msg = registrationService.registerClinicAdmin(accountMapper.toEntity(account));
         
-        return new SignupResponse(msg, msg.isEmpty());
+        return new BoolMessage(msg, msg.isEmpty());
     }
 
     @PostMapping("/removeClinic")
-    public SignupResponse removeClinic(@RequestBody String accountEmail) {
+    public BoolMessage removeClinic(@RequestBody String accountEmail) {
         String msg = clinicManagementService.removeClinic(accountEmail);
         
-        return new SignupResponse(msg, msg.isEmpty());
+        return new BoolMessage(msg, msg.isEmpty());
     }
     
     

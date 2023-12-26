@@ -6,7 +6,6 @@ import com.example.doctorkom.DTOs.DoctorDTO;
 import com.example.doctorkom.DTOs.PatientDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
 import com.example.doctorkom.Entities.Doctor;
@@ -23,24 +22,24 @@ public class SignupController {
 	RegistrationService registrationService;
 	
 	@PostMapping("/patient")
-	public SignupResponse patientSignup(@RequestBody PatientDTO patientDTO) {
+	public BoolMessage patientSignup(@RequestBody PatientDTO patientDTO) {
 		System.out.println("trying to signup");
 		//Create Patient entity
 		Patient patient = patientMapper.toEntity(patientDTO);
 		//Call bussiness logic to register patient
 		String msg = registrationService.registerPatient(patient);
-		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
+		BoolMessage response = new BoolMessage(msg, msg.isEmpty());
 		return response;
 	}
 
 	@PostMapping("/doctor")
-	public SignupResponse doctorSignup(@RequestBody DoctorDTO doctorDTO)
+	public BoolMessage doctorSignup(@RequestBody DoctorDTO doctorDTO)
 	{
 		//Create doctor entity.
 		Doctor doctor = doctorMapper.toEntity(doctorDTO);
 		//Call bussiness logic to register patient
 		String msg = registrationService.registerDoctor(doctor);
-		SignupResponse response = new SignupResponse(msg, msg.isEmpty());
+		BoolMessage response = new BoolMessage(msg, msg.isEmpty());
 		return response;
 	}
 }
