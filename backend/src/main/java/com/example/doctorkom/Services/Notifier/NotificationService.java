@@ -61,7 +61,7 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject("Verification Email");
-        notification.setContent(notification.VerifyEmailContent_SystemAdmin(code));
+        notification.setContent(notification.VerifyEmailContent_SystemAdmin(email, code));
         Send(notification);
     }
     public void CustomEmail(String email, String subject, String content) throws MessagingException {
