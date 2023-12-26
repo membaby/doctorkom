@@ -6,7 +6,6 @@ import com.example.doctorkom.Entities.DoctorSpecialty;
 import com.example.doctorkom.Entities.DoctorTitle;
 import com.example.doctorkom.EntitySearch.SearchFilter;
 import com.example.doctorkom.EntitySearch.SearchSpecification;
-import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Services.ClinicServices.ClinicService;
 import com.example.doctorkom.Services.EntityServices.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
