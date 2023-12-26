@@ -27,7 +27,7 @@ public class Notification {
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear user,</p>"
-                + "    <p>Thank you for signing up! Please verify your account by visiting <a href='http://localhost:3000/verification'>this link</a>.</p>"
+                + "    <p>Thank you for signing up! Please verify your account by visiting <a href='http://localhost:3000/verification?email="+email+"'>this link</a>.</p>"
                 + "    <p>Your verification code is "+code+"</p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
@@ -91,7 +91,7 @@ public class Notification {
         return htmlContent;
     }
 
-    public String VerifyEmailContent_ClinicAdmin(String code) {
+    public String VerifyEmailContent_ClinicAdmin(String email, String code) {
         String htmlContent = "<html>"
                 + "<head>"
                 + "<style>"
@@ -107,7 +107,7 @@ public class Notification {
                 + "  <div class='content'>"
                 + "    <p>Dear Clinic Admin,</p>"
                 + "    <p>Thank you for registering with our platform.</p>"
-                + "    <p>Please visit <a href='http://localhost:3000/verification'>this link</a> and enter the verification code on verify your email.</p>"
+                + "    <p>Please visit <a href='http://localhost:3000/verification?email="+email+"'>this link</a> and enter the verification code on verify your email.</p>"
                 + "    <p><strong>Verification Code: <u>" + code + "</u></strong></p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
