@@ -1,4 +1,4 @@
-package com.example.doctorkom.Controllers.AdminController;
+package com.example.doctorkom.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
