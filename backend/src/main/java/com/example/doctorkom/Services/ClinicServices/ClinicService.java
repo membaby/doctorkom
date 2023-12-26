@@ -30,7 +30,7 @@ public class ClinicService {
     private ClinicMapper clinicMapper;
 
     @Autowired
-    public void ClinicService(ClinicRepository clinicRepository,
+    public ClinicService(ClinicRepository clinicRepository,
                               DoctorRepository doctorRepository,
                               TimeSlotRepository timeSlotRepository,
                               AppointmentRepository appointmentRepository,
