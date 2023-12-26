@@ -1,6 +1,5 @@
 package com.example.doctorkom.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,17 +13,26 @@ import com.example.doctorkom.Services.Notifier.NotificationService;
 import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
     NotificationService notificationService;
-    @Autowired
     RegistrationService regisService;
-    @Autowired
     AccountMapper accountMapper;
+
+    public AdminController(
+        NotificationService notificationService, 
+        RegistrationService regisService, 
+        AccountMapper accountMapper) {
+        this.notificationService = notificationService;
+        this.regisService = regisService;
+        this.accountMapper = accountMapper;
+    }
 
     @PostMapping("/sendAdminMessage")
     public String sendAdminMessage(@RequestBody AdminMessageDTO adminMessageDTO) {
@@ -38,7 +46,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/create-admin")
+    @PostMapping("/createAdmin")
     public SignupResponse createAdmin(@RequestBody AccountDTO accountDTO)
     {
         String msg = regisService.registerSystemAdmin(SystemAdmin.builder().account(accountMapper.toEntity(accountDTO)).build());
