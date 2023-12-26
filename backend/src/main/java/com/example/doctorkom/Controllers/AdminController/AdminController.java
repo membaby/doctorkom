@@ -1,7 +1,6 @@
-package com.example.doctorkom.Controllers;
+package com.example.doctorkom.Controllers.AdminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
@@ -10,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.doctorkom.Controllers.SignupController.BoolMessage;
 import com.example.doctorkom.DTOMappers.AccountMapper;
-import com.example.doctorkom.DTOs.AccountDTO;
+import com.example.doctorkom.DTOMappers.ClinicMapper;
 import com.example.doctorkom.DTOs.AdminMessageDTO;
+import com.example.doctorkom.DTOs.ClinicAccountInfo;
 import com.example.doctorkom.Services.AdminTools.ClinicManagementService;
 import com.example.doctorkom.Services.Notifier.NotificationService;
 import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
@@ -30,6 +30,8 @@ public class AdminController {
     ClinicManagementService clinicManagementService;
     @Autowired
     AccountMapper accountMapper;
+    @Autowired
+    ClinicMapper clinicMapper;
 
 
     @PostMapping("/sendAdminMessage")
@@ -44,20 +46,18 @@ public class AdminController {
     }
 
     @PostMapping("/createClinic")
-    public BoolMessage createClinic(@RequestBody AccountDTO account) {
-        String msg = registrationService.registerClinicAdmin(accountMapper.toEntity(account));
-        
+    public BoolMessage createClinic(@RequestBody ClinicAccountInfo clinicInfo) {
+        String msg = registrationService.registerClinic(clinicMapper.toEntity(clinicInfo.getClinic()), accountMapper.toEntity(clinicInfo.getAccount()));
         return new BoolMessage(msg, msg.isEmpty());
     }
 
     @PostMapping("/removeClinic")
     public BoolMessage removeClinic(@RequestBody String accountEmail) {
         String msg = clinicManagementService.removeClinic(accountEmail);
-        
         return new BoolMessage(msg, msg.isEmpty());
     }
     
-    
-
 }
+
+
 

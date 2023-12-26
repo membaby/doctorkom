@@ -119,7 +119,7 @@ public class RegistrationService {
         }
     }
 
-    public String registerClinicAdmin(Account account) {
+    public String registerClinic(Clinic clinic, Account account) {
         //check if the user exists
         boolean emailExists = accountRepository.existsByEmail(account.getEmail());
         boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
@@ -130,9 +130,9 @@ public class RegistrationService {
         if (usernameExists) {
             return USERNAME_EXISTS;
         }
+        account.setRole(Role.CLINIC_ADMIN);
         ClinicAdmin clinicAdmin = new ClinicAdmin();
         clinicAdmin.setAccount(account);
-        Clinic clinic = buildDefaultClinic();
         clinic.setAdmin(clinicAdmin);
         clinicRepository.save(clinic);
         //store verification code and account in database
@@ -246,14 +246,4 @@ public class RegistrationService {
         return String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
     }
 
-    private Clinic buildDefaultClinic()
-    {
-        Clinic clinic = new Clinic();
-        clinic.setName("None");
-        clinic.setAddress("None");
-        clinic.setEmail("None");
-        clinic.setLandlinePhone("None");
-        clinic.setMobilePhone("None");
-        return clinic;
-    }
 }
