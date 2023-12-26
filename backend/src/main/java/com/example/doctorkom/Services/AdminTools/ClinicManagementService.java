@@ -9,7 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.example.doctorkom.Entities.Account;
 import com.example.doctorkom.Entities.Clinic;
+import com.example.doctorkom.Entities.Role;
+import com.example.doctorkom.Repositories.AccountRepository;
 import com.example.doctorkom.Repositories.ClinicRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,32 +21,28 @@ import jakarta.transaction.Transactional;
 public class ClinicManagementService {
     
     @Autowired
+    AccountRepository accountRepository;
+    @Autowired
     ClinicRepository clinicRepo;
-    public final String CREATE_SUCCESS = "Clinic created successfully";
-    public final String CONTACT_EMAIL_EXISTS = "This contact email is already used"; 
-    public final String REMOVE_SUCCESS = "Clinic removed successfully";
-    public final String NOT_FOUND = "Clinic removed successfully";
 
-    public String createClinic(Clinic clinic) {
-       if( clinicRepo.findByEmail(clinic.getEmail()) == null) {
-           clinicRepo.save(clinic);
-           return CREATE_SUCCESS;
-       }
-       else{
-           return CONTACT_EMAIL_EXISTS;
-       }
-    }
+    public final String REMOVE_SUCCESS = "Clinic removed successfully";
+    public final String NON_EXISTANT = "No clinic exists with this account email";
 
 
     @Transactional
-    public String removeClinic(Clinic clinic) {
-        Optional<Clinic> existingClinic = clinicRepo.findByEmail(clinic.getEmail());
-        if (existingClinic.isPresent()) {
-            clinicRepo.deleteByEmail(existingClinic.get().getEmail());
-            return REMOVE_SUCCESS;
-        } else {
-            return NOT_FOUND;
+    public String removeClinic(String accountEmail) 
+    {
+        Optional<Account> existingAccount = accountRepository.findByEmail(accountEmail);
+        if (existingAccount.isEmpty() || existingAccount.get().getRole() != Role.CLINIC_ADMIN)
+        {
+            return NON_EXISTANT;
         }
+        else
+        {
+            accountRepository.deleteById(existingAccount.get().getId());
+            return REMOVE_SUCCESS;
+        }
+        
     }
 
     public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
