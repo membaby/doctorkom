@@ -27,7 +27,7 @@ public class Notification {
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear user,</p>"
-                + "    <p>Thank you for signing up! Please verify your account by visiting localhost:3000/verification.</p>"
+                + "    <p>Thank you for signing up! Please verify your account by visiting <a href='http://localhost:3000/verification'>this link</a>.</p>"
                 + "    <p>Your verification code is "+code+"</p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
