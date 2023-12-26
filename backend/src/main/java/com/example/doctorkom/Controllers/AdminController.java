@@ -17,9 +17,11 @@ import com.example.doctorkom.Services.Notifier.NotificationService;
 import com.example.doctorkom.Services.Register_LogIn.RegistrationService;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
