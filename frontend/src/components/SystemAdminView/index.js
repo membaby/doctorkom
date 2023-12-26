@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import hashString from '../../functions/hashString';
+import secureLocalStorage from "react-secure-storage";
 
 export default function AdminHomePage() {
+
+    useEffect(() => {
+        const role = secureLocalStorage.getItem('role');
+        const id = secureLocalStorage.getItem('id');
+        const username = secureLocalStorage.getItem('username');
+        
+        if (!role || !id || !username || role !== 'SYSTEM_ADMIN') {
+          window.location.href = '/';
+        }
+    }, [])
+
 
     const createClinic = () => {
         const name = document.getElementById('clinicName').value;
