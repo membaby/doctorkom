@@ -7,7 +7,7 @@ export default function AppointmentsList(props) {
 
   return (
     <div className="list-group" style={{ maxHeight: "400px", overflowY: "scroll", border: '1px solid rgb(36, 44, 60)', borderRadius: '0.25rem' }}>
-      {appointmentsList}
+      
     </div>
   );
 }

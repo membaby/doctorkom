@@ -1,6 +1,4 @@
-import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AppointmentDiv from "./AppointmentDiv";
 import Appointment from "./AppointmentClass";
 import TimeSlot from "../../TimeSlots/TimeSlot/TimeSlotClass.js";
 
@@ -79,16 +77,5 @@ export default function GetAppointments(props) {
 
   const appointments = [appointment1, appointment2, appointment3];
 
-  return (
-    <div className="list-group">
-      {appointments.map((appointment, index) => (
-        <div key={index}>
-          <AppointmentDiv
-            timeSlot={appointment.timeSlot}
-            patient={appointment.patient}
-          />
-        </div>
-      ))}
-    </div>
-  );
+  return appointments;  
 }

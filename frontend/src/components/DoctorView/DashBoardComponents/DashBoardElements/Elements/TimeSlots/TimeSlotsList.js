@@ -1,13 +1,20 @@
+// TimeSlotsList.js
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetTimeSlots from './TimeSlot/GetTimeSlots.js';
+import TimeSlotListDiv from "./TimeSlot/TimeSlotListDiv.js";
+import TimeSlotsTable from "./TimeSlotsTable.js";
 import './TimeSlotsList.css';
 
-export default function TimeSlotsList(props) {
-  const timeSlotsList = GetTimeSlots();
+export default function TimeSlotsList() {
+  const timeSlotsListObjects = GetTimeSlots();
+  const timeSlotsList = timeSlotsListObjects.map((timeSlot) => (
+    <TimeSlotListDiv timeSlot={timeSlot} />
+  ));
+
   const itemsPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
-  const [isTableView, setIsTableView] = useState(false); // State for tracking view mode
+  const [isTableView, setIsTableView] = useState(false);
 
   const totalPageCount = Math.ceil(timeSlotsList.length / itemsPerPage);
 
@@ -35,17 +42,15 @@ export default function TimeSlotsList(props) {
         </button>
       </div>
       {isTableView ? (
-        <div className="myTable">
-          {/* Render your table here */}
-        </div>
+        <TimeSlotsTable timeSlotsListObjects={timeSlotsListObjects} />
       ) : (
         <div className="list-group myContainer">
           {visibleTimeSlots}
           <div className="d-flex justify-content-between mt-3">
-            <button className="btn btn-primary" onClick={handlePrev} disabled={currentPage === 1}>
+            <button className="btn buttonColored" onClick={handlePrev} disabled={currentPage === 1}>
               Previous
             </button>
-            <button className="btn btn-primary" onClick={handleNext} disabled={currentPage === totalPageCount}>
+            <button className="btn buttonColored" onClick={handleNext} disabled={currentPage === totalPageCount}>
               Next
             </button>
           </div>

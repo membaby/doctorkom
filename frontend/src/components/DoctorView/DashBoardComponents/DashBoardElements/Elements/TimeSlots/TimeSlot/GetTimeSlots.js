@@ -1,6 +1,4 @@
-import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TimeSlotDiv from "./TimeSlotDiv";
 import TimeSlot from "./TimeSlotClass";
 
 
@@ -91,7 +89,7 @@ export default function GetTimeSlots(props) {
     },
   };
 
-  const timeSlot2 = new TimeSlot(clinic2, doctor2, "2023-05-02", "11:00", "12:30", true);
+  const timeSlot2 = new TimeSlot(clinic2, doctor2, "2023-05-01", "11:00", "12:30", true);
 
   const clinic3 = {
     id: 3,
@@ -138,14 +136,5 @@ export default function GetTimeSlots(props) {
   const timeSlot3 = new TimeSlot(clinic3, doctor3, "2023-05-03", "14:00", "15:30", false);
 
   const timeSlots  = [timeSlot1,timeSlot2,timeSlot3];
-  return timeSlots.map((timeSlot, index) => (
-    <div key={index}>
-      <TimeSlotDiv
-        clinic={timeSlot.clinic}
-        date={timeSlot.date}
-        startTime={timeSlot.startTime}
-        endTime={timeSlot.endTime}
-      />
-    </div>
-  ));
+  return timeSlots;
 }
