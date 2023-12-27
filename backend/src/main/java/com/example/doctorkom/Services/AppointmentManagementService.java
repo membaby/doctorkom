@@ -50,7 +50,7 @@ public class AppointmentManagementService {
 
         //Check if doctor timeslot is reserved (has appointment at the same timeslot)
         
-        if(timeSlot.getReserved())
+        if(existingTimeSlot.get().getReserved())
         return DOCTOR_BUSY;
         
         //Check if patient has already booked an appointment for this time slot
@@ -61,10 +61,10 @@ public class AppointmentManagementService {
 
         Appointment appointment = new Appointment();
         appointment.setPatient(patient.get());
-        appointment.setTimeSlot(timeSlot);
+        appointment.setTimeSlot(existingTimeSlot.get());
         appointmentRepository.save(appointment);
-        timeSlot.setReserved(true);
-        timeSlotRepository.save(timeSlot);
+        existingTimeSlot.get().setReserved(true);
+        timeSlotRepository.save(existingTimeSlot.get());
         //Notify patient of appointment booking
         return "";
     }
