@@ -4,7 +4,8 @@ import ClinicsList from "./ClinicsList.js";
 const clinics = {
     name: "Clinics",
     description: "check clinicks you are working in",
-    div : ClinicsList({}) 
+    div : <ClinicsList/>,
+    id: "clinics"
 }
 //return a DashElement component with props
 export default function Clinics() {

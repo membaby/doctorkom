@@ -8,6 +8,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 export default function DashElement(props) {
     const [isVisible, setIsVisible] = useState(false);
     const contentRef = useRef(null);
+    const id = props.id;
 
     useEffect(() => {
         if (contentRef.current) {
@@ -20,7 +21,7 @@ export default function DashElement(props) {
     };
 
     return (
-        <div className={`container myContainer ${isVisible ? 'expanded' : ''}`}>
+        <div className={`container myContainer ${isVisible ? 'expanded' : ''}`} id={id}>
             <div className="d-flex justify-content-between list-group-item rounded-3 py-3 noBorder">
                 <div className="mb-0 biggerThickerText">
                     {props.name}
@@ -30,7 +31,9 @@ export default function DashElement(props) {
                     {isVisible ? 'Hide' : 'Show'} <i className={`bi bi-caret-${isVisible ? 'up' : 'down'}-fill arrow-down`}></i>
                 </button>
             </div>
-            <div ref={contentRef} className={`content ${isVisible ? 'visible' : ''}`}>{props.div}</div>
+            <div ref={contentRef} className={`content list__height ${isVisible ? 'visible' : ''}`}  >
+                {props.div}
+            </div>
         </div>
     );
 }

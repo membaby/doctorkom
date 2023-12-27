@@ -5,7 +5,8 @@ import TimeSlotsList from "./TimeSlotsList.js";
 const timeSlots = {
     name: "Working Schedule",
     description: "check your time slots available for booking",
-    div : <TimeSlotsList />
+    div : <TimeSlotsList />,
+    id: "timeSlots"
 }
 //return a DashElement component with props
 export default function TimeSlots() {

@@ -39,3 +39,8 @@
 .content.visible {
   max-height: 1000px; /* Adjust to a sufficiently large value */
 }
+
+.list__height {
+  /* max-height: fit-content !important; */
+  overflow-y: auto;
+}
