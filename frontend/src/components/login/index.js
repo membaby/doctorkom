@@ -140,34 +140,38 @@ const Login = () => {
 
 	return (
 		<>
-    <div className="container">
-      <div className="card mx-auto mt-5" style={{ width: '400px', height: '500px' }}>
-        <div className="card-body d-flex flex-column align-items-center justify-content-center">
-          <h2 className="card-title text-center mb-4">Login</h2>
+    <div className="grayBackground">
+        <div className="container vh-100 d-flex align-items-center justify-content-center">
+          <div className="panelCard">
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <img src="/images/user.png" width="100px" />
+              <h2 className="card-title text-center mb-4 mt-3">Login</h2>
 
-          <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
+              <div className="alert alert-primary" role="alert" id="display" style={{ display: 'none' }}></div>
 
-          <form className="w-100" onSubmit={(e) => e.preventDefault()}>
+              <form className="w-100" onSubmit={(e) => e.preventDefault()}>
 
-            <div className="mb-3">
-              <label className="form-label">Username</label>
-              <input type="text" className="form-control" onChange={(e) => setUsername(e.target.value)} />
+                <div className="mb-3">
+                  <label className="form-label">Username</label>
+                  <input type="text" className="form-control" onChange={(e) => setUsername(e.target.value)} />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Password</label>
+                  <input type="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
+                </div>
+
+                <div className="d-grid d-flex justify-content-center">
+                  <button className="custom-button custom-button-primary w-100 mx-1" onClick={()=>handleLogin()}>Login</button>
+                  <div className="d-flex align-items-center justify-content-center mx-2">OR</div>
+                  <button className="custom-button custom-button-tertiary w-100 mx-1" onClick={()=>{googleLogin()}} >Login with Google</button>
+                </div>
+
+                <div className="mt-3 clickable text-primary" onClick={forgotPassword}>Forgot Password?</div>
+              </form>
             </div>
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <input type="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
-            </div>
-
-            <div className="d-grid d-flex justify-content-center">
-              <button className="btn btn-success w-100 mx-1" onClick={()=>handleLogin()}>Login</button>
-              <button className="btn btn-danger w-100 mx-1" onClick={()=>{googleLogin()}} >Login with Google</button>
-            </div>
-
-            <div className="mt-3 clickable text-primary" onClick={forgotPassword}>Forgot Password?</div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
 		</>
   	);
 };
