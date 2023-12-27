@@ -109,7 +109,41 @@ export default function AdminHomePage() {
     }
 
     const inviteAdmin = () => {
-        showError("(demo) Admin invitation successfully sent.");
+        const emailAddress = document.getElementById('AdminEmail').value;
+        const password = document.getElementById('AdminPassword').value;
+
+        if (!emailAddress || !password) {
+            showError('Please fill all the fields');
+            return;
+        }
+
+        const data = {
+            email: emailAddress,
+            username: emailAddress.split('@')[0],
+            password: hashString(password),
+            role: "SYSTEM_ADMIN"
+        }
+    
+        showError("Creating account.. Please wait!");
+        fetch('http://localhost:8080/admin/createAdmin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.text())
+            .then(response => {
+                if (response.success) {
+                    showError("Admin invited successfully!");
+                } else {
+                    showError(response.msg);
+                }
+            })
+            .catch((error) => {
+                showError('Internal Server Error occured. Please try again later.')
+            }
+        );
     }
 
     const deactiveUser = () => {
@@ -203,14 +237,9 @@ export default function AdminHomePage() {
                         </div>
                         <div class="card p-3 mt-3">
                             <h6>Invite New Admin</h6>
-                            <div class="row">
-                                <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="User Email Address"/>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-warning  w-100" onClick={inviteAdmin}>Invite</button>
-                                </div>
-                            </div>
+                            <input type="email" class="form-control" placeholder="User Email Address" id="AdminEmail" />
+                            <input type="password" class="form-control mt-1" placeholder="Password" id="AdminPassword"/>
+                            <button class="btn btn-warning mt-2 w-100" onClick={inviteAdmin}>Invite</button>
                         </div>
                         <div class="card p-3 mt-3">
                             <h6>Deactive User Account</h6>
