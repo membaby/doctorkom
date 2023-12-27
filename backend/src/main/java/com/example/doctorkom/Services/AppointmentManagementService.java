@@ -12,7 +12,6 @@ import com.example.doctorkom.Entities.TimeSlotId;
 import com.example.doctorkom.Repositories.AppointmentRepository;
 import com.example.doctorkom.Repositories.PatientRepository;
 import com.example.doctorkom.Repositories.TimeSlotRepository;
-import java.util.List;
 import java.util.Optional;
 
 @Service
