@@ -63,6 +63,8 @@ public class AppointmentManagementService {
         appointment.setPatient(patient.get());
         appointment.setTimeSlot(timeSlot);
         appointmentRepository.save(appointment);
+        timeSlot.setReserved(true);
+        timeSlotRepository.save(timeSlot);
         //Notify patient of appointment booking
         return "";
     }
