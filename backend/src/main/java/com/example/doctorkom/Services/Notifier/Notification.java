@@ -1,5 +1,8 @@
 package com.example.doctorkom.Services.Notifier;
 
+import com.example.doctorkom.Entities.Appointment;
+import com.example.doctorkom.Entities.Patient;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -211,6 +214,90 @@ public class Notification {
                 + "  </div>"
                 + "</body>"
                 + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentRescheduledContent_Patient(Appointment oldApp, Appointment newApp) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ oldApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() + " has been rescheduled to "+ newApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() +".</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentCancelledContent_Patient(Appointment appointment) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ appointment.getTimeSlot().getDate() +" "+ appointment.getTimeSlot().getStartTime() + " has been cancelled.</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentRescheduledContent_Doctor(Appointment oldApp, Appointment newApp) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ oldApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() + " has been rescheduled to "+ newApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() +".</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentCancelledContent_Doctor(Appointment appointment) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ appointment.getTimeSlot().getDate() +" "+ appointment.getTimeSlot().getStartTime() + " has been cancelled.</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
         return htmlContent;
     }
 }
