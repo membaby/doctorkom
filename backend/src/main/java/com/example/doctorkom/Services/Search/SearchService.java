@@ -1,12 +1,11 @@
 package com.example.doctorkom.Services.Search;
 
-import com.example.doctorkom.Entities.Clinic;
-import com.example.doctorkom.Entities.Doctor;
+import com.example.doctorkom.DTOs.ClinicDTO;
+import com.example.doctorkom.DTOs.DoctorDTO;
 import com.example.doctorkom.Entities.DoctorSpecialty;
 import com.example.doctorkom.Entities.DoctorTitle;
 import com.example.doctorkom.EntitySearch.SearchFilter;
 import com.example.doctorkom.EntitySearch.SearchSpecification;
-import com.example.doctorkom.Repositories.ClinicRepository;
 import com.example.doctorkom.Services.ClinicServices.ClinicService;
 import com.example.doctorkom.Services.EntityServices.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,15 @@ public class SearchService {
     //     this.clinicService = clinicService;
     // }
 
-    public Page<Doctor> searchDoctors(Map<String, String> searchParams, int pageCount) {
+    public Page<DoctorDTO> searchDoctors(Map<String, String> searchParams, int pageCount) {
         return doctorService.findAllDoctors(createSearchSpecification(searchParams), pageCount);
     }
 
-    public Page<Clinic> searchClinics(Map<String, String> searchParams, int pageCount) {
+    public Page<ClinicDTO> searchClinics(Map<String, String> searchParams, int pageCount) {
         return clinicService.findAllClinics(createSearchSpecification(searchParams), pageCount);
     }
 
-    public Page<Doctor> searchDoctorsByDoctorAndClinic(Map<String, String> searchParams, int pageCount) {
+    public Page<DoctorDTO> searchDoctorsByDoctorAndClinic(Map<String, String> searchParams, int pageCount) {
         return doctorService.findAllDoctors(searchParams.get("name"), searchParams.get("city"),
                 searchParams.get("specialty") != null?DoctorSpecialty.valueOf(searchParams.get("specialty")):null,
                 searchParams.get("title") != null?DoctorTitle.valueOf(searchParams.get("title")):null, pageCount);
