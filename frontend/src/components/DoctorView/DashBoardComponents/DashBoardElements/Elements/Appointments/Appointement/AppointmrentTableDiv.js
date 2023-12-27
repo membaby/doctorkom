@@ -27,10 +27,10 @@ export default function AppointmentTableDiv({appointment}){
             <div className="d-flex gap-2 w-100 justify-content-between">
                 <div>
                     <h6 className="mb-0">{clinic.name}</h6>
-                    <p className="mb-0">Patient: {firstName} {lastName}</p>
-                    <p className="mb-0">Start Time: {startTime}</p>
-                    <p className="mb-0">End Time: {endTime}</p>
-                    <p className="mb-0">Duration: {durationInMinutes} minutes</p>
+                    <p className="mb-0">{firstName} {lastName}</p>
+                    <p className="mb-0">From: {startTime}</p>
+                    <p className="mb-0">To: {endTime}</p>
+                    <p className="mb-0">{durationInMinutes} minutes</p>
                 </div>
             </div>
         </a>

@@ -11,7 +11,7 @@ export default function AppointmentsList() {
     <AppointmentListDiv appointment={appointment} />
   ));
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [isTableView, setIsTableView] = useState(false);
 

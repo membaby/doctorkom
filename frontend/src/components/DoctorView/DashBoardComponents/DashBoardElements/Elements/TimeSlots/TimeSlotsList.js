@@ -12,7 +12,7 @@ export default function TimeSlotsList() {
     <TimeSlotListDiv timeSlot={timeSlot} />
   ));
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [isTableView, setIsTableView] = useState(false);
 

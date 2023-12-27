@@ -23,8 +23,10 @@ export default function TimeSlotListDiv({timeSlot}) {
             }}
         >
             <div className="w-100">
-                <h6 className="mb-0">{clinic.name}</h6>
-                <div className="mb-0">{day}, {date}</div>
+                <div className="d-flex justify-content-between">
+                    <h6 className="mb-0">{clinic.name}</h6>
+                    <div className="mb-0">{day}, {date}</div>
+                </div>
                 <div className="d-flex justify-content-between">
                     <div>
                         <p className="mb-0">Start Time: {startTime}</p>
