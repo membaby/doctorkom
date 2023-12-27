@@ -41,6 +41,5 @@
 }
 
 .list__height {
-  /* max-height: fit-content !important; */
-  overflow-y: auto;
+  max-height: max-content !important;
 }

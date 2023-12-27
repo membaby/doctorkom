@@ -7,17 +7,20 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function DashElement(props) {
     const [isVisible, setIsVisible] = useState(false);
+    const [isListHeight, setIsListHeight] = useState(false); // Added state for list__height
     const contentRef = useRef(null);
     const id = props.id;
 
     useEffect(() => {
         if (contentRef.current) {
+            contentRef.current.classList.toggle('list__height', isListHeight); // Toggle list__height class
             contentRef.current.style.maxHeight = isVisible ? `${contentRef.current.scrollHeight}px` : '0';
         }
-    }, [isVisible]);
+    }, [isVisible, isListHeight]);
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
+        setIsListHeight(!isListHeight); // Toggle isListHeight state
     };
 
     return (
@@ -31,7 +34,7 @@ export default function DashElement(props) {
                     {isVisible ? 'Hide' : 'Show'} <i className={`bi bi-caret-${isVisible ? 'up' : 'down'}-fill arrow-down`}></i>
                 </button>
             </div>
-            <div ref={contentRef} className={`content list__height ${isVisible ? 'visible' : ''}`}  >
+            <div ref={contentRef} className={`content ${isVisible ? 'visible' : ''}`}  >
                 {props.div}
             </div>
         </div>
