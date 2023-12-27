@@ -44,18 +44,18 @@ public class AppointmentManagementService {
 
         //Check timeslot validity
         TimeSlotId timeSlotId = new TimeSlotId(timeSlot.getClinic(), timeSlot.getDoctor(), timeSlot.getDate(), timeSlot.getStartTime());
-        
-        if(timeSlotRepository.findById(timeSlotId).isEmpty())
+        Optional<TimeSlot> existingTimeSlot = timeSlotRepository.findById(timeSlotId);
+        if(existingTimeSlot.isEmpty())
             return TIMESLOT_NOT_FOUND;
 
-        //Check if doctor has already booked an appointment for this time slot
-        Pageable pageable = PageRequest.of(1, 1);
-        Page<Appointment> appointments = appointmentRepository.findAllByTimeSlotDoctor(timeSlot.getDoctor(), pageable);
-        if(!appointments.isEmpty())
-            return DOCTOR_BUSY;
+        //Check if doctor timeslot is reserved (has appointment at the same timeslot)
+        
+        if(timeSlot.getReserved())
+        return DOCTOR_BUSY;
         
         //Check if patient has already booked an appointment for this time slot
-        appointments = appointmentRepository.findAllByPatient(Patient.builder().id(patientId).build(), pageable);
+        Pageable pageable = PageRequest.of(1, 1);
+        Page<Appointment> appointments = appointmentRepository.findAllByPatient(patient.get(), pageable);
         if(!appointments.isEmpty())
             return PATIENT_BUSY;
 
