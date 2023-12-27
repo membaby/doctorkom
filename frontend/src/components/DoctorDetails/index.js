@@ -172,7 +172,7 @@ export default function DoctorDetails() {
                                   <td>{calculateTimeDifference(timeslot.startTime, timeslot.endTime)} mins</td>
                                   <td>
                                     {!timeslot.reserved ? (
-                                        <button className="btn btn-primary">Book</button>
+                                        <a href={`/reserve?doctorId=${doctor.id}&date=${timeslot.date}&start=${timeslot.startTime}&end=${timeslot.endTime}&doctorName=${doctor.systemUser.firstName}+${doctor.systemUser.lastName}&clinicName=${visibleTimeslots.clinic}`}><button className="btn btn-primary">Book</button></a>
                                       ) : (
                                         <button className="btn btn-secondary" disabled>Reserved</button>
                                     )}
