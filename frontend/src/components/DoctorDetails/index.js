@@ -1,7 +1,8 @@
 import React from "react";
-import { useEffect  } from "react";
+import { useEffect, useState  } from "react";
 import { useLocation } from "react-router-dom";
 import getUserInfo from "../../functions/getUserInfo";
+import getDoctorTimeslots from "../../functions/getDoctorTimeslots";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles.css";
 
@@ -9,32 +10,26 @@ export default function DoctorDetails() {
 
   const location = useLocation();
   const username = location.pathname.split("/")[2];
-  const [doctor, setDoctor] = React.useState({
-    "id": 197,
-    "title": "LECTURER",
-    "specialty": "CARDIOLOGIST",
-    "systemUser": {
-        "id": 197,
-        "firstName": "Interesting",
-        "lastName": "Agnesi",
-        "birthdate": "1962-05-19",
-        "gender": "FEMALE",
-        "address": "942 Lewis Road, CA, 95076",
-        "mobilePhone": "5250867004",
-        "landlinePhone": "4984144684",
-        "account": {
-            "id": 197,
-            "email": "interesting_agnesi@gmail.com",
-            "username": "interesting_agnesi",
-            "password": "15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225",
-            "role": "DOCTOR"
-        }
-    }
-});
+  const [doctor, setDoctor] = useState();
+  const [timeslots, setTimeslots] = useState();
+  const [visibleTimeslots, setVisibleTimeslots] = useState(null);
+  const [clinics, setClinics] = useState(null);
 
-const rating = [5, 2, 1, 0, 0];
-const ratingAverage = rating.reduce((a, b) => a + b, 0) / rating.length;
+  const rating = [5, 2, 1, 0, 0];
 
+  const calculateTimeDifference = (startTime, endTime) => {
+    const startTimeArray = startTime.split(':');
+    const endTimeArray = endTime.split(':');
+
+    // Convert hours and minutes to minutes
+    const startTimeInMinutes = parseInt(startTimeArray[0]) * 60 + parseInt(startTimeArray[1]);
+    const endTimeInMinutes = parseInt(endTimeArray[0]) * 60 + parseInt(endTimeArray[1]);
+
+    // Calculate the time difference in minutes
+    const differenceInMinutes = endTimeInMinutes - startTimeInMinutes;
+
+    return differenceInMinutes;
+  };
   
   useEffect(() => {
     getUserInfo("DOCTOR", username)
@@ -45,6 +40,46 @@ const ratingAverage = rating.reduce((a, b) => a + b, 0) / rating.length;
         console.error("Error fetching doctor info:", error);
       });
   }, []);
+
+  useEffect(() => {
+    if (!doctor) return;
+    getDoctorTimeslots(doctor.id)
+    .then((data) => {
+      setTimeslots(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching doctor timeslots:", error);
+    });
+  }, [doctor]);
+
+  const handleClinicChange = (newClinic) => {
+    let newVisibleTimeslots = {
+      'clinic': newClinic,
+      'timeslots': []
+    };
+    for (let timeslot of timeslots) {
+      if (timeslot.clinic.name === newClinic) {
+        newVisibleTimeslots['timeslots'].push(timeslot);
+      }
+    }
+    setVisibleTimeslots(newVisibleTimeslots);
+  }
+
+  useEffect(() => {
+    if (!timeslots) return;
+    if (timeslots.length > 0) {
+      handleClinicChange(timeslots[0].clinic.name);
+      let clinics_temp = [];
+      for (let timeslot of timeslots) {
+        if (!clinics_temp.includes(timeslot.clinic.name)) {
+          clinics_temp.push(timeslot.clinic.name);
+        }
+      }
+      setClinics(clinics_temp);
+    }
+  }, [timeslots])
+
+
   let avatars = ["default-doctor-female.png", "default-doctor-male.png"];
 
 
@@ -97,56 +132,61 @@ const ratingAverage = rating.reduce((a, b) => a + b, 0) / rating.length;
                       <p>{doctor.systemUser.firstName} {doctor.systemUser.lastName} graduated from Medical School with honors and has pursued further specialization in {doctor.specialty}. They are board-certified and stays abreast of the latest advancements in their field through continuous education and professional development.</p>
                       <div className="h6">Professional Memberships</div>
                       <p>Dr. {doctor.systemUser.lastName} is an active member, contributing to the advancement of healthcare practices and maintaining connections with peers in the medical community.</p>
+                      <div className="h6">Areas of Interest</div>
+                      <ul>
+                        <li>Cardio/Heart Management.</li>
+                        <li>Diabetes Management.</li>
+                        <li>Skin Excisions</li>
+                        <li>Men's Health</li>
+                        <li>Women's Health</li>
+                        <li>Children's Health</li>
+                      </ul>
                     </div>
                     <div className="col">
-                      <div className="h5">Available Times</div>
+                    <h6 className="mt-3">Dr. {doctor.systemUser.lastName} is available at the following clinics:</h6>
+                      {clinics ? 
+                        clinics.map((clinic, index) => (
+                          <>
+                            <button className="btn btn-outline-primary text-dark m-1" onClick={() => handleClinicChange(clinic)}>{clinic}</button>
+                          </>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                      <hr/>
+                      <div>Available Times {visibleTimeslots ? (<>in <b>{visibleTimeslots.clinic}</b></>) : (<></>)}</div>
                       <div className="table-container">
                         <table className="table table-striped table-hover">
                           <thead>
                             <th>Date/Time</th>
+                            <th>Start Time</th>
                             <th>Duration</th>
-                            <th>Clinic Name</th>
                             <th>Action</th>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>2021-05-01 10:00</td>
-                              <td>30 min</td>
-                              <td>ICP</td>
-                              <td><button className="btn btn-primary">Book</button></td>
-                            </tr>
-                            <tr>
-                              <td>2021-05-01 10:00</td>
-                              <td>30 min</td>
-                              <td>ICP</td>
-                              <td><button className="btn btn-primary">Book</button></td>
-                            </tr>
-                            <tr>
-                              <td>2021-05-01 10:00</td>
-                              <td>30 min</td>
-                              <td>ICP</td>
-                              <td><button className="btn btn-primary">Book</button></td>
-                            </tr>
-                            <tr>
-                              <td>2021-05-01 10:00</td>
-                              <td>30 min</td>
-                              <td>ICP</td>
-                              <td><button className="btn btn-primary">Book</button></td>
-                            </tr>
-                            <tr>
-                              <td>2021-05-01 10:00</td>
-                              <td>30 min</td>
-                              <td>ICP</td>
-                              <td><button className="btn btn-primary">Book</button></td>
-                            </tr>
-                            <tr>
-                              <td>2021-05-01 10:00</td>
-                              <td>30 min</td>
-                              <td>ICP</td>
-                              <td><button className="btn btn-primary">Book</button></td>
-                            </tr>
+                            {visibleTimeslots ? 
+                              visibleTimeslots.timeslots.map((timeslot, index) => (
+                                <tr>
+                                  <td>{timeslot.date}</td>
+                                  <td>{timeslot.startTime}</td>
+                                  <td>{calculateTimeDifference(timeslot.startTime, timeslot.endTime)} mins</td>
+                                  <td>
+                                    {!timeslot.reserved ? (
+                                        <button className="btn btn-primary">Book</button>
+                                      ) : (
+                                        <button className="btn btn-secondary" disabled>Reserved</button>
+                                    )}
+                                  </td>
+                                </tr>
+                              )
+                            ) : (
+                              <tr>
+                                <td colSpan="4">Loading timeslots...</td>
+                              </tr>
+                            )}
                           </tbody>
                         </table>
+
                       </div>
                     </div>
                   </div>
