@@ -287,33 +287,73 @@ useEffect(() => {
   ////////////////////////////////////////////////////////GET REQUEST TO GET DOCTORS OF THE CLINIC///////////////////////
   const [doctors, setDoctors] = useState([]);
   const [doctorsObjects,setDoctorsObjects]=useState([]);
-  useEffect(() => {
+//   useEffect(() => {
+//   fetch('http://localhost:8080/Clinic/Doctors', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(clinicObject),
+// })
+
+// .then(response => response.json())
+// .then(response => {
+//     // DO SOMETHING WITH THE RESPONSE
+//       const doctorsData = response;
+//       const extractedDoctors = doctorsData.map(doctorInfo => ({
+//         name: `${doctorInfo.systemUser.firstName} ${doctorInfo.systemUser.lastName}`,
+//         title: doctorInfo.title,
+//         specialty: doctorInfo.specialty,
+//         email:doctorInfo.email
+//       }
+      
+//       ));
+     
+      
+//       setDoctorsObjects(response);
+//       setDoctors(extractedDoctors);
+//       // console.log(doctors);
+//       console.log("yaraab");
+//       console.log(doctorsObjects);
+// })
+// .catch((error) => {
+//     console.log('Error occured. Please try again later.')
+// });
+     
+     
+
+//   }, []);
+useEffect(() => {
   fetch('http://localhost:8080/Clinic/Doctors', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(clinicObject),
-})
-.then(response => response.json())
-.then(response => {
-    // DO SOMETHING WITH THE RESPONSE
-    const doctorsData = response;
-      const extractedDoctors = doctorsData.map(doctorInfo => ({
+  })
+    .then((response) => response.json())
+    .then((doctorsData) => {
+      console.log(doctorsData);
+      
+      const extractedDoctors = doctorsData.map((doctorInfo) => ({
         name: `${doctorInfo.systemUser.firstName} ${doctorInfo.systemUser.lastName}`,
         title: doctorInfo.title,
         specialty: doctorInfo.specialty,
-        email:doctorInfo.email
+        email: doctorInfo.email,
       }));
-      setDoctorsObjects(response);
-      setDoctors(extractedDoctors);
-      
-})
-.catch((error) => {
-    console.log('Error occured. Please try again later.')
-});
 
-  }, []);
+      // Set the state after mapping the data
+      setDoctors(extractedDoctors);
+      setDoctorsObjects(doctorsData);
+
+      // Debugging logs
+      console.log('Doctors:', extractedDoctors);
+      console.log('DoctorsObjects:', doctorsData);
+    })
+    .catch((error) => {
+      console.log('Error occurred. Please try again later.', error);
+    });
+}, []); 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////POST REQUEST TO DELETE DOCTORS/////////////////////////////////////////
   const [doctorDeleteIndex, setDoctorDeleteIndex] = useState();  
@@ -333,7 +373,221 @@ useEffect(() => {
     }  
   };
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////post request to get appointments and timeslots//////////////////////////////////////////////
+  const [timeslots, setTimeslots] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/Clinic/Appointments&TimeSlots', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(clinicObject),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setTimeslots(data.timeslots);
+          setAppointments(data.appointments);
+          console.log("ok");
+          // console.log(timeslots);
+        } else {
+          console.error('Error:', response.status);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////POST REQUEST FOR DELETE APPOINTMENT/////////////////////////////////////////////
+  const handleDeleteAppointement = async (app) => {
+    try {
+      const response = await fetch(' http://localhost:3002/post', {
+    
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if needed
+        },
+        body: JSON.stringify({doctor: app.timeSlot.doctor,
+          clinic:  app.timeSlot.clinic,
+          patient: app.patient,
+          date: app.timeSlot.date,
+          startTime: app.timeSlot.startTime,
+          endTime: app.timeSlot.endTime,
+          status: '',
+         }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+      if (responseData.data==="Appointment Doesn't exist") {
+      }
+      else if(responseData.data==="Appointment Deleted successfully"){
+
+      }
+     
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////POST REQUEST FOR DELETE timeslot/////////////////////////////////////////////
+  const handleDeleteTimeSlot = async (ts) => {
+    try {
+      const response = await fetch(' http://localhost:3002/post', {
+    
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if needed
+        },
+        body: JSON.stringify({doctor: ts.doctor,
+          clinic:  ts.clinic,
+          date: ts.date,
+          startTime: ts.startTime,
+          endTime: ts.endTime,
+          reserved:1,
+         }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+     
+      if (responseData.data==="Time slot doesn't exist") {
+      }
+      else if(responseData.data==="Time slot removed successfully"){
+
+      }
+     
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////post request for adding timeslots////////////////////////////////////////////
+  const addTimeslot = () => {
+    const timeSlotData = {
+        Doctor: selectedDoctor,
+        Clinic: clinicObject,
+        Date: date,
+        StartTime: startTime,
+        EndTime: endTime,
+        Reserved: 1,
+    };
+
+    fetch('http://localhost:3001/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(timeSlotData),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success) {
+  
+          console.log('Success:', response.message);
+        } else {
+
+          console.log('Error:', response.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error occurred:', error);
+      });
+  };
+
+
+
+
+
+
+
+
+
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const handleDoctorChange = (event) => {
+    const docid=event.target.value;
+    console.log(docid);
+
+    console.log("yarab");
+
+    setSelectedDoctor(findDoctorById(docid));
+    console.log(selectedDoctor);
+  };
+  const findDoctorById = (id) => {
+    console.log("here");
+    const doc=doctorsObjects.find((doctor) => parseInt(doctor.id,10) === parseInt(id,10));
+    console.log("cons");
+    console.log(doc);
+    const yourObject = {
+      id: doc.id,
+      title: doc.title,
+      specialty: doc.specialty,
+      systemUser: {
+        id: doc.systemUser.id,
+        firstName: doc.systemUser.firstName,
+        lastName: doc.systemUser.lastName,
+        birthdate: doc.systemUser.birthdate,
+        gender: doc.systemUser.gender,
+        address: doc.systemUser.address,
+        mobilePhone: doc.systemUser.mobilePhone,
+        landlinePhone: doc.systemUser.landlinePhone,
+        account: {
+          id: doc.systemUser.account.id,
+          email: doc.systemUser.account.email,
+          username: doc.systemUser.account.username,
+          password: doc.systemUser.account.password,
+          role: doc.systemUser.account.role,
+        },
+      },
+    };
+    console.log("your")
+    console.log(yourObject);
+    return yourObject;
+}
+ 
+useEffect(() => {
+  console.log("a5r 7aga");
+  console.log(selectedDoctor);
+}, [selectedDoctor]);
+
+  const [startTime, setStartTime] = useState('');
+
+  const handleStartTimeChange = (event) => {
+    setStartTime(event.target.value);
+  };
+  const [endTime, setEndTime] = useState('');
+
+  const handleEndTimeChange = (event) => {
+    setEndTime(event.target.value);
+  };
+  const [date, setDate] = useState('');
+
+  const handleDateChange = (event) => {
+    setDate(event.target.value);
+  };
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -343,6 +597,7 @@ useEffect(() => {
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />
   };
+
   return (
     <>
             <div id="root">
@@ -380,7 +635,7 @@ useEffect(() => {
        <hr/>
       <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc' }}>
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {app.slice(0, app.length).map((appointment, index) => (
+          {appointments.slice(0, 1).map((item, index) => (
             <li
               key={index}
               className="appointment-card"
@@ -392,7 +647,7 @@ useEffect(() => {
               }}
             >
               {/* ... (your existing code for appointment details) */}
-              {app.slice(0,1).map((appointment, index) => (
+              {appointments.slice(0,appointments.length).map((item, index) => (
           <li
             key={index}
             className="appointment-card"
@@ -405,15 +660,20 @@ useEffect(() => {
           >
             <div className="d-flex justify-content-between align-items-center">
               <p>
-                <strong>Doctor:</strong> {appointment.doc}
+                <ul class="list-unstyled">
+                <strong>Doctor:</strong> {item.timeSlot.doctor.systemUser.account.username}
                 <span className="mx-2">|</span>
-                <strong>Date:</strong> {appointment.date}
+                <strong>Date:</strong> {item.date}
+                </ul>
+                <ul class="list-unstyled">
+                <strong>Start Time:</strong> {item.timeSlot.startTime}
                 <span className="mx-2">|</span>
-                <strong>Time:</strong> {appointment.time}
+                <strong>End Time:</strong> {item.timeSlot.endTime}
+                </ul>
               </p>
 
              <div className="button-container">
-                <button type="button" className="btn  btn-danger  btn-sm">
+                <button type="button" className="btn  btn-danger  btn-sm"  onClick={() => handleDeleteAppointement(item)}>
                   Delete
                 </button>
               </div>
@@ -433,7 +693,7 @@ useEffect(() => {
 <hr/>
       <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc' }}>
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {app.slice(0, app.length).map((appointment, index) => (
+          {timeslots.slice(0, 1).map((item, index) => (
             <li
               key={index}
               className="appointment-card"
@@ -445,7 +705,7 @@ useEffect(() => {
               }}
             >
             
-              {app.slice(0,1).map((appointment, index) => (
+              {timeslots.slice(0,timeslots.length).map((timeslots, index) => (
           <li
             key={index}
             className="appointment-card"
@@ -457,14 +717,22 @@ useEffect(() => {
             }}
           >
             <div className="d-flex justify-content-between align-items-center">
-              <p>
-                <strong>Doctor:</strong> {appointment.doc}
+            <p>
+                <ul class="list-unstyled">
+                <strong>Doctor:</strong> {item.doctor.systemUser.account.username}
                 <span className="mx-2">|</span>
-                <strong>Date:</strong> {appointment.date}
+                <strong>Date:</strong> {item.date}
+                </ul>
+                <ul class="list-unstyled">
+                <strong>Start Time:</strong> {item.startTime}
                 <span className="mx-2">|</span>
-                <strong>Time:</strong> {appointment.time}
+                <strong>End Time:</strong> {item.endTime}
+                </ul>
               </p>
               <div className="button-container">
+                <button type="button" className="btn  btn-danger  btn-sm"  onClick={() => handleDeleteTimeSlot(item)}>
+                  Delete
+                </button>
               </div>
             </div>
           </li>
@@ -478,6 +746,10 @@ useEffect(() => {
 </div>
 
 <div className="marginDiv"></div>
+
+
+
+
 
 <h3>Our Doctors</h3>
                 <hr/>
@@ -537,8 +809,9 @@ useEffect(() => {
               {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </div>
           </div>
+          
         </div>
-        {/* Second Card - Address, Phone, Email */}
+       
         <div className="col-md-6  ">
         <h3>Edit data</h3>
       <hr/>
@@ -571,6 +844,57 @@ useEffect(() => {
           </div>
         </div>
       </div>
+
+
+
+      <div className="marginDiv"></div>
+      <h3>Add Time Slot</h3>
+      <hr/>
+          <div className="card flex-fill editCards">
+            <div className="card-body">
+              <h5 className="card-title">Select doctor</h5>
+              <div>
+  
+  <select className="form-control" onChange={handleDoctorChange}>
+    <option value="" disabled selected>
+      Select a doctor
+    </option>
+    {doctorsObjects.map((doctor) => (
+      <option key={doctor.id} value={doctor.id}>
+        {`${doctor.systemUser.firstName} ${doctor.systemUser.lastName}`}
+      </option>
+
+
+    ))}
+  </select>
+</div>
+
+
+
+              <div style={{ marginBottom: '1.5vw' }}></div>
+              <h5 className="card-title">Date</h5>
+              <div className="form-group">
+                <input   type="date" className="form-control" placeholder="Enter date in fotm of " onChange={handleDateChange} />
+              </div>
+              <div style={{ marginBottom: '1.5vw' }}></div>
+              <h5 className="card-title">Start time</h5>
+              <div className="form-group">
+                <input type="time" className="form-control" placeholder="Enter Start time "  onChange={handleStartTimeChange}  />
+              </div>
+              <div style={{ marginBottom: '1.5vw' }}></div>
+              <h5 className="card-title" >End time</h5>
+              <div className="form-group">
+                <input  type="time" className="form-control" placeholder="Enter Start time " onChange={handleEndTimeChange} />
+              </div>
+              <button disabled={isSubmitting} className="btn btn-success form-control" onClick={addTimeslot} style={{ marginTop: '1.5vw' }}  >Add</button>
+              <div style={{ marginBottom: '1.5vw' }}></div>
+              {/* {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+              {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}*/}
+            </div> 
+          </div>
+
+
+
     </div>
 
         </div>

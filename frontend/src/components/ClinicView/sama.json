@@ -1,0 +1,129 @@
+{
+    "schedule": 
+        {
+    "timeslots": [
+        {
+            "doctor": {
+                "id": 56,
+                "title": "SPECIALIST",
+                "specialty": "GENERAL_PRACTITIONER",
+                "systemUser": {
+                    "id": 56,
+                    "firstName": "Mahmoud",
+                    "lastName": "Embaby",
+                    "birthdate": "2000-01-01",
+                    "gender": "MALE",
+                    "address": "",
+                    "mobilePhone": "",
+                    "landlinePhone": "",
+                    "account": {
+                        "id": 56,
+                        "email": "mahmou8553@gmail.com",
+                        "username": "117827199747838971447",
+                        "password": "mchbomNZPYvmxbv0e3yNAy",
+                        "role": "DOCTOR"
+                    }
+                }
+            },
+            "clinic": {
+                "id": 80,
+                "name": "ClinicTestUpdated",
+                "address": "ClinicTestUpdated@gmail.com",
+                "email": "Clinic-Test-Address",
+                "mobilePhone": "01234567899",
+                "landlinePhone": "01234567899",
+                "admin": {
+                    "id": 80,
+                    "account": {
+                        "id": 80,
+                        "email": "ClinicAdmin@gmail.com",
+                        "username": "ClinicAdmin",
+                        "password": "123456",
+                        "role": "CLINIC_ADMIN"
+                    }
+                }
+            },
+            "date": "2023-04-01",
+            "startTime": "09:00:00",
+            "endTime": "09:00:00",
+            "reserved": "true"
+        }
+    ],
+    "appointments": [
+        {
+            "timeSlot":{
+            "doctor": {
+                "id": 56,
+                "title": "SPECIALIST",
+                "specialty": "GENERAL_PRACTITIONER",
+                "systemUser": {
+                    "id": 56,
+                    "firstName": "Mahmoud",
+                    "lastName": "Embaby",
+                    "birthdate": "2000-01-01",
+                    "gender": "MALE",
+                    "address": "",
+                    "mobilePhone": "",
+                    "landlinePhone": "",
+                    "account": {
+                        "id": 56,
+                        "email": "mahmou8553@gmail.com",
+                        "username": "117827199747838971447",
+                        "password": "mchbomNZPYvmxbv0e3yNAy",
+                        "role": "DOCTOR"
+                    }
+                }
+            },
+            "clinic": {
+                "id": 80,
+                "name": "ClinicTestUpdated",
+                "address": "ClinicTestUpdated@gmail.com",
+                "email": "Clinic-Test-Address",
+                "mobilePhone": "01234567899",
+                "landlinePhone": "01234567899",
+                "admin": {
+                    "id": 80,
+                    "account": {
+                        "id": 80,
+                        "email": "ClinicAdmin@gmail.com",
+                        "username": "ClinicAdmin",
+                        "password": "123456",
+                        "role": "CLINIC_ADMIN"
+                    }
+                }
+            },
+            "date": "2023-04-01",
+            "startTime": "09:00:00",
+            "endTime": "09:00:00",
+          "reserved": "true"
+        },
+          "patient": {
+            "id": 1,
+            "occupation": "Software Engineer",
+            "maritalStatus": "Single",
+            "insurance": "HealthGuard",
+            "systemUser": {
+              "id": 101,
+              "firstName": "John",
+              "lastName": "Doe",
+              "birthdate": "1990-01-15",
+              "gender": "MALE",
+              "address": "123 Main Street, Cityville",
+              "mobilePhone": "123-456-7890",
+              "landlinePhone": "987-654-3210",
+              "account": {
+                "id": 201,
+                "email": "john.doe@example.com",
+                "username": "john_doe",
+                "password": "hashed_password", 
+                "role": "USER"
+              }
+            }
+          }
+
+        }
+      
+    ]
+}
+    
+}
