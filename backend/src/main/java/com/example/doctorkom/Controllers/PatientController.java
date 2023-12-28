@@ -32,7 +32,7 @@ public class PatientController {
     }
 
     @GetMapping("/appointments/{userId}/{pageCount}")
-    public Page<AppointmentDTO> getDoctorAppointments(@PathVariable int userId, @PathVariable int pageCount) {
+    public Page<AppointmentDTO> getPatientAppointments(@PathVariable int userId, @PathVariable int pageCount) {
         return patientDashboardService.getPatientAppointments(userId, pageCount);
     }
 }

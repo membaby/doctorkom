@@ -5,6 +5,7 @@ import com.example.doctorkom.DTOs.AppointmentDTO;
 import com.example.doctorkom.Entities.Appointment;
 import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Entities.Patient;
+import com.example.doctorkom.Exceptions.AppointmentExceptions.AppointmentNotFoundException;
 import com.example.doctorkom.Exceptions.DoctorExceptions.DoctorNotFoundException;
 import com.example.doctorkom.Exceptions.PatientExceptions.PatientNotFoundException;
 import com.example.doctorkom.Repositories.AppointmentRepository;
@@ -15,6 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
@@ -41,12 +45,18 @@ public class AppointmentService {
         return appointments.map(appointmentMapper::toDto);
     }
 
-    public Page<AppointmentDTO> getDoctorAppointments(int doctorId, int pageCount) {
+    public List<AppointmentDTO> getDoctorAppointments(int doctorId) {
         if (doctorRepository.findById(doctorId).isEmpty())
             throw new DoctorNotFoundException();
         Doctor doctor = doctorRepository.findById(doctorId).get();
-        Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
-        Page<Appointment> appointments = appointmentRepository.findAllByTimeSlotDoctor(doctor, pageable);
-        return appointments.map(appointmentMapper::toDto);
+        List<Appointment> appointments = appointmentRepository.findAllByTimeSlotDoctor(doctor);
+        return appointments.stream().map(appointmentMapper::toDto).collect(Collectors.toList());
+    }
+
+    public void deleteAppointment(AppointmentDTO appointmentDTO) {
+        Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
+        if (appointmentRepository.findById(appointment.getId()).isEmpty())
+            throw new AppointmentNotFoundException();
+        appointmentRepository.deleteById(appointment.getId());
     }
 }
