@@ -8,6 +8,11 @@ html, body {
   /* overflow-y: hidden; */
 }
 
+.verticalcenter {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .MainContainer {
   height: 100vh;
 }

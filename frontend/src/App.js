@@ -13,6 +13,8 @@ import ClinicHomePage from './components/ClinicView';
 import DoctorHomePage from './components/DoctorView';
 import Search from './components/Search';
 import UserProfilePage from './components/UserProfile';
+import DoctorDetails from './components/DoctorDetails';
+import Reservation from './components/Reservation';
 import About from './components/About';
 import Footer from './components/Footer';
 
@@ -40,6 +42,8 @@ function App() {
           <Route path='/search' element={ <Search /> } />
           <Route path='/logout' element={ <Homepage /> } />
           <Route path='/profile' element={ <UserProfilePage /> } />
+          <Route path='/doctor/:username' element={ <DoctorDetails /> } />
+          <Route path='/reserve' element={ <Reservation /> } />
           <Route path='/about' element={ <About /> } />
         </Routes>
 
