@@ -21,7 +21,7 @@ public class TimeSlotController {
     }
 
     @GetMapping("/{doctorId}")
-    public List<TimeSlotDTO> getDoctorTimeSlots(@PathVariable int doctorId) {
+    public List<Object> getDoctorTimeSlots(@PathVariable int doctorId) {
         return timeSlotService.getTimeSlotsByDoctorId(doctorId);
     }
 }

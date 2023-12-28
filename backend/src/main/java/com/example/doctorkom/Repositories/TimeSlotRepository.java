@@ -24,5 +24,5 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, TimeSlotId> 
 
     List<TimeSlot> findByClinic(Clinic clinic);
 
-    List<TimeSlot> findAllByDoctorIdOrderByClinicIdAscDateAscStartTimeAsc(Integer doctorId);
+    List<TimeSlot> findAllByDoctorIdAndClinicIdOrderByDateAscStartTimeAsc(Integer doctorId, Integer clinicId);
 }
