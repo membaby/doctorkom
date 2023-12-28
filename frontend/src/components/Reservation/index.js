@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation } from 'react-router-dom';
 import secureLocalStorage from "react-secure-storage";
 
 export default function Reservation() {
+
+    // useEffect(() => {
+    //     if (!secureLocalStorage.getItem('id')) {
+    //         window.location.href = '/login';
+    //     }
+    // })
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -12,7 +18,8 @@ export default function Reservation() {
         clinicName: queryParams.get('clinicName'),
         doctorId: queryParams.get('doctorId'),
         clinicId: queryParams.get('clinicId'),
-        patientId: secureLocalStorage.getItem('id'),
+        // patientId: secureLocalStorage.getItem('id'),
+        patientId: 1195,
         date: queryParams.get('date'),
         start: queryParams.get('start'),
         end: queryParams.get('end')
@@ -30,23 +37,44 @@ export default function Reservation() {
 
         showError('Creating appointment...');
 
-        // fetch('http://localhost:8080/appointments/bookAppointment', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data),
-        // })
-        // .then(response => response.text())
-        // .then(response => {
-        //     showError(response);
-        // })
-        // .catch((error) => {
-        //     showError('Internal Server Error occured. Please try again later.')
-        // }
-        // );
+        const data = {
+            timeSlot: {
+                doctor: {id: appointmentDetails.doctorId},
+                clinic: {id: appointmentDetails.clinicId},
+                date: appointmentDetails.date,
+                startTime: appointmentDetails.start,
+                endTime: appointmentDetails.end,
+                reserved: false
+            },
+            patient: {id: appointmentDetails.patientId}
+        }
+        console.log(data);
 
-        window.location.href = '/appointments';
+        fetch('http://localhost:8080/appointments/bookAppointment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response.success) {
+                showError('Appointment created successfully');
+                setTimeout(() => {
+                    window.location.href = '/appointments';
+                }, 1000);
+            } else {
+                console.log(response.msg);
+                showError(response.msg);
+            }
+        })
+        .catch((error) => {
+            showError('Internal Server Error occured. Please try again later.')
+        }
+        );
+
+        // window.location.href = '/appointments';
     }
 
     const showError = (message) => {

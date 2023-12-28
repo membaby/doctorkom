@@ -52,13 +52,14 @@ export default function DoctorDetails() {
     });
   }, [doctor]);
 
-  const handleClinicChange = (newClinic) => {
+  const handleClinicChange = (clinicName, clinicId) => {
     let newVisibleTimeslots = {
-      'clinic': newClinic,
+      'clinic': clinicName,
+      'clinicId': clinicId,
       'timeslots': []
     };
     for (let timeslot of timeslots) {
-      if (timeslot.clinic.name === newClinic) {
+      if (timeslot.clinic.name === clinicName) {
         newVisibleTimeslots['timeslots'].push(timeslot);
       }
     }
@@ -68,11 +69,13 @@ export default function DoctorDetails() {
   useEffect(() => {
     if (!timeslots) return;
     if (timeslots.length > 0) {
-      handleClinicChange(timeslots[0].clinic.name);
+      handleClinicChange(timeslots[0].clinic.name, timeslots[0].clinic.id);
       let clinics_temp = [];
+      let clinics_temp_ids = [];
       for (let timeslot of timeslots) {
-        if (!clinics_temp.includes(timeslot.clinic.name)) {
-          clinics_temp.push(timeslot.clinic.name);
+        if (!clinics_temp_ids.includes(timeslot.clinic.id)) {
+          clinics_temp.push({'name': timeslot.clinic.name, 'id': timeslot.clinic.id});
+          clinics_temp_ids.push(timeslot.clinic.id);
         }
       }
       setClinics(clinics_temp);
@@ -147,7 +150,7 @@ export default function DoctorDetails() {
                       {clinics ? 
                         clinics.map((clinic, index) => (
                           <>
-                            <button className="btn btn-outline-primary text-dark m-1" onClick={() => handleClinicChange(clinic)}>{clinic}</button>
+                            <button className="btn btn-outline-primary text-dark m-1" onClick={() => handleClinicChange(clinic.name, clinic.id)}>{clinic.name}</button>
                           </>
                         )
                       ) : (
@@ -172,7 +175,7 @@ export default function DoctorDetails() {
                                   <td>{calculateTimeDifference(timeslot.startTime, timeslot.endTime)} mins</td>
                                   <td>
                                     {!timeslot.reserved ? (
-                                        <a href={`/reserve?doctorId=${doctor.id}&date=${timeslot.date}&start=${timeslot.startTime}&end=${timeslot.endTime}&doctorName=${doctor.systemUser.firstName}+${doctor.systemUser.lastName}&clinicName=${visibleTimeslots.clinic}`}><button className="btn btn-primary">Book</button></a>
+                                        <a href={`/reserve?doctorId=${doctor.id}&clinicId=${visibleTimeslots.clinicId}&date=${timeslot.date}&start=${timeslot.startTime}&end=${timeslot.endTime}&doctorName=${doctor.systemUser.firstName}+${doctor.systemUser.lastName}&clinicName=${visibleTimeslots.clinic}`}><button className="btn btn-primary">Book</button></a>
                                       ) : (
                                         <button className="btn btn-secondary" disabled>Reserved</button>
                                     )}
