@@ -6,7 +6,7 @@ export default function AdminHomePage() {
     const [insights, setInsights] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8080/adminInsights', {method: 'GET'})
+        fetch('http://localhost:8080/admin/adminInsights', {method: 'GET'})
         .then(response => response.json())
         .then(response => {
             setInsights(response)
@@ -33,7 +33,7 @@ export default function AdminHomePage() {
             return;
         }
         showError("Creating clinic.. Please wait!");
-        fetch('http://localhost:8080/newclinic', {
+        fetch('http://localhost:8080/admin/newclinic', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ export default function AdminHomePage() {
             "email": document.getElementById('userEmail-notification').value,
             "message": document.getElementById('userMessage').value
         }
-        fetch('http://localhost:8080/sendAdminMessage', {
+        fetch('http://localhost:8080/admin/sendAdminMessage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
