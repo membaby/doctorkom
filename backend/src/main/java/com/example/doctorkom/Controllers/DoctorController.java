@@ -60,7 +60,7 @@ public class DoctorController {
     }
 
     @DeleteMapping("/appointment")
-    public void deleteAppointment(@RequestParam AppointmentDTO appointmentDTO) {
+    public void deleteAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         doctorDashboardService.deleteAppointment(appointmentDTO);
     }
 }
