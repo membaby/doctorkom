@@ -1,5 +1,9 @@
 package com.example.doctorkom.Services.ClinicServices;
 
+import com.example.doctorkom.DTOMappers.AppointmentMapper;
+import com.example.doctorkom.DTOMappers.TimeSlotMapper;
+import com.example.doctorkom.DTOs.AppointmentDTO;
+import com.example.doctorkom.DTOs.TimeSlotDTO;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.Notifier.NotificationService;
@@ -28,20 +32,26 @@ public class ClinicService {
     private TimeSlotRepository timeSlotRepository;
     private AppointmentRepository appointmentRepository;
     private AccountRepository accountRepository;
+    private TimeSlotMapper timeslotMapper;
+    private AppointmentMapper appointmentMapper;
     private NotificationService notificationService;
 
     @Autowired
-    public void ClinicService(ClinicRepository clinicRepository,
+    public ClinicService(ClinicRepository clinicRepository,
                               DoctorRepository doctorRepository,
                               TimeSlotRepository timeSlotRepository,
                               AppointmentRepository appointmentRepository,
                               AccountRepository accountRepository,
+                              TimeSlotMapper timeslotMapper,
+                              AppointmentMapper appointmentMapper,
                               NotificationService notificationService) {
         this.doctorRepository = doctorRepository;
         this.clinicRepository = clinicRepository;
         this.timeSlotRepository = timeSlotRepository;
         this.appointmentRepository = appointmentRepository;
         this.accountRepository = accountRepository;
+        this.timeslotMapper = timeslotMapper;
+        this.appointmentMapper = appointmentMapper;
         this.notificationService = notificationService;
     }
 
@@ -131,6 +141,12 @@ public class ClinicService {
                         return "Time slot collides clinic";
                     }
                 }
+
+                Doctor existingDoctor = doctorRepository.findById(doctorId).get();
+                Clinic existingClinic = clinicRepository.findById(clinicId).get();
+                timeSlot.setDoctor(existingDoctor);
+                timeSlot.setClinic(existingClinic);
+
                 timeSlotRepository.save(timeSlot);
                 return "Time slot added successfully";
             } else {
@@ -212,7 +228,10 @@ public class ClinicService {
     }
     
     public String removeAppointment(Appointment appointment) {
-        AppointmentId appointmentId = appointment.getId();
+        AppointmentId appointmentId = new AppointmentId();
+        appointmentId.setPatient(appointment.getPatient());
+        appointmentId.setTimeSlot(appointment.getTimeSlot());
+
         Appointment oldAppointment = appointmentRepository.findById(appointmentId).orElse(null);
         if (oldAppointment != null) {
             appointmentRepository.delete(oldAppointment);
@@ -232,20 +251,35 @@ public class ClinicService {
         return clinicRepository.findAll(specification, pageable);
     }
 
-    public Pair<List<Appointment>, List<TimeSlot>> GetAppointmentsAndTimeSlotsForClinic(Clinic clinic) {
+    public List<AppointmentDTO> getAppointmentsForClinic(Clinic clinic) {
         if (clinicRepository.findById(clinic.getId()).isEmpty()) {
             return null;
         }
-        List<TimeSlot> timeSlots = timeSlotRepository.findByClinic(clinic);
-        //for each time slot get the appointment
-        List<Appointment> appointments = new ArrayList<>();
-        for (TimeSlot timeSlot : timeSlots) {
-            Appointment appointment = appointmentRepository.findByTimeSlot(timeSlot);
-            if (appointment != null) {
-                appointments.add(appointment);
-            }
+        // List<TimeSlot> timeSlots = timeSlotRepository.findByClinic(clinic);
+        List<Appointment> appointments = appointmentRepository.findAllByTimeSlotClinic(clinic);
+        
+        // CONVERT TO DTO
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            appointmentDTOS.add(appointmentMapper.toDto(appointment));
         }
-        return new Pair<>(appointments, timeSlots);
+
+        return appointmentDTOS;
+    }
+
+    public List<TimeSlotDTO> getTimeSlotsForClinic(Clinic clinic) {
+        if (clinicRepository.findById(clinic.getId()).isEmpty()) {
+            return null;
+        }
+
+        List<TimeSlot> timeSlots = timeSlotRepository.findByClinic(clinic);
+        List<TimeSlotDTO> timeSlotDTOS = new ArrayList<>();
+        for (TimeSlot timeSlot : timeSlots) {
+            timeSlotDTOS.add(timeslotMapper.toDto(timeSlot));
+        }
+
+
+        return timeSlotDTOS;
     }
 
     public List<Doctor> GetDoctorsForClinic(Clinic clinic) {
