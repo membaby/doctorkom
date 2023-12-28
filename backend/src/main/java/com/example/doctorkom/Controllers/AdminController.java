@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.doctorkom.DTOs.AdminMessageDTO;
 import com.example.doctorkom.Services.Notifier.NotificationService;
+import com.example.doctorkom.Services.AdminTools.InsightsService;
+
+import java.util.HashMap;
 
 @RestController
 public class AdminController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    InsightsService insightsService;
 
     @PostMapping("/sendAdminMessage")
     public String sendAdminMessage(@RequestBody AdminMessageDTO adminMessageDTO) {
@@ -26,6 +32,11 @@ public class AdminController {
         } catch (Exception e) {
             return "Message sending failed";
         }
+    }
+
+    @GetMapping("/adminInsights")
+    public HashMap<String, Integer> adminInsights() {
+        return insightsService.getTotalRowCounts();
     }
 
 }
