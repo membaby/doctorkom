@@ -60,7 +60,7 @@ class ExceptionHandlerControllerTest {
         int userId = 0;
         int pageCount = 0;
 
-        when(doctorController.getDoctorAppointments(userId, pageCount)).thenThrow(new DoctorNotFoundException());
+        when(doctorController.getDoctorAppointments(userId)).thenThrow(new DoctorNotFoundException());
 
         mockMvc.perform(get("/doctor/appointments/" + userId + "/" + pageCount))
                 .andDo(print())
@@ -69,9 +69,7 @@ class ExceptionHandlerControllerTest {
 
     @Test
     public void handleExceptionWithDoctorController() throws Exception {
-        int pageCount = 0;
-
-        mockMvc.perform(get("/doctor/appointments/" + "someNonSense" + "/" + pageCount))
+        mockMvc.perform(get("/doctor/appointments?doctorId=" + "someNonSense"))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
     }

@@ -1,12 +1,12 @@
 package com.example.doctorkom.Controllers;
 
-import com.example.doctorkom.DTOs.AppointmentDTO;
-import com.example.doctorkom.DTOs.DoctorDTO;
+import com.example.doctorkom.DTOs.*;
 import com.example.doctorkom.Services.DashboardServices.DoctorDashboardService;
 import com.example.doctorkom.Services.UserProfileService.DoctorProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/doctor")
@@ -31,8 +31,36 @@ public class DoctorController {
         doctorProfileService.updateUserProfile(doctorDTO);
     }
 
-    @GetMapping("/appointments/{doctorId}/{pageCount}")
-    public Page<AppointmentDTO> getDoctorAppointments(@PathVariable int doctorId, @PathVariable int pageCount) {
-        return doctorDashboardService.getDoctorAppointments(doctorId, pageCount);
+    //EX: /appointments?doctorId=1
+    @GetMapping("/appointments")
+    public List<AppointmentDTO> getDoctorAppointments(@RequestParam int doctorId) {
+        return doctorDashboardService.getDoctorAppointments(doctorId);
+    }
+
+    //EX: /timeslots?doctorId=1
+    @GetMapping("/timeslots")
+    public List<TimeSlotDTO> getDoctorTimeSlots(@RequestParam int doctorId) {
+        return doctorDashboardService.getDoctorTimeSlots(doctorId);
+    }
+
+    //EX: /clinics?doctorId=1
+    @GetMapping("/clinics")
+    public List<ClinicDTO> getDoctorClinics(@RequestParam int doctorId) {
+        return doctorDashboardService.getDoctorClinics(doctorId);
+    }
+
+    @GetMapping("/medical-notes")
+    public List<MedicalNoteDTO> getDoctorMedicalNotes(@RequestParam int doctorId) {
+        return doctorDashboardService.getDoctorMedicalNotes(doctorId);
+    }
+
+    @PostMapping("/medical-note")
+    public void addMedicalNoteToPatient(@RequestBody MedicalNoteDTO medicalNoteDTO) {
+        doctorDashboardService.addMedicalNote(medicalNoteDTO);
+    }
+
+    @DeleteMapping("/appointment")
+    public void deleteAppointment(@RequestParam AppointmentDTO appointmentDTO) {
+        doctorDashboardService.deleteAppointment(appointmentDTO);
     }
 }
