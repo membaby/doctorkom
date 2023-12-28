@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, AppointmentId> {
     Appointment findByTimeSlot(TimeSlot timeSlot);
+    List<Appointment> findAllByTimeSlotClinic(Clinic clinic);
 
     Page<Appointment> findAllByPatient(Patient patient, Pageable pageable);
 
