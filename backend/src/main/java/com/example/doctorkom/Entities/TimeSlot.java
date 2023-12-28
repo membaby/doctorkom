@@ -6,9 +6,6 @@ import lombok.*;
 import java.sql.Date;
 import java.sql.Time;
 
-import org.hibernate.proxy.HibernateProxy;
-
-
 @Entity
 @IdClass(TimeSlotId.class)
 @Table(name = "TimeSlot")
@@ -25,6 +22,7 @@ public class TimeSlot {
     @Column(name = "StartTime")
     private Time startTime;
 
+    @Id
     @Column(name = "EndTime")
     private Time endTime;
 
@@ -46,6 +44,6 @@ public class TimeSlot {
     private String weekday;
 
     public TimeSlotId getId () {
-        return new TimeSlotId(clinic, doctor, date, startTime);
+        return new TimeSlotId(clinic, doctor, date, startTime, endTime);
     }
 }

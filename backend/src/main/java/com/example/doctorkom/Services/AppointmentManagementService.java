@@ -43,7 +43,7 @@ public class AppointmentManagementService {
             return PATIENT_NOT_FOUND;
 
         //Check timeslot validity
-        TimeSlotId timeSlotId = new TimeSlotId(timeSlot.getClinic(), timeSlot.getDoctor(), timeSlot.getDate(), timeSlot.getStartTime());
+        TimeSlotId timeSlotId = new TimeSlotId(timeSlot.getClinic(), timeSlot.getDoctor(), timeSlot.getDate(), timeSlot.getStartTime(), timeSlot.getEndTime());
         Optional<TimeSlot> existingTimeSlot = timeSlotRepository.findById(timeSlotId);
         if(existingTimeSlot.isEmpty())
             return TIMESLOT_NOT_FOUND;
