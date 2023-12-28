@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GetAppointments from './/Appointement/GetAppointments.js';
 import AppointmentListDiv from './Appointement/AppointmentListDiv.js';
@@ -6,16 +6,27 @@ import AppointmentsTable from './AppointmentsTable.js';
 import './AppointmentsList.css';
 
 export default function AppointmentsList() {
-  const appointmentsListObjects = GetAppointments();
-  const appointmentsList = appointmentsListObjects.map((appointment) => (
-    <AppointmentListDiv appointment={appointment} />
-  ));
 
-  const itemsPerPage = 5;
+  const [appointmentListObjects, setAppointmentListObjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isTableView, setIsTableView] = useState(false);
+  const [totalPageCount, setTotalPageCount] = useState(0);
 
-  const totalPageCount = Math.ceil(appointmentsList.length / itemsPerPage);
+  const itemsPerPage = 5;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const appointments = await GetAppointments();
+        setAppointmentListObjects(appointments);
+        setTotalPageCount(Math.ceil(appointments.length / itemsPerPage));
+      } catch (error) {
+        console.error('Error fetching time slots:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleNext = () => {
     setCurrentPage((prevPage) => (prevPage < totalPageCount ? prevPage + 1 : prevPage));
@@ -24,10 +35,6 @@ export default function AppointmentsList() {
   const handlePrev = () => {
     setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const visibleAppointments = appointmentsList.slice(startIndex, endIndex);
 
   const toggleView = () => {
     setIsTableView((prevValue) => !prevValue);
@@ -41,10 +48,14 @@ export default function AppointmentsList() {
         </button>
       </div>
       {isTableView ? (
-        <AppointmentsTable appointmentsListObjects={appointmentsListObjects} /> 
+        <AppointmentsTable appointmentsListObjects={appointmentListObjects} /> 
       ) : (
         <div className="list-group myContainer">
-          {visibleAppointments}
+          {
+            appointmentListObjects.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((appointment) => (
+              <AppointmentListDiv appointment={appointment} />
+            ))
+          }
           <div className="d-flex justify-content-between mt-3">
             <button className="btn buttonColored" onClick={handlePrev} disabled={currentPage === 1}>
               Previous
