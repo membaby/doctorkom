@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import hashString from '../../functions/hashString';
 
 export default function AdminHomePage() {
 
@@ -19,13 +20,24 @@ export default function AdminHomePage() {
         const address = document.getElementById('clinicAddress').value;
         const landline = document.getElementById('clinicLandline').value;
         const phone = document.getElementById('clinicPhone').value;
+        const username = document.getElementById('clinicUsername').value;
+        const password = document.getElementById('clinicPassword').value;
 
         const data = {
-            name: name,
-            email: email,
-            address: address,
-            landline: landline,
-            phone: phone
+            clinic: {
+                name: name,
+                address: address,
+                email: email,
+                mobilePhone: phone,
+                landlinePhone: landline,
+                admin: {}
+            },
+            account: {
+                email: email,
+                username: username,
+                password: hashString(password),
+                role: "CLINIC_ADMIN",
+            }
         };
 
         if (!name || !email || !address || !landline || !phone) {
@@ -33,6 +45,7 @@ export default function AdminHomePage() {
             return;
         }
         showError("Creating clinic.. Please wait!");
+      
         fetch('http://localhost:8080/admin/newclinic', {
             method: 'POST',
             headers: {
@@ -42,7 +55,11 @@ export default function AdminHomePage() {
         })
         .then(response => response.text())
         .then(response => {
-            showError(response);
+            if (response.success) {
+                showError("Clinic created successfully!");
+            } else {
+                showError(response.msg);
+            }
         })
         .catch((error) => {
             showError('Internal Server Error occured. Please try again later.')
@@ -51,34 +68,33 @@ export default function AdminHomePage() {
     }
 
     const deleteClinic = () => {
-        showError("(demo) Clinic successfully deactivated.");
-        // const id = document.getElementById('clinicId').value;
+        const id = document.getElementById('clinicId').value;
 
-        // if (!id) {
-        //     showError('Please fill all the fields');
-        //     return;
-        // }
-        
-        // const data = {
-        //     id: id
-        // }
-
-        // showError("Deleting clinic.. Please wait!");
-        // fetch('http://localhost:8080/removeclinic', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data),
-        //     })
-        //     .then(response => response.text())
-        //     .then(response => {
-        //         showError(response);
-        //     })
-        //     .catch((error) => {
-        //         showError('Internal Server Error occured. Please try again later.')
-        //     }
-        // );
+        if (!id) {
+            showError('Please fill all the fields');
+            return;
+        }
+    
+        showError("Deleting clinic.. Please wait!");
+        fetch('http://localhost:8080/removeClinic', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: id
+            })
+            .then(response => response.text())
+            .then(response => {
+                if (response.success) {
+                    showError("Clinic deleted successfully!");
+                } else {
+                    showError(response.msg);
+                }
+            })
+            .catch((error) => {
+                showError('Internal Server Error occured. Please try again later.')
+            }
+        );
     }
 
     const sendNotification = () => {
@@ -104,11 +120,62 @@ export default function AdminHomePage() {
     }
 
     const inviteAdmin = () => {
-        showError("(demo) Admin invitation successfully sent.");
+        const emailAddress = document.getElementById('AdminEmail').value;
+        const password = document.getElementById('AdminPassword').value;
+
+        if (!emailAddress || !password) {
+            showError('Please fill all the fields');
+            return;
+        }
+
+        const data = {
+            email: emailAddress,
+            username: emailAddress.split('@')[0],
+            password: hashString(password),
+            role: "SYSTEM_ADMIN"
+        }
+    
+        showError("Creating account.. Please wait!");
+        fetch('http://localhost:8080/admin/createAdmin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.text())
+            .then(response => {
+                if (response.success) {
+                    showError("Admin invited successfully!");
+                } else {
+                    showError(response.msg);
+                }
+            })
+            .catch((error) => {
+                showError('Internal Server Error occured. Please try again later.')
+            }
+        );
     }
 
     const deactiveUser = () => {
-        showError("(demo) Account deactivated successfully.");
+        const username = document.getElementById('delete-username').value;
+        if (!username) {
+            showError('Please fill all the fields');
+            return;
+        }
+
+        showError("Deleting account.. Please wait!");
+        fetch('http://localhost:8080/account/'+username, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                showError("Account deleted successfully!");
+            } else {
+                showError("Account deletion failed!");
+            }
+        }).catch((error) => {
+            showError('Internal Server Error occured. Please try again later.')
+        });
     }
 
     
@@ -121,6 +188,11 @@ export default function AdminHomePage() {
         const error = document.getElementById('display');
         error.innerHTML = msg;
         error.style.display = 'block';
+    }
+
+    const generateUsername = (event) => {
+        const username = document.getElementById('clinicUsername');
+        username.value = event.target.value.replace(/\s/g, '').replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
     }
 
     return (
@@ -193,23 +265,18 @@ export default function AdminHomePage() {
                         </div>
                         <div class="card p-3 mt-3">
                             <h6>Invite New Admin</h6>
-                            <div class="row">
-                                <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="User Email Address"/>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-warning  w-100" onClick={inviteAdmin}>Invite</button>
-                                </div>
-                            </div>
+                            <input type="email" class="form-control" placeholder="User Email Address" id="AdminEmail" />
+                            <input type="password" class="form-control mt-1" placeholder="Password" id="AdminPassword"/>
+                            <button class="btn btn-warning mt-2 w-100" onClick={inviteAdmin}>Invite</button>
                         </div>
                         <div class="card p-3 mt-3">
-                            <h6>Deactive User Account</h6>
+                            <h6>Delete User Account</h6>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="User Email Address"/>
+                                    <input type="username" class="form-control" placeholder="Username" id="delete-username"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Deactive</button>
+                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -217,22 +284,27 @@ export default function AdminHomePage() {
                     <div class="col-6">
                         <h4 class="text-center">Clinic Management</h4>
                         <div class="card p-3">
-                            <h6>Create New Clinic</h6>
-                                <input type="text" class="form-control mb-2" id="clinicName" placeholder="Clinic Name"/>
-                                <input type="text" class="form-control mb-2" id="clinicEmail" placeholder="Clinic Admin Email"/>
+                            <h6 className="m-auto">Create New Clinic</h6>
+                                <div className="text-muted">Clinic Details</div>
+                                <input type="text" class="form-control mb-2" id="clinicName" placeholder="Name" onChange={generateUsername}/>
                                 <input type="text" class="form-control mb-2" id="clinicAddress" placeholder="Full Address"/>
                                 <input type="text" class="form-control mb-2" id="clinicLandline" placeholder="Landline"/>
                                 <input type="text" class="form-control mb-2" id="clinicPhone" placeholder="Phone Number"/>
+
+                                <div className="text-muted">Clinic Admin Details</div>
+                                <input type="text" class="form-control mb-2" id="clinicEmail" placeholder="Email Address"/>
+                                <input type="text" class="form-control mb-2" id="clinicUsername" placeholder="Username"/>
+                                <input type="password" class="form-control mb-2" id="clinicPassword" placeholder="Password"/>
                                 <button class="btn btn-success mt-2 " onClick={createClinic}>Create</button>
                         </div>
                         <div class="card p-3 mt-3">
-                            <h6>Deactive Clinic</h6>
+                            <h6 className="m-auto mb-2">Delete Clinic</h6>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="text" class="form-control" id="clinicId" placeholder="Clinic ID"/>
+                                    <input type="text" class="form-control" id="clinicId" placeholder="Email Address"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger  w-100" onClick={deleteClinic}>Deactive</button>
+                                    <button class="btn btn-danger  w-100" onClick={deleteClinic}>Delete</button>
                                 </div>
                             </div>
                         </div>
