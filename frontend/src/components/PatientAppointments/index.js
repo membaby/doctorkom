@@ -1,19 +1,24 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import secureLocalStorage from 'react-secure-storage';
 
 
 export default function PatientAppointments() {
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        setAppointments([
-            {'date': '2021-01-01', 'time': '12:00', 'doctor': 'Dr. John Doe', 'clinic': 'Clinic 1', 'status': 'Scheduled'},
-            {'date': '2021-01-02', 'time': '13:00', 'doctor': 'Dr. John Doe', 'clinic': 'Clinic 1', 'status': 'Scheduled'},
-            {'date': '2021-01-03', 'time': '14:00', 'doctor': 'Dr. John Doe', 'clinic': 'Clinic 1', 'status': 'Scheduled'},
-            {'date': '2021-01-04', 'time': '15:00', 'doctor': 'Dr. John Doe', 'clinic': 'Clinic 1', 'status': 'Scheduled'},
-            {'date': '2021-01-05', 'time': '16:00', 'doctor': 'Dr. John Doe', 'clinic': 'Clinic 1', 'status': 'Scheduled'},
-        ])
+        const patient_id = secureLocalStorage.getItem('id');
+        // fetch(`http://localhost:8080/appointments/${patient_id}/1`, {
+        fetch(`http://localhost:8080/patient/appointments/1195/0`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => response.json())
+        .then((data) => {
+            setAppointments(data.content);
+        })
     }, []);
 
     return (
@@ -33,10 +38,10 @@ export default function PatientAppointments() {
                     <tbody>
                         {appointments.map((appointment) => (
                             <tr>
-                                <td>{appointment.date} {appointment.time}</td>
-                                <td>{appointment.doctor}</td>
-                                <td>{appointment.clinic}</td>
-                                <td>{appointment.status}</td>
+                                <td>{appointment.timeSlot.date} {appointment.timeSlot.startTime}</td>
+                                <td>{appointment.timeSlot.doctor.systemUser.firstName} {appointment.timeSlot.doctor.systemUser.lastName}</td>
+                                <td>{appointment.timeSlot.clinic.name}</td>
+                                <td>Booked</td>
                                 <td>
                                     <button class="btn btn-danger">Cancel</button>
                                 </td>
