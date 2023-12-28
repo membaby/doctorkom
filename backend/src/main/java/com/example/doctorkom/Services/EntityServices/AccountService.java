@@ -3,6 +3,7 @@ package com.example.doctorkom.Services.EntityServices;
 import com.example.doctorkom.DTOMappers.AccountMapper;
 import com.example.doctorkom.DTOs.AccountDTO;
 import com.example.doctorkom.Entities.Account;
+import com.example.doctorkom.Exceptions.AccountExceptions.AccountNotFoundException;
 import com.example.doctorkom.Repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +27,19 @@ public class AccountService {
     }
 
     public void updateAccount(AccountDTO accountDTO) {
-        if (accountRepository.findByUsername(accountDTO.getUsername()).isPresent()) {
-            Account account = accountRepository.findByUsername(accountDTO.getUsername()).get();
-            accountRepository.save(accountMapper.partialUpdate(accountDTO, account));
-        }
+        if (accountRepository.findByUsername(accountDTO.getUsername()).isEmpty())
+            throw new AccountNotFoundException();
+        Account account = accountRepository.findByUsername(accountDTO.getUsername()).get();
+        accountRepository.save(accountMapper.partialUpdate(accountDTO, account));
     }
 
     public boolean existAccount(String username) {
         return accountRepository.findByUsername(username).isPresent();
+    }
+
+    public void deleteAccount(String username) {
+        if (accountRepository.findByUsername(username).isEmpty())
+            throw new AccountNotFoundException();
+        accountRepository.delete(accountRepository.findByUsername(username).get());
     }
 }
