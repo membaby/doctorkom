@@ -1,9 +1,9 @@
 package com.example.doctorkom.Controllers;
 
+import com.example.doctorkom.DTOs.ClinicDTO;
+import com.example.doctorkom.DTOs.DoctorDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.example.doctorkom.Entities.Clinic;
-import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Services.Search.SearchService;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,7 +42,7 @@ class SearchControllerTest {
     @Test
     void searchDoctors_ReturnsListOfDoctors() throws Exception {
         // Mock data
-        Page<Doctor> doctors = Mockito.mock(Page.class);
+        Page<DoctorDTO> doctors = Mockito.mock(Page.class);
 
         // When
         when(searchService.searchDoctorsByDoctorAndClinic(anyMap(), eq(1))).thenReturn(doctors);
@@ -55,7 +55,7 @@ class SearchControllerTest {
     @Test
     void searchClinics_ReturnsListOfClinics() throws Exception {
         // Mock data
-        Page<Clinic> clinics = Mockito.mock(Page.class);
+        Page<ClinicDTO> clinics = Mockito.mock(Page.class);
 
         // When
         when(searchService.searchClinics(anyMap(), eq(1))).thenReturn(clinics);

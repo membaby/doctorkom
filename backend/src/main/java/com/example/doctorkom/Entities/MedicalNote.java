@@ -35,4 +35,8 @@ public class MedicalNote {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "DoctorId")
     private Doctor doctor;
+
+    public MedicalNoteId getId() {
+        return new MedicalNoteId(patient, doctor, date);
+    }
 }

@@ -15,6 +15,8 @@ import Search from './components/Search';
 import UserProfilePage from './components/UserProfile';
 import DoctorDetails from './components/DoctorDetails';
 import Reservation from './components/Reservation';
+import About from './components/About';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,9 +24,9 @@ function App() {
       <div class="fixed-top">
         <Navbar />
       </div>
-      <div class="empty_block d-block w-100"></div>
+      <div className="empty_block"></div>
 
-      <div class="mb-5">
+      <div class="MainContainer">
         
         <Routes>
           <Route path='/' element={ <Homepage/> } />
@@ -42,11 +44,14 @@ function App() {
           <Route path='/profile' element={ <UserProfilePage /> } />
           <Route path='/doctor/:username' element={ <DoctorDetails /> } />
           <Route path='/reserve' element={ <Reservation /> } />
+          <Route path='/about' element={ <About /> } />
         </Routes>
 
       </div>
+      <Footer />
     </Router>
-  )
+
+)
 }
 
 export default App;
