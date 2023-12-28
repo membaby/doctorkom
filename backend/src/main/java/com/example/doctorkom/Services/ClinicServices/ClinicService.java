@@ -4,6 +4,8 @@ import com.example.doctorkom.DTOMappers.AppointmentMapper;
 import com.example.doctorkom.DTOMappers.TimeSlotMapper;
 import com.example.doctorkom.DTOs.AppointmentDTO;
 import com.example.doctorkom.DTOs.TimeSlotDTO;
+import com.example.doctorkom.DTOMappers.ClinicMapper;
+import com.example.doctorkom.DTOs.ClinicDTO;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.Notifier.NotificationService;
@@ -34,6 +36,7 @@ public class ClinicService {
     private AccountRepository accountRepository;
     private TimeSlotMapper timeslotMapper;
     private AppointmentMapper appointmentMapper;
+    private ClinicMapper clinicMapper;
     private NotificationService notificationService;
 
     @Autowired
@@ -41,6 +44,7 @@ public class ClinicService {
                               DoctorRepository doctorRepository,
                               TimeSlotRepository timeSlotRepository,
                               AppointmentRepository appointmentRepository,
+                              ClinicMapper clinicMapper,
                               AccountRepository accountRepository,
                               TimeSlotMapper timeslotMapper,
                               AppointmentMapper appointmentMapper,
@@ -52,6 +56,7 @@ public class ClinicService {
         this.accountRepository = accountRepository;
         this.timeslotMapper = timeslotMapper;
         this.appointmentMapper = appointmentMapper;
+        this.clinicMapper = clinicMapper;
         this.notificationService = notificationService;
     }
 
@@ -245,10 +250,11 @@ public class ClinicService {
             return "Appointment Doesn't exist";
         }
     }
-    
-    public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
+  
+    public Page<ClinicDTO> findAllClinics(Specification<Clinic> specification, int pageCount) {
         Pageable pageable = PageRequest.of(pageCount, 10);
-        return clinicRepository.findAll(specification, pageable);
+        Page<Clinic> clinics = clinicRepository.findAll(specification, pageable);
+        return clinics.map(clinicMapper::toDto);
     }
 
     public List<AppointmentDTO> getAppointmentsForClinic(Clinic clinic) {
