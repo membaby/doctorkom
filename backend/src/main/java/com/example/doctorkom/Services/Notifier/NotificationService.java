@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import com.example.doctorkom.Entities.Appointment;
+
 
 @Component
 public class NotificationService {
@@ -54,7 +56,7 @@ public class NotificationService {
         Notification notification = new Notification();
         notification.setTo(email);
         notification.setSubject("Verification Email");
-        notification.setContent(notification.VerifyEmailContent_ClinicAdmin(code));
+        notification.setContent(notification.VerifyEmailContent_ClinicAdmin(email, code));
         Send(notification);
     }
     public void VerificationEmail_SystemAdmin(String email,String code) throws MessagingException {
@@ -62,6 +64,38 @@ public class NotificationService {
         notification.setTo(email);
         notification.setSubject("Verification Email");
         notification.setContent(notification.VerifyEmailContent_SystemAdmin(email, code));
+        Send(notification);
+    }
+    public void AppointmentRescheduledPatient(Appointment oldApp, Appointment newApp) throws MessagingException
+    {
+        Notification notification = new Notification();
+        notification.setTo(oldApp.getPatient().getSystemUser().getAccount().getEmail());
+        notification.setSubject("Appointment Rescheduled");
+        notification.setContent(notification.AppointmentRescheduledContent_Patient(oldApp,newApp));
+        Send(notification);
+    }
+    public void AppointmentCancelledPatient(Appointment appointment) throws MessagingException
+    {
+        Notification notification = new Notification();
+        notification.setTo(appointment.getPatient().getSystemUser().getAccount().getEmail());
+        notification.setSubject("Appointment Rescheduled");
+        notification.setContent(notification.AppointmentCancelledContent_Patient(appointment));
+        Send(notification);
+    }
+    public void AppointmentRescheduledDoctor(Appointment oldApp, Appointment newApp) throws MessagingException
+    {
+        Notification notification = new Notification();
+        notification.setTo(oldApp.getTimeSlot().getDoctor().getSystemUser().getAccount().getEmail());
+        notification.setSubject("Appointment Rescheduled");
+        notification.setContent(notification.AppointmentRescheduledContent_Doctor(oldApp,newApp));
+        Send(notification);
+    }
+    public void AppointmentCancelledDoctor(Appointment appointment) throws MessagingException
+    {
+        Notification notification = new Notification();
+        notification.setTo(appointment.getTimeSlot().getDoctor().getSystemUser().getAccount().getEmail());
+        notification.setSubject("Appointment Rescheduled");
+        notification.setContent(notification.AppointmentCancelledContent_Doctor(appointment));
         Send(notification);
     }
     public void CustomEmail(String email, String subject, String content) throws MessagingException {

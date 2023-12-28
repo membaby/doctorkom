@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import hashString from '../../functions/hashString';
+import secureLocalStorage from "react-secure-storage";
 
 export default function AdminHomePage() {
 
@@ -12,6 +13,16 @@ export default function AdminHomePage() {
         .then(response => {
             setInsights(response)
         });
+    }, [])
+
+    useEffect(() => {
+        const role = secureLocalStorage.getItem('role');
+        const id = secureLocalStorage.getItem('id');
+        const username = secureLocalStorage.getItem('username');
+        
+        if (!role || !id || !username || role !== 'SYSTEM_ADMIN') {
+          window.location.href = '/';
+        }
     }, [])
 
     const createClinic = () => {

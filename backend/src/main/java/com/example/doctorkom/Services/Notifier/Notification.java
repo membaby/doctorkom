@@ -1,5 +1,8 @@
 package com.example.doctorkom.Services.Notifier;
 
+import com.example.doctorkom.Entities.Appointment;
+import com.example.doctorkom.Entities.Patient;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +30,7 @@ public class Notification {
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear user,</p>"
-                + "    <p>Thank you for signing up! Please verify your account by visiting localhost:3000/verification.</p>"
+                + "    <p>Thank you for signing up! Please verify your account by visiting <a href='http://localhost:3000/verification?email="+email+"'>this link</a>.</p>"
                 + "    <p>Your verification code is "+code+"</p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
@@ -91,7 +94,7 @@ public class Notification {
         return htmlContent;
     }
 
-    public String VerifyEmailContent_ClinicAdmin(String code) {
+    public String VerifyEmailContent_ClinicAdmin(String email, String code) {
         String htmlContent = "<html>"
                 + "<head>"
                 + "<style>"
@@ -106,9 +109,8 @@ public class Notification {
                 + "  </div>"
                 + "  <div class='content'>"
                 + "    <p>Dear Clinic Admin,</p>"
-                + "    <p>Thank you for registering with our platform. To complete the account setup for your clinic, please login and fill the clinic information.</p>"
-                // + "    <p><a href='" + FormLink + "'>Clinic Information Form</a></p>"
-                + "    <p> then enter the verification code on the website to confirm your email and add clinic information.</p>"
+                + "    <p>Thank you for registering with our platform.</p>"
+                + "    <p>Please visit <a href='http://localhost:3000/verification?email="+email+"'>this link</a> and enter the verification code on verify your email.</p>"
                 + "    <p><strong>Verification Code: <u>" + code + "</u></strong></p>"
                 + "    <p>the code will expire in 24 hours</p>"
                 + "  </div>"
@@ -210,6 +212,90 @@ public class Notification {
                 + "  </div>"
                 + "</body>"
                 + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentRescheduledContent_Patient(Appointment oldApp, Appointment newApp) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ oldApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() + " has been rescheduled to "+ newApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() +".</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentCancelledContent_Patient(Appointment appointment) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ appointment.getTimeSlot().getDate() +" "+ appointment.getTimeSlot().getStartTime() + " has been cancelled.</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentRescheduledContent_Doctor(Appointment oldApp, Appointment newApp) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ oldApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() + " has been rescheduled to "+ newApp.getTimeSlot().getDate() +" "+ oldApp.getTimeSlot().getStartTime() +".</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
+        return htmlContent;
+    }
+
+    public String AppointmentCancelledContent_Doctor(Appointment appointment) {
+        String htmlContent = "<html>"
+            + "<head>"
+            + "<style>"
+            + "  body { font-family: 'Arial', sans-serif; }"
+            + "  .header { background-color: #242c3c; color: white; padding: 10px; text-align: center; }"
+            + "  .content { padding: 20px; }"
+            + "</style>"
+            + "</head>"
+            + "<body>"
+            + "  <div class='header'>"
+            + "    <h2>⚠️ Appointment Rescheduled ⚠️</h2>"
+            + "  </div>"
+            + "  <div class='content'>"
+            + "    <p>Your appointment on "+ appointment.getTimeSlot().getDate() +" "+ appointment.getTimeSlot().getStartTime() + " has been cancelled.</p>"
+            + "  </div>"
+            + "</body>"
+            + "</html>";
         return htmlContent;
     }
 }
