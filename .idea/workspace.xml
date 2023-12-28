@@ -5,14 +5,99 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="638daee9-704d-405f-967d-2eddf70d0293" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/ClinicDoctorMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicDoctorDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/ClinicController/ClinicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/ClinicController/ClinicController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/DoctorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/DoctorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/LoginController/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/LoginController/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/LoginController/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/LoginController/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/PatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/SignupController/SignupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/SignupController/SignupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/SignupController/SignupResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/SignupController/SignupResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/VerificationController/VerificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Controllers/VerificationController/VerificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/AccountMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/AccountMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/AppointmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/AppointmentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/ClinicAdminMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/ClinicAdminMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/ClinicMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/ClinicMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/DoctorMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/DoctorMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/MedicalNoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/MedicalNoteMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/PatientMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/PatientMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/SystemAdminMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/SystemAdminMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/SystemUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/SystemUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/TimeSlotMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/TimeSlotMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/VerificationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOMappers/VerificationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/AccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/AdminMessageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/AdminMessageDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/AppointmentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/AppointmentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicAdminDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicAdminDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicDoctorDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/ClinicDoctorDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/DoctorDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/DoctorDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/MedicalNoteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/MedicalNoteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/PatientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/PatientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/SystemAdminDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/SystemAdminDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/SystemUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/SystemUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/TimeSlotDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/TimeSlotDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/VerificationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DTOs/VerificationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DoctorkomApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/DoctorkomApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/AppointmentId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/AppointmentId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Clinic.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Clinic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/ClinicAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/ClinicAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/DoctorSpecialty.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/DoctorSpecialty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/DoctorTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/DoctorTitle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/MedicalNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/MedicalNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/MedicalNoteId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/MedicalNoteId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/SystemAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/SystemAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/SystemUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/SystemUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/TimeSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/TimeSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/TimeSlotId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/TimeSlotId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Verification.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Entities/Verification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/EntitySearch/SearchFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/EntitySearch/SearchFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/EntitySearch/SearchSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/EntitySearch/SearchSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Exceptions/AccountAlreadyExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Exceptions/AccountAlreadyExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Exceptions/AccountDoesNotExistException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Exceptions/AccountDoesNotExistException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/AppointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/AppointmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/ClinicAdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/ClinicAdminRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/ClinicRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/ClinicRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/DoctorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/DoctorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/MedicalNoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/MedicalNoteRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/PatientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/PatientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/SystemAdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/SystemAdminRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/SystemUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/SystemUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/TimeSlotRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/TimeSlotRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/VerificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Repositories/VerificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/AdminTools/ClinicManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/AdminTools/ClinicManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/ClinicServices/ClinicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/ClinicServices/ClinicService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/DoctorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/DoctorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/PatientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/SystemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/EntityServices/SystemUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Notifier/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Notifier/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Notifier/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Notifier/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Register_LogIn/LogInService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Register_LogIn/LogInService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Register_LogIn/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Register_LogIn/RegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/RepositoryHandler/EntityWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/RepositoryHandler/EntityWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Search/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/Search/SearchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/UserProfileService/DoctorProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/UserProfileService/DoctorProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/UserProfileService/PatientProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/UserProfileService/PatientProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/UserProfileService/UserProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/Services/UserProfileService/UserProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/doctorkom/WebConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -53,9 +138,6 @@
       </UrlAndAccount>
     </option>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/doctorkom/backend/src/main/java/com/example/doctorkom/DAOs/UserDAO.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -81,7 +163,7 @@
     "git-widget-placeholder": "SCRUM-91-Validate-sign-up-data-return-message",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/college/level-3/1st term/Software Engineering/project/backend",
+    "last_opened_file_path": "C:/Users/dell/Desktop/doctorkom",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
