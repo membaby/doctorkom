@@ -6,6 +6,9 @@ import com.example.doctorkom.DTOs.AppointmentDTO;
 import com.example.doctorkom.DTOs.TimeSlotDTO;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
+import com.example.doctorkom.Services.Notifier.NotificationService;
+
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,7 @@ public class ClinicService {
     private AccountRepository accountRepository;
     private TimeSlotMapper timeslotMapper;
     private AppointmentMapper appointmentMapper;
+    private NotificationService notificationService;
 
     @Autowired
     public ClinicService(ClinicRepository clinicRepository,
@@ -39,7 +43,8 @@ public class ClinicService {
                               AppointmentRepository appointmentRepository,
                               AccountRepository accountRepository,
                               TimeSlotMapper timeslotMapper,
-                              AppointmentMapper appointmentMapper) {
+                              AppointmentMapper appointmentMapper,
+                              NotificationService notificationService) {
         this.doctorRepository = doctorRepository;
         this.clinicRepository = clinicRepository;
         this.timeSlotRepository = timeSlotRepository;
@@ -47,6 +52,7 @@ public class ClinicService {
         this.accountRepository = accountRepository;
         this.timeslotMapper = timeslotMapper;
         this.appointmentMapper = appointmentMapper;
+        this.notificationService = notificationService;
     }
 
     public String editClinicInfo(Clinic clinic) {
@@ -207,6 +213,10 @@ public class ClinicService {
                 } else {
                     appointmentRepository.save(appointment);
                     //notify the patient
+                    try{
+                        notificationService.AppointmentRescheduledPatient(oldAppointment, appointment);
+                        notificationService.AppointmentRescheduledDoctor(oldAppointment, appointment);
+                    } catch (MessagingException e) {System.out.println("Error while sending \"Appointment Reschedule\" email.");}
                     return "Appointment edited successfully";
                 }
             } else {
@@ -216,7 +226,7 @@ public class ClinicService {
             return "Appointment Doesn't exist";
         }
     }
-
+    
     public String removeAppointment(Appointment appointment) {
         AppointmentId appointmentId = new AppointmentId();
         appointmentId.setPatient(appointment.getPatient());
@@ -226,12 +236,16 @@ public class ClinicService {
         if (oldAppointment != null) {
             appointmentRepository.delete(oldAppointment);
             //notify the patient
+            try{
+                notificationService.AppointmentCancelledPatient(oldAppointment);
+                notificationService.AppointmentCancelledDoctor(oldAppointment);
+            } catch (MessagingException e) {System.out.println("Error while sending \"Appointment Reschedule\" email.");}
             return "Appointment removed successfully";
         } else {
             return "Appointment Doesn't exist";
         }
     }
-
+    
     public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
         Pageable pageable = PageRequest.of(pageCount, 10);
         return clinicRepository.findAll(specification, pageable);
