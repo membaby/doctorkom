@@ -1,6 +1,7 @@
 package com.example.doctorkom.Services.UserProfileService;
 
 import com.example.doctorkom.DTOs.DoctorDTO;
+import com.example.doctorkom.Exceptions.AccountExceptions.AccountDoesNotExistException;
 import com.example.doctorkom.Services.EntityServices.AccountService;
 import com.example.doctorkom.Services.EntityServices.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,9 @@ public class DoctorProfileService implements UserProfileService<DoctorDTO> {
 
     @Override
     public DoctorDTO getUserProfile(String username) {
-        if (accountService.existAccount(username)) {
-            return doctorService.getDoctor(accountService.getAccount(username).getId());
-        }
-        return null;
+        if (!accountService.existAccount(username))
+            throw new AccountDoesNotExistException();
+        return doctorService.getDoctor(accountService.getAccount(username).getId());
     }
 
     @Override

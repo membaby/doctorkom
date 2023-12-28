@@ -15,17 +15,17 @@ import java.util.Optional;
 @Repository
 public interface TimeSlotRepository extends JpaRepository<TimeSlot, TimeSlotId> {
 
-    List<TimeSlot> findByDoctorIdAndDate(int doctorId, Date date);
+    List<TimeSlot> findAllByDoctorIdAndDate(Integer doctorId, Date date);
 
-    List<TimeSlot> findByClinicIdAndDate(int clinicId, Date date);
+    List<TimeSlot> findAllByClinicIdAndDate(Integer clinicId, Date date);
 
     void deleteByDoctor(Doctor doctor);
 
-    List<TimeSlot> findByDoctorId(Doctor doctor);
+    List<TimeSlot> findAllByDoctorId(Integer doctorId);
 
     void deleteByClinic(Clinic clinic);
 
-    List<TimeSlot> findByDoctorIdAndClinicIdAndDate(Integer id, Integer id1, Date date);
+    List<TimeSlot> findAllByDoctorIdAndClinicIdAndDate(Integer id, Integer id1, Date date);
 
-    List<TimeSlot> findByClinic(Clinic clinic);
+    List<TimeSlot> findAllByClinic(Clinic clinic);
 }

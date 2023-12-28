@@ -13,5 +13,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Appoin
 
     Page<Appointment> findAllByPatient(Patient patient, Pageable pageable);
 
-    Page<Appointment> findAllByTimeSlotDoctor(Doctor doctor, Pageable pageable);
+    List<Appointment> findAllByTimeSlotDoctor(Doctor doctor);
 }
