@@ -1,5 +1,7 @@
 package com.example.doctorkom.Services.ClinicServices;
 
+import com.example.doctorkom.DTOMappers.ClinicMapper;
+import com.example.doctorkom.DTOs.ClinicDTO;
 import com.example.doctorkom.Entities.*;
 import com.example.doctorkom.Repositories.*;
 import com.example.doctorkom.Services.Notifier.NotificationService;
@@ -28,6 +30,7 @@ public class ClinicService {
     private TimeSlotRepository timeSlotRepository;
     private AppointmentRepository appointmentRepository;
     private AccountRepository accountRepository;
+    private ClinicMapper clinicMapper;
     private NotificationService notificationService;
 
     @Autowired
@@ -35,6 +38,7 @@ public class ClinicService {
                               DoctorRepository doctorRepository,
                               TimeSlotRepository timeSlotRepository,
                               AppointmentRepository appointmentRepository,
+                              ClinicMapper clinicMapper,
                               AccountRepository accountRepository,
                               NotificationService notificationService) {
         this.doctorRepository = doctorRepository;
@@ -42,6 +46,7 @@ public class ClinicService {
         this.timeSlotRepository = timeSlotRepository;
         this.appointmentRepository = appointmentRepository;
         this.accountRepository = accountRepository;
+        this.clinicMapper = clinicMapper;
         this.notificationService = notificationService;
     }
 
@@ -226,10 +231,11 @@ public class ClinicService {
             return "Appointment Doesn't exist";
         }
     }
-    
-    public Page<Clinic> findAllClinics(Specification<Clinic> specification, int pageCount) {
+  
+    public Page<ClinicDTO> findAllClinics(Specification<Clinic> specification, int pageCount) {
         Pageable pageable = PageRequest.of(pageCount, 10);
-        return clinicRepository.findAll(specification, pageable);
+        Page<Clinic> clinics = clinicRepository.findAll(specification, pageable);
+        return clinics.map(clinicMapper::toDto);
     }
 
     public Pair<List<Appointment>, List<TimeSlot>> GetAppointmentsAndTimeSlotsForClinic(Clinic clinic) {

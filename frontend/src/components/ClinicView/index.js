@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+import secureLocalStorage from "react-secure-storage";
 
 const app=[
   {
@@ -77,6 +77,16 @@ const app=[
 
 export default function ClinicHomePage() {
 
+  useEffect(() => {
+    const role = secureLocalStorage.getItem('role');
+    const id = secureLocalStorage.getItem('id');
+    const username = secureLocalStorage.getItem('username');
+
+    if (!role || !id || !username || role !== 'CLINIC_ADMIN') {
+      window.location.href = '/';
+    }
+  }, [])
+
   
   function CustomPrevArrow(props) {
     const { onClick } = props;
@@ -123,14 +133,12 @@ export default function ClinicHomePage() {
   };
   ///////////////////////////////////////////////////////////////apis////////////////////////////////////////////////
   ///////////////////////clinic info get request
-const cookies = new Cookies();
 const [rating, setRating] = useState(4.5);
 const [name, setName] = useState('');
 const [address, setAddress] = useState('');
 const [phone, setPhone] = useState('');
 const [email, setEmail] = useState('');
-// const [id, setId] = useState(cookies.get('id'));
-const [id, setId] = useState(80);
+const [id, setId] = useState(secureLocalStorage.getItem('id'));
 const [landlinePhone, setLandlinePhone] = useState('');
 const [admin, setAdmin] = useState({});
  
