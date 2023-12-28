@@ -16,13 +16,13 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(e.getErrorDetails(), e.getErrorDetails().getStatus());
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorDetails> handleException(Exception e){
-//        ErrorDetails errorDetails = ErrorDetails.builder()
-//                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                .message(e.getMessage())
-//                .timestamp(new Date())
-//                .build();
-//        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetails> handleException(Exception e){
+        ErrorDetails errorDetails = ErrorDetails.builder()
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .message(e.getMessage())
+                .timestamp(new Date())
+                .build();
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
