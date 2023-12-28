@@ -5,6 +5,7 @@ import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Entities.MedicalNoteId;
 import com.example.doctorkom.Entities.Patient;
 import com.example.doctorkom.Services.EntityServices.MedicalNoteService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -16,6 +17,11 @@ public class MedicalNoteController {
 
     public MedicalNoteController(MedicalNoteService medicalNoteService) {
         this.medicalNoteService = medicalNoteService;
+    }
+
+    @GetMapping()
+    public Page<MedicalNoteDTO> getAllMedicalNotes(@RequestParam int doctorId, @RequestParam int pageCount) {
+        return medicalNoteService.getAllMedicalNotes(doctorId, pageCount);
     }
 
     @GetMapping("/{patientId}/{doctorId}/{date}")

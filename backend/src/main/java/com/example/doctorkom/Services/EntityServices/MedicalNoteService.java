@@ -12,10 +12,14 @@ import com.example.doctorkom.Repositories.PatientRepository;
 import com.example.doctorkom.Exceptions.PatientExceptions.PatientNotFoundException;
 import com.example.doctorkom.Exceptions.DoctorExceptions.DoctorNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MedicalNoteService {
+    private static final int PAGE_SIZE = 10;
     private final MedicalNoteRepository medicalNoteRepository;
 
     private final PatientRepository patientRepository;
@@ -36,6 +40,14 @@ public class MedicalNoteService {
         if (medicalNoteRepository.findById(medicalNoteId).isEmpty())
             throw new MedicalNoteNotFoundException();
         return medicalNoteMapper.toDto(medicalNoteRepository.findById(medicalNoteId).get());
+    }
+
+    public Page<MedicalNoteDTO> getAllMedicalNotes(int doctorId, int pageCount) {
+        Pageable page = PageRequest.of(pageCount, PAGE_SIZE);
+        if (medicalNoteRepository.findAllByDoctorId(doctorId, page).isEmpty())
+            throw new MedicalNoteNotFoundException();
+        Page<MedicalNote> medicalNotes = medicalNoteRepository.findAllByDoctorId(doctorId, page);
+        return medicalNotes.map(medicalNoteMapper::toDto);
     }
 
     public void addMedicalNote(MedicalNoteDTO medicalNoteDTO) {

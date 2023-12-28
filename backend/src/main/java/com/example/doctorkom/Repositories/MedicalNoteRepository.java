@@ -2,6 +2,8 @@ package com.example.doctorkom.Repositories;
 
 import com.example.doctorkom.Entities.MedicalNote;
 import com.example.doctorkom.Entities.MedicalNoteId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.example.doctorkom.Entities.Doctor;
@@ -18,6 +20,7 @@ public interface MedicalNoteRepository extends JpaRepository<MedicalNote, Medica
     List<MedicalNote> findByDoctorIdAndPatientId(Integer doctorId, Integer patientId);
     List<MedicalNote> findByDoctorIdAndDate(Integer doctorId, Date date);
     List<MedicalNote> findByPatientIdAndDate(Integer patientId, Date date);
+    Page<MedicalNote> findAllByDoctorId(Integer doctorId, Pageable pageable);
     Optional<MedicalNote> findByDoctorIdAndPatientIdAndDate(Integer doctorId, Integer patientId, Date date);
     void deleteByPatientId(Integer patientId);
     void deleteByDoctorId(Integer doctorId);
