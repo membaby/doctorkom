@@ -27,8 +27,8 @@ import java.util.HashMap;
 public class AdminController {
 
     NotificationService notificationService;
-    RegistrationService regisService;
     AccountMapper accountMapper;
+    RegistrationService regisService;
 
     public AdminController(
         NotificationService notificationService, 
@@ -63,14 +63,15 @@ public class AdminController {
     }
 
     @PostMapping("/createAdmin")
-    public SignupResponse createAdmin(@RequestBody AccountDTO accountDTO)
+    public BoolMessage createAdmin(@RequestBody AccountDTO accountDTO)
     {
         String msg = regisService.registerSystemAdmin(SystemAdmin.builder().account(accountMapper.toEntity(accountDTO)).build());
-        return new SignupResponse(msg, msg.isEmpty());
+        return new BoolMessage(msg, msg.isEmpty());
+    }
       
     @PostMapping("/createClinic")
     public BoolMessage createClinic(@RequestBody ClinicAccountInfo clinicInfo) {
-        String msg = registrationService.registerClinic(clinicMapper.toEntity(clinicInfo.getClinic()), accountMapper.toEntity(clinicInfo.getAccount()));
+        String msg = regisService.registerClinic(clinicMapper.toEntity(clinicInfo.getClinic()), accountMapper.toEntity(clinicInfo.getAccount()));
         return new BoolMessage(msg, msg.isEmpty());
     }
 
