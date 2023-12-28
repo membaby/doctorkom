@@ -1,9 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import hashString from '../../functions/hashString';
 import secureLocalStorage from "react-secure-storage";
 
 export default function AdminHomePage() {
+
+    const [insights, setInsights] = useState(null);
+
+    useEffect(() => {
+        fetch('http://localhost:8080/admin/adminInsights', {method: 'GET'})
+        .then(response => response.json())
+        .then(response => {
+            setInsights(response)
+        });
+    }, [])
 
     useEffect(() => {
         const role = secureLocalStorage.getItem('role');
@@ -14,7 +24,6 @@ export default function AdminHomePage() {
           window.location.href = '/';
         }
     }, [])
-
 
     const createClinic = () => {
         const name = document.getElementById('clinicName').value;
@@ -47,7 +56,8 @@ export default function AdminHomePage() {
             return;
         }
         showError("Creating clinic.. Please wait!");
-        fetch('http://localhost:8080/createClinic', {
+      
+        fetch('http://localhost:8080/admin/newclinic', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -103,7 +113,7 @@ export default function AdminHomePage() {
             "email": document.getElementById('userEmail-notification').value,
             "message": document.getElementById('userMessage').value
         }
-        fetch('http://localhost:8080/sendAdminMessage', {
+        fetch('http://localhost:8080/admin/sendAdminMessage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -121,11 +131,62 @@ export default function AdminHomePage() {
     }
 
     const inviteAdmin = () => {
-        showError("(demo) Admin invitation successfully sent.");
+        const emailAddress = document.getElementById('AdminEmail').value;
+        const password = document.getElementById('AdminPassword').value;
+
+        if (!emailAddress || !password) {
+            showError('Please fill all the fields');
+            return;
+        }
+
+        const data = {
+            email: emailAddress,
+            username: emailAddress.split('@')[0],
+            password: hashString(password),
+            role: "SYSTEM_ADMIN"
+        }
+    
+        showError("Creating account.. Please wait!");
+        fetch('http://localhost:8080/admin/createAdmin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.text())
+            .then(response => {
+                if (response.success) {
+                    showError("Admin invited successfully!");
+                } else {
+                    showError(response.msg);
+                }
+            })
+            .catch((error) => {
+                showError('Internal Server Error occured. Please try again later.')
+            }
+        );
     }
 
     const deactiveUser = () => {
-        showError("(demo) Account deactivated successfully.");
+        const username = document.getElementById('delete-username').value;
+        if (!username) {
+            showError('Please fill all the fields');
+            return;
+        }
+
+        showError("Deleting account.. Please wait!");
+        fetch('http://localhost:8080/account/'+username, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                showError("Account deleted successfully!");
+            } else {
+                showError("Account deletion failed!");
+            }
+        }).catch((error) => {
+            showError('Internal Server Error occured. Please try again later.')
+        });
     }
 
     
@@ -160,7 +221,7 @@ export default function AdminHomePage() {
                                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"></path>
                                 </svg></div>
                             <div class="px-3">
-                                <h2 class="fw-bold mb-0">10,000</h2>
+                                <h2 class="fw-bold mb-0">{insights ? (insights.totalAccounts) : (<h6>Loading...</h6>)}</h2>
                                 <p class="mb-0">Total System Users</p>
                             </div>
                         </div>
@@ -172,7 +233,7 @@ export default function AdminHomePage() {
                                     <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"></path>
                                 </svg></div>
                             <div class="px-3">
-                                <h2 class="fw-bold mb-0">624</h2>
+                                <h2 class="fw-bold mb-0">{insights ? (insights.totalDoctors) : (<h6>Loading...</h6>)}</h2>
                                 <p class="mb-0">Active Doctors</p>
                             </div>
                         </div>
@@ -186,7 +247,7 @@ export default function AdminHomePage() {
                             </svg>
                             </div>
                             <div class="px-3">
-                                <h2 class="fw-bold mb-0">172</h2>
+                                <h2 class="fw-bold mb-0">{insights ? (insights.totalClinics) : (<h6>Loading...</h6>)}</h2>
                                 <p class="mb-0">Total Clinics</p>
                             </div>
                         </div>
@@ -197,7 +258,7 @@ export default function AdminHomePage() {
                                     <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"></path>
                                 </svg></div>
                             <div class="px-3">
-                                <h2 class="fw-bold mb-0">915</h2>
+                                <h2 class="fw-bold mb-0">{insights ? (insights.totalAppointments) : (<h6>Loading...</h6>)}</h2>
                                 <p class="mb-0">Active Appointments</p>
                             </div>
                         </div>
@@ -215,23 +276,18 @@ export default function AdminHomePage() {
                         </div>
                         <div class="card p-3 mt-3">
                             <h6>Invite New Admin</h6>
-                            <div class="row">
-                                <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="User Email Address"/>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-warning  w-100" onClick={inviteAdmin}>Invite</button>
-                                </div>
-                            </div>
+                            <input type="email" class="form-control" placeholder="User Email Address" id="AdminEmail" />
+                            <input type="password" class="form-control mt-1" placeholder="Password" id="AdminPassword"/>
+                            <button class="btn btn-warning mt-2 w-100" onClick={inviteAdmin}>Invite</button>
                         </div>
                         <div class="card p-3 mt-3">
-                            <h6>Deactive User Account</h6>
+                            <h6>Delete User Account</h6>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="User Email Address"/>
+                                    <input type="username" class="form-control" placeholder="Username" id="delete-username"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Deactive</button>
+                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Delete</button>
                                 </div>
                             </div>
                         </div>
