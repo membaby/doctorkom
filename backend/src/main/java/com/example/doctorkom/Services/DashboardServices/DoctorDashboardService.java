@@ -33,8 +33,8 @@ public class DoctorDashboardService {
         return appointmentService.getDoctorAppointments(doctorId);
     }
 
-    public List<TimeSlotDTO> getDoctorTimeSlots(int doctorId) {
-        return timeSlotService.getDoctorTimeSlots(doctorId);
+    public List<Object> getDoctorTimeSlots(int doctorId) {
+        return timeSlotService.getTimeSlotsByDoctorId(doctorId);
     }
 
     public List<ClinicDTO> getDoctorClinics(int doctorId) {

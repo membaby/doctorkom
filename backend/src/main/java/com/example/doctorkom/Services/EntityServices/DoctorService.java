@@ -11,7 +11,6 @@ import com.example.doctorkom.Entities.DoctorSpecialty;
 import com.example.doctorkom.Entities.DoctorTitle;
 import com.example.doctorkom.Exceptions.DoctorExceptions.DoctorNotFoundException;
 import com.example.doctorkom.Repositories.DoctorRepository;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

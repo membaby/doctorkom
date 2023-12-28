@@ -13,6 +13,7 @@ import ClinicHomePage from './components/ClinicView';
 import DoctorHomePage from './components/DoctorView';
 import Search from './components/Search';
 import UserProfilePage from './components/UserProfile';
+import PatientAppointments from './components/PatientAppointments';
 import DoctorDetails from './components/DoctorDetails';
 import Reservation from './components/Reservation';
 import About from './components/About';
@@ -42,6 +43,7 @@ function App() {
           <Route path='/search' element={ <Search /> } />
           <Route path='/logout' element={ <Homepage /> } />
           <Route path='/profile' element={ <UserProfilePage /> } />
+          <Route path="/appointments" element={ <PatientAppointments /> } />
           <Route path='/doctor/:username' element={ <DoctorDetails /> } />
           <Route path='/reserve' element={ <Reservation /> } />
           <Route path='/about' element={ <About /> } />

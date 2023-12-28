@@ -1,5 +1,5 @@
-export default function getDoctorTimeslots(doctorId) {
-    let url = `http://localhost:8080/timeslot/${doctorId}`;
+export default function getDoctorClinics(doctorId) {
+    let url = `http://localhost:8080/doctor/clinics?doctorId=${doctorId}`;
 
     return fetch(url, { method: 'GET' })
         .then(response => {
@@ -12,4 +12,4 @@ export default function getDoctorTimeslots(doctorId) {
             console.error("Error fetching doctors list:", error);
             throw new Error("Error fetching doctors list.");
     });
-}
+}  
