@@ -147,7 +147,24 @@ export default function AdminHomePage() {
     }
 
     const deactiveUser = () => {
-        showError("(demo) Account deactivated successfully.");
+        const username = document.getElementById('delete-username').value;
+        if (!username) {
+            showError('Please fill all the fields');
+            return;
+        }
+
+        showError("Deleting account.. Please wait!");
+        fetch('http://localhost:8080/account/'+username, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                showError("Account deleted successfully!");
+            } else {
+                showError("Account deletion failed!");
+            }
+        }).catch((error) => {
+            showError('Internal Server Error occured. Please try again later.')
+        });
     }
 
     
@@ -242,13 +259,13 @@ export default function AdminHomePage() {
                             <button class="btn btn-warning mt-2 w-100" onClick={inviteAdmin}>Invite</button>
                         </div>
                         <div class="card p-3 mt-3">
-                            <h6>Deactive User Account</h6>
+                            <h6>Delete User Account</h6>
                             <div class="row">
                                 <div class="col-9">
-                                    <input type="email" class="form-control" placeholder="User Email Address"/>
+                                    <input type="username" class="form-control" placeholder="Username" id="delete-username"/>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Deactive</button>
+                                    <button class="btn btn-danger  w-100" onClick={deactiveUser}>Delete</button>
                                 </div>
                             </div>
                         </div>
