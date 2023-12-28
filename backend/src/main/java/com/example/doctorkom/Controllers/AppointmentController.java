@@ -3,7 +3,7 @@ package com.example.doctorkom.Controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.doctorkom.Controllers.SignupController.SignupResponse;
+import com.example.doctorkom.Controllers.SignupController.BoolMessage;
 import com.example.doctorkom.DTOMappers.AppointmentMapper;
 import com.example.doctorkom.DTOs.AppointmentDTO;
 import com.example.doctorkom.Entities.Appointment;
@@ -28,11 +28,11 @@ public class AppointmentController
 
 
     @PostMapping("/bookAppointment")
-    public SignupResponse bookAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+    public BoolMessage bookAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment appnt = appointmentMapper.toEntity(appointmentDTO);
         String msg = appointmentManagementService.bookAppointment(appnt.getPatient().getId(), appnt.getTimeSlot());
         
-        return new SignupResponse(msg, msg.isEmpty());
+        return new BoolMessage(msg, msg.isEmpty());
     }
     
 
