@@ -390,8 +390,8 @@ useEffect(() => {
 
         if (response.ok) {
           const data = await response.json();
-          setTimeslots(data.timeslots);
-          setAppointments(data.appointments);
+          setTimeslots(data[1]);
+          setAppointments(data[0]);
           console.log("ok");
           // console.log(timeslots);
         } else {
@@ -409,7 +409,7 @@ useEffect(() => {
   ////////////////////////////POST REQUEST FOR DELETE APPOINTMENT/////////////////////////////////////////////
   const handleDeleteAppointement = async (app) => {
     try {
-      const response = await fetch(' http://localhost:3002/post', {
+      const response = await fetch(' http://localhost:8080/Clinic/RemoveAppointment', {
     
         method: 'POST',
         headers: {
@@ -419,9 +419,12 @@ useEffect(() => {
         body: JSON.stringify({doctor: app.timeSlot.doctor,
           clinic:  app.timeSlot.clinic,
           patient: app.patient,
-          date: app.timeSlot.date,
-          startTime: app.timeSlot.startTime,
-          endTime: app.timeSlot.endTime,
+          timeSlot: {
+            date: app.timeSlot.date,
+            startTime: app.timeSlot.startTime,
+            endTime: app.timeSlot.endTime,
+            reserved: true,
+          },
           status: '',
          }),
       });
@@ -446,19 +449,20 @@ useEffect(() => {
   ////////////////////////////POST REQUEST FOR DELETE timeslot/////////////////////////////////////////////
   const handleDeleteTimeSlot = async (ts) => {
     try {
-      const response = await fetch(' http://localhost:3002/post', {
+      const response = await fetch('http://localhost:8080/Clinic/RemoveTimeSlot', {
     
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           // Add any additional headers if needed
         },
-        body: JSON.stringify({doctor: ts.doctor,
+        body: JSON.stringify({
           clinic:  ts.clinic,
+          doctor: ts.doctor,
           date: ts.date,
           startTime: ts.startTime,
           endTime: ts.endTime,
-          reserved:1,
+          reserved: true,
          }),
       });
       if (!response.ok) {
@@ -481,16 +485,20 @@ useEffect(() => {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////post request for adding timeslots////////////////////////////////////////////
   const addTimeslot = () => {
+    const doctorId = document.getElementById('doctorId').value;
+    console.log(doctorsObjects);
+    const doctorDTO = doctorsObjects.find((doctor) => doctor.id === parseInt(doctorId));
+
     const timeSlotData = {
-        Doctor: selectedDoctor,
-        Clinic: clinicObject,
-        Date: date,
-        StartTime: startTime,
-        EndTime: endTime,
-        Reserved: 1,
+        clinic: clinicObject,
+        doctor: doctorDTO,
+        date: date,
+        startTime: startTime + ":00",
+        endTime: endTime + ":00",
+        reserved: false,
     };
 
-    fetch('http://localhost:3001/post', {
+    fetch('http://localhost:8080/Clinic/AddTimeSlot', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -719,18 +727,18 @@ useEffect(() => {
             <div className="d-flex justify-content-between align-items-center">
             <p>
                 <ul class="list-unstyled">
-                <strong>Doctor:</strong> {item.doctor.systemUser.account.username}
+                <strong>Doctor:</strong> {timeslots.doctor.systemUser.firstName} {timeslots.doctor.systemUser.lastName}
                 <span className="mx-2">|</span>
-                <strong>Date:</strong> {item.date}
+                <strong>Date:</strong> {timeslots.date}
                 </ul>
                 <ul class="list-unstyled">
-                <strong>Start Time:</strong> {item.startTime}
+                <strong>Start Time:</strong> {timeslots.startTime}
                 <span className="mx-2">|</span>
-                <strong>End Time:</strong> {item.endTime}
+                <strong>End Time:</strong> {timeslots.endTime}
                 </ul>
               </p>
               <div className="button-container">
-                <button type="button" className="btn  btn-danger  btn-sm"  onClick={() => handleDeleteTimeSlot(item)}>
+                <button type="button" className="btn  btn-danger  btn-sm"  onClick={() => handleDeleteTimeSlot(timeslots)}>
                   Delete
                 </button>
               </div>
@@ -850,12 +858,12 @@ useEffect(() => {
       <div className="marginDiv"></div>
       <h3>Add Time Slot</h3>
       <hr/>
-          <div className="card flex-fill editCards">
+          <div className="card">
             <div className="card-body">
               <h5 className="card-title">Select doctor</h5>
               <div>
   
-  <select className="form-control" onChange={handleDoctorChange}>
+  <select className="form-control" id="doctorId">
     <option value="" disabled selected>
       Select a doctor
     </option>
@@ -881,13 +889,13 @@ useEffect(() => {
               <div className="form-group">
                 <input type="time" className="form-control" placeholder="Enter Start time "  onChange={handleStartTimeChange}  />
               </div>
-              <div style={{ marginBottom: '1.5vw' }}></div>
+              <div style={{ marginBottom: '1.5vw' }}>
               <h5 className="card-title" >End time</h5>
               <div className="form-group">
                 <input  type="time" className="form-control" placeholder="Enter Start time " onChange={handleEndTimeChange} />
+              <button disabled={isSubmitting} className="btn btn-success form-control mt-3" onClick={addTimeslot} >Add</button>
               </div>
-              <button disabled={isSubmitting} className="btn btn-success form-control" onClick={addTimeslot} style={{ marginTop: '1.5vw' }}  >Add</button>
-              <div style={{ marginBottom: '1.5vw' }}></div>
+              </div>
               {/* {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
               {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}*/}
             </div> 
