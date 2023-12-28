@@ -9,8 +9,7 @@ export default function PatientAppointments() {
 
     useEffect(() => {
         const patient_id = secureLocalStorage.getItem('id');
-        // fetch(`http://localhost:8080/appointments/${patient_id}/1`, {
-        fetch(`http://localhost:8080/patient/appointments/1195/0`, {
+        fetch(`http://localhost:8080/patient/appointments/${patient_id}/0`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

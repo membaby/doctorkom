@@ -2,6 +2,7 @@ package com.example.doctorkom.Services.EntityServices;
 
 import com.example.doctorkom.DTOMappers.MedicalNoteMapper;
 import com.example.doctorkom.DTOs.MedicalNoteDTO;
+import com.example.doctorkom.Entities.Doctor;
 import com.example.doctorkom.Entities.MedicalNote;
 import com.example.doctorkom.Entities.MedicalNoteId;
 import com.example.doctorkom.Exceptions.MedicalNoteExceptions.MedicalNoteAlreadyExists;
@@ -11,6 +12,9 @@ import com.example.doctorkom.Repositories.MedicalNoteRepository;
 import com.example.doctorkom.Repositories.PatientRepository;
 import com.example.doctorkom.Exceptions.PatientExceptions.PatientNotFoundException;
 import com.example.doctorkom.Exceptions.DoctorExceptions.DoctorNotFoundException;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,13 +61,15 @@ public class MedicalNoteService {
         MedicalNote medicalNote = medicalNoteMapper.toEntity(medicalNoteDTO);
         if (patientRepository.findById(medicalNote.getPatient().getId()).isEmpty())
             throw new PatientNotFoundException();
-        if (doctorRepository.findById(medicalNote.getDoctor().getId()).isEmpty())
+        Optional<Doctor> existingDoctor = doctorRepository.findById(medicalNote.getDoctor().getId());
+        if (existingDoctor.isEmpty())
             throw new DoctorNotFoundException();
         MedicalNoteId medicalNoteId = new MedicalNoteId(patientRepository.findById(medicalNote.getPatient().getId()).get(),
                 doctorRepository.findById(medicalNote.getDoctor().getId()).get(), medicalNote.getDate());
         if (medicalNoteRepository.findById(medicalNoteId).isPresent())
             throw new MedicalNoteAlreadyExists();
         medicalNote.setId(medicalNoteId);
+        medicalNote.setDoctor(existingDoctor.get());
         System.out.println(medicalNote);
         medicalNoteRepository.save(medicalNote);
     }
