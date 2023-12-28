@@ -39,4 +39,9 @@ public class MedicalNote {
     public MedicalNoteId getId() {
         return new MedicalNoteId(patient, doctor, date);
     }
+    public void setId(MedicalNoteId id) {
+        this.patient = id.getPatient();
+        this.doctor = id.getDoctor();
+        this.date = id.getDate();
+    }
 }

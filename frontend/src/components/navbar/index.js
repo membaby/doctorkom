@@ -27,6 +27,7 @@ const Navbar = () => {
       setShowRegisterButton(true);
     } else if (role === "PATIENT") {
       updatedNavbar.push({ title: 'Profile', url: '/profile' });
+      updatedNavbar.push({ title: 'My Appointments', url: '/appointments' });
       updatedNavbar.push({ title: 'Logout', url: '/logout' });
     } else if (role === "DOCTOR") {
       updatedNavbar.push({ title: 'Profile', url: '/profile' });

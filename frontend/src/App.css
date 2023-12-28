@@ -1,5 +1,5 @@
 .empty_block {
-  height: 50px;
+  height: 30px;
 }
 
 html, body {
@@ -8,6 +8,11 @@ html, body {
   /* overflow-y: hidden; */
 }
 
+.verticalcenter {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .MainContainer {
   height: 100vh;
 }

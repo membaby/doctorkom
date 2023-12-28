@@ -37,7 +37,7 @@ public class AppointmentService {
     }
 
     public Page<AppointmentDTO> getPatientAppointments(int patientId, int pageCount) {
-        if (patientRepository.findById(patientId).isPresent())
+        if (patientRepository.findById(patientId).isEmpty())
             throw new PatientNotFoundException();
         Pageable pageable = PageRequest.of(pageCount, PAGE_SIZE);
         Patient patient = patientRepository.findById(patientId).get();

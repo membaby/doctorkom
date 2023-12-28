@@ -1,19 +1,18 @@
 package com.example.doctorkom.Repositories;
 
-import com.example.doctorkom.Entities.Clinic;
-import com.example.doctorkom.Entities.Doctor;
-import com.example.doctorkom.Entities.TimeSlot;
-import com.example.doctorkom.Entities.TimeSlotId;
+import com.example.doctorkom.Entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TimeSlotRepository extends JpaRepository<TimeSlot, TimeSlotId> {
+
+    List<TimeSlot> findByDoctorIdAndDate(Integer doctorId, Date date);
+
+    List<TimeSlot> findByClinicIdAndDate(Integer clinicId, Date date);
 
     List<TimeSlot> findAllByDoctorIdAndDate(Integer doctorId, Date date);
 
@@ -27,5 +26,9 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, TimeSlotId> 
 
     List<TimeSlot> findAllByDoctorIdAndClinicIdAndDate(Integer id, Integer id1, Date date);
 
+    List<TimeSlot> findByClinic(Clinic clinic);
+
+    List<TimeSlot> findAllByDoctorIdAndClinicIdOrderByDateAscStartTimeAsc(Integer doctorId, Integer clinicId);
+  
     List<TimeSlot> findAllByClinic(Clinic clinic);
 }

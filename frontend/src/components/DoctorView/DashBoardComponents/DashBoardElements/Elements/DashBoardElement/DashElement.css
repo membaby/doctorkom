@@ -1,0 +1,45 @@
+/* DashElement.css */
+
+.myButton {
+  background-color: rgb(36, 44, 60);
+  color: #fff;
+}
+
+.arrow-down {
+  margin-left: 5px;
+  color: #fff;
+}
+
+.myContainer {
+  border: 1px solid rgb(36, 44, 60);
+  padding: 10px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+.myContainer.expanded {
+  max-height: 2000px; /* Adjust to a sufficiently large value */
+}
+
+.noBorder {
+  border: none;
+}
+
+.biggerThickerText {
+  font-weight: bold;
+  font-size: 18px; /* You can adjust the value based on your preference */
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+.content.visible {
+  max-height: 1000px; /* Adjust to a sufficiently large value */
+}
+
+.list__height {
+  max-height: max-content !important;
+}

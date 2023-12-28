@@ -20,7 +20,13 @@ public class Appointment {
     @Id
     @MapsId
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(insertable = false, updatable = false, name = "EndTime", referencedColumnName = "EndTime")
+    @JoinColumns({
+            @JoinColumn(name = "ClinicId", referencedColumnName = "ClinicId"),
+            @JoinColumn(name = "DoctorId", referencedColumnName = "DoctorId"),
+            @JoinColumn(name = "Date", referencedColumnName = "Date"),
+            @JoinColumn(name = "StartTime", referencedColumnName = "StartTime"),
+            @JoinColumn(name = "EndTime", referencedColumnName = "EndTime")
+    })
     private TimeSlot timeSlot;
 
     @Id

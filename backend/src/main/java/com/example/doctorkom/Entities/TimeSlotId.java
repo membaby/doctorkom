@@ -14,4 +14,5 @@ public class TimeSlotId implements Serializable {
     private Doctor doctor;
     private Date date;
     private Time startTime;
+    private Time endTime;
 }
