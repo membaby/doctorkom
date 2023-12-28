@@ -134,8 +134,8 @@ public class ClinicService {
         if (doctorRepository.findById(doctorId).isPresent()) {
             if (clinicRepository.findById(clinicId).isPresent()) {
                 //check if time slot collides with another time slot for the same doctor and clinic
-                List<TimeSlot> timeSlots = timeSlotRepository.findByDoctorIdAndDate(doctorId, timeSlot.getDate());
-                List<TimeSlot> timeSlots2 = timeSlotRepository.findByClinicIdAndDate(clinicId, timeSlot.getDate());
+                List<TimeSlot> timeSlots = timeSlotRepository.findAllByDoctorIdAndDate(doctorId, timeSlot.getDate());
+                List<TimeSlot> timeSlots2 = timeSlotRepository.findAllByClinicIdAndDate(clinicId, timeSlot.getDate());
                 for (TimeSlot timeSlot1 : timeSlots) {
                     if (timeSlot1.getStartTime().before(endTime) || timeSlot1.getEndTime().after(startTime)) {
                         return "Time slot collides doctor";
@@ -173,8 +173,8 @@ public class ClinicService {
         if (doctorRepository.findById(doctorId).isPresent()) {
             if (clinicRepository.findById(clinicId).isPresent()) {
                 //check if time slot collides with another time slot for the same doctor and clinic
-                List<TimeSlot> timeSlots = timeSlotRepository.findByDoctorIdAndDate(doctorId, timeSlot.getDate());
-                List<TimeSlot> timeSlots2 = timeSlotRepository.findByClinicIdAndDate(clinicId, timeSlot.getDate());
+                List<TimeSlot> timeSlots = timeSlotRepository.findAllByDoctorIdAndDate(doctorId, timeSlot.getDate());
+                List<TimeSlot> timeSlots2 = timeSlotRepository.findAllByClinicIdAndDate(clinicId, timeSlot.getDate());
                 for (TimeSlot timeSlot1 : timeSlots) {
                     if (timeSlot1.getStartTime().before(endTime) || timeSlot1.getEndTime().after(startTime)) {
                         return "Time slot collides with another time slot for the same doctor";
@@ -278,7 +278,7 @@ public class ClinicService {
             return null;
         }
 
-        List<TimeSlot> timeSlots = timeSlotRepository.findByClinic(clinic);
+        List<TimeSlot> timeSlots = timeSlotRepository.findAllByClinic(clinic);
         List<TimeSlotDTO> timeSlotDTOS = new ArrayList<>();
         for (TimeSlot timeSlot : timeSlots) {
             timeSlotDTOS.add(timeslotMapper.toDto(timeSlot));
