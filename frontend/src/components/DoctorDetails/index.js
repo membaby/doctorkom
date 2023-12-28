@@ -11,7 +11,7 @@ export default function DoctorDetails() {
   const location = useLocation();
   const username = location.pathname.split("/")[2];
   const [doctor, setDoctor] = useState();
-  const [timeslots, setTimeslots] = useState();
+  const [timeslotsByClinic, setTimeslotsByClinic] = useState();
   const [visibleTimeslots, setVisibleTimeslots] = useState(null);
   const [clinics, setClinics] = useState(null);
 
@@ -45,7 +45,7 @@ export default function DoctorDetails() {
     if (!doctor) return;
     getDoctorTimeslots(doctor.id)
     .then((data) => {
-      setTimeslots(data);
+      setTimeslotsByClinic(data);
     })
     .catch((error) => {
       console.error("Error fetching doctor timeslots:", error);
@@ -58,29 +58,27 @@ export default function DoctorDetails() {
       'clinicId': clinicId,
       'timeslots': []
     };
-    for (let timeslot of timeslots) {
-      if (timeslot.clinic.name === clinicName) {
-        newVisibleTimeslots['timeslots'].push(timeslot);
+    for (let timeslotByClinic of timeslotsByClinic) {
+      if (timeslotByClinic.clinic.name === clinicName) {
+        for (let timeslot of timeslotByClinic.timeSlots) {
+          newVisibleTimeslots['timeslots'].push(timeslot);
+        }
       }
     }
     setVisibleTimeslots(newVisibleTimeslots);
   }
 
   useEffect(() => {
-    if (!timeslots) return;
-    if (timeslots.length > 0) {
-      handleClinicChange(timeslots[0].clinic.name, timeslots[0].clinic.id);
+    if (!timeslotsByClinic) return;
+    if (timeslotsByClinic.length > 0) {
+      handleClinicChange(timeslotsByClinic[0].clinic.name, timeslotsByClinic[0].clinic.id);
       let clinics_temp = [];
-      let clinics_temp_ids = [];
-      for (let timeslot of timeslots) {
-        if (!clinics_temp_ids.includes(timeslot.clinic.id)) {
-          clinics_temp.push({'name': timeslot.clinic.name, 'id': timeslot.clinic.id});
-          clinics_temp_ids.push(timeslot.clinic.id);
+      for (let timeslotByClinic of timeslotsByClinic) {
+          clinics_temp.push({'name': timeslotByClinic.clinic.name, 'id': timeslotByClinic.clinic.id});
         }
-      }
       setClinics(clinics_temp);
     }
-  }, [timeslots])
+  }, [timeslotsByClinic])
 
 
   let avatars = ["default-doctor-female.png", "default-doctor-male.png"];
