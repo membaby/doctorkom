@@ -39,7 +39,7 @@ public class DoctorController {
 
     //EX: /timeslots?doctorId=1
     @GetMapping("/timeslots")
-    public List<TimeSlotDTO> getDoctorTimeSlots(@RequestParam int doctorId) {
+    public List<Object> getDoctorTimeSlots(@RequestParam int doctorId) {
         return doctorDashboardService.getDoctorTimeSlots(doctorId);
     }
 
