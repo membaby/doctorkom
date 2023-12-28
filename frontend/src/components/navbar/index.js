@@ -2,8 +2,8 @@ import './styles.css'
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Cookies from 'js-cookie';
 import { useLocation } from 'react-router-dom';
+import secureLocalStorage from "react-secure-storage";
 
 
 const Navbar = () => {
@@ -20,13 +20,14 @@ const Navbar = () => {
 
   useEffect(() => {
     let updatedNavbar = [...navbar];
-    let role = Cookies.get('role');
-    let username = Cookies.get('username');
+    let role = secureLocalStorage.getItem('role');
+    let username = secureLocalStorage.getItem('username');
     if (!role || !username) {
       updatedNavbar.push({ title: 'Login', url: '/login' });
       setShowRegisterButton(true);
     } else if (role === "PATIENT") {
       updatedNavbar.push({ title: 'Profile', url: '/profile' });
+      updatedNavbar.push({ title: 'My Appointments', url: '/appointments' });
       updatedNavbar.push({ title: 'Logout', url: '/logout' });
     } else if (role === "DOCTOR") {
       updatedNavbar.push({ title: 'Profile', url: '/profile' });

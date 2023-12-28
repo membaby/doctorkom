@@ -1,5 +1,6 @@
 package com.example.doctorkom.DTOs;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 

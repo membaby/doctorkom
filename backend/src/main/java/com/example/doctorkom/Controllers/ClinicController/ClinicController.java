@@ -77,10 +77,18 @@ public class ClinicController {
         return clinicService.removeAppointment(appointment);
     }
 
-    @GetMapping("/Appointments&TimeSlots")
-    public Pair<List<Appointment>, List<TimeSlot>> AppointmentsAndTimeSlots(@RequestBody ClinicDTO clinicDTO){
+    @PostMapping("/Appointments&TimeSlots")
+    public List<List<?>> AppointmentsAndTimeSlots(@RequestBody ClinicDTO clinicDTO){
         Clinic clinic = clinicMapper.toEntity(clinicDTO);
-        return clinicService.GetAppointmentsAndTimeSlotsForClinic(clinic);
+        List<List<?>> appointmentsAndTimeSlots = new ArrayList<>();
+
+        List<AppointmentDTO> appointments = clinicService.getAppointmentsForClinic(clinic);
+        List<TimeSlotDTO> timeslots = clinicService.getTimeSlotsForClinic(clinic);
+
+        appointmentsAndTimeSlots.add(appointments);
+        appointmentsAndTimeSlots.add(timeslots);
+
+        return appointmentsAndTimeSlots;
     }
 
     @PostMapping("/Doctors")

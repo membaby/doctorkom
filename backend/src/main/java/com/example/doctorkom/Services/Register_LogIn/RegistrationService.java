@@ -38,6 +38,7 @@ public class RegistrationService {
         this.systemAdminRepository = systemAdminRepository;
         this.verificationRepository = verificationRepository;
     }
+    
     public final String EMAIL_EXISTS = "Email already exists.";
     public final String USERNAME_EXISTS = "Username already exists.";
     public final String MOBILE_EXISTS = "Mobile phone already exists.";
@@ -45,7 +46,7 @@ public class RegistrationService {
     public final String NOT_REGISTERED = "Email is not registered.";
     public final String WRONG_CODE = "Wrong code.";
     public final String ALREADY_ = "Wrong code.";
-    public final String SUCCESS = "Account verified";
+    public final String VERIFY_SUCCESS = "Account verified";
     
 
 
@@ -119,7 +120,7 @@ public class RegistrationService {
         }
     }
 
-    public String registerClinicAdmin(Account account) {
+    public String registerClinic(Clinic clinic, Account account) {
         //check if the user exists
         boolean emailExists = accountRepository.existsByEmail(account.getEmail());
         boolean usernameExists = accountRepository.existsByUsername(account.getUsername());
@@ -130,9 +131,9 @@ public class RegistrationService {
         if (usernameExists) {
             return USERNAME_EXISTS;
         }
+        account.setRole(Role.CLINIC_ADMIN);
         ClinicAdmin clinicAdmin = new ClinicAdmin();
         clinicAdmin.setAccount(account);
-        Clinic clinic = buildDefaultClinic();
         clinic.setAdmin(clinicAdmin);
         clinicRepository.save(clinic);
         //store verification code and account in database
@@ -152,7 +153,7 @@ public class RegistrationService {
         }
     }
 
-    public String registerSystemAdmin(SystemAdmin systemAdmin,String formlink) {
+    public String registerSystemAdmin(SystemAdmin systemAdmin) {
         //check if the user exists
         ///same as register clinic admin
         Account account = systemAdmin.getAccount();
@@ -178,7 +179,7 @@ public class RegistrationService {
         verificationRepository.save(verification);
         //send verification email
         try{
-            notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code,formlink);
+            notificationService.VerificationEmail_SystemAdmin(account.getEmail(),code);
             return "";
         } catch (MessagingException e) {
             return "Could not send verification email. Problem with notification service";
@@ -192,8 +193,6 @@ public class RegistrationService {
         -If email isn't in the system then return "email not registered".
         -If account is already verified return "already verified*/
         // Command adder = repositoryHandler.GetCommmand("add");
-        System.out.println(account);
-        System.out.println("account id: " + account.getId());
         account = accountRepository.findByEmail(account.getEmail()).orElse(null);
         assert account != null;
         Verification verification = verificationRepository.findById(account.getId()).orElse(null);
@@ -246,14 +245,4 @@ public class RegistrationService {
         return String.valueOf((int) (Math.random() * (999999 - 100000 + 1) + 100000));
     }
 
-    private Clinic buildDefaultClinic()
-    {
-        Clinic clinic = new Clinic();
-        clinic.setName("None");
-        clinic.setAddress("None");
-        clinic.setEmail("None");
-        clinic.setLandlinePhone("None");
-        clinic.setMobilePhone("None");
-        return clinic;
-    }
 }
