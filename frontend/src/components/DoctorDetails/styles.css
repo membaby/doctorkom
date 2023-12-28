@@ -1,0 +1,25 @@
+.table-container{
+    height: 340px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.googlemap {
+    height: 300px;
+}
+
+.rating2 {
+    font-size: 64px;
+    margin-right: 10px;
+}
+
+.progress-bar {
+    background-color: rgb(40, 38, 167);
+    border-radius: 5px;
+}
+
+.progress-type {
+    font-size: 12px;
+    font-weight: bold;
+}

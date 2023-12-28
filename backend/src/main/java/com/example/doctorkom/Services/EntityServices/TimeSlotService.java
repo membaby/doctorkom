@@ -2,6 +2,7 @@ package com.example.doctorkom.Services.EntityServices;
 
 import com.example.doctorkom.DTOMappers.TimeSlotMapper;
 import com.example.doctorkom.Entities.Clinic;
+import com.example.doctorkom.DTOs.TimeSlotDTO;
 import com.example.doctorkom.Entities.TimeSlot;
 import com.example.doctorkom.Exceptions.DoctorExceptions.DoctorNotFoundException;
 import com.example.doctorkom.Repositories.DoctorRepository;
